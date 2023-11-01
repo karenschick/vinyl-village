@@ -1,6 +1,32 @@
 
 # Kenzie MERN Starter Template
 
+## Project Plan
+
+Design a data model for a collection of vinyl record albums.
+The data model must include these properties at a minimum:
+For each album: album title, year, artist, song list
+For each song: song title, duration (song length)
+For each artist: artist name, list of member names (if a group instead of a solo artist)
+
+Create an array of at least 6 albums in your JS program. The collection must include albums from at least 2 different artists.
+Create an express endpoint at that will return the array of albums as JSON.
+Call the created endpoint and display the results in the client application. Create a new Route and a new Component for this.
+
+
+
+
+
+
+## Reflection
+
+What different approaches or techniques did you consider when planning your implementation? What were the advantages and disadvantages of those alternatives?
+
+_(Put your reflection answer here.)_
+
+
+
+
 ## Getting Started
 
 You will need to install the following tools: 
@@ -99,13 +125,5 @@ npm install mongoose -w server
 
 This would add a "react-router-dom" dependency to the frontend, and a "mongoose" dependency to the backend. 
 
-## Project Plan
 
-_(Put your project plan here. It could be pseudocode, an outline-style development plan, etc. But whatever form you choose, it should be detailed enough that another developer could feasibly use it to implement your solution.)_
-
-## Reflection
-
-What different approaches or techniques did you consider when planning your implementation? What were the advantages and disadvantages of those alternatives?
-
-_(Put your reflection answer here.)_
 

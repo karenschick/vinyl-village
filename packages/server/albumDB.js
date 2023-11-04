@@ -6,7 +6,6 @@ const albums = [
     bandMembers: [
       { memberName: "Bruno Mars" },
       { memberName: "Anderson .Paak" },
-      { memberName: "Silk Sonic" },
     ],
     tracks: [
       { trackTitle: "Silk Sonic Intro", trackNumber: 1, duration: "63" },
@@ -83,7 +82,13 @@ const albums = [
     albumTitle: "Greatest Hits",
     releaseYear: 2009,
     artistName: "Foo Fighters",
-    bandMembers: [{ memberName: "" }],
+    bandMembers: [
+      { memberName: "Dave Grohl" },
+      { memberName: "Pat Smear" },
+      { memberName: "Nate Mendel" },
+      { memberName: "Taylor Hawkins" },
+      { memberName: "Chris Shiflett" },
+    ],
     tracks: [
       { trackTitle: "All My Life", trackNumber: 1, duration: "4:24" },
       { trackTitle: "Best Of You", trackNumber: 2, duration: "4:16" },
@@ -107,7 +112,12 @@ const albums = [
     albumTitle: "Funky Divas",
     releaseYear: 1992,
     artistName: "En Vogue",
-    bandMembers: [{ memberName: "" }],
+    bandMembers: [
+      { memberName: "Terry Ellis" },
+      { memberName: "Cindy Herron" },
+      { memberName: "Maxine Jones" },
+      { memberName: "Dawn Robinson" },
+    ],
     tracks: [
       { trackTitle: "This Is Your Life", trackNumber: 1, duration: "5:05" },
       {
@@ -144,20 +154,46 @@ const albums = [
     albumTitle: "Sailing The Seas Of Cheese",
     releaseYear: 1991,
     artistName: "Primus",
-    bandMembers: [{ memberName: "" }],
+    bandMembers: [
+      { memberName: "Les Claypool" },
+      { memberName: "Larry LaLonde" },
+      { memberName: "Tim Alexander" },
+      { memberName: "Jay Lane" },
+      { memberName: "Mike Bordin" },
+      { memberName: "Matt Winegar" },
+      { memberName: "Tom Waits" },
+      { memberName: "Trouz" },
+    ],
     tracks: [
       { trackTitle: "Seas Of Cheese", trackNumber: 1, duration: "72" },
-      { trackTitle: "Here Come The Bastards", trackNumber: 2, duration: "2:53" },
+      {
+        trackTitle: "Here Come The Bastards",
+        trackNumber: 2,
+        duration: "2:53",
+      },
       { trackTitle: "Sgt. Baker", trackNumber: 3, duration: "4:13" },
       { trackTitle: "American Life", trackNumber: 4, duration: "4:31" },
-      { trackTitle: "Jerry Was A Race Car Driver", trackNumber: 5, duration: "3:11" },
+      {
+        trackTitle: "Jerry Was A Race Car Driver",
+        trackNumber: 5,
+        duration: "3:11",
+      },
       { trackTitle: "Eleven", trackNumber: 6, duration: "4:18" },
       { trackTitle: "Is It Luck ?", trackNumber: 7, duration: "3:27" },
       { trackTitle: "Grandad's Little Ditty", trackNumber: 8, duration: "37" },
       { trackTitle: "Tommy The Cat", trackNumber: 9, duration: "4:14" },
       { trackTitle: "Sathington Waltz", trackNumber: 10, duration: "1:42" },
-      { trackTitle: "Those Damned Blue-Collar Tweekers", trackNumber: 11, duration: "5:18" },
-      { trackTitle: "Fish On (Fisherman Chronicles, Chapter II)", trackNumber: 12, duration: "7:45" },{ trackTitle: "Los Bastardos", trackNumber: 12, duration: "2:39" },
+      {
+        trackTitle: "Those Damned Blue-Collar Tweekers",
+        trackNumber: 11,
+        duration: "5:18",
+      },
+      {
+        trackTitle: "Fish On (Fisherman Chronicles, Chapter II)",
+        trackNumber: 12,
+        duration: "7:45",
+      },
+      { trackTitle: "Los Bastardos", trackNumber: 12, duration: "2:39" },
     ],
   },
 ];

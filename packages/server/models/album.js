@@ -7,17 +7,7 @@ const albumSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
-  year: {
-    type: Number,
-    required: true,
-    min: 4,
-    max: 4,
-  },
-  songTitle: {
-    type: String,
-    required: true,
-  },
-  songDuration: {
+  releaseYear: {
     type: Number,
     required: true,
   },
@@ -25,13 +15,20 @@ const albumSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  bandMembers:{
-    type: String,
+  bandMembers: [{
+    memberName: String,
     required: false,
-  }
-
-}
-);
+  }],
+  tracks: [
+    {
+      trackTitle: String,
+      trackNumber: Number,
+      duration: String,
+      required: true,
+    },
+  ],
+  
+});
 
 const Album = mongoose.model("Album", albumSchema);
 

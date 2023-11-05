@@ -1,8 +1,10 @@
 import { useApiFetch } from "../util/api";
 import LoadingSpinner from "../components/LoadingSpinner";
+import DisplayAlbums from "../components/displayAlbums";
 
 export default function HomePage(props) {
   const { error, isLoading, response } = useApiFetch("/sample");
+  
 
   return (
     <main>
@@ -13,7 +15,12 @@ export default function HomePage(props) {
         </h3>
       )}
       {isLoading && <LoadingSpinner></LoadingSpinner>}
-      {!error && response && <div>Username: {response.username}</div>}
+      {!error && response && (
+        <>
+          <div className="mb-5">Username: {response.username}</div>
+          <DisplayAlbums/>
+        </>
+      )}
     </main>
   );
 }

@@ -1,30 +1,41 @@
 
 # Kenzie MERN Starter Template
 
+## Questions
+how do i have only one title and release year?
+how do i convert seconds to min:sec for duration?
+look at how users is set up, to set up albums?
+remove album
+function to convert duration from seconds to minutes:seconds
+album duration is reduce correct??? how do i map through track list duration to get duration array?
+
+
 ## Project Plan
 
-Design a data model for a collection of vinyl record albums.
-The data model must include these properties at a minimum:
-For each album: album title, year, artist, song list
-For each song: song title, duration (song length)
-For each artist: artist name, list of member names (if a group instead of a solo artist)
+1. Design a data model for a collection of vinyl record albums. Create file in models folder for moongoose schema.
+ -albumTitle property with attributes type is string, unique is true required is true
+ -releaseYear property with attributes type is string, required is true
+ -artistName property with attributes type is string, required is true
+ -bandMembers array with memberName is string and required is false
+ -tracks array with trackTitle is string, trackNumber is Number, trackDuration is string, required is true
 
-Create an array of at least 6 albums in your JS program. The collection must include albums from at least 2 different artists.
-Create an express endpoint at that will return the array of albums as JSON.
-Call the created endpoint and display the results in the client application. Create a new Route and a new Component for this.
+2. Create an array of at least 6 albums in your JS program. The collection must include albums from at least 2 different artists.
+  -create file is server with albums array
+  -use mongoose schema as template to build six albums in array giving values to the properties keys.
 
+3. Create an express endpoint at that will return the array of albums as JSON.
+4. Call the created endpoint and display the results in the client application. 
 
-
-
-
+5. Create a new Route and a new Component for this.
+ -albumDuration
+ -durationConversion
+ -handleRemoveAlbum
 
 ## Reflection
 
 What different approaches or techniques did you consider when planning your implementation? What were the advantages and disadvantages of those alternatives?
 
 _(Put your reflection answer here.)_
-
-
 
 
 ## Getting Started

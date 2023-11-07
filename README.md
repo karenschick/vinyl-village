@@ -24,6 +24,7 @@ album duration is reduce correct??? how do i map through track list duration to 
   -use mongoose schema as template to build six albums in array giving values to the properties keys.
 
 3. Create an express endpoint at that will return the array of albums as JSON.
+
 4. Call the created endpoint and display the results in the client application. 
 
 5. Create a new Route and a new Component for this.

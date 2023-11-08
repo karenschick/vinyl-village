@@ -16,19 +16,14 @@ const albumSchema = new mongoose.Schema({
     required: true,
   },
   bandMembers: [
-    {
-      memberName: String,
-      required: false,
-    },
+      String    
   ],
-  tracks: [
-    {
+  tracks: [{
       trackTitle: String,
       trackNumber: Number,
-      trackDuration: String,
-      required: true,
-    },
-  ],
+      trackDuration: String, 
+  },
+],
 });
 
 const Album = mongoose.model("Album", albumSchema);

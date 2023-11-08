@@ -1,6 +1,7 @@
 import express from 'express'
 import { User } from '../models'
 
+
 const router = express.Router()
 
 router.get('/', (req, res, next) => {

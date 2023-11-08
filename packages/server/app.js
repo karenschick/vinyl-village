@@ -8,6 +8,7 @@ import mongoose from 'mongoose'
 import keys from './config/keys'
 import router from './routes'
 import { requestLogger, errorHandler } from './middleware'
+import albumRouter from './routes/albums.js'
 
 const createError = require('http-errors')
 
@@ -39,7 +40,7 @@ app.use(requestLogger)
 
 // api router
 app.use(keys.app.apiEndpoint, router)
-
+app.use(keys.app.apiEndpoint, albumRouter)
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   next(createError(404, 'NotFound'))

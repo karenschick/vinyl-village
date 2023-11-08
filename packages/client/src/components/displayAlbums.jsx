@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Button, ListGroup } from "react-bootstrap";
+import { Card, Button, ListGroup, CardTitle } from "react-bootstrap";
 import { useApiFetch } from "../util/api";
 
 export const DisplayAlbums = () => {
@@ -27,22 +27,27 @@ export const DisplayAlbums = () => {
   };
 
   // {albumDuration(album)}
-  // {durationConversion(track.trackDuration)}
+  
 
   return (
-    <Card border="primary">
-        {/* map in card Body */}
-      <Card.Body>
-        <Card.Header>Album Name</Card.Header>
-        <Card.Title className="mb-4">Artist & Bandnames</Card.Title>
-        <Card.Subtitle>Album Duration</Card.Subtitle>
+    <Card>
+      {response && response.map((album) => (
+        <div key={album.albumId}>
+          <Card.Header>{album.albumTitle}</Card.Header>
+          <Card.Title>{album.artistName}  ({album.bandMembers.map((member, index) => (
+            <span key={index}>
+              {member.memberName}
+              {index !== album.bandMembers.length - 1 ? ', ' : ''}
+            </span>
+          ))}) </Card.Title>
+        <Card.Subtitle>Album Duration {albumDuration(album)}</Card.Subtitle>
         <ListGroup > 
-          <ListGroup.Item>
-            Track List with duration, title, trackNumber
-          </ListGroup.Item>
+          {album.tracks.map((track)=> (<ListGroup.Item>
+            {track.trackNumber}. {track.trackTitle} - {durationConversion(track.trackDuration)}
+          </ListGroup.Item>))}
         </ListGroup>
-        <Button onClick={handleRemoveAlbum}>remove</Button>
-      </Card.Body>
+        </div>
+      ))}
     </Card>
   );
 };

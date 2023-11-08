@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 //const { ObjectId } = mongoose.Schema.Types;
 
 const albumSchema = new mongoose.Schema({
+  albumId: { type: Number, required: true },
   albumTitle: {
     type: String,
     unique: true,
@@ -15,15 +16,14 @@ const albumSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  bandMembers: [
-      String    
-  ],
-  tracks: [{
+  bandMembers: [String],
+  tracks: [
+    {
       trackTitle: String,
       trackNumber: Number,
-      trackDuration: String, 
-  },
-],
+      trackDuration: String,
+    },
+  ],
 });
 
 const Album = mongoose.model("Album", albumSchema);

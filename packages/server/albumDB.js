@@ -1,5 +1,6 @@
 const albums = [
   {
+    albumId: 1,
     albumTitle: "An Evening with Silk Sonic",
     releaseYear: 2021,
     artistName: "Silk Sonic",
@@ -29,6 +30,7 @@ const albums = [
     ],
   },
   {
+    albumId: 2,
     albumTitle: "Pearl",
     releaseYear: 1971,
     artistName: "Janis Joplin",
@@ -63,6 +65,7 @@ const albums = [
     ],
   },
   {
+    albumId: 3,
     albumTitle: "Ain't That Good News",
     releaseYear: 1964,
     artistName: "Sam Cooke",
@@ -107,7 +110,8 @@ const albums = [
     ],
   },
   {
-    albumTitle: "Greatest Hits",
+    albumId: 4,
+    albumTitle: "Foo Fighters Greatest Hits",
     releaseYear: 2009,
     artistName: "Foo Fighters",
     bandMembers: [
@@ -145,6 +149,7 @@ const albums = [
     ],
   },
   {
+    albumId: 5,
     albumTitle: "Funky Divas",
     releaseYear: 1992,
     artistName: "En Vogue",
@@ -195,6 +200,7 @@ const albums = [
     ],
   },
   {
+    albumId: 6,
     albumTitle: "Sailing The Seas Of Cheese",
     releaseYear: 1991,
     artistName: "Primus",

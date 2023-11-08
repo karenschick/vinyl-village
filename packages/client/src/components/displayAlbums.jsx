@@ -42,7 +42,7 @@ export const DisplayAlbums = () => {
           ))}) </Card.Title>
         <Card.Subtitle>Album Duration {albumDuration(album)}</Card.Subtitle>
         <ListGroup > 
-          {album.tracks.map((track)=> (<ListGroup.Item>
+          {album.tracks.map((track, index)=> (<ListGroup.Item key={index}>
             {track.trackNumber}. {track.trackTitle} - {durationConversion(track.trackDuration)}
           </ListGroup.Item>))}
         </ListGroup>

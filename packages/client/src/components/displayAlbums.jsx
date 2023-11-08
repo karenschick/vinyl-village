@@ -1,14 +1,19 @@
 import React from "react";
 import { Card, Button, ListGroup, CardTitle } from "react-bootstrap";
 import { useApiFetch } from "../util/api";
+import { useState } from "react";
 
 export const DisplayAlbums = () => {
   const { response } = useApiFetch("/albums");
   console.log(response);
 
-  // const handleRemoveAlbum = (albums, albumId) => {
-  //   return albums.filter((album) => album.albumId !== albumId);
-  // };
+  const [displayedAlbums, setDisplayedAlbums] = useState(response);
+
+  const handleRemoveAlbum = (albumId) => {
+    const updatedAlbums = displayedAlbums && displayedAlbums.filter((album) => album.albumId !== albumId);
+    setDisplayedAlbums(updatedAlbums);
+  };
+  
 
   const durationConversion = (duration) => {
     const minutes = Math.floor(duration / 60);
@@ -56,9 +61,7 @@ export const DisplayAlbums = () => {
                 </ListGroup.Item>
               ))}
             </ListGroup>
-            {/* <Button onClick={handleRemoveAlbum(album.album, album.albumId)}>
-              remove
-            </Button> */}
+            <Button onClick={() => handleRemoveAlbum(album.albumId)}>Remove</Button>
           </div>
         ))}
     </Card>

@@ -41,20 +41,27 @@ export const DisplayAlbums = () => {
   }, [response]);
 
   return (
-    <Card className="pt-3">
+    <Card>
       {displayedAlbums &&
         displayedAlbums.map((album) => (
           <div key={album.albumId}>
-            <Card.Header>{album.albumTitle}</Card.Header>
+            <Card.Header className="mt-5">{album.albumTitle}</Card.Header>
             <Card.Title>
-              {album.artistName} (
-              {album.bandMembers.map((member, index) => (
-                <span key={index}>
-                  {member.memberName}
-                  {index !== album.bandMembers.length - 1 ? ", " : ""}
-                </span>
-              ))}
-              ){" "}
+              {album.artistName}{" "}
+              {album.bandMembers.length > 1 ? (
+                <>
+                  (
+                  {album.bandMembers.map((member, index) => (
+                    <span key={index}>
+                      {member.memberName}
+                      {index !== album.bandMembers.length - 1 ? ", " : ""}
+                    </span>
+                  ))}
+                  )
+                </>
+              ) : (
+                ""
+              )}
             </Card.Title>
             <Card.Subtitle>
               Album Duration: {albumDuration(album)}

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Card, Button, ListGroup, CardTitle } from "react-bootstrap";
+import { Card, Button, ListGroup, CardTitle, Row, Col } from "react-bootstrap";
 import { useApiFetch } from "../util/api";
 
 import { useState } from "react";
@@ -41,46 +41,48 @@ export const DisplayAlbums = () => {
   }, [response]);
 
   return (
-    <Card>
-      {displayedAlbums &&
-        displayedAlbums.map((album) => (
-          <div key={album.albumId}>
-            <Card.Header className="mt-5">{album.albumTitle}</Card.Header>
-            <Card.Title>
-              {album.artistName}{" "}
-              {album.bandMembers.length > 1 ? (
-                <>
-                  (
-                  {album.bandMembers.map((member, index) => (
-                    <span key={index}>
-                      {member.memberName}
-                      {index !== album.bandMembers.length - 1 ? ", " : ""}
-                    </span>
-                  ))}
-                  )
-                </>
-              ) : (
-                ""
-              )}
-            </Card.Title>
-            <Card.Subtitle>
-              Album Duration: {albumDuration(album)}
-            </Card.Subtitle>
-            <ListGroup>
-              {album.tracks.map((track, index) => (
-                <ListGroup.Item key={index}>
-                  {track.trackNumber}. {track.trackTitle} -{" "}
-                  {durationConversion(track.trackDuration)}
-                </ListGroup.Item>
-              ))}
-            </ListGroup>
-            <Button onClick={() => handleRemoveAlbum(album.albumId)}>
-              Remove
-            </Button>
-          </div>
-        ))}
-    </Card>
-  );
-};
+    <>
+       {displayedAlbums &&
+         displayedAlbums.map((album) => (
+           <Card key={album.albumId} style={{ border: "solid", margin:"15px", padding:"20px" }} >
+             <Card.Header style={{ margin:"5px" }}>{album.albumTitle}</Card.Header>
+             <Card.Body>
+             <Card.Title className="mt-5">
+               {album.artistName}{" "}
+               {album.bandMembers.length > 1 ? (
+                 <>
+                   (
+                   {album.bandMembers.map((member, index) => (
+                     <span key={index}>
+                       {member.memberName}
+                       {index !== album.bandMembers.length - 1 ? ", " : ""}
+                     </span>
+                   ))}
+                   )
+                 </>
+               ) : (
+                 ""
+               )}
+             </Card.Title>
+             <Card.Subtitle>
+               Album Duration: {albumDuration(album)}
+             </Card.Subtitle>
+             <ListGroup>
+               {album.tracks.map((track, index) => (
+                 <ListGroup.Item key={index}>
+                   {track.trackNumber}. {track.trackTitle} -{" "}
+                   {durationConversion(track.trackDuration)}
+                 </ListGroup.Item>
+               ))}
+             </ListGroup>
+             <Button style={{ margin:"5px" }}onClick={() => handleRemoveAlbum(album.albumId)}>
+               Remove
+             </Button>
+             </Card.Body>
+           </Card>
+         ))}
+     </>
+   );
+ };
 
 export default DisplayAlbums;

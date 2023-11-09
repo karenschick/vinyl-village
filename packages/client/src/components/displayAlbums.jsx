@@ -1,19 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card, Button, ListGroup, CardTitle } from "react-bootstrap";
 import { useApiFetch } from "../util/api";
+
 import { useState } from "react";
 
 export const DisplayAlbums = () => {
   const { response } = useApiFetch("/albums");
   console.log(response);
 
-  const [displayedAlbums, setDisplayedAlbums] = useState(response);
+  const [displayedAlbums, setDisplayedAlbums] = useState([]);
 
   const handleRemoveAlbum = (albumId) => {
-    const updatedAlbums = displayedAlbums && displayedAlbums.filter((album) => album.albumId !== albumId);
+    const updatedAlbums =
+      displayedAlbums &&
+      displayedAlbums.filter((album) => album.albumId !== albumId);
     setDisplayedAlbums(updatedAlbums);
   };
-  
 
   const durationConversion = (duration) => {
     const minutes = Math.floor(duration / 60);
@@ -32,12 +34,16 @@ export const DisplayAlbums = () => {
     return durationConversion(totalDuration);
   };
 
-  // {albumDuration(album)}
+  useEffect(() => {
+    if (response) {
+      setDisplayedAlbums(response);
+    }
+  }, [response]);
 
   return (
-    <Card>
-      {response &&
-        response.map((album) => (
+    <Card className="pt-3">
+      {displayedAlbums &&
+        displayedAlbums.map((album) => (
           <div key={album.albumId}>
             <Card.Header>{album.albumTitle}</Card.Header>
             <Card.Title>
@@ -61,7 +67,9 @@ export const DisplayAlbums = () => {
                 </ListGroup.Item>
               ))}
             </ListGroup>
-            <Button onClick={() => handleRemoveAlbum(album.albumId)}>Remove</Button>
+            <Button onClick={() => handleRemoveAlbum(album.albumId)}>
+              Remove
+            </Button>
           </div>
         ))}
     </Card>

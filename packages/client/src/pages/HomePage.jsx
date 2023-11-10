@@ -8,7 +8,7 @@ export default function HomePage(props) {
 
   return (
     <main>
-      <h1>Welcome to my app!</h1>
+      <h1>Albums</h1>
       {error && (
         <h3 style={{ color: "red" }}>
           Error Loading Data: {JSON.stringify(error)}
@@ -17,7 +17,7 @@ export default function HomePage(props) {
       {isLoading && <LoadingSpinner></LoadingSpinner>}
       {!error && response && (
         <>
-          <div className="mb-5">Username: {response.username}</div>
+          {/* <div className="mb-5">Username: {response.username}</div> */}
           <DisplayAlbums/>
         </>
       )}

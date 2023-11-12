@@ -42,47 +42,61 @@ export const DisplayAlbums = () => {
 
   return (
     <>
-       {displayedAlbums &&
-  displayedAlbums.map((album) => (
-    <Card key={album.albumId} style={{ border: "solid", margin: "15px", padding: "20px" }}>
-      <Card.Header style={{ margin: "5px" }}>{album.albumTitle}</Card.Header>
-      <Card.Body>
-        <Card.Title className="mt-5">
-          {album.artistName}{" "}
-          {album.bandMembers.length > 1 ? (
-            <>
-              (
-              {album.bandMembers.map((member, index) => (
-                <span key={index}>
-                  {member.memberName}
-                  {index !== album.bandMembers.length - 1 ? ", " : ""}
-                </span>
-              ))}
-              )
-            </>
-          ) : (
-            ""
-          )}
-        </Card.Title>
-        <Card.Subtitle>
-          Album Duration: {albumDuration(album)}
-        </Card.Subtitle>
-        <ListGroup style={{ width: "500px" }}>
-          {album.tracks.map((track, index) => (
-            <ListGroup.Item key={index} >
-              <span className="d-flex justify-content-start">{track.trackNumber}. {track.trackTitle}</span>
-              <span className="d-flex justify-content-end">{durationConversion(track.trackDuration)}</span>
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
-        <Button style={{ margin: "5px" }} onClick={() => handleRemoveAlbum(album.albumId)}>
-          Remove
-        </Button>
-      </Card.Body>
-    </Card>
-  ))}
-     </>
-   );
+    <div >
+      {displayedAlbums &&
+        displayedAlbums.map((album) => (
+          <Card key={album.albumId} style={{ margin: "20px", padding: "20px", width: "70%",  }}>
+            <Card.Header style={{width: "30%"}}>{album.albumTitle}</Card.Header>
+            <Card.Body>
+              <div className="row">
+                {/* Left side content */}
+                <Col xs={6} className="mt-5">
+                  <Card.Title>
+                    {album.artistName}{" "}
+                    {album.bandMembers.length > 1 ? (
+                      <><br />
+                        (
+                        {album.bandMembers.map((member, index) => (
+                          <span key={index}>
+                            {member.memberName}
+                            {index !== album.bandMembers.length - 1 ? ", " : ""}
+                          </span>
+                        ))}
+                        )
+                      </>
+                    ) : (
+                      ""
+                    )}
+                  </Card.Title>
+                  <Card.Subtitle>
+                    Album Duration: {albumDuration(album)}
+                  </Card.Subtitle>
+                </Col>
+  
+                {/* Right side content */}
+                <Col xs={6}>
+                  <ListGroup style={{ width: "500px" }}>
+                    {album.tracks.map((track, index) => (
+                      <ListGroup.Item key={index} style={{ lineHeight: "1" }}>
+                        <span className="d-flex justify-content-start">{track.trackNumber}. {track.trackTitle}</span>
+                        <span className="d-flex justify-content-end">{durationConversion(track.trackDuration)}</span>
+                      </ListGroup.Item>
+                    ))}
+                  </ListGroup>
+                  
+                </Col>
+                <div className="mx-auto">
+                  <Button style={{ marginTop: "15px" }} onClick={() => handleRemoveAlbum(album.albumId)}>
+                    Remove
+                  </Button>
+                  </div>
+              </div>
+            </Card.Body>
+          </Card>
+        ))}
+        </div>
+    </>
+  );
  };
 
 export default DisplayAlbums;

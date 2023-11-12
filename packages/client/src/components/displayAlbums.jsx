@@ -46,40 +46,44 @@ export const DisplayAlbums = () => {
         {displayedAlbums &&
           displayedAlbums.map((album) => (
             <Card
-            className="mx-auto"
+              className="mx-auto bg-dark mt-4"
               key={album.albumId}
-              style={{ margin: "20px", padding: "20px", width: "70%" }}
+              style={{ margin: "20px", padding: "30px", width: "70%" }}
             >
-              <Card.Header style={{ width: "40%", lineHeight:"2", fontSize:"30px", margin:"15px"}} className="mx-auto">
-                {album.albumTitle}
-              </Card.Header>
               <Card.Body>
                 <div className="row">
-                  <Col xs={6} className="align-self-center">
-                    <div style={{ width: "50%", marginLeft:"100px" }}>
-                      <Card.Title style={{fontSize:"27px"}}>
-                        {album.artistName}{" "}
-                        </Card.Title>
-                        <Card.Subtitle style={{fontSize:"20px"}}>
-                        {album.bandMembers.length > 1 ? (
-                          <>(
-                        
+                  <Col xs={6} style={{ color: "white" }}>
+                    <Card.Title style={{ fontSize: "27px" }}>
+                      {album.albumTitle}
+                    </Card.Title>
+                    <Card.Subtitle className="mt-4">
+                      {album.releaseYear}
+                    </Card.Subtitle>
+                    <Card.Body className="mt-3">
+                      {album.artistName} <br></br>
+                      {album.bandMembers.length > 1 ? (
+                        <>
+                          <div className="mt-2 ">
+                            (
                             {album.bandMembers.map((member, index) => (
                               <span key={index}>
                                 {member.memberName}
-                                {index !== album.bandMembers.length - 1 ? ", " : ""}
+                                {index !== album.bandMembers.length - 1
+                                  ? ", "
+                                  : ""}
                               </span>
                             ))}
                             )
-                          </>
-                        ) : (
-                          ""
-                        )}
-                      </Card.Subtitle>
-                      <Card.Subtitle className="mt-4">
-                        Album Duration: {albumDuration(album)}
-                      </Card.Subtitle>
-                    </div>
+                          </div>
+                        </>
+                      ) : (
+                        ""
+                      )}
+                      <br></br>
+                      <div className="">
+                        Album Length: {albumDuration(album)}
+                      </div>
+                    </Card.Body>
                   </Col>
 
                   <Col xs={6}>
@@ -87,7 +91,7 @@ export const DisplayAlbums = () => {
                       {album.tracks.map((track, index) => (
                         <ListGroup.Item
                           key={index}
-                          style={{ lineHeight: "0.1", padding:"18px" }}
+                          style={{ lineHeight: "0.1", padding: "15px" }}
                         >
                           <span className="d-flex justify-content-start">
                             {track.trackNumber}. {track.trackTitle}
@@ -101,6 +105,7 @@ export const DisplayAlbums = () => {
                   </Col>
                   <div className="mx-auto mt-3">
                     <Button
+                      variant="secondary"
                       style={{ marginTop: "15px" }}
                       onClick={() => handleRemoveAlbum(album.albumId)}
                     >

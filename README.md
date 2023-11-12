@@ -2,41 +2,65 @@
 # Kenzie MERN Starter Template
 
 ## Questions
-how do i have only one title and release year?
+
 how do i convert seconds to min:sec for duration?
 look at how users is set up, to set up albums?
 remove album
 function to convert duration from seconds to minutes:seconds
 album duration is reduce correct??? how do i map through track list duration to get duration array?
-
+create conditional for bandMember 
+-`album.bandMembers.length . 1 ? ( <> (` + map through bandmembers + `) </> ) : ("")`
+why isn't handle remove album working? 
+-need to create arrow function and use `album.albumId`
+modify album id - random?
+bootstrap margins not working
+-bootstrap css not imported
+bootstrap card for each album
+-card should replace div and have the key
 
 ## Project Plan
 
 1. Design a data model for a collection of vinyl record albums. Create file in models folder for moongoose schema.
- -albumTitle property with attributes type is string, unique is true required is true
+ -title property with attributes type is string, unique is true required is true
  -releaseYear property with attributes type is string, required is true
  -artistName property with attributes type is string, required is true
  -bandMembers array with memberName is string and required is false
  -tracks array with trackTitle is string, trackNumber is Number, trackDuration is string, required is true
 
 2. Create an array of at least 6 albums in your JS program. The collection must include albums from at least 2 different artists.
-  -create file is server with albums array
-  -use mongoose schema as template to build six albums in array giving values to the properties keys.
+ -create file is server with albums array
+ -use mongoose schema as template to build six albums in array giving values to the properties keys.
 
 3. Create an express endpoint at that will return the array of albums as JSON.
-
+ -`albumRouter.get('/albums')` put `res.json(albums)` in a try catch
+  
 4. Call the created endpoint and display the results in the client application. 
-
-5. Create a new Route and a new Component for this.
+   Create a new Route and a new Component for this.
  -albumDuration
- -durationConversion
+ -durationConversion with paramater duration
+  -assign `Math.floor(duration/60)` to varaible `minutes`
+  -assign `duration % 60` to varaible `remainingSeconds`
+  -create display using template literal to set minutes and remaining seconds
+   -call toString()
+   -use padStart to ensure second is always displayed astwo digits
  -handleRemoveAlbum
+ -display album 
+  -map through `response` array. use logical `&&` to check if truthy
+  -map through `tracks` array (nested array) for `trackTitle` for each album
+   -display each `trackNumber` and `trackTitle`
+   -call `durationConversion(track.trackDuration)`
+  -map though `bandMembers` array (nexted array) for `memberName` for each album and display each `memberName` and add a comma and space except last member to avoid extra comma
 
 ## Reflection
 
 What different approaches or techniques did you consider when planning your implementation? What were the advantages and disadvantages of those alternatives?
 
-_(Put your reflection answer here.)_
+I initially planned to make the styling using CSS but decided to use Bootstrap as it was simpler.  I wonder if I should construct albumSchema differently. Originally I had the bandMembers as and array of objects but simplfied to a array of strings. I considered making the artistName and bandMembers  as a separate schema as they are associate with multiple albums, but at them moment they are simple and I don't know of plans to add my properties in the future so no need to make it it's own schema. 
+
+
+
+
+
 
 
 ## Getting Started
@@ -137,5 +161,6 @@ npm install mongoose -w server
 
 This would add a "react-router-dom" dependency to the frontend, and a "mongoose" dependency to the backend. 
 
-
+## Sources
+Tim 1:1
 

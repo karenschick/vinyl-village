@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Card, Button, ListGroup, CardTitle, Row, Col } from "react-bootstrap";
+import { Card, Button, ListGroup, Col } from "react-bootstrap";
 import { useApiFetch } from "../util/api";
 
 import { useState } from "react";

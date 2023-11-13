@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-//const { ObjectId } = mongoose.Schema.Types;
 
 const albumSchema = new mongoose.Schema({
   albumId: { type: Number, required: true },

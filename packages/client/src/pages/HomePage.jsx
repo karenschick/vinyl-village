@@ -4,7 +4,6 @@ import DisplayAlbums from "../components/displayAlbums";
 
 export default function HomePage(props) {
   const { error, isLoading, response } = useApiFetch("/sample");
-  
 
   return (
     <main>
@@ -18,7 +17,7 @@ export default function HomePage(props) {
       {!error && response && (
         <>
           {/* <div className="mb-5">Username: {response.username}</div> */}
-          <DisplayAlbums/>
+          <DisplayAlbums />
         </>
       )}
     </main>

@@ -10,10 +10,10 @@ export const DisplayAlbums = () => {
 
   const [displayedAlbums, setDisplayedAlbums] = useState([]);
 
-  const handleRemoveAlbum = (albumId) => {
+  const handleRemoveAlbum = (_id) => {
     const updatedAlbums =
       displayedAlbums &&
-      displayedAlbums.filter((album) => album.albumId !== albumId);
+      displayedAlbums.filter((album) => album._id !== _id);
     setDisplayedAlbums(updatedAlbums);
   };
 
@@ -47,7 +47,7 @@ export const DisplayAlbums = () => {
           displayedAlbums.map((album) => (
             <Card
               className="mx-auto bg-dark mt-4"
-              key={album.albumId}
+              key={album._id}
               style={{ margin: "20px", padding: "30px", width: "70%" }}
             >
               <Card.Body>
@@ -107,7 +107,7 @@ export const DisplayAlbums = () => {
                     <Button
                       variant="secondary"
                       style={{ marginTop: "15px" }}
-                      onClick={() => handleRemoveAlbum(album.albumId)}
+                      onClick={() => handleRemoveAlbum(album._id)}
                     >
                       Remove
                     </Button>

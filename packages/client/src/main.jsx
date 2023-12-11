@@ -6,12 +6,12 @@ import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css"
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  
     <BrowserRouter>
       <Routes>
         <Route exact path="" element={<HomePage />} />
         {/* Add more routes here */}
       </Routes>
     </BrowserRouter>
-  </React.StrictMode>
+  
 );

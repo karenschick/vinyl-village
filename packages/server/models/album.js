@@ -1,10 +1,11 @@
-import mongoose from "mongoose";
+// models/album.js
+import mongoose from 'mongoose';
 
 const albumSchema = new mongoose.Schema({
   albumId: { type: Number, required: true },
   albumTitle: {
     type: String,
-    unique: true,
+    // unique: true,
     required: true,
   },
   releaseYear: {
@@ -15,7 +16,11 @@ const albumSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  bandMembers: [String],
+  bandMembers: [
+    {
+      memberName: String,
+    },
+  ],
   tracks: [
     {
       trackTitle: String,
@@ -25,6 +30,6 @@ const albumSchema = new mongoose.Schema({
   ],
 });
 
-const Album = mongoose.model("Album", albumSchema);
+const Album = mongoose.model('Album', albumSchema);
 
 export default Album;

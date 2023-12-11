@@ -6,7 +6,8 @@ module.exports = {
     apiEndpoint: (process.env.API_URL) ? `/${process.env.API_URL}` : '/api',
   },
   database: {
-    url: process.env.MONGODB_URI || `mongodb+srv://karenSchick:kenzieDOD082223@cluster0.rnexktn.mongodb.net/?retryWrites=true` + repoName,
+    url: process.env.MONGODB_URI || `mongodb+srv://karenSchick:karen@cluster0.rnexktn.mongodb.net/?retryWrites=true`,
+    name: process.env.MONGODB_NAME || "albumDataBase",
   },
   jwt: {
     secret: process.env.JWT_SECRET || 'jwt-secret',

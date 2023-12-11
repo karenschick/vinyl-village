@@ -3,7 +3,7 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import DisplayAlbums from "../components/displayAlbums";
 
 export default function HomePage(props) {
-  const { error, isLoading, response } = useApiFetch("/sample");
+  const { error, isLoading, response } = useApiFetch("/albums");
 
   return (
     <main>

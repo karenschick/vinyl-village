@@ -39,7 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(requestLogger)
 
 // api router
-app.use(keys.app.apiEndpoint, router)
+// app.use(keys.app.apiEndpoint, router)
 app.use(keys.app.apiEndpoint, albumRouter)
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

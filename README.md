@@ -3,8 +3,37 @@
 ## Sources
 
 Tim 1:1
+Cody 
 
-## Project Plan
+## Project Plan Intermediate Challenge
+
+1. Move album collection data into MongoDB database
+   -using postman add each album to mongoDB
+   -remove albumId from album schema
+   -in displayAlbums.jsx change all instances of `albumId` to `_id` so that you are now grabing the object id provided by mongoDB
+   -remove ablumgDB.js file
+   -in HomePage.jsx change `useApiFetch("/sample")` to `useApiFetch("/albums")`
+   -in app.js on server side change change `app.use(keys.app.apiEndpoint, router)` to `app.use(keys.app.apiEndpoint, albumRouter)`
+   -create an POST endpoint in albumRouter with `"/albums"`path with an async handler function that has `req` and `res` arguments.
+     -inside a try/catch:
+       -create a variable to store the request data from `req.body`
+       -create a variable to store a new album in the db using the create method pausing execution with await because it's an async execution
+       -send 201 response if successful and convert new album to JSON `json(newAlbum)`
+       -500 response and error message 
+
+2. Have albums displayed alpabetically by title
+   -update existing GET endpoint
+    -path to endpoint of `"/albums"` with an async handler function that has `req` and `res` arguments.
+    -inside a try/catch:
+       -create variable `albums` to retrieve album collection using `find()` and sorting in ascending order with `1` by `albumTitle`, pausing execution with await.
+       -send 200 response if successful and convert retrieved albums to JSON `json(albums)`
+       -500 response and error message 
+
+## Reflection Intermediate
+
+I could have used something like the `seedDatabase()` in snippets to store my collection of albums in MongoDB instead of manually using Postman's POST request. Two advantages of seeding are that it's quicker to populate rather than manually adding each entry through Postman and it provides a reproducible set of data for testing. A disadvantage of seeding is that it could become outdated if data model structure changes. I chose to not seed because I was dealing with a small amount of POST entries and wanted more practice with Postman and wanted the system to catch any errors I could make.
+
+## Project Plan Basic
 
 1. Design a data model for a collection of vinyl record albums. Create file in models folder for moongoose schema.
    -title property with attributes type is string, unique is true required is true
@@ -17,7 +46,8 @@ Tim 1:1
    -create file is server with albums array
    -use mongoose schema as template to build six albums in array giving values to the properties keys.
 
-3. Create an express endpoint at that will return the array of albums as JSON. -`albumRouter.get('/albums')` put `res.json(albums)` in a try catch
+3. Create an express endpoint at that will return the array of albums as JSON.      
+   -`albumRouter.get('/albums')` put `res.json(albums)` in a try catch
 
 4. Call the created endpoint and display the results in the client application.
    Create a new Route and a new Component for this.
@@ -41,7 +71,9 @@ Tim 1:1
     -call `durationConversion(track.trackDuration)`
     -map though `bandMembers` array (nexted array) for `memberName` for each album and display each `memberName` and add a comma and space except last member to avoid extra comma
 
-## Reflection
+
+
+## Reflection Basic
 
 What different approaches or techniques did you consider when planning your implementation? What were the advantages and disadvantages of those alternatives?
 

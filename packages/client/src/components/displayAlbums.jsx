@@ -48,11 +48,11 @@ export const DisplayAlbums = () => {
             <Card
               className="mx-auto bg-dark mt-4"
               key={album._id}
-              style={{ margin: "20px", padding: "30px", width: "70%" }}
+              style={{ margin: "20px", padding: "15px", width: "90%" }}
             >
               <Card.Body>
                 <div className="row">
-                  <Col xs={6} style={{ color: "white" }}>
+                  <Col lg={6} xs={12} style={{ color: "white" }}>
                     <Card.Title style={{ fontSize: "27px" }}>
                       {album.albumTitle}
                     </Card.Title>
@@ -86,19 +86,19 @@ export const DisplayAlbums = () => {
                     </Card.Body>
                   </Col>
 
-                  <Col xs={6}>
+                  <Col lg={6} xs={12}>
                     <ListGroup>
                       {album.tracks.map((track, index) => (
                         <ListGroup.Item
                           key={index}
                           style={{ lineHeight: "0.1", padding: "15px" }}
                         >
-                          <span className="d-flex justify-content-start">
+                          <div className="d-flex justify-content-start">
                             {track.trackNumber}. {track.trackTitle}
-                          </span>
-                          <span className="d-flex justify-content-end">
+                          </div>
+                          <div className="d-flex justify-content-end">
                             {durationConversion(track.trackDuration)}
-                          </span>
+                          </div>
                         </ListGroup.Item>
                       ))}
                     </ListGroup>

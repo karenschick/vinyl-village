@@ -1,6 +1,27 @@
-
 /* Your CSS Here */
 
 main {
   text-align: center;
+}
+
+.track-item-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.track-title {
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: start;
+  flex-grow: 1;
+  flex-basis: 0;
+  max-width: 80%;
+}
+
+.track-duration {
+  text-align: end;
+  white-space: nowrap;
+  flex-grow: 0;
 }

@@ -48,7 +48,7 @@ export const DisplayAlbums = () => {
             <Card
               className="mx-auto bg-dark mt-4"
               key={album._id}
-              style={{ margin: "20px", padding: "15px", width: "90%" }}
+              style={{ margin: "5px", padding: "5px", width: "90%" }}
             >
               <Card.Body>
                 <div className="row">
@@ -56,10 +56,10 @@ export const DisplayAlbums = () => {
                     <Card.Title style={{ fontSize: "27px" }}>
                       {album.albumTitle}
                     </Card.Title>
-                    <Card.Subtitle className="mt-4">
+                    <Card.Subtitle className="mt-3">
                       {album.releaseYear}
                     </Card.Subtitle>
-                    <Card.Body className="mt-3">
+                    <Card.Body className="mt-2">
                       {album.artistName} <br></br>
                       {album.bandMembers.length > 1 ? (
                         <>
@@ -89,16 +89,15 @@ export const DisplayAlbums = () => {
                   <Col lg={6} xs={12}>
                     <ListGroup>
                       {album.tracks.map((track, index) => (
-                        <ListGroup.Item
+                        <ListGroup.Item className="track-item-container"
                           key={index}
-                          style={{ lineHeight: "0.1", padding: "15px" }}
                         >
-                          <div className="d-flex justify-content-start">
+                          <Col className="track-title">
                             {track.trackNumber}. {track.trackTitle}
-                          </div>
-                          <div className="d-flex justify-content-end">
+                          </Col >
+                          <Col className="track-duration">
                             {durationConversion(track.trackDuration)}
-                          </div>
+                          </Col>
                         </ListGroup.Item>
                       ))}
                     </ListGroup>

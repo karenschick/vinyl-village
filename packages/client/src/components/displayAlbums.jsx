@@ -47,11 +47,19 @@ export const DisplayAlbums = () => {
             <Card
               className="mx-auto bg-dark mt-5"
               key={album._id}
-              style={{ margin: "5px", padding: "5px", width: "80%" }}
+              style={{ margin: "5px", padding: "15px", width: "80%" }}
             >
               <Card.Body>
                 <div className="row">
-                  <Col lg={6} xs={12} style={{ color: "white" }}>
+                  <Col
+                    lg={6}
+                    xs={12}
+                    style={{
+                      color: "white",
+                      alignSelf: "center",
+                      padding: "40px",
+                    }}
+                  >
                     <Card.Title style={{ fontSize: "27px" }}>
                       {album.albumTitle}
                     </Card.Title>

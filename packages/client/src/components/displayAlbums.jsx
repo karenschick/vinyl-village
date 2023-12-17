@@ -45,9 +45,9 @@ export const DisplayAlbums = () => {
         {displayedAlbums &&
           displayedAlbums.map((album) => (
             <Card
-              className="mx-auto bg-dark mt-4"
+              className="mx-auto bg-dark mt-5"
               key={album._id}
-              style={{ margin: "5px", padding: "5px", width: "90%" }}
+              style={{ margin: "5px", padding: "5px", width: "80%" }}
             >
               <Card.Body>
                 <div className="row">
@@ -55,14 +55,14 @@ export const DisplayAlbums = () => {
                     <Card.Title style={{ fontSize: "27px" }}>
                       {album.albumTitle}
                     </Card.Title>
-                    <Card.Subtitle className="mt-3">
+                    <Card.Subtitle className="mt-4">
                       {album.releaseYear}
                     </Card.Subtitle>
-                    <Card.Body className="mt-2">
+                    <Card.Body className="mt-1">
                       {album.artistName} <br></br>
                       {album.bandMembers.length > 1 ? (
                         <>
-                          <div className="mt-2 ">
+                          <div className="mt-3 ">
                             (
                             {album.bandMembers.map((member, index) => (
                               <span key={index}>
@@ -79,8 +79,8 @@ export const DisplayAlbums = () => {
                         ""
                       )}
                       <br></br>
-                      <div className="">
-                        Album Length: {albumDuration(album)}
+                      <div className="mb-4">
+                        Album Duration: {albumDuration(album)}
                       </div>
                     </Card.Body>
                   </Col>
@@ -89,14 +89,17 @@ export const DisplayAlbums = () => {
                     <ListGroup>
                       {album.tracks.map((track, index) => (
                         <ListGroup.Item
-                        as = "li"
+                          as="li"
                           className="d-flex justify-content-between align-items-start"
                           key={index}
                         >
-                          <div className="ms-2 me-auto align-start" style={{textAlign: "start"}}>
+                          <div
+                            className="ms-2 me-auto align-start"
+                            style={{ textAlign: "start" }}
+                          >
                             {track.trackNumber}. {track.trackTitle}
                           </div>
-                          <Badge style={{marginLeft: "5px"}}>
+                          <Badge style={{ marginLeft: "5px" }}>
                             {durationConversion(track.trackDuration)}
                           </Badge>
                         </ListGroup.Item>

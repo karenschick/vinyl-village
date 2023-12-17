@@ -57,7 +57,7 @@ export const DisplayAlbums = () => {
                     style={{
                       color: "white",
                       alignSelf: "center",
-                      padding: "40px",
+                      padding: "20px",
                     }}
                   >
                     <Card.Title style={{ fontSize: "27px" }}>
@@ -70,7 +70,7 @@ export const DisplayAlbums = () => {
                       {album.artistName} <br></br>
                       {album.bandMembers.length > 1 ? (
                         <>
-                          <div className="mt-3 ">
+                          <div className="mt-3 band-members">
                             (
                             {album.bandMembers.map((member, index) => (
                               <span key={index}>

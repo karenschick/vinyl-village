@@ -4,9 +4,12 @@ main {
   text-align: center;
 }
 
-.track-item-container {
+
+
+/* .track-item-container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .track-title {
@@ -15,8 +18,9 @@ main {
   text-overflow: ellipsis;
   text-align: start;
   flex-grow: 1;
-  flex-basis: 0;
+  
   max-width: 80%;
+  
 }
 
 .track-duration {
@@ -24,5 +28,5 @@ main {
   white-space: nowrap;
   flex-grow: 0;
   flex-basis: 20%;
-  
-}
+  margin-left: auto;
+} */

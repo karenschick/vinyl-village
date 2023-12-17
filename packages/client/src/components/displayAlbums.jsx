@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Card, Button, ListGroup, Col } from "react-bootstrap";
+import { Card, Button, ListGroup, Col, Badge } from "react-bootstrap";
 import { useApiFetch } from "../util/api";
 
 import { useState } from "react";
@@ -12,8 +12,7 @@ export const DisplayAlbums = () => {
 
   const handleRemoveAlbum = (_id) => {
     const updatedAlbums =
-      displayedAlbums &&
-      displayedAlbums.filter((album) => album._id !== _id);
+      displayedAlbums && displayedAlbums.filter((album) => album._id !== _id);
     setDisplayedAlbums(updatedAlbums);
   };
 
@@ -89,15 +88,17 @@ export const DisplayAlbums = () => {
                   <Col lg={6} xs={12}>
                     <ListGroup>
                       {album.tracks.map((track, index) => (
-                        <ListGroup.Item className="track-item-container"
+                        <ListGroup.Item
+                        as = "li"
+                          className="d-flex justify-content-between align-items-start"
                           key={index}
                         >
-                          <Col className="track-title">
+                          <div className="ms-2 me-auto align-start" style={{textAlign: "start"}}>
                             {track.trackNumber}. {track.trackTitle}
-                          </Col >
-                          <Col className="track-duration">
+                          </div>
+                          <Badge>
                             {durationConversion(track.trackDuration)}
-                          </Col>
+                          </Badge>
                         </ListGroup.Item>
                       ))}
                     </ListGroup>

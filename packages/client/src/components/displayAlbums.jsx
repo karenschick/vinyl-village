@@ -96,7 +96,7 @@ export const DisplayAlbums = () => {
                           <div className="ms-2 me-auto align-start" style={{textAlign: "start"}}>
                             {track.trackNumber}. {track.trackTitle}
                           </div>
-                          <Badge>
+                          <Badge style={{marginLeft: "5px"}}>
                             {durationConversion(track.trackDuration)}
                           </Badge>
                         </ListGroup.Item>

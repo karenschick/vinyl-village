@@ -6,7 +6,6 @@ main {
 
 .track-item-container {
   display: flex;
-  align-items: center;
   justify-content: space-between;
 }
 
@@ -24,4 +23,6 @@ main {
   text-align: end;
   white-space: nowrap;
   flex-grow: 0;
+  flex-basis: 20%;
+  
 }

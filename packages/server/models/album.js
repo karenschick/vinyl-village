@@ -1,5 +1,5 @@
 // models/album.js
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const albumSchema = new mongoose.Schema({
   // albumId: { type: Number, required: true },
@@ -30,6 +30,6 @@ const albumSchema = new mongoose.Schema({
   ],
 });
 
-const Album = mongoose.model('Album', albumSchema);
+const Album = mongoose.model("Album", albumSchema);
 
 export default Album;

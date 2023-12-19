@@ -5,6 +5,47 @@
 Tim 1:1
 Cody 
 
+## Advanced Challenge
+-pseudocode
+-reflection
+
+Validations on front end and back end
+-Album
+ -title: required
+ -year: must be 4 digits and in past but no earlier than 1889
+ -artist: required
+ -song list: required
+
+Song
+ -title: required
+ -duration: required, positive number
+
+Artist
+ -name: required
+ -list of member names: optional
+
+Back end requirements
+ -get the list of albumns sorted by year, title, or artist name
+ -insert a new album that passes validations
+ -delete an album
+
+Front end requirements
+ -styling: make pretty
+ -validate submissions on both front and back end
+ -allow user of page to sort list by year, title, or artist name (either with radio buttons or grid control with clickable column headers)
+ -allow user of the page to add (need a form that allows ability to add additional tracks, bandmembers and validations) and delete albums (trash icon, must have confirmation button)
+
+extra
+-different ways of sorting collection
+-edit data of existing album
+-undo mistaken deletion
+-add additional data fields (condition of album, date added to collection, photo of album cover)
+-make app work just as well on phone or desktop
+-login and registration system where only logged in users can update album collection
+-colors, images, sounds
+
+
+
 ## Project Plan Intermediate Challenge
 
 1. Move album collection data into MongoDB database

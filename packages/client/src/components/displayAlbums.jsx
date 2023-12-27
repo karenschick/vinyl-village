@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Button, ListGroup, Col, Badge } from "react-bootstrap";
 import { useApiFetch } from "../util/api";
+import AddAlbums from "./AddAlbums/AddAlbums";
 
-import { useState } from "react";
+
 
 export const DisplayAlbums = () => {
   const { response } = useApiFetch("/albums");
@@ -140,6 +141,7 @@ export const DisplayAlbums = () => {
             </Card>
           ))}
       </div>
+      <AddAlbums/>
     </>
   );
 };

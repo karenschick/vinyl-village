@@ -17,12 +17,17 @@ albumRouter.get("/albums", async (req, res) => {
 albumRouter.post("/albums", async (req, res) => {
   try {
     const newAlbumData = req.body;
-    const newAlbum = await Album.create(newAlbumData);
+    const newAlbum = new Album(newAlbumData);
+    await newAlbum.save();
     res.status(201).json(newAlbum);
   } catch (error) {
     console.error(error);
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({ error: error.message });
+    }
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 
 export default albumRouter;

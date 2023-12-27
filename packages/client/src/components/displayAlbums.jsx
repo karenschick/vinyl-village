@@ -9,10 +9,18 @@ export const DisplayAlbums = () => {
   console.log(response);
 
   const [displayedAlbums, setDisplayedAlbums] = useState([]);
+  const [sortAlbum, setSortAlbum] = useState("albumTitle")
 
-  const handleRemoveAlbum = (_id) => {
+  const fetchAlbums = async () => {
+    const response = await fetch (`/albums?sortBy=${sortAlbum}`);
+    const data = await response.json()
+    setDisplayedAlbums(data)
+  }
+
+  const handleRemoveAlbum = async (id) => {
+    await fetch(`/albums/${id}`, {method: "DELETE"})
     const updatedAlbums =
-      displayedAlbums && displayedAlbums.filter((album) => album._id !== _id);
+      displayedAlbums && displayedAlbums.filter((album) => album._id !== id);
     setDisplayedAlbums(updatedAlbums);
   };
 
@@ -34,14 +42,18 @@ export const DisplayAlbums = () => {
   };
 
   useEffect(() => {
-    if (response) {
-      setDisplayedAlbums(response);
-    }
-  }, [response]);
+    fetchAlbums()
+  }, [sortAlbum]);
 
   return (
     <>
-      <div>
+    <div>
+      <select onChange={(e)=> setSortAlbum(e.target.value)}>
+        <option value="albumTitle">Title</option>
+        <option value="releaseYear">Year</option>
+        <option value="artistName">Artist</option>
+      </select>
+    
         {displayedAlbums &&
           displayedAlbums.map((album) => (
             <Card

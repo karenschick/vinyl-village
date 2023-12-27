@@ -5,7 +5,8 @@ import Album from "../models/album";
 const albumRouter = express.Router();
 
 albumRouter.get("/albums", async (req, res) => {
-  const sortAlbum = req.query.sortBy || "albumTitle" || "releaseYear" || "artistName"
+  
+  const sortAlbum = req.query.sortBy || "albumTitle" 
   try {
     const albums = await Album.find().sort({ [sortAlbum]: 1 });
     res.json(albums);

@@ -5,8 +5,9 @@ import Album from "../models/album";
 const albumRouter = express.Router();
 
 albumRouter.get("/albums", async (req, res) => {
+  const sortAlbum = req.query.sortBy || "albumTitle" || "releaseYear" || "artistName"
   try {
-    const albums = await Album.find().sort({ albumTitle: 1 });
+    const albums = await Album.find().sort({ [sortAlbum]: 1 });
     res.json(albums);
   } catch (error) {
     console.error(error);
@@ -29,5 +30,14 @@ albumRouter.post("/albums", async (req, res) => {
   }
 });
 
+albumRouter.delete("/albums/:id", async (req, res)=>{
+  try{
+    await Album.findByIdAndRemove(req.params.id)
+    res.status(204).send()
+  } catch(error){
+    console.error(error)
+    res.status(500).json({error: "Internal Server Error"})
+  }
+})
 
 export default albumRouter;

@@ -1,16 +1,20 @@
 // models/album.js
 import mongoose from "mongoose";
 
+const validateYear = (year) => {
+  const currentYear = new Date().getFullYear();
+  return year >= 1889 && year <= currentYear;
+};
+
 const albumSchema = new mongoose.Schema({
-  // albumId: { type: Number, required: true },
   albumTitle: {
     type: String,
-    // unique: true,
     required: true,
   },
   releaseYear: {
     type: Number,
     required: true,
+    validate: [validateYear, "Invalid year"],
   },
   artistName: {
     type: String,
@@ -23,9 +27,9 @@ const albumSchema = new mongoose.Schema({
   ],
   tracks: [
     {
-      trackTitle: String,
+      trackTitle: { type: String, required: true },
       trackNumber: Number,
-      trackDuration: String,
+      trackDuration: { type: Number, required: true, min: 0 },
     },
   ],
 });

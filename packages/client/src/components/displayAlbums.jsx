@@ -7,22 +7,24 @@ import AddAlbums from "./AddAlbums/AddAlbums";
 
 export const DisplayAlbums = () => {
   const { response } = useApiFetch("/albums");
-  console.log(response);
+  console.log("response:", response);
 
   const [displayedAlbums, setDisplayedAlbums] = useState([]);
-  const [sortAlbum, setSortAlbum] = useState("albumTitle")
+  // const [sortAlbum, setSortAlbum] = useState("albumTitle")
 
-  const fetchAlbums = async () => {
-    const response = await fetch (`/albums?sortBy=${sortAlbum}`);
-    const data = await response.json()
-    setDisplayedAlbums(data)
+
+  const handleAddAlbum = async (newAlbum) => {
+    
   }
 
   const handleRemoveAlbum = async (id) => {
-    await fetch(`/albums/${id}`, {method: "DELETE"})
-    const updatedAlbums =
-      displayedAlbums && displayedAlbums.filter((album) => album._id !== id);
-    setDisplayedAlbums(updatedAlbums);
+    try {
+      await api.delete(`/albums/${_id}`);
+
+    } catch (error) {
+      toast.error(`An error occurred deleting album ${_id}.`);
+      
+    }
   };
 
   const durationConversion = (duration) => {
@@ -43,8 +45,12 @@ export const DisplayAlbums = () => {
   };
 
   useEffect(() => {
-    fetchAlbums()
-  }, [sortAlbum]);
+    if (response){
+      setDisplayedAlbums(response)
+    }
+    
+  // }, [sortAlbum]);
+}, [response]);
 
   return (
     <>
@@ -141,7 +147,7 @@ export const DisplayAlbums = () => {
             </Card>
           ))}
       </div>
-      <AddAlbums/>
+      <AddAlbums onAlbumSubmit={handleAddAlbum}/>
     </>
   );
 };

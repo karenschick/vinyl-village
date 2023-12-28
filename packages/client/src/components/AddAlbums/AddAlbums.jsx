@@ -51,14 +51,22 @@ export const AddAlbums = ({ onAlbumSubmit }) => {
     const newAlbum = {
       ...albumData,
       tracks: albumData.tracks,
-      bandMembers: albumData.bandMembers.map((memberName) => ({ memberName })),
+      bandMembers: albumData.bandMembers && albumData.bandMembers.map((memberName) => ({ memberName })),
     };
     onAlbumSubmit(newAlbum);
+    setAlbumData({
+      albumTitle: "",
+      releaseYear: "",
+      artistName: "",
+      tracks: [{ trackTitle: "", trackDuration: "" }],
+      bandMembers: [""],
+    })
   };
 
   return (
     <>
-      <Form onSubmit={handleSubmit}>
+    
+      <Form onSubmit={handleSubmit} style={{paddingTop:"150px",paddingLeft: "400px", paddingRight:"400px"}}>
         <Form.Group as={Col} controlId="formAlbumTitle">
           <Form.Label>Album Title:</Form.Label>
           <Form.Control
@@ -75,7 +83,7 @@ export const AddAlbums = ({ onAlbumSubmit }) => {
           <Form.Label>Release Year:</Form.Label>
           <Form.Control
             type="number"
-            name="ReleaseYear"
+            name="releaseYear"
             value={albumData.releaseYear}
             onChange={handleInputChange}
             required
@@ -87,7 +95,7 @@ export const AddAlbums = ({ onAlbumSubmit }) => {
           <Form.Label>Artist Name:</Form.Label>
           <Form.Control
             type="text"
-            name="ArtistName"
+            name="artistName"
             value={albumData.artistName}
             onChange={handleInputChange}
             required
@@ -95,7 +103,7 @@ export const AddAlbums = ({ onAlbumSubmit }) => {
           <Form.Text></Form.Text>
         </Form.Group>
 
-        {albumData.tracks.map((track, index) => (
+        {albumData.tracks && albumData.tracks.map((track, index) => (
           <div key={index}>
             <Form.Group as={Col} controlId={`formTrackTitle-${index}`}>
               <Form.Label>Track Title:</Form.Label>
@@ -139,7 +147,7 @@ export const AddAlbums = ({ onAlbumSubmit }) => {
 
         <Form.Group as={Col} controlId="formBandMembers">
           <Form.Label>Band Members:</Form.Label>
-          {albumData.bandMembers.map((member, index) => (
+          {albumData.bandMembers && albumData.bandMembers.map((member, index) => (
             <Form.Control
               key={index}
               type="text"

@@ -6,13 +6,34 @@ export const AddAlbums = ({ onAlbumSubmit }) => {
     albumTitle: "",
     releaseYear: "",
     artistName: "",
-    trackTitle: "",
-    trackDuration: "",
+    tracks: [{ trackTitle: "", trackDuration: "" }],
     bandMembers: [""],
   });
 
   const handleInputChange = (event) => {
     setAlbumData({ ...albumData, [event.target.name]: event.target.value });
+  };
+
+  const handleTrackChange = (event, index, field) => {
+    const updatedTracks = [...albumData.tracks];
+    updatedTracks[index] = {
+      ...updatedTracks[index],
+      [field]: event.target.value,
+    };
+    setAlbumData({ ...albumData, tracks: updatedTracks });
+  };
+
+  const addTrackField = () => {
+    setAlbumData({
+      ...albumData,
+      tracks: [...albumData.tracks, { trackTitle: "", trackDuration: "" }],
+    });
+  };
+
+  const removeTrackField = (index) => {
+    const updatedTracks = [...albumData.tracks];
+    updatedTracks.splice(index, 1);
+    setAlbumData({ ...albumData, tracks: updatedTracks });
   };
 
   const handleBandMemberChange = (event, index) => {
@@ -28,15 +49,8 @@ export const AddAlbums = ({ onAlbumSubmit }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const newAlbum = {
-      albumTitle: albumData.albumTitle,
-      releaseYear: albumData.releaseYear,
-      artistName: albumData.artistName,
-      tracks: [
-        {
-          trackTitle: albumData.trackTitle,
-          trackDuration: albumData.trackDuration,
-        },
-      ],
+      ...albumData,
+      tracks: albumData.tracks,
       bandMembers: albumData.bandMembers.map((memberName) => ({ memberName })),
     };
     onAlbumSubmit(newAlbum);
@@ -81,45 +95,70 @@ export const AddAlbums = ({ onAlbumSubmit }) => {
           <Form.Text></Form.Text>
         </Form.Group>
 
-        <Form.Group as={Col} controlId="formTrackTitle">
-          <Form.Label>Track Title:</Form.Label>
-          <Form.Control
-            type="text"
-            name="TrackTitle"
-            value={albumData.trackTitle}
-            onChange={handleInputChange}
-            required
-          ></Form.Control>
-          <Form.Text></Form.Text>
-        </Form.Group>
+        {albumData.tracks.map((track, index) => (
+          <div key={index}>
+            <Form.Group as={Col} controlId={`formTrackTitle-${index}`}>
+              <Form.Label>Track Title:</Form.Label>
+              <Form.Control
+                type="text"
+                value={track.trackTitle}
+                onChange={(event) =>
+                  handleTrackChange(event, index, "trackTitle")
+                }
+                required
+              />
+            </Form.Group>
 
-        <Form.Group as={Col} controlId="formTrackDuration">
-          <Form.Label>Track Duration:</Form.Label>
-          <Form.Control
-            type="number"
-            name="TrackDuration"
-            value={albumData.trackDuration}
-            onChange={handleInputChange}
-            required
-          ></Form.Control>
-          <Form.Text></Form.Text>
-        </Form.Group>
+            <Form.Group as={Col} controlId={`formTrackDuration-${index}`}>
+              <Form.Label>Track Duration:</Form.Label>
+              <Form.Control
+                type="number"
+                value={track.trackDuration}
+                onChange={(event) =>
+                  handleTrackChange(event, index, "trackDuration")
+                }
+                required
+              />
+            </Form.Group>
+
+            {index > 0 && (
+              <Button
+                variant="danger"
+                type="button"
+                onClick={() => removeTrackField(index)}
+              >
+                Remove Track
+              </Button>
+            )}
+          </div>
+        ))}
+
+        <Button variant="secondary" type="button" onClick={addTrackField}>
+          Add Track
+        </Button>
 
         <Form.Group as={Col} controlId="formBandMembers">
           <Form.Label>Band Members:</Form.Label>
           {albumData.bandMembers.map((member, index) => (
             <Form.Control
-            key={index}
-            type="text"
-            value={member}
-            onChange={(event)=> handleBandMemberChange(event, index)}
-            
-          ></Form.Control>
+              key={index}
+              type="text"
+              value={member}
+              onChange={(event) => handleBandMemberChange(event, index)}
+            ></Form.Control>
           ))}
-          
-          <Button variant="secondary" type="button" onClick={addBandMemberField}>Add Band Member</Button>
+
+          <Button
+            variant="secondary"
+            type="button"
+            onClick={addBandMemberField}
+          >
+            Add Band Member
+          </Button>
         </Form.Group>
-        <Button variant="primary" type="submit">Add Album</Button>
+        <Button variant="primary" type="submit">
+          Add Album
+        </Button>
       </Form>
     </>
   );

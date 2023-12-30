@@ -58,7 +58,7 @@ export const DisplayAlbums = () => {
           displayedAlbums.map((album) => (
             <Card
               className="mx-auto bg-dark mt-5"
-              key={album._id || index}
+              key={album._id}
               style={{ margin: "5px", padding: "15px", width: "80%" }}
             >
               <Card.Body>

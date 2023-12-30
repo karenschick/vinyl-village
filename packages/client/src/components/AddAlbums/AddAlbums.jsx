@@ -4,7 +4,6 @@ import axios from "axios";
 
 const API_URL = "http://localhost:3001/api";
 
-
 export const AddAlbums = ({ onAlbumSubmit }) => {
   const [albumData, setAlbumData] = useState({
     albumTitle: "",
@@ -51,23 +50,26 @@ export const AddAlbums = ({ onAlbumSubmit }) => {
     const adjustedAlbumData = {
       ...albumData,
       releaseYear: parseInt(albumData.releaseYear, 10),
-      tracks: albumData.tracks.map((track) => ({
-        ...track,
-        trackDuration: track.trackDuration ? parseInt(track.trackDuration, 10) : 0
-      })).filter(track => track.trackTitle)
+      tracks: albumData.tracks
+        .map((track) => ({
+          ...track,
+          trackDuration: track.trackDuration
+            ? parseInt(track.trackDuration, 10)
+            : 0,
+        }))
+        .filter((track) => track.trackTitle),
+    };
+
+    console.log("sending data:", adjustedAlbumData);
+
+    try {
+      const response = await axios.post(API_URL + "/albums", adjustedAlbumData);
+      console.log("response data:", response.data);
+      onAlbumSubmit(adjustedAlbumData);
+    } catch (error) {
+      console.error("Error:", error.response.data);
     }
 
-   console.log("sending data:", adjustedAlbumData)
-
-      try {
-        const response = await axios.post(API_URL + '/albums', adjustedAlbumData)
-        console.log("response data:", response.data)
-        onAlbumSubmit(adjustedAlbumData);
-      }catch (error){
-        console.error("Error:", error.response.data)
-      }
-
-    
     setAlbumData({
       albumTitle: "",
       releaseYear: "",
@@ -78,7 +80,7 @@ export const AddAlbums = ({ onAlbumSubmit }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit} style={{padding:"100px"}}>
+    <Form onSubmit={handleSubmit} style={{ padding: "100px" }}>
       <Form.Group>
         <Form.Label>Album Title</Form.Label>
         <Form.Control

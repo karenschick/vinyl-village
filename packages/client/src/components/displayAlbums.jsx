@@ -3,8 +3,6 @@ import { Card, Button, ListGroup, Col, Badge } from "react-bootstrap";
 import { useApiFetch } from "../util/api";
 import AddAlbums from "./AddAlbums/AddAlbums";
 
-
-
 export const DisplayAlbums = () => {
   const { response } = useApiFetch("/albums");
   console.log("response:", response);
@@ -12,18 +10,15 @@ export const DisplayAlbums = () => {
   const [displayedAlbums, setDisplayedAlbums] = useState([]);
   // const [sortAlbum, setSortAlbum] = useState("albumTitle")
 
-
-  const handleAddAlbum = async (newAlbum) => {
-    
-  }
+  const handleAddAlbum = (newAlbum) => {
+    setDisplayedAlbums([...displayedAlbums, newAlbum]);
+  };
 
   const handleRemoveAlbum = async (id) => {
     try {
       await api.delete(`/albums/${_id}`);
-
     } catch (error) {
       toast.error(`An error occurred deleting album ${_id}.`);
-      
     }
   };
 
@@ -45,22 +40,20 @@ export const DisplayAlbums = () => {
   };
 
   useEffect(() => {
-    if (response){
-      setDisplayedAlbums(response)
+    if (response) {
+      setDisplayedAlbums(response);
     }
-    
-  // }, [sortAlbum]);
-}, [response]);
+  }, [response]);
 
   return (
     <>
-    <div>
-      <select onChange={(e)=> setSortAlbum(e.target.value)}>
+      <div>
+        {/* <select onChange={(e)=> setSortAlbum(e.target.value)}>
         <option value="albumTitle">Title</option>
         <option value="releaseYear">Year</option>
         <option value="artistName">Artist</option>
-      </select>
-    
+      </select> */}
+
         {displayedAlbums &&
           displayedAlbums.map((album) => (
             <Card
@@ -147,7 +140,7 @@ export const DisplayAlbums = () => {
             </Card>
           ))}
       </div>
-      <AddAlbums onAlbumSubmit={handleAddAlbum}/>
+      <AddAlbums onAlbumSubmit={handleAddAlbum} />
     </>
   );
 };

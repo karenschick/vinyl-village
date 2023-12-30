@@ -58,7 +58,7 @@ export const DisplayAlbums = () => {
           displayedAlbums.map((album) => (
             <Card
               className="mx-auto bg-dark mt-5"
-              key={album._id}
+              key={album._id || index}
               style={{ margin: "5px", padding: "15px", width: "80%" }}
             >
               <Card.Body>
@@ -111,7 +111,7 @@ export const DisplayAlbums = () => {
                         <ListGroup.Item
                           as="li"
                           className="d-flex justify-content-between align-items-start"
-                          key={index}
+                          key={`${album._id}-${index}`}
                         >
                           <div
                             className="ms-2 me-auto align-start"

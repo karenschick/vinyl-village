@@ -6,13 +6,12 @@ import axios from "axios";
 
 const API_URL = "http://localhost:3001/api";
 
-
 export const DisplayAlbums = () => {
   const { response } = useApiFetch("/albums");
   console.log("response:", response);
 
   const [displayedAlbums, setDisplayedAlbums] = useState([]);
-  // const [sortAlbum, setSortAlbum] = useState("albumTitle")
+  const [sortAlbum, setSortAlbum] = useState("albumTitle");
 
   const handleAddAlbum = (newAlbum) => {
     setDisplayedAlbums([...displayedAlbums, newAlbum]);
@@ -21,8 +20,8 @@ export const DisplayAlbums = () => {
   const handleRemoveAlbum = async (id) => {
     try {
       await axios.delete(`${API_URL}/albums/${id}`);
-      const updatedAlbum = displayedAlbums.filter(album => album._id !== id)
-      setDisplayedAlbums(updatedAlbum)
+      const updatedAlbum = displayedAlbums.filter((album) => album._id !== id);
+      setDisplayedAlbums(updatedAlbum);
     } catch (error) {
       console.error(`An error occurred deleting album ${id}.`);
     }
@@ -46,19 +45,28 @@ export const DisplayAlbums = () => {
   };
 
   useEffect(() => {
-    if (response) {
-      setDisplayedAlbums(response);
-    }
-  }, [response]);
+    const fetchAlbums = async () => {
+      try {
+        const response = await axios.get(
+          `${API_URL}/albums?sortBy=${sortAlbum}`
+        );
+        setDisplayedAlbums(response.data);
+      } catch (error) {
+        console.error("Error fetching albums:", error);
+      }
+    };
+
+    fetchAlbums();
+  }, [sortAlbum]); // Fetch albums whenever sortAlbum changes
 
   return (
     <>
       <div>
-        {/* <select onChange={(e)=> setSortAlbum(e.target.value)}>
-        <option value="albumTitle">Title</option>
-        <option value="releaseYear">Year</option>
-        <option value="artistName">Artist</option>
-      </select> */}
+        <select onChange={(e) => setSortAlbum(e.target.value)}>
+          <option value="albumTitle">Title</option>
+          <option value="releaseYear">Year</option>
+          <option value="artistName">Artist</option>
+        </select>
 
         {displayedAlbums &&
           displayedAlbums.map((album) => (

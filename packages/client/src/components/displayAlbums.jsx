@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Card, Button, ListGroup, Col, Badge } from "react-bootstrap";
 import { useApiFetch } from "../util/api";
 import AddAlbums from "./AddAlbums/AddAlbums";
+import axios from "axios";
+
+const API_URL = "http://localhost:3001/api";
+
 
 export const DisplayAlbums = () => {
   const { response } = useApiFetch("/albums");
@@ -16,9 +20,11 @@ export const DisplayAlbums = () => {
 
   const handleRemoveAlbum = async (id) => {
     try {
-      await api.delete(`/albums/${_id}`);
+      await axios.delete(`${API_URL}/albums/${id}`);
+      const updatedAlbum = displayedAlbums.filter(album => album._id !== id)
+      setDisplayedAlbums(updatedAlbum)
     } catch (error) {
-      toast.error(`An error occurred deleting album ${_id}.`);
+      console.error(`An error occurred deleting album ${id}.`);
     }
   };
 

@@ -25,13 +25,33 @@ const albumSchema = new mongoose.Schema({
       memberName: String,
     },
   ],
-  tracks: [
-    {
-      trackTitle: { type: String, required: true },
-      trackNumber: Number,
-      trackDuration: { type: Number, required: true, min: 0 },
+  tracks: {
+    type: [
+      {
+        trackTitle: {
+          type: String,
+          required: [true, "Track title is required"],
+        },
+        trackNumber: Number,
+        trackDuration: {
+          type: Number,
+          required: [true, "Track duration is required"],
+          min: [0, "Track duration must be non-negative"],
+        },
+      },
+    ],
+    validate: {
+      validator: function (tracks) {
+        if (tracks.length === 0) {
+          return false;
+        }
+        return tracks.every((track) => {
+          return track.trackTitle && track.trackDuration > 0;
+        });
+      },
+      message: "Each track must have a valid title and duration greater than 0",
     },
-  ],
+  },
 });
 
 const Album = mongoose.model("Album", albumSchema);

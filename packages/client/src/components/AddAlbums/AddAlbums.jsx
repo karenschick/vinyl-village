@@ -31,9 +31,10 @@ export const AddAlbums = ({ onAlbumSubmit }) => {
   };
 
   const addTrack = () => {
+    const newTrackNumber = albumData.tracks.length + 1
     setAlbumData({
       ...albumData,
-      tracks: [...albumData.tracks, { trackTitle: "", trackDuration: "" }],
+      tracks: [...albumData.tracks, { trackTitle: "", trackDuration: "", trackNumber: newTrackNumber}],
     });
   };
 
@@ -51,13 +52,15 @@ export const AddAlbums = ({ onAlbumSubmit }) => {
       ...albumData,
       releaseYear: parseInt(albumData.releaseYear, 10),
       tracks: albumData.tracks
-        .map((track) => ({
+      .filter((track) => track.trackTitle)
+        .map((track, index) => ({
           ...track,
+          trackNumber: index + 1,
           trackDuration: track.trackDuration
             ? parseInt(track.trackDuration, 10)
             : 0,
         }))
-        .filter((track) => track.trackTitle),
+        ,
     };
 
     console.log("sending data:", adjustedAlbumData);

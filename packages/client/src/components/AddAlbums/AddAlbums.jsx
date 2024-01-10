@@ -5,7 +5,7 @@ import { API_URL } from "../../util/constants";
 
 //const API_URL = "http://localhost:3001/api";
 
-export const AddAlbums = ({ onAlbumSubmit }) => {
+export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
   const [albumData, setAlbumData] = useState({
     albumTitle: "",
     releaseYear: "",
@@ -70,8 +70,9 @@ export const AddAlbums = ({ onAlbumSubmit }) => {
       const response = await axios.post(API_URL + "/albums", adjustedAlbumData);
       console.log("response data:", response.data);
       onAlbumSubmit(adjustedAlbumData);
+      toggleModal();
           } catch (error) {
-      console.error("Error:", error.response.data);
+      //console.error("Error:", error.response.data);
     }
 
     setAlbumData({
@@ -135,7 +136,7 @@ export const AddAlbums = ({ onAlbumSubmit }) => {
       <h5>Band Members</h5>
       {albumData.bandMembers.map((member, index) => (
         <Form.Control
-          key={index}
+        key={index}
           type="text"
           name="memberName"
           placeholder="Band Member Name"

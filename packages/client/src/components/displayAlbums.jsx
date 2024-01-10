@@ -13,7 +13,10 @@ export const DisplayAlbums = () => {
 
   const [displayedAlbums, setDisplayedAlbums] = useState([]);
   const [sortAlbum, setSortAlbum] = useState("albumTitle");
-  
+  const [showModal, setShowModal] = useState(false);
+
+  const toggleModal = () => setShowModal(!showModal);
+
   const handleAddAlbum = (newAlbum) => {
     setDisplayedAlbums([...displayedAlbums, newAlbum]);
   };
@@ -62,6 +65,19 @@ export const DisplayAlbums = () => {
 
   return (
     <>
+<Modal show={showModal} onHide={toggleModal}>
+  <Modal.Header closeButton>
+    <Modal.Title>Add New Album</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    <AddAlbums onAlbumSubmit={handleAddAlbum} toggleModal={toggleModal}/>
+  </Modal.Body>
+</Modal>
+<Button variant="primary" onClick={toggleModal}>
+  Add Album
+</Button>
+
+
             <div>
         <select onChange={(e) => setSortAlbum(e.target.value)}>
           <option value="albumTitle">Title</option>
@@ -126,7 +142,7 @@ export const DisplayAlbums = () => {
                         <ListGroup.Item
                           as="li"
                           className="d-flex justify-content-between align-items-start"
-                          key={`${album._id}-${index}`}
+                          key={`${album._id}-track-${index}`}
                         >
                           <div
                             className="ms-2 me-auto align-start"
@@ -155,7 +171,7 @@ export const DisplayAlbums = () => {
             </Card>
           ))}
       </div>
-<AddAlbums onAlbumSubmit={handleAddAlbum} />
+
     </>
   );
 };

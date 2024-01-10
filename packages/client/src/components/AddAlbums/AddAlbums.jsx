@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Form, Button, Col } from "react-bootstrap";
+import { Form, Button, Col, Row } from "react-bootstrap";
 import axios from "axios";
 import { API_URL } from "../../util/constants";
 
-//const API_URL = "http://localhost:3001/api";
+
 
 export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
   const [albumData, setAlbumData] = useState({
@@ -85,7 +85,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit} style={{ padding: "100px" }}>
+    <Form onSubmit={handleSubmit} style={{ padding: "50px" }}>
       <Form.Group>
         <Form.Label>Album Title</Form.Label>
         <Form.Control
@@ -132,7 +132,11 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
           />
         </div>
       ))}
-      <Button onClick={addTrack}>Add Track</Button>
+      <Row className="text-center"> 
+        <Col>
+          <Button onClick={addTrack}>Add Track</Button>
+        </Col>
+      </Row>
       <h5>Band Members</h5>
       {albumData.bandMembers.map((member, index) => (
         <Form.Control
@@ -144,8 +148,17 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
           onChange={(e) => handleBandMemberChange(index, e)}
         />
       ))}
-      <Button onClick={addBandMember}>Add Band Member</Button>
-      <Button type="submit">Submit</Button>
+      <Row className="text-center"> 
+        <Col>
+          <Button onClick={addBandMember}>Add Band Member</Button>
+        </Col>
+      </Row>
+
+      <Row className="text-center mt-3"> 
+        <Col>
+          <Button type="submit">Submit</Button>
+        </Col>
+      </Row>
     </Form>
   );
 };

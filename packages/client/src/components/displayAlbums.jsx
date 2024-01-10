@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Card, Button, ListGroup, Col, Badge } from "react-bootstrap";
+import { Card, Button, ListGroup, Col, Badge, Modal } from "react-bootstrap";
 import { useApiFetch } from "../util/api";
 import AddAlbums from "./AddAlbums/AddAlbums";
 import axios from "axios";
+import { API_URL } from "../util/constants";
 
-const API_URL = "http://localhost:3001/api";
+//const API_URL = "http://localhost:3001/api";
 
 export const DisplayAlbums = () => {
   const { response } = useApiFetch("/albums");
@@ -12,7 +13,7 @@ export const DisplayAlbums = () => {
 
   const [displayedAlbums, setDisplayedAlbums] = useState([]);
   const [sortAlbum, setSortAlbum] = useState("albumTitle");
-
+  
   const handleAddAlbum = (newAlbum) => {
     setDisplayedAlbums([...displayedAlbums, newAlbum]);
   };
@@ -57,11 +58,11 @@ export const DisplayAlbums = () => {
     };
 
     fetchAlbums();
-  }, [sortAlbum]); // Fetch albums whenever sortAlbum changes
+  }, [sortAlbum]);
 
   return (
     <>
-      <div>
+            <div>
         <select onChange={(e) => setSortAlbum(e.target.value)}>
           <option value="albumTitle">Title</option>
           <option value="releaseYear">Year</option>
@@ -154,7 +155,7 @@ export const DisplayAlbums = () => {
             </Card>
           ))}
       </div>
-      <AddAlbums onAlbumSubmit={handleAddAlbum} />
+<AddAlbums onAlbumSubmit={handleAddAlbum} />
     </>
   );
 };

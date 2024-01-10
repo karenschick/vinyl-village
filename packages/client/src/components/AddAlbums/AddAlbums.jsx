@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Form, Button, Col } from "react-bootstrap";
 import axios from "axios";
+import { API_URL } from "../../util/constants";
 
-const API_URL = "http://localhost:3001/api";
+//const API_URL = "http://localhost:3001/api";
 
 export const AddAlbums = ({ onAlbumSubmit }) => {
   const [albumData, setAlbumData] = useState({
@@ -69,7 +70,7 @@ export const AddAlbums = ({ onAlbumSubmit }) => {
       const response = await axios.post(API_URL + "/albums", adjustedAlbumData);
       console.log("response data:", response.data);
       onAlbumSubmit(adjustedAlbumData);
-    } catch (error) {
+          } catch (error) {
       console.error("Error:", error.response.data);
     }
 

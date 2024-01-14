@@ -7,7 +7,7 @@ export default function HomePage(props) {
 
   return (
     <main>
-      <h1>Albums</h1>
+      <h1 className="mt-5">Album Collection</h1>
       {error && (
         <h3 style={{ color: "red" }}>
           Error Loading Data: {JSON.stringify(error)}

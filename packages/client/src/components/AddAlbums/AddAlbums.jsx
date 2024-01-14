@@ -162,6 +162,8 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
             name="releaseYear"
             placeholder="Release Year"
             value={albumData.releaseYear}
+            min="1889"
+            max={new Date().getFullYear()}
             onChange={handleInputChange}
           />
         </Form.Group>

@@ -209,7 +209,7 @@ export const DisplayAlbums = () => {
                           handleShowConfirmModal(album._id, album.albumTitle)
                         }
                       >
-                        Remove
+                        Remove Album
                       </Button>
                     </div>
                   </div>

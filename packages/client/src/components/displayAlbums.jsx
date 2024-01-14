@@ -103,7 +103,7 @@ export const DisplayAlbums = () => {
 
         <ConfirmDelete
           showConfirmModal={showConfirmModal}
-          handleCloseConfirmModal={() => setShowConfirmModal(false)}
+          handleCloseConfirmModal={handleCloseConfirmModal}
           handleConfirmDelete={handleConfirmDelete}
           albumTitle={albumToDelete.title}
         />

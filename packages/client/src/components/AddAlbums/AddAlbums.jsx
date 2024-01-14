@@ -156,7 +156,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
           />
         </Form.Group>
         <Form.Group className="mt-3">
-          <h5 >Year</h5>
+          <h5>Year</h5>
           <Form.Control
             type="number"
             name="releaseYear"
@@ -176,76 +176,76 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
           />
         </Form.Group>
         <Form.Group className="mt-3">
-        <h5 >Tracks</h5>
-        {albumData.tracks.map((track, index) => (
-          <div key={index}>
-            <Form.Control
-              type="text"
-              name="trackTitle"
-              placeholder="Track Title"
-              value={track.trackTitle}
-              onChange={(e) => handleTrackChange(index, e)}
-            />
-            <Form.Control
-              type="number"
-              name="trackDuration"
-              placeholder="Track Duration (seconds)"
-              value={track.trackDuration}
-              onChange={(e) => handleTrackChange(index, e)}
-            />
-            <Row className="justify-content-center mt-2 mb-2">
-              <Col xs={12} sm={6} md={4} lg={3}>
-                <Button
-                  variant="danger"
-                  onClick={() => removeTrack(index)}
-                  className="w-100"
-                >
-                  Remove
-                </Button>
-              </Col>
-            </Row>
-          </div>
-        ))}
-        <Row className="text-center mt-2">
-          <Col>
-            <Button variant="secondary" onClick={addTrack}>
-              Add Track
-            </Button>
-          </Col>
-        </Row>
+          <h5>Tracks</h5>
+          {albumData.tracks.map((track, index) => (
+            <div key={index}>
+              <Form.Control
+                type="text"
+                name="trackTitle"
+                placeholder="Track Title"
+                value={track.trackTitle}
+                onChange={(e) => handleTrackChange(index, e)}
+              />
+              <Form.Control
+                type="number"
+                name="trackDuration"
+                placeholder="Track Duration (seconds)"
+                value={track.trackDuration}
+                onChange={(e) => handleTrackChange(index, e)}
+              />
+              <Row className="justify-content-center mt-2 mb-2">
+                <Col xs={12} sm={6} md={4} lg={3}>
+                  <Button
+                    variant="danger"
+                    onClick={() => removeTrack(index)}
+                    className="w-100"
+                  >
+                    Remove
+                  </Button>
+                </Col>
+              </Row>
+            </div>
+          ))}
+          <Row className="text-center mt-2">
+            <Col>
+              <Button variant="secondary" onClick={addTrack}>
+                Add Track
+              </Button>
+            </Col>
+          </Row>
         </Form.Group>
         <Form.Group className="mt-3">
-        <h5 >Band Members</h5>
-        {albumData.bandMembers.map((member, index) => (
-          <div key={index} className="mb-2">
-            <Form.Control
-              type="text"
-              name="memberName"
-              placeholder="Band Member Name"
-              value={member.memberName}
-              onChange={(e) => handleBandMemberChange(index, e)}
-            />
+          <h5>Band Members</h5>
+          {albumData.bandMembers.map((member, index) => (
+            <div key={index} className="mb-2">
+              <Form.Control
+                type="text"
+                name="memberName"
+                placeholder="Band Member Name"
+                value={member.memberName}
+                onChange={(e) => handleBandMemberChange(index, e)}
+              />
 
-            <Row className="justify-content-center mt-2">
-              <Col xs={12} sm={6} md={4} lg={3}>
-                <Button
-                  variant="danger"
-                  onClick={() => removeBandMember(index)}
-                  className="w-100"
-                >
-                  Remove
-                </Button>
-              </Col>
-            </Row>
-          </div>
-        ))}
-        <Row className="text-center mt-2">
-          <Col>
-            <Button variant="secondary" onClick={addBandMember}>
-              Add Band Member
-            </Button>
-          </Col>
-        </Row>
+              <Row className="justify-content-center mt-2">
+                <Col xs={12} sm={6} md={4} lg={3}>
+                  <Button
+                    variant="danger"
+                    onClick={() => removeBandMember(index)}
+                    className="w-100"
+                  >
+                    Remove
+                  </Button>
+                </Col>
+              </Row>
+            </div>
+          ))}
+          <Row className="text-center mt-2">
+            <Col>
+              <Button variant="secondary" onClick={addBandMember}>
+                Add Band Member
+              </Button>
+            </Col>
+          </Row>
         </Form.Group>
         <Row className="text-center mt-5">
           <Col>

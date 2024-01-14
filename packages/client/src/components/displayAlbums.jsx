@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Card, Button, ListGroup, Col, Badge, Modal, Container, Row } from "react-bootstrap";
+import {
+  Card,
+  Button,
+  ListGroup,
+  Col,
+  Badge,
+  Modal,
+  Container,
+  Row,
+} from "react-bootstrap";
 import { useApiFetch } from "../util/api";
 import AddAlbums from "./AddAlbums/AddAlbums";
 import axios from "axios";
@@ -31,7 +40,7 @@ export const DisplayAlbums = () => {
 
   const handleCloseConfirmModal = () => {
     setShowConfirmModal(false);
-    setAlbumToDelete({ id: null, title: "" })
+    setAlbumToDelete({ id: null, title: "" });
   };
 
   const toggleModal = () => setShowModal(!showModal);
@@ -92,123 +101,124 @@ export const DisplayAlbums = () => {
         </Modal.Body>
       </Modal>
       <Container className="mt-5">
-      <Row className="justify-content-center">
+        <Row className="justify-content-center">
           <Col md={4} className="text-center">
             <Card className="mb-3">
               <Card.Body>
                 <h3>Add Album to Collection</h3>
-                <Button variant="primary" onClick={toggleModal}>Add</Button>
+                <Button variant="primary" onClick={toggleModal}>
+                  Add
+                </Button>
               </Card.Body>
             </Card>
           </Col>
         </Row>
 
-      <div className="mt-5">
-        <h2>Sort Albums</h2>
-        <select onChange={(e) => setSortAlbum(e.target.value)}>
-          <option value="albumTitle">Title</option>
-          <option value="releaseYear">Year</option>
-          <option value="artistName">Artist</option>
-        </select>
+        <div className="mt-5">
+          <h2>Sort Albums</h2>
+          <select onChange={(e) => setSortAlbum(e.target.value)}>
+            <option value="albumTitle">Title</option>
+            <option value="releaseYear">Year</option>
+            <option value="artistName">Artist</option>
+          </select>
 
-        <ConfirmDelete
-          showConfirmModal={showConfirmModal}
-          handleCloseConfirmModal={handleCloseConfirmModal}
-          handleConfirmDelete={handleConfirmDelete}
-          albumTitle={albumToDelete.title || "this album"}
-        />
+          <ConfirmDelete
+            showConfirmModal={showConfirmModal}
+            handleCloseConfirmModal={handleCloseConfirmModal}
+            handleConfirmDelete={handleConfirmDelete}
+            albumTitle={albumToDelete.title || "this album"}
+          />
 
-        {displayedAlbums &&
-          displayedAlbums.map((album) => (
-            <Card
-              className="mx-auto bg-dark mt-5"
-              key={album._id}
-              style={{ margin: "5px", padding: "15px", width: "80%" }}
-            >
-              <Card.Body>
-                <div className="row">
-                  <Col
-                    lg={6}
-                    xs={12}
-                    style={{
-                      color: "white",
-                      alignSelf: "center",
-                      padding: "20px",
-                    }}
-                  >
-                    <Card.Title style={{ fontSize: "27px" }}>
-                      {album.albumTitle}
-                    </Card.Title>
-                    <Card.Subtitle className="mt-4">
-                      {album.releaseYear}
-                    </Card.Subtitle>
-                    <Card.Body className="mt-1">
-                      {album.artistName} <br></br>
-                      {album.bandMembers.length > 1 ? (
-                        <>
-                          <div className="mt-3 band-members">
-                            (
-                            {album.bandMembers.map((member, index) => (
-                              <span key={index}>
-                                {member.memberName}
-                                {index !== album.bandMembers.length - 1
-                                  ? ", "
-                                  : ""}
-                              </span>
-                            ))}
-                            )
-                          </div>
-                        </>
-                      ) : (
-                        ""
-                      )}
-                      <br></br>
-                      <div className="mb-4">
-                        Album Duration: {albumDuration(album)}
-                      </div>
-                    </Card.Body>
-                  </Col>
-
-                  <Col lg={6} xs={12}>
-                    <ListGroup>
-                      {album.tracks.map((track, index) => (
-                        <ListGroup.Item
-                          as="li"
-                          className="d-flex justify-content-between align-items-start"
-                          key={`${album._id}-track-${index}`}
-                        >
-                          <div
-                            className="ms-2 me-auto align-start"
-                            style={{ textAlign: "start" }}
-                          >
-                            {track.trackNumber}. {track.trackTitle}
-                          </div>
-                          <Badge style={{ marginLeft: "5px" }}>
-                            {durationConversion(track.trackDuration)}
-                          </Badge>
-                        </ListGroup.Item>
-                      ))}
-                    </ListGroup>
-                  </Col>
-                  <div className="mx-auto mt-3">
-                    <Button
-                      variant="secondary"
-                      style={{ marginTop: "15px" }}
-                      onClick={() =>
-                        handleShowConfirmModal(album._id, album.albumTitle)
-                      }
+          {displayedAlbums &&
+            displayedAlbums.map((album) => (
+              <Card
+                className="mx-auto bg-dark mt-5"
+                key={album._id}
+                style={{ margin: "5px", padding: "15px", width: "80%" }}
+              >
+                <Card.Body>
+                  <div className="row">
+                    <Col
+                      lg={6}
+                      xs={12}
+                      style={{
+                        color: "white",
+                        alignSelf: "center",
+                        padding: "20px",
+                      }}
                     >
-                      Remove
-                    </Button>
+                      <Card.Title style={{ fontSize: "27px" }}>
+                        {album.albumTitle}
+                      </Card.Title>
+                      <Card.Subtitle className="mt-4">
+                        {album.releaseYear}
+                      </Card.Subtitle>
+                      <Card.Body className="mt-1">
+                        {album.artistName} <br></br>
+                        {album.bandMembers.length > 1 ? (
+                          <>
+                            <div className="mt-3 band-members">
+                              (
+                              {album.bandMembers.map((member, index) => (
+                                <span key={index}>
+                                  {member.memberName}
+                                  {index !== album.bandMembers.length - 1
+                                    ? ", "
+                                    : ""}
+                                </span>
+                              ))}
+                              )
+                            </div>
+                          </>
+                        ) : (
+                          ""
+                        )}
+                        <br></br>
+                        <div className="mb-4">
+                          Album Duration: {albumDuration(album)}
+                        </div>
+                      </Card.Body>
+                    </Col>
+
+                    <Col lg={6} xs={12}>
+                      <ListGroup>
+                        {album.tracks.map((track, index) => (
+                          <ListGroup.Item
+                            as="li"
+                            className="d-flex justify-content-between align-items-start"
+                            key={`${album._id}-track-${index}`}
+                          >
+                            <div
+                              className="ms-2 me-auto align-start"
+                              style={{ textAlign: "start" }}
+                            >
+                              {track.trackNumber}. {track.trackTitle}
+                            </div>
+                            <Badge style={{ marginLeft: "5px" }}>
+                              {durationConversion(track.trackDuration)}
+                            </Badge>
+                          </ListGroup.Item>
+                        ))}
+                      </ListGroup>
+                    </Col>
+                    <div className="mx-auto mt-3">
+                      <Button
+                        variant="secondary"
+                        style={{ marginTop: "15px" }}
+                        onClick={() =>
+                          handleShowConfirmModal(album._id, album.albumTitle)
+                        }
+                      >
+                        Remove
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              </Card.Body>
-            </Card>
-          ))}
-      </div>
+                </Card.Body>
+              </Card>
+            ))}
+        </div>
       </Container>
     </>
-    
   );
 };
 

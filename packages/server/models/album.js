@@ -43,8 +43,8 @@ const albumSchema = new mongoose.Schema({
     validate: {
       validator: function (tracks) {
         if (tracks.length === 0) {
-          this.invalidate('tracks', 'The album must have at least one track');
-        return false;
+          this.invalidate("tracks", "The album must have at least one track");
+          return false;
         }
         return tracks.every((track) => {
           return track.trackTitle && track.trackDuration > 0;

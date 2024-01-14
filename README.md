@@ -6,44 +6,29 @@ Tim 1:1
 Cody 
 
 ## Advanced Challenge
--pseudocode
--reflection
 
-Validations on front end and back end
--Album
- -title: required
- -year: must be 4 digits and in past but no earlier than 1889
- -artist: required
- -song list: required
+-Form Validation:
+ -Implement frontend validation for adding a new album.
+ -Ensure the user cannot submit the form if required fields are missing or validation rules are not met.
+ -Display error messages using toast notifications for invalid inputs.
+-Dynamic Form Fields:
+ -Enhance the form to allow dynamic addition of tracks and band members.
+ -Each track should include fields for the title and duration. Implement validations as required.
+ -Submission and Integration with Backend:
+ -On form submission, validate the data on the client side.
+ -If validation passes, send the data to the backend API for further validation and insertion into the database.
+ -Handle and display any error responses from the backend appropriately.
+-Allow user to sort list by year, title, or artist name
+ -Adjust your backend API to accept sorting parameters and return sorted data accordingly.
+-Allow the user to delete albums
+ -Add a delete icon next to each album in DisplayAlbums component.
+ -Implement a confirmation dialog before deletion.
+ -On confirmation, send a request to your backend to delete the specific album and then update frontend state to reflect this change.
 
-Song
- -title: required
- -duration: required, positive number
+## Reflection Advanced
 
-Artist
- -name: required
- -list of member names: optional
-
-Back end requirements
- -get the list of albumns sorted by year, title, or artist name
- -insert a new album that passes validations
- -delete an album
-
-Front end requirements
- -styling: make pretty
- -validate submissions on both front and back end
- -allow user of page to sort list by year, title, or artist name (either with radio buttons or grid control with clickable column headers)
- -allow user of the page to add (need a form that allows ability to add additional tracks, bandmembers and validations) and delete albums (trash icon, must have confirmation button)
-
-extra
--different ways of sorting collection
--edit data of existing album
--undo mistaken deletion
--add additional data fields (condition of album, date added to collection, photo of album cover)
--make app work just as well on phone or desktop
--login and registration system where only logged in users can update album collection
--colors, images, sounds
-
+What I could have done differently:
+I could create a way to remove individual tracks or band members before submission. I could handle potential errors or edge cases on my api endpoints. I could handle cases where the tracks array might be empty in my mongoose model. Better error messages on my back end. I could implement unit tests to ensure that each component and endpoint works exactly as expected and handles edge cases.
 
 
 ## Project Plan Intermediate Challenge
@@ -122,7 +107,44 @@ I initially planned to make the styling using CSS but decided to use Bootstrap a
 
 
 
-## Questions
+## Questions/notes
+
+Validations on front end and back end
+-Album
+ <!-- -title: required -->
+ <!-- -year: must be 4 digits and in past but no earlier than 1889 -->
+ <!-- -artist: required -->
+ <!-- -song list: required -->
+
+Song
+ -title: required
+ <!-- -duration: required, positive number -->
+
+Artist
+ <!-- -name: required
+ -list of member names: optional -->
+
+Back end requirements
+ <!-- -get the list of albumns sorted by year, title, or artist name -->
+ -insert a new album that passes validations
+ <!-- -delete an album -->
+
+Front end requirements
+ -validate submissions on both front and back end
+ <!-- -allow user of page to sort list by year, title, or artist name (either with radio buttons or grid control with clickable column headers)
+ -allow user of the page to add (need a form that allows ability to add additional tracks, bandmembers and validations) and delete albums (trash icon, must have confirmation button) -->
+
+extra
+-styling: make pretty
+-fix track number issue
+-different ways of sorting collection
+-edit data of existing album
+-undo mistaken deletion
+-add additional data fields (condition of album, date added to collection, photo of album cover)
+-make app work just as well on phone or desktop
+-login and registration system where only logged in users can update album collection
+-colors, images, sounds
+
 
 how do i convert seconds to min:sec for duration?
 look at how users is set up, to set up albums?

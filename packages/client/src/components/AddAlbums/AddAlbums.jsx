@@ -181,7 +181,9 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
         ))}
         <Row className="text-center mt-2">
           <Col>
-            <Button variant="secondary" onClick={addTrack}>Add Track</Button>
+            <Button variant="secondary" onClick={addTrack}>
+              Add Track
+            </Button>
           </Col>
         </Row>
         <h5>Band Members</h5>
@@ -197,7 +199,9 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
         ))}
         <Row className="text-center mt-2">
           <Col>
-            <Button variant="secondary" onClick={addBandMember}>Add Band Member</Button>
+            <Button variant="secondary" onClick={addBandMember}>
+              Add Band Member
+            </Button>
           </Col>
         </Row>
 

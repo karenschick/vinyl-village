@@ -4,8 +4,7 @@ import { useApiFetch } from "../util/api";
 import AddAlbums from "./AddAlbums/AddAlbums";
 import axios from "axios";
 import { API_URL } from "../util/constants";
-
-//const API_URL = "http://localhost:3001/api";
+import ConfirmDelete from "./ConfirmDelete/ConfirmDelete";
 
 export const DisplayAlbums = () => {
   const { response } = useApiFetch("/albums");
@@ -14,7 +13,26 @@ export const DisplayAlbums = () => {
   const [displayedAlbums, setDisplayedAlbums] = useState([]);
   const [sortAlbum, setSortAlbum] = useState("albumTitle");
   const [showModal, setShowModal] = useState(false);
+  const [albumToDelete, setAlbumToDelete] = useState({ id: null, title: "" });
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
+  const handleConfirmDelete = async () => {
+    setShowConfirmModal(false);
+    if (albumToDelete && albumToDelete.id) {
+      await handleRemoveAlbum(albumToDelete.id);
+      setAlbumToDelete({ id: null, title: "" });
+    }
+  };
+
+  const handleShowConfirmModal = (albumId, albumTitle) => {
+    setAlbumToDelete({ id: albumId, title: albumTitle });
+    setShowConfirmModal(true);
+  };
+
+  const handleCloseConfirmModal = () => {
+    setShowConfirmModal(false);
+    setAlbumToDelete(null);
+  };
   const toggleModal = () => setShowModal(!showModal);
 
   const handleAddAlbum = (newAlbum) => {
@@ -34,7 +52,6 @@ export const DisplayAlbums = () => {
   const durationConversion = (duration) => {
     const minutes = Math.floor(duration / 60);
     const remainingSeconds = duration % 60;
-    //padStart is used to ensure the seconds is always two digits
     const timeFormat = `${minutes}:${remainingSeconds
       .toString()
       .padStart(2, "0")}`;
@@ -65,25 +82,31 @@ export const DisplayAlbums = () => {
 
   return (
     <>
-<Modal show={showModal} onHide={toggleModal}>
-  <Modal.Header closeButton>
-    <Modal.Title>Add New Album</Modal.Title>
-  </Modal.Header>
-  <Modal.Body>
-    <AddAlbums onAlbumSubmit={handleAddAlbum} toggleModal={toggleModal}/>
-  </Modal.Body>
-</Modal>
-<Button variant="primary" onClick={toggleModal}>
-  Add Album
-</Button>
+      <Modal show={showModal} onHide={toggleModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add New Album</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <AddAlbums onAlbumSubmit={handleAddAlbum} toggleModal={toggleModal} />
+        </Modal.Body>
+      </Modal>
+      <Button variant="primary" onClick={toggleModal}>
+        Add Album
+      </Button>
 
-
-            <div>
+      <div>
         <select onChange={(e) => setSortAlbum(e.target.value)}>
           <option value="albumTitle">Title</option>
           <option value="releaseYear">Year</option>
           <option value="artistName">Artist</option>
         </select>
+
+        <ConfirmDelete
+          showConfirmModal={showConfirmModal}
+          handleCloseConfirmModal={() => setShowConfirmModal(false)}
+          handleConfirmDelete={handleConfirmDelete}
+          albumTitle={albumToDelete.title}
+        />
 
         {displayedAlbums &&
           displayedAlbums.map((album) => (
@@ -161,7 +184,9 @@ export const DisplayAlbums = () => {
                     <Button
                       variant="secondary"
                       style={{ marginTop: "15px" }}
-                      onClick={() => handleRemoveAlbum(album._id)}
+                      onClick={() =>
+                        handleShowConfirmModal(album._id, album.albumTitle)
+                      }
                     >
                       Remove
                     </Button>
@@ -171,7 +196,6 @@ export const DisplayAlbums = () => {
             </Card>
           ))}
       </div>
-
     </>
   );
 };

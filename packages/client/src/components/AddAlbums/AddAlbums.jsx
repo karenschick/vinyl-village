@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import axios from "axios";
 import { API_URL } from "../../util/constants";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
   const [albumData, setAlbumData] = useState({
@@ -22,18 +22,18 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
-    if (name === "releaseYear" && value < 0){
-      return
+    if (name === "releaseYear" && value < 0) {
+      return;
     }
     setAlbumData({ ...albumData, [name]: value });
   };
 
   const handleTrackChange = (index, event) => {
     const newTracks = [...albumData.tracks];
-   
-    const {name, value} =event.target
-    if (name==="trackDuration" && value < 0){
-      return
+
+    const { name, value } = event.target;
+    if (name === "trackDuration" && value < 0) {
+      return;
     }
 
     newTracks[index][name] = value;
@@ -103,7 +103,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
         .map((track, index) => ({
           ...track,
           trackNumber: index + 1,
-          trackDuration: parseInt(track.trackDuration, 10) || 0
+          trackDuration: parseInt(track.trackDuration, 10) || 0,
         })),
     };
 
@@ -116,7 +116,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
       toggleModal();
     } catch (error) {
       console.error("Error:", error.response?.data || error);
-      toast.error("An error occurred while submitting the form.")
+      toast.error("An error occurred while submitting the form.");
       //console.error("Error:", error.response.data);
     }
 

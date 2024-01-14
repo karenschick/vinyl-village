@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Button, ListGroup, Col, Badge, Modal } from "react-bootstrap";
+import { Card, Button, ListGroup, Col, Badge, Modal, Container, Row } from "react-bootstrap";
 import { useApiFetch } from "../util/api";
 import AddAlbums from "./AddAlbums/AddAlbums";
 import axios from "axios";
@@ -31,8 +31,9 @@ export const DisplayAlbums = () => {
 
   const handleCloseConfirmModal = () => {
     setShowConfirmModal(false);
-    setAlbumToDelete(null);
+    setAlbumToDelete({ id: null, title: "" })
   };
+
   const toggleModal = () => setShowModal(!showModal);
 
   const handleAddAlbum = (newAlbum) => {
@@ -90,11 +91,20 @@ export const DisplayAlbums = () => {
           <AddAlbums onAlbumSubmit={handleAddAlbum} toggleModal={toggleModal} />
         </Modal.Body>
       </Modal>
-      <Button variant="primary" onClick={toggleModal}>
-        Add Album
-      </Button>
+      <Container className="mt-5">
+      <Row className="justify-content-center">
+          <Col md={4} className="text-center">
+            <Card className="mb-3">
+              <Card.Body>
+                <h3>Add Album to Collection</h3>
+                <Button variant="primary" onClick={toggleModal}>Add</Button>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
 
-      <div>
+      <div className="mt-5">
+        <h2>Sort Albums</h2>
         <select onChange={(e) => setSortAlbum(e.target.value)}>
           <option value="albumTitle">Title</option>
           <option value="releaseYear">Year</option>
@@ -105,7 +115,7 @@ export const DisplayAlbums = () => {
           showConfirmModal={showConfirmModal}
           handleCloseConfirmModal={handleCloseConfirmModal}
           handleConfirmDelete={handleConfirmDelete}
-          albumTitle={albumToDelete.title}
+          albumTitle={albumToDelete.title || "this album"}
         />
 
         {displayedAlbums &&
@@ -196,7 +206,9 @@ export const DisplayAlbums = () => {
             </Card>
           ))}
       </div>
+      </Container>
     </>
+    
   );
 };
 

@@ -64,6 +64,18 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
     });
   };
 
+  const removeTrack = (index) => {
+    const newTracks = [...albumData.tracks];
+    newTracks.splice(index, 1);
+    setAlbumData({ ...albumData, tracks: newTracks });
+  };
+
+  const removeBandMember = (index) => {
+    const newBandMembers = [...albumData.bandMembers];
+    newBandMembers.splice(index, 1);
+    setAlbumData({ ...albumData, bandMembers: newBandMembers });
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -134,33 +146,37 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
       <ToastContainer />
       <Form onSubmit={handleSubmit} style={{ padding: "50px" }}>
         <Form.Group>
-          <Form.Label>Album Title</Form.Label>
+          <h5>Album</h5>
           <Form.Control
             type="text"
             name="albumTitle"
+            placeholder="Album Title"
             value={albumData.albumTitle}
             onChange={handleInputChange}
           />
         </Form.Group>
-        <Form.Group>
-          <Form.Label>Release Year</Form.Label>
+        <Form.Group className="mt-3">
+          <h5 >Year</h5>
           <Form.Control
             type="number"
             name="releaseYear"
+            placeholder="Release Year"
             value={albumData.releaseYear}
             onChange={handleInputChange}
           />
         </Form.Group>
-        <Form.Group>
-          <Form.Label>Artist Name</Form.Label>
+        <Form.Group className="mt-3">
+          <h5>Artist</h5>
           <Form.Control
             type="text"
             name="artistName"
+            placeholder="Artist Name"
             value={albumData.artistName}
             onChange={handleInputChange}
           />
         </Form.Group>
-        <h5>Tracks</h5>
+        <Form.Group className="mt-3">
+        <h5 >Tracks</h5>
         {albumData.tracks.map((track, index) => (
           <div key={index}>
             <Form.Control
@@ -177,6 +193,17 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
               value={track.trackDuration}
               onChange={(e) => handleTrackChange(index, e)}
             />
+            <Row className="justify-content-center mt-2 mb-2">
+              <Col xs={12} sm={6} md={4} lg={3}>
+                <Button
+                  variant="danger"
+                  onClick={() => removeTrack(index)}
+                  className="w-100"
+                >
+                  Remove
+                </Button>
+              </Col>
+            </Row>
           </div>
         ))}
         <Row className="text-center mt-2">
@@ -186,16 +213,31 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
             </Button>
           </Col>
         </Row>
-        <h5>Band Members</h5>
+        </Form.Group>
+        <Form.Group className="mt-3">
+        <h5 >Band Members</h5>
         {albumData.bandMembers.map((member, index) => (
-          <Form.Control
-            key={index}
-            type="text"
-            name="memberName"
-            placeholder="Band Member Name"
-            value={member.memberName}
-            onChange={(e) => handleBandMemberChange(index, e)}
-          />
+          <div key={index} className="mb-2">
+            <Form.Control
+              type="text"
+              name="memberName"
+              placeholder="Band Member Name"
+              value={member.memberName}
+              onChange={(e) => handleBandMemberChange(index, e)}
+            />
+
+            <Row className="justify-content-center mt-2">
+              <Col xs={12} sm={6} md={4} lg={3}>
+                <Button
+                  variant="danger"
+                  onClick={() => removeBandMember(index)}
+                  className="w-100"
+                >
+                  Remove
+                </Button>
+              </Col>
+            </Row>
+          </div>
         ))}
         <Row className="text-center mt-2">
           <Col>
@@ -204,8 +246,8 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
             </Button>
           </Col>
         </Row>
-
-        <Row className="text-center mt-3">
+        </Form.Group>
+        <Row className="text-center mt-5">
           <Col>
             <Button type="submit">Submit</Button>
           </Col>

@@ -22,7 +22,7 @@ export const useFetch = (url, options = {}) => {
       }
     };
     fetchData();
-  }, []);
+  }, [url]);
   return { response, error, isLoading };
 };
 

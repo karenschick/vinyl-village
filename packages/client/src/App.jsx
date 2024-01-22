@@ -1,10 +1,7 @@
 import React from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.min.css";
-import { Container, Row, Col } from "react-bootstrap";
-
-
+import { Route, Routes } from "react-router-dom";
+import { Col, Row  } from "react-bootstrap";
+import { useProvideAuth } from "./hooks/useAuth";
 
 
 const App = () => {
@@ -29,12 +26,12 @@ const App = () => {
               <Col xs={0} md={2} xl={3} />
               <Col xs={12} md={8} xl={6}>
                 <Routes>
-                  {/* <Route exact path="/u/:uname" element={<UserDetailPage />} />
+                  <Route exact path="/u/:uname" element={<UserDetailPage />} />
                   <Route exact path="/p/:pid" element={<PostDetailPage />} />
                   <Route exact path="/" element={<Feed />} />
-                  <Route exact path="/login" element={<Navigate to="/" />} /> */}
-                  {/* <Route exact path="/register" element={<Navigate to="/" />} /> */}
-                  {/* <Route
+                  <Route exact path="/login" element={<Navigate to="/" />} /> 
+                  <Route exact path="/register" element={<Navigate to="/" />} />
+                  <Route
                     element={({ location }) => {
                       return (
                         <div
@@ -49,7 +46,7 @@ const App = () => {
                         </div>
                       );
                     }}
-                  /> */}
+                  />
                 </Routes>
               </Col>
               <Col xs={0} md={2} xl={3} />
@@ -58,7 +55,7 @@ const App = () => {
         </>
       ) : (
         <Routes>
-          {/* <Route path="/login" element={<LoginPage />} /> */}
+          {/* {/* <Route path="/login" element={<LoginPage />} /> */}
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/" element={<HomePage />} />
         </Routes>

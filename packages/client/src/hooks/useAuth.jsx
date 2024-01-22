@@ -1,6 +1,6 @@
 import { useReducer, useEffect, useContext, createContext } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../src/util/api";
+import api from "../util/api";
 
 const initialState = {
   isAuthenticated: null,

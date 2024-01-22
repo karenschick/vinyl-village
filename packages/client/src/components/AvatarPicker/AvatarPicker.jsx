@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Image } from "react-bootstrap";
-import "./AvatarPicker.scss";
+//import "./AvatarPicker.scss";
 //import UploadProfilePhoto from "../UploadProfilePhoto/UploadProfilePhoto";
 
 let imgs = [
@@ -13,6 +13,8 @@ let imgs = [
   "/tiger.svg",
   "/whale.svg",
 ];
+
+
 const AvatarPicker = ({ profileImage, setProfileImage }) => {
   const handleAvatarPicker = (src) => {
     setProfileImage(src);

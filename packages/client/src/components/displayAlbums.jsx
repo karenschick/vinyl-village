@@ -75,6 +75,10 @@ export const DisplayAlbums = () => {
     return durationConversion(totalDuration);
   };
 
+  const handleSort = (sortBy) => {
+    setSortAlbum(sortBy)
+  }
+
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
@@ -115,13 +119,12 @@ export const DisplayAlbums = () => {
         </Row>
 
         <div className="mt-5">
-          <h2>Sort Albums</h2>
-          <select onChange={(e) => setSortAlbum(e.target.value)}>
-            <option value="albumTitle">Title</option>
-            <option value="releaseYear">Year</option>
-            <option value="artistName">Artist</option>
-          </select>
-
+          
+          <div className="sort-tabs">
+            <Button className="m-2" variant="outline-primary" onClick={() => handleSort('albumTitle')}>Title</Button>
+            <Button className="m-2"variant="outline-primary" onClick={() => handleSort('releaseYear')}>Year</Button>
+            <Button className="m-2"variant="outline-primary" onClick={() => handleSort('artistName')}>Artist</Button>
+          </div>
           <ConfirmDelete
             showConfirmModal={showConfirmModal}
             handleCloseConfirmModal={handleCloseConfirmModal}

@@ -1,5 +1,4 @@
 import { useApiFetch } from "../util/api";
-//import LoadingSpinner from "../components/LoadingSpinner";
 import DisplayAlbums from "../components/displayAlbums";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 

@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, InputGroup, Form, Button } from "react-bootstrap";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 import { setAuthToken } from "../util/api";
-import { useProvideAuth } from "../../hooks/useAuth";
-import AvatarPicker from "../components/AvatarPicker/AvatarPicker";
 
+import AvatarPicker from "../components/AvatarPicker/AvatarPicker";
+import { useProvideAuth } from "../hooks/useAuth";
 
 
 
@@ -96,7 +96,7 @@ const RegisterPage = () => {
       console.log(profileImage);
       return (
         <div style={{ overflow: "auto", height: "100vh" }}>
-          <LandingHeader />
+          {/* <LandingHeader /> */}
     
           <Container className="mb-5">
             <Row className="pt-5 justify-content-center">

@@ -1,8 +1,11 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { Col, Row  } from "react-bootstrap";
+import { Col, Row, ToastContainer } from "react-bootstrap";
 import { useProvideAuth } from "./hooks/useAuth";
-
+import RegisterPage from "./pages/RegisterPage"
+import HomePage from "./pages/HomePage";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./index.css";
 
 const App = () => {
   const {
@@ -10,9 +13,9 @@ const App = () => {
   } = useProvideAuth();
 
   return (
-    <ErrorBoundary>
+    <>
       <ToastContainer position="top-center" />
-      {user ? (
+      {/* {user ? (
         <>
           <Header />
           <Container
@@ -27,9 +30,7 @@ const App = () => {
               <Col xs={12} md={8} xl={6}>
                 <Routes>
                   <Route exact path="/u/:uname" element={<UserDetailPage />} />
-                  <Route exact path="/p/:pid" element={<PostDetailPage />} />
-                  <Route exact path="/" element={<Feed />} />
-                  <Route exact path="/login" element={<Navigate to="/" />} /> 
+                  <Route exact path="/login" element={<Navigate to="/" />} />
                   <Route exact path="/register" element={<Navigate to="/" />} />
                   <Route
                     element={({ location }) => {
@@ -53,14 +54,14 @@ const App = () => {
             </Row>
           </Container>
         </>
-      ) : (
+      ) : ( */}
         <Routes>
           {/* {/* <Route path="/login" element={<LoginPage />} /> */}
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/" element={<HomePage />} />
         </Routes>
-      )}
-    </ErrorBoundary>
+      {/* )} */}
+    </>
   );
 };
 

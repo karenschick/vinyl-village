@@ -8,15 +8,15 @@ import mongoose from "mongoose";
 import keys from "./config/keys";
 import router from "./routes";
 import { requestLogger, errorHandler } from "./middleware";
-import albumRouter from "./routes/albums.js";
+import fileUpload from "express-fileupload";
 
 const createError = require("http-errors");
 
 mongoose.connect(keys.database.url, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useFindAndModify: false,
-  useCreateIndex: true,
+  // useFindAndModify: false,
+  // useCreateIndex: true,
 });
 
 mongoose.connection.on("connected", () => {
@@ -37,10 +37,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname,"..", "public")));
 app.use(requestLogger);
+app.use(fileUpload());
 
 // api router
-// app.use(keys.app.apiEndpoint, router)
-app.use(keys.app.apiEndpoint, albumRouter);
+app.use(keys.app.apiEndpoint, router)
+
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   next(createError(404, "NotFound"));

@@ -5,7 +5,7 @@ const useFileUploader = () => {
     const formData = new FormData();
     formData.append(name, file);
     console.log(formData);
-    return await api.post(url, formData);
+    return await api.post('/files/images', formData);
   };
   return {
     uploadFile,

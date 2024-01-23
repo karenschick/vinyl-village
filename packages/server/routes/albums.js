@@ -1,10 +1,11 @@
 // routes/albums.js
 import express from "express";
 import Album from "../models/album";
+import { Express } from "express";
 
-const albumRouter = express.Router();
+const router = express.Router();
 
-albumRouter.get("/albums", async (req, res) => {
+router.get("/", async (req, res) => {
   const sortAlbum = req.query.sortBy || "albumTitle";
   try {
     const albums = await Album.find().sort({ [sortAlbum]: 1 });
@@ -15,7 +16,7 @@ albumRouter.get("/albums", async (req, res) => {
   }
 });
 
-albumRouter.post("/albums", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const newAlbumData = req.body;
     const newAlbum = new Album(newAlbumData);
@@ -30,7 +31,7 @@ albumRouter.post("/albums", async (req, res) => {
   }
 });
 
-albumRouter.delete("/albums/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     await Album.findByIdAndRemove(req.params.id);
     res.status(204).send();
@@ -40,4 +41,4 @@ albumRouter.delete("/albums/:id", async (req, res) => {
   }
 });
 
-export default albumRouter;
+export default router;

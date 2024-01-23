@@ -6,6 +6,7 @@ import RegisterPage from "./pages/RegisterPage"
 import HomePage from "./pages/HomePage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
+import UploadProfilePhoto from "./components/UploadProfilePhoto/UploadProfilePhoto";
 
 const App = () => {
   const {
@@ -59,6 +60,7 @@ const App = () => {
           {/* {/* <Route path="/login" element={<LoginPage />} /> */}
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/" element={<HomePage />} />
+          <Route path="/upload" element={<UploadProfilePhoto />} />
         </Routes>
       {/* )} */}
     </>

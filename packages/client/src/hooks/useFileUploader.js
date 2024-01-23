@@ -1,4 +1,4 @@
-import api from "../utils/api.utils";
+import api from "../util/api";
 
 const useFileUploader = () => {
   const uploadFile = async (url, file, name) => {

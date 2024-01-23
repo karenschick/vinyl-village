@@ -37,7 +37,10 @@ const postSchema = new mongoose.Schema(
         },
       },
     ],
+    //path set up for static file serving
+    image: { type: String, default: "/images/default-post.jpg" },
   },
+  
   { timestamps: true }
 );
 

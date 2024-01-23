@@ -28,7 +28,14 @@ router.post("/", requireAuth, async (req, res, next) => {
     text: text,
     author: user._id,
   });
+  if (req.files && req.files.image){
+    const postImage = req.files.image
+    const imageName = uuid() + path.extname(postImage.name)
+    const uploadPath = path.join(__dirname, "..", "public", "images", imageName)
+    await postImage.mv(uploadPath)
 
+    post.image = `/images/${imageName}`
+  }
   try {
     const savedPost = await post.save();
     user.posts = user.posts.concat(savedPost._id);

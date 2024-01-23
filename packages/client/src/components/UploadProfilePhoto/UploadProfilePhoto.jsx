@@ -69,7 +69,7 @@ export default UploadProfilePhoto;
 // import "bootstrap/dist/css/bootstrap.min.css";
 // import api from "../../../utils/api.utils";
 
-// const UploadFile = () => {
+// const UploadProfilePhoto = () => {
 //   const [selectedFiles, setSelectedFiles] = useState([]);
 
 //   const handleFileUpload = (event) => {
@@ -147,4 +147,4 @@ export default UploadProfilePhoto;
 //     </div>
 //   );
 // };
-// export default UploadFile;
+// export default UploadProfilePhoto;

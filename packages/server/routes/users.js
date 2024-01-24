@@ -68,23 +68,29 @@ router
     }
   });
 
-router.route("/:username/avatar").put(requireAuth, async (req, res) => {
-  const { username } = req.params;
-  const { profile_image } = req.body;
+//PUT /users/:username/avatar - update user avatar
+router.put("/:username/avatar", requireAuth, async (req, res) => {
+  try {
+    const { username } = req.params;
+    const { profile_image } = req.body;
 
-  if (!req.user.username.toLowerCase() === username.toLowerCase()) {
-    return res.status(401).json({ error: "unauthorized" });
+    if (req.user.username.toLowerCase() !== username.toLowerCase()) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    const user = await User.findOne({ username });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    user.profile_image = profile_image;
+
+    await user.save();
+    res.json(user.toJSON());
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
-
-  const user = await User.findOne({ username });
-
-  if (!user) {
-    return res.status(404).json({ error: "user not found" });
-  }
-
-  user.profile_image = profile_image;
-  await user.save();
-  res.json(user.toJSON());
 });
 
 module.exports = router;

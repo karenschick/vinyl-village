@@ -53,10 +53,14 @@ router.post("/signup", async (req, res) => {
         user
           .save()
           .then((user) => {
-            res.json({ message: "saved successfully" });
+            res.json({ message: "saved successfully",
+            username: user.username,
+            email: user.email,
+            profile_image: user.profile_image, });
           })
           .catch((err) => {
-            console.log(err);
+            console.error("Error saving user:", err);
+            res.status(500).json({ error: "Internal server error" });
           });
       });
     })

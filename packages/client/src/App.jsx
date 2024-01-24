@@ -10,6 +10,7 @@ import "./index.css";
 import UploadProfilePhoto from "./components/UploadProfilePhoto/UploadProfilePhoto";
 import ErrorBoundary from "./components/ErrorBoundary";
 import LandingPage from "./pages/LandingPage";
+import FeedPage from "./pages/FeedPage";
 
 const App = () => {
   const {
@@ -21,6 +22,7 @@ const App = () => {
       <ErrorBoundary>
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/feed" element={<FeedPage />} />
           <Route path="/register" element={<RegisterPage />} />
           {/* <Route path="/profile" element={<ProfilePage />} /> */}
           <Route path="/profile/u/:uname" element={<ProfilePage />} />

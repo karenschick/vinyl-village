@@ -4,7 +4,7 @@ import { useProvideAuth } from "../hooks/useAuth";
 import { useRequireAuth } from "../hooks/useRequireAuth";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 
-export default function HomePage(props) {
+export default function ProfilePage(props) {
   const { error, isLoading, response } = useApiFetch("/albums");
   const { state } = useProvideAuth();
   const {

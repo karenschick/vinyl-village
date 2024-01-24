@@ -6,5 +6,10 @@ export default defineConfig({
   plugins: [react()],
   server: {
     open: true,
+    proxy: {
+      "/images": {
+        target: "http://localhost:3001/",
+      },
+    },
   },
 });

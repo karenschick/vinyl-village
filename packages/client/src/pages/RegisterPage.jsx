@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, InputGroup, Form, Button } from "react-bootstrap";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 import { setAuthToken } from "../util/api";
-import LandingHeader from "../components/LandingHeader";
+//import LandingHeader from "../components/LandingHeader";
 import AvatarPicker from "../components/AvatarPicker/AvatarPicker";
 import UploadProfilePhoto from "../components/UploadProfilePhoto/UploadProfilePhoto";
 import { useProvideAuth } from "../hooks/useAuth";

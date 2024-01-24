@@ -2,11 +2,13 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { Col, Row, ToastContainer } from "react-bootstrap";
 import { useProvideAuth } from "./hooks/useAuth";
-import RegisterPage from "./pages/RegisterPage"
+import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import UploadProfilePhoto from "./components/UploadProfilePhoto/UploadProfilePhoto";
+import ErrorBoundary from "./components/ErrorBoundary";
+import LandingPage from "./pages/LandingPage";
 
 const App = () => {
   const {
@@ -15,54 +17,15 @@ const App = () => {
 
   return (
     <>
-      <ToastContainer position="top-center" />
-      {/* {user ? (
-        <>
-          <Header />
-          <Container
-            fluid
-            style={{
-              height: "calc(100vh - 72px)",
-              overflow: "auto",
-            }}
-          >
-            <Row>
-              <Col xs={0} md={2} xl={3} />
-              <Col xs={12} md={8} xl={6}>
-                <Routes>
-                  <Route exact path="/u/:uname" element={<UserDetailPage />} />
-                  <Route exact path="/login" element={<Navigate to="/" />} />
-                  <Route exact path="/register" element={<Navigate to="/" />} />
-                  <Route
-                    element={({ location }) => {
-                      return (
-                        <div
-                          style={{
-                            padding: "50px",
-                            width: "100%",
-                            textAlign: "center",
-                          }}
-                        >
-                          The page <code>{location.pathname}</code> could not be
-                          found.
-                        </div>
-                      );
-                    }}
-                  />
-                </Routes>
-              </Col>
-              <Col xs={0} md={2} xl={3} />
-            </Row>
-          </Container>
-        </>
-      ) : ( */}
+      <ErrorBoundary>
         <Routes>
-          {/* {/* <Route path="/login" element={<LoginPage />} /> */}
+          <Route path="/" element={<LandingPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/" element={<HomePage />} />
+          <Route path="/home" element={<HomePage />} />
+          {/* <Route path="/profile/u/:uname" element={<ProfilePage />} /> */}
           <Route path="/upload" element={<UploadProfilePhoto />} />
         </Routes>
-      {/* )} */}
+      </ErrorBoundary>
     </>
   );
 };

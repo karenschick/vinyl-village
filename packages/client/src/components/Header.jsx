@@ -13,15 +13,22 @@ export default function Header() {
     return null;
   }
   return (
-    <Navbar bg="header" expand="lg">
+    <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
         <Navbar.Brand as={Link} to="/" style={{ marginLeft: "50px" }}>
-          <img src="/logo.png" alt="logo" width="180px" />
+          Landing (put logo here)
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
           {user && (
             <Nav className="d-flex align-items-center">
+              <Nav.Item
+                as={Link}
+                to={`/feed`}
+                className="d-flex align-items-center"
+              >
+                Feed
+              </Nav.Item>
               <Nav.Item
                 as={Link}
                 to={`/u/${user.username}`}

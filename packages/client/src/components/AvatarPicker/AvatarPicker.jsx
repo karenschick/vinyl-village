@@ -4,14 +4,15 @@ import "./AvatarPicker.scss";
 //import UploadProfilePhoto from "../UploadProfilePhoto/UploadProfilePhoto";
 
 let imgs = [
-  "/bird.svg",
-  "/dog.svg",
-  "/fox.svg",
-  "/frog.svg",
-  "/lion.svg",
-  "/owl.svg",
-  "/tiger.svg",
-  "/whale.svg",
+  "/astronaunt.jpg",
+  "/boombox.jpg",
+  "/burger.jpg",
+  "/headphone.jpg",
+  "/keyboard.jpg",
+  "/moon.jpg",
+  "/turntable.jpg",
+  "/donut.jpg",
+  "/bunny.jpg"
 ];
 
 

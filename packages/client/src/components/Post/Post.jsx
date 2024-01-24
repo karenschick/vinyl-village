@@ -15,9 +15,10 @@ import DeleteModal from "../DeleteModal/DeleteModal.jsx";
 import TrashIcon from "../icons/TrashIcon.jsx";
 import LikeIcon from "../icons/LikeIcon.jsx";
 import ReplyIcon from "../icons/ReplyIcon.jsx";
+import LikeIconFill from "../icons/LikeIconFill.jsx";
 import { useProvideAuth } from "../../hooks/useAuth";
 import api from "../../util/api.jsx";
-//import { timeSince } from "../../utils/timeSince";
+import { timeSince } from "../../util/timeSince";
 import useToggle from "../../hooks/useToggle";
 
 const Post = ({ post: { _id, author, text, comments, created, likes } }) => {
@@ -105,7 +106,7 @@ const Post = ({ post: { _id, author, text, comments, created, likes } }) => {
                 @{author.username}
               </Link>
               <pre className="m-0 text-muted">{" - "}</pre>
-              {/* <span className="text-muted">{timeSince(created)} ago</span> */}
+              <span className="text-muted">{timeSince(created)} ago</span>
             </div>
             <div className="mb-n1 mt-1 position-relative">
               <blockquote className="mb-1 mw-100">

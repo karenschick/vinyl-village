@@ -8,6 +8,7 @@ import api from "../util/api";
 import Post from '../components/Post/Post';
 import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner';
 import { useProvideAuth } from "../hooks/useAuth";
+import Header from "../components/Header";
 //import { useProvideAuth } from "../../hooks/useAuth";
 //import SearchBar from "../SearchBar/SearchBar.jsx";
 const initialState = {
@@ -98,6 +99,7 @@ const FeedPage = () => {
 
   return (
     <>
+    <Header/>
       <Container className="pt-3 pb-3 clearfix">
         <h4>Share a Snip</h4>
         <Form noValidate validated={validated} onSubmit={handlePostSubmit}>

@@ -24,8 +24,7 @@ const App = () => {
           <Route path="/" element={<LandingPage />} />
           <Route path="/feed" element={<FeedPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          {/* <Route path="/profile" element={<ProfilePage />} /> */}
-          <Route path="/profile/u/:uname" element={<ProfilePage />} />
+          <Route path="/u/:uname" element={<ProfilePage />} />
           <Route path="/upload" element={<UploadProfilePhoto />} />
         </Routes>
       </ErrorBoundary>

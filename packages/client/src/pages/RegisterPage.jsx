@@ -180,7 +180,7 @@ const RegisterPage = () => {
                     <Button
                       as="a"
                       variant="link"
-                      onClick={() => navigate("/login")}
+                      onClick={() => navigate("/")}
                     >
                       Login
                     </Button>

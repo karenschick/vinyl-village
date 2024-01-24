@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { Col, Row, ToastContainer } from "react-bootstrap";
 import { useProvideAuth } from "./hooks/useAuth";
 import RegisterPage from "./pages/RegisterPage";
+import PostDetailPage from "./components/PostDetail/PostDetailPage";
 import ProfilePage from "./pages/ProfilePage";
 //import HomePage from "./pages/HomePage";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -11,6 +12,7 @@ import UploadProfilePhoto from "./components/UploadProfilePhoto/UploadProfilePho
 import ErrorBoundary from "./components/ErrorBoundary";
 import LandingPage from "./pages/LandingPage";
 import FeedPage from "./pages/FeedPage";
+
 
 const App = () => {
   const {
@@ -26,6 +28,9 @@ const App = () => {
           <Route path="/signup" element={<RegisterPage />} />
           <Route path="/u/:uname" element={<ProfilePage />} />
           <Route path="/upload" element={<UploadProfilePhoto />} />
+          {/* <Route path="/p/:postId" element={<PostDetailPage />} /> */}
+          <Route exact path="/p/:pid" element={<PostDetailPage />} />
+
         </Routes>
       </ErrorBoundary>
     </>

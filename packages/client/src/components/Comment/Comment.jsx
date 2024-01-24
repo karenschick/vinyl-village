@@ -1,7 +1,7 @@
 import React from "react";
 import { Figure, Row, Col } from "react-bootstrap";
-import "./Comment.scss";
-import { timeSince } from "../../utils/timeSince";
+//import "./Comment.scss";
+import { timeSince } from "../../util/timeSince";
 
 const Comment = ({ comment }) => {
   const { author } = comment;

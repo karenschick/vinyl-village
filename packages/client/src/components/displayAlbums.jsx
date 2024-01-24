@@ -23,7 +23,7 @@ export const DisplayAlbums = () => {
 
   const [displayedAlbums, setDisplayedAlbums] = useState([]);
   const [sortAlbum, setSortAlbum] = useState("albumTitle");
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
   const [albumToDelete, setAlbumToDelete] = useState({ id: null, title: "" });
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
@@ -45,11 +45,11 @@ export const DisplayAlbums = () => {
     setAlbumToDelete({ id: null, title: "" });
   };
 
-  const toggleModal = () => setShowModal(!showModal);
+  // const toggleModal = () => setShowModal(!showModal);
 
-  const handleAddAlbum = (newAlbum) => {
-    setDisplayedAlbums([...displayedAlbums, newAlbum]);
-  };
+  // const handleAddAlbum = (newAlbum) => {
+  //   setDisplayedAlbums([...displayedAlbums, newAlbum]);
+  // };
 
   const handleRemoveAlbum = async (id) => {
     try {
@@ -98,16 +98,16 @@ export const DisplayAlbums = () => {
 
   return (
     <>
-      <Modal show={showModal} onHide={toggleModal}>
+      {/* <Modal show={showModal} onHide={toggleModal}>
         <Modal.Header closeButton>
           <Modal.Title>Add New Album</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <AddAlbums onAlbumSubmit={handleAddAlbum} toggleModal={toggleModal} />
         </Modal.Body>
-      </Modal>
+      </Modal> */}
       <Container className="mt-5">
-        <Row className="justify-content-center">
+        {/* <Row className="justify-content-center">
           <Col md={4} className="text-center">
             <Card className="mb-3">
               <Card.Body>
@@ -118,7 +118,7 @@ export const DisplayAlbums = () => {
               </Card.Body>
             </Card>
           </Col>
-        </Row>
+        </Row> */}
 
         <div className="mt-5">
           

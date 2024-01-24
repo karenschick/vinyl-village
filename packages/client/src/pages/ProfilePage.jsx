@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Card, Form, Button, Figure } from "react-bootstrap";
+import { Container, Card, Form, Button, Figure, Modal, Row, Col, ListGroup, Badge } from "react-bootstrap";
 import { useApiFetch } from "../util/api";
 import DisplayAlbums from "../components/displayAlbums";
 import { useProvideAuth } from "../hooks/useAuth";
@@ -10,6 +10,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import api from "../util/api";
 import AvatarPicker from "../components/AvatarPicker/AvatarPicker";
 import { toast } from "react-toastify";
+import AddAlbums from "../components/AddAlbums/AddAlbums";
+
 
 export default function ProfilePage(props) {
   const { state } = useProvideAuth();
@@ -17,6 +19,7 @@ export default function ProfilePage(props) {
   const [user, setUser] = useState();
   const [loading, setLoading] = useState(true);
   const [validated, setValidated] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [open, setOpen] = useState(false);
   const [data, setData] = useState({
     password: "",
@@ -34,6 +37,11 @@ export default function ProfilePage(props) {
     state: { isAuthenticated },
   } = useRequireAuth();
 
+  const toggleModal = () => setShowModal(!showModal);
+
+  const handleAddAlbum = (newAlbum) => {
+    setDisplayedAlbums([...displayedAlbums, newAlbum]);
+  };
 
   function capitalizeFirstLetter(string) {
     if (!string) return '';
@@ -161,19 +169,23 @@ export default function ProfilePage(props) {
     <>
     <Header/>
     <main>
-      <h1 className="mt-5">{capitalizeFirstLetter(state.user?.username)}'s Album Collection</h1>
-      {error && (
-        <h3 style={{ color: "red" }}>
-          Error Loading Data: {JSON.stringify(error)}
-        </h3>
-      )}
-      {isLoading && <LoadingSpinner></LoadingSpinner>}
-      {!error && response && (
-        <>
-          {/* <div className="mb-5">Username: {response.username}</div> */}
+      <Row><Figure
+                  className="bg-border-color rounded-circle overflow-hidden my-auto ml-2 p-1"
+                  style={{
+                    height: "100px",
+                    width: "100px",
+                    
+                  }}
+                >
+                  <Figure.Image
+                    src={user.profile_image}
+                    
+                  />
+                </Figure>
+      {capitalizeFirstLetter(state.user?.username)}'s Album Collection </Row>
+      
           <DisplayAlbums />
-        </>
-      )}
+        
     </main>
     <Container className="clearfix">
         <Button
@@ -300,6 +312,26 @@ export default function ProfilePage(props) {
                     </div>
                   </div>
                 </div>
+                <Modal show={showModal} onHide={toggleModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add New Album</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <AddAlbums onAlbumSubmit={handleAddAlbum} toggleModal={toggleModal} />
+        </Modal.Body>
+      </Modal>
+      <Row className="justify-content-center">
+          <Col md={4} className="text-center">
+            <Card className="mb-3">
+              <Card.Body>
+                <h3>Add Album to Collection</h3>
+                <Button variant="primary" onClick={toggleModal}>
+                  Add
+                </Button>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
               </Container>
             )}
           </Card.Body>

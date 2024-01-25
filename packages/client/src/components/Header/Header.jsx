@@ -14,7 +14,13 @@ export default function Header() {
   }
 
   return (
-    <Navbar expand="lg" className="bg-body-tertiary" style={{ minHeight: "100px" }}> {/* Set minimum height */}
+    <Navbar
+      expand="lg"
+      className="bg-body-tertiary"
+      style={{ minHeight: "100px" }}
+    >
+      {" "}
+      {/* Set minimum height */}
       <Container>
         <Navbar.Brand as={Link} to="/" style={{ marginLeft: "50px" }}>
           Landing (put logo here)
@@ -22,11 +28,14 @@ export default function Header() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           {user && (
-            <Nav className="d-flex align-items-center justify-content-end w-100"> {/* Adjust for center alignment and spacing */}
+            <Nav className="d-flex align-items-center justify-content-end w-100">
+              {" "}
+              {/* Adjust for center alignment and spacing */}
               <Nav.Item
                 as={Link}
                 to={`/feed`}
                 className="d-flex align-items-center"
+                style={{ marginRight: "50px" }}
               >
                 Feed
               </Nav.Item>
@@ -38,14 +47,18 @@ export default function Header() {
                 <Figure
                   className="bg-border-color rounded-circle overflow-hidden my-auto ml-2 p-1"
                   style={{
-                    height: "35px",
-                    width: "35px",
-                    background: "white",
+                    marginRight: "50px",
                   }}
                 >
                   <Figure.Image
                     src={user.profile_image}
                     className="w-100 h-100"
+                    style={{
+                      borderRadius: "50%",
+                      maxHeight: "50px",
+                      width: "auto",
+                      objectFit: "cover",
+                    }}
                   />
                 </Figure>
               </Nav.Item>
@@ -56,7 +69,7 @@ export default function Header() {
                 style={{
                   border: "none",
                   marginRight: "50px",
-                  color: "#E5E1DF",
+                  color: "#4d4b4b",
                 }}
               >
                 Sign Out

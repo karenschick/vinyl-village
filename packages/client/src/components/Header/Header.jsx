@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar, Nav, Button, Figure, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useProvideAuth } from "../hooks/useAuth";
+import { useProvideAuth } from "../../hooks/useAuth";
 
 export default function Header() {
   const {
@@ -12,16 +12,17 @@ export default function Header() {
   if (!user) {
     return null;
   }
+
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg" className="bg-body-tertiary" style={{ minHeight: "100px" }}> {/* Set minimum height */}
       <Container>
         <Navbar.Brand as={Link} to="/" style={{ marginLeft: "50px" }}>
           Landing (put logo here)
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+        <Navbar.Collapse id="basic-navbar-nav">
           {user && (
-            <Nav className="d-flex align-items-center">
+            <Nav className="d-flex align-items-center justify-content-end w-100"> {/* Adjust for center alignment and spacing */}
               <Nav.Item
                 as={Link}
                 to={`/feed`}

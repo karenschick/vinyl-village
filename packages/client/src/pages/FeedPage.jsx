@@ -8,7 +8,7 @@ import api from "../util/api";
 import Post from '../components/Post/Post';
 import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner';
 import { useProvideAuth } from "../hooks/useAuth";
-import Header from "../components/Header";
+import Header from "../components/Header/Header";
 //import { useProvideAuth } from "../../hooks/useAuth";
 //import SearchBar from "../SearchBar/SearchBar.jsx";
 const initialState = {

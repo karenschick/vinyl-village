@@ -16,7 +16,7 @@ import DisplayAlbums from "../components/displayAlbums";
 import { useProvideAuth } from "../hooks/useAuth";
 import { useRequireAuth } from "../hooks/useRequireAuth";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
-import Header from "../components/Header";
+import Header from "../components/Header/Header";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../util/api";
 import AvatarPicker from "../components/AvatarPicker/AvatarPicker";

@@ -1,17 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { Container, Card, Form, Button, Figure, Modal, Row, Col, ListGroup, Badge } from "react-bootstrap";
+import {
+  Container,
+  Card,
+  Form,
+  Button,
+  Figure,
+  Modal,
+  Row,
+  Col,
+  ListGroup,
+  Badge,
+} from "react-bootstrap";
 import { useApiFetch } from "../util/api";
 import DisplayAlbums from "../components/displayAlbums";
 import { useProvideAuth } from "../hooks/useAuth";
 import { useRequireAuth } from "../hooks/useRequireAuth";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 import Header from "../components/Header";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from "react-router-dom";
 import api from "../util/api";
 import AvatarPicker from "../components/AvatarPicker/AvatarPicker";
 import { toast } from "react-toastify";
 import AddAlbums from "../components/AddAlbums/AddAlbums";
-
 
 export default function ProfilePage(props) {
   const { state } = useProvideAuth();
@@ -30,7 +40,6 @@ export default function ProfilePage(props) {
   });
   const [profileImage, setProfileImage] = useState("");
 
-
   let navigate = useNavigate();
   let params = useParams();
   const {
@@ -44,10 +53,10 @@ export default function ProfilePage(props) {
   };
 
   function capitalizeFirstLetter(string) {
-    if (!string) return '';
+    if (!string) return "";
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
-  
+
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -108,7 +117,9 @@ export default function ProfilePage(props) {
             currentPassword: "",
             confirmPassword: "",
           });
-          toast.success(`Without pain, without sacrifice, we would have nothing.`);
+          toast.success(
+            `Without pain, without sacrifice, we would have nothing.`
+          );
           setLoading(false);
         })
         .catch((error) => {
@@ -167,27 +178,39 @@ export default function ProfilePage(props) {
 
   return (
     <>
-    <Header/>
-    <main>
-      <Row><Figure
-                  className="bg-border-color rounded-circle overflow-hidden my-auto ml-2 p-1"
-                  style={{
-                    height: "100px",
-                    width: "100px",
-                    
-                  }}
-                >
-                  <Figure.Image
-                    src={user.profile_image}
-                    
-                  />
-                </Figure>
-      {capitalizeFirstLetter(state.user?.username)}'s Album Collection </Row>
-      
+      <Header />
+      <main>
+        <Row
+          className="justify-content-center align-items-center mt-3"
+          style={{ height: "100px" }} 
+        >
+          <Col xs="auto">
+            <Figure
+              className="bg-border-color overflow-hidden my-auto ml-2 p-1"
+              style={{ height: "100px", width: "100px" }}
+            >
+              <Figure.Image
+                src={user.profile_image}
+                style={{
+                  borderRadius: "50%",
+                  height: "100%", 
+                  width: "auto", 
+                  objectFit: "cover", 
+                }}
+              />
+            </Figure>
+          </Col>
+          <Col xs="auto">
+            <div>
+              {capitalizeFirstLetter(state.user?.username)}'s Album Collection
+            </div>
+          </Col>
+        </Row>
+        <Container style={{ border: "black" }}>
           <DisplayAlbums />
-        
-    </main>
-    <Container className="clearfix">
+        </Container>
+      </main>
+      <Container className="clearfix">
         <Button
           variant="outline-info"
           onClick={() => {
@@ -313,25 +336,28 @@ export default function ProfilePage(props) {
                   </div>
                 </div>
                 <Modal show={showModal} onHide={toggleModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Add New Album</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <AddAlbums onAlbumSubmit={handleAddAlbum} toggleModal={toggleModal} />
-        </Modal.Body>
-      </Modal>
-      <Row className="justify-content-center">
-          <Col md={4} className="text-center">
-            <Card className="mb-3">
-              <Card.Body>
-                <h3>Add Album to Collection</h3>
-                <Button variant="primary" onClick={toggleModal}>
-                  Add
-                </Button>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Add New Album</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <AddAlbums
+                      onAlbumSubmit={handleAddAlbum}
+                      toggleModal={toggleModal}
+                    />
+                  </Modal.Body>
+                </Modal>
+                <Row className="justify-content-center">
+                  <Col md={4} className="text-center">
+                    <Card className="mb-3">
+                      <Card.Body>
+                        <h3>Add Album to Collection</h3>
+                        <Button variant="primary" onClick={toggleModal}>
+                          Add
+                        </Button>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                </Row>
               </Container>
             )}
           </Card.Body>

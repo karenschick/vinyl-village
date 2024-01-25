@@ -79,7 +79,7 @@ const Post = ({ post: { _id, author, text, comments, created, likes } }) => {
   return (
     <>
       <ListGroup.Item className="text-danger rounded-edge" as={"div"}>
-        <Card className="w-100 py-2 px-3 d-flex flex-row gap-3 align-items-start">
+        <Card className=" py-2 px-3 d-flex flex-row gap-3 align-items-start78 mt-2" >
           <Figure
             as={Link}
             to={`/u/${author.username}`}

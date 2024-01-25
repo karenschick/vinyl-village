@@ -100,7 +100,7 @@ const FeedPage = () => {
   return (
     <>
     <Header/>
-      <Container className="pt-3 pb-3 clearfix">
+      <Container className="pt-3 pb-3 clearfix" style={{width: "50%"}}>
         <h4>Share a Snip</h4>
         <Form noValidate validated={validated} onSubmit={handlePostSubmit}>
           <Form.Control
@@ -130,7 +130,7 @@ const FeedPage = () => {
       </Container>
       {/* <SearchBar keywords={keywords} setKeywords={setKeyWords} /> */}
       {!postLoading ? (
-        <Container className="pt-3 pb-3">
+        <Container className="pt-3 pb-3" style={{width: "50%"}}>
           <h6>Recent Snips</h6>
           {postError && "Error fetching posts"}
           {posts &&

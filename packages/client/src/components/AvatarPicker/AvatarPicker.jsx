@@ -16,9 +16,10 @@ let imgs = [
 ];
 
 
-const AvatarPicker = ({ profileImage, setProfileImage }) => {
+const AvatarPicker = ({ profileImage, setProfileImage, setAvatarChanged }) => {
   const handleAvatarPicker = (src) => {
     setProfileImage(src);
+    setAvatarChanged(true)
   };
 console.log("profile image set:", profileImage)
 

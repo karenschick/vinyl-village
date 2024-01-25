@@ -251,7 +251,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
         </Form.Group>
         <Row className="text-center mt-5">
           <Col>
-            <Button type="submit">Submit</Button>
+            {/* <Button type="submit">Submit</Button> */}
           </Col>
         </Row>
       </Form>

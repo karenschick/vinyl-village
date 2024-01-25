@@ -12,6 +12,7 @@ import UploadProfilePhoto from "./components/UploadProfilePhoto/UploadProfilePho
 import ErrorBoundary from "./components/ErrorBoundary";
 import LandingPage from "./pages/LandingPage";
 import FeedPage from "./pages/FeedPage";
+import EditProfile from "./components/EditProfile/EditProfile";
 
 
 const App = () => {
@@ -30,7 +31,7 @@ const App = () => {
           <Route path="/upload" element={<UploadProfilePhoto />} />
           {/* <Route path="/p/:postId" element={<PostDetailPage />} /> */}
           <Route exact path="/p/:pid" element={<PostDetailPage />} />
-
+          <Route path="/u/:uname/edit" element={<EditProfile />} />
         </Routes>
       </ErrorBoundary>
     </>

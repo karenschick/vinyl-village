@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Container,
   Card,
@@ -12,24 +12,20 @@ import {
   Badge,
 } from "react-bootstrap";
 import { useApiFetch } from "../../util/api";
-//import { useApiFetch } from "../util/api";
-//import DisplayAlbums from "../components/displayAlbums";
+
 import { useProvideAuth } from "../../hooks/useAuth";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
-// import { useProvideAuth } from "../hooks/useAuth";
-// import { useRequireAuth } from "../hooks/useRequireAuth";
-//import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
+
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
-//import Header from "../components/Header/Header";
+
 import Header from "../Header/Header";
 import AvatarPicker from "../AvatarPicker/AvatarPicker";
 import AddAlbums from "../AddAlbums/AddAlbums";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../../util/api";
-//import api from "../util/api";
-//import AvatarPicker from "../components/AvatarPicker/AvatarPicker";
+
 import { toast } from "react-toastify";
-//import AddAlbums from "../components/AddAlbums/AddAlbums";
+
 
 const EditProfile = (props) => {
   const { state } = useProvideAuth();
@@ -50,7 +46,8 @@ const EditProfile = (props) => {
   const [passwordChanged, setPasswordChanged] = useState(false);
   const [avatarChanged, setAvatarChanged] = useState(false);
   const [albumChanged, setAlbumChanged] = useState(false);
-
+  const [displayedAlbums, setDisplayedAlbums] = useState([]);
+  const addAlbumSubmitRef = useRef(null);
 
   let navigate = useNavigate();
   let params = useParams();
@@ -202,13 +199,7 @@ const EditProfile = (props) => {
     }
   };
   
-  if (!isAuthenticated) {
-    return <LoadingSpinner full />;
-  }
-
-  if (loading) {
-    return <LoadingSpinner full />;
-  }
+  
 
   const handleSubmitAll = async () => {
   if (passwordChanged) {
@@ -216,19 +207,29 @@ const EditProfile = (props) => {
   }
 
   if (avatarChanged) {
-    await updateAvatar(); // Change here to call updateAvatar instead of handleAvatarChange
+    await updateAvatar(); 
   }
 
-  if (albumChanged) {
-    await handleAddAlbum();
-  }
+  // if (albumChanged && addAlbumSubmitRef.current) {
+  //   addAlbumSubmitRef.current();
+  // }
 
   // Reset change flags
   setPasswordChanged(false);
   setAvatarChanged(false);
-  setAlbumChanged(false);
+  // setAlbumChanged(false);
+  
+    navigate(`/u/${user.username}`);
+  
 };
 
+if (!isAuthenticated) {
+  return <LoadingSpinner full />;
+}
+
+if (loading) {
+  return <LoadingSpinner full />;
+}
   return (
     <>
       <Container>
@@ -361,7 +362,7 @@ const EditProfile = (props) => {
             </div>
           </Card>
 
-          {/* <Modal show={showModal} onHide={toggleModal}>
+          <Modal show={showModal} onHide={toggleModal}>
             <Modal.Header closeButton>
               <Modal.Title>Add New Album</Modal.Title>
             </Modal.Header>
@@ -371,8 +372,8 @@ const EditProfile = (props) => {
                 toggleModal={toggleModal}
               />
             </Modal.Body>
-          </Modal> */}
-          {/* <Row className="justify-content-center">
+          </Modal>
+          <Row className="justify-content-center">
             <Col md={4} className="text-center">
               <Card className="m-3">
                 <Card.Body>
@@ -383,11 +384,11 @@ const EditProfile = (props) => {
                 </Card.Body>
               </Card>
             </Col>
-          </Row> */}
-          <Card>
+          </Row>
+          {/* <Card>
           <h3>Add Album to Collection</h3>
           <AddAlbums/>
-          </Card>
+          </Card> */}
         </Container>
         <Button onClick={handleSubmitAll}>Submit All</Button>
       </Container>

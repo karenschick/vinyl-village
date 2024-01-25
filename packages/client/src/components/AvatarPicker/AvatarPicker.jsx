@@ -12,6 +12,17 @@ let imgs = [
   "/moon.jpg",
   "/turntable.jpg",
   "/donut.jpg",
+  "/_astrosax.jpg",
+  "/_cactus.jpg",
+  "/_cow.jpg",
+  "/_dinosaur.jpg",
+  "/_flower.jpg",
+  "/_giraffe.jpg",
+  "/_koala.jpg",
+  "/_panda.jpg",
+  "/_pandaboom.jpg",
+  "/_pinkdino.jpg",
+  "/_unicorn.jpg",
   "/bunny.jpg"
 ];
 

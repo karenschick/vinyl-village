@@ -95,15 +95,21 @@ const EditProfile = (props) => {
   };
 
   const handleUpdatePassword = async (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    const form = event.currentTarget;
-    // handle invalid or empty form
-    if (form.checkValidity() === false) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    // const form = event.currentTarget;
+    // // handle invalid or empty form
+    // if (form.checkValidity() === false) {
+    //   setValidated(true);
+    //   return;
+    // }
+    const form = document.getElementById('passwordForm'); // Add an ID to your form
+    if (form && form.checkValidity() === false) {
       setValidated(true);
       return;
     }
-
     setData({
       ...data,
       isSubmitting: true,
@@ -269,6 +275,7 @@ const EditProfile = (props) => {
 
           <Card className= "mt-3 p-3">
             <Form
+            id="passwordForm"
               noValidate
               validated={validated}
               onSubmit={handleUpdatePassword}

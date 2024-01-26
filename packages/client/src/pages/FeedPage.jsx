@@ -120,6 +120,7 @@ const FeedPage = () => {
             <span className="form-error">{data.errorMessage}</span>
           )}
           <Button
+          variant="info" style={{ border: "none", color: "#E5E1DF" }}
             className="float-right mt-3"
             type="submit"
             disabled={data.isSubmitting}

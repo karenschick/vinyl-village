@@ -26,19 +26,19 @@ import EditProfile from "../components/EditProfile/EditProfile";
 
 export default function ProfilePage(props) {
   const { state } = useProvideAuth();
-  const { error, isLoading, response } = useApiFetch("/albums");
+  //const { error, isLoading, response } = useApiFetch("/albums");
   const [user, setUser] = useState();
   const [loading, setLoading] = useState(true);
-  const [validated, setValidated] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [data, setData] = useState({
-    password: "",
-    currentPassword: "",
-    confirmPassword: "",
-    isSubmitting: false,
-    errorMessage: null,
-  });
+  //const [validated, setValidated] = useState(false);
+  //const [showModal, setShowModal] = useState(false);
+  //const [open, setOpen] = useState(false);
+  // const [data, setData] = useState({
+  //   password: "",
+  //   currentPassword: "",
+  //   confirmPassword: "",
+  //   isSubmitting: false,
+  //   errorMessage: null,
+  // });
   const [profileImage, setProfileImage] = useState("");
 
   let navigate = useNavigate();
@@ -46,8 +46,6 @@ export default function ProfilePage(props) {
   const {
     state: { isAuthenticated },
   } = useRequireAuth();
-
-  
 
   function capitalizeFirstLetter(string) {
     if (!string) return "";
@@ -68,12 +66,6 @@ export default function ProfilePage(props) {
     isAuthenticated && getUser();
   }, [params.uname, isAuthenticated]);
 
-  
-
-  
-
-  
-
   if (!isAuthenticated) {
     return <LoadingSpinner full />;
   }
@@ -86,55 +78,50 @@ export default function ProfilePage(props) {
     <>
       <Header />
       <Container>
-            
-     
-      
         <Card bg="header" className="text-center">
           <Card.Body>
-          <Row
-          className="justify-content-center align-items-center mt-3"
-          style={{ height: "100px" }}
-        >
-          <Col xs="auto">
-            <Figure
-              className="bg-border-color overflow-hidden my-auto ml-2 p-1"
-              style={{ height: "100px", width: "100px" }}
+            <Row
+              className="justify-content-center align-items-center mt-3"
+              style={{ height: "100px" }}
             >
-              <Figure.Image
-                src={user.profile_image}
-                style={{
-                  borderRadius: "50%",
-                  height: "100%",
-                  width: "auto",
-                  objectFit: "cover",
-                }}
-              />
-            </Figure>
-          </Col>
-          <Col xs="auto">
-            <div>
-              {capitalizeFirstLetter(state.user?.username)}'s Album Collection
-            </div>
-            <Card.Text className="mb-3">{user.email}</Card.Text>
-          </Col>
-        </Row>
-            
-            </Card.Body>
-            <Button
-  onClick={() => navigate(`/u/${params.uname}/edit`)} // Update this line
->
-  Edit Profile
-</Button>
-            </Card>
-
-            
-            
-            
-        </Container>
+              <Col xs="auto">
+                <Figure
+                  className="bg-border-color overflow-hidden my-auto ml-2 p-1"
+                  style={{ height: "100px", width: "100px" }}
+                >
+                  <Figure.Image
+                    src={user.profile_image}
+                    style={{
+                      borderRadius: "50%",
+                      height: "100%",
+                      width: "auto",
+                      objectFit: "cover",
+                    }}
+                  />
+                </Figure>
+              </Col>
+              <Col xs="auto">
+                <div>
+                  {capitalizeFirstLetter(state.user?.username)}'s Album
+                  Collection
+                </div>
+                <Card.Text className="mb-3">{user.email}</Card.Text>
+              </Col>
+            </Row>
+          </Card.Body>
+          <Button
+            variant="info"
+            style={{ border: "none", color: "white" }}
+            onClick={() => navigate(`/u/${params.uname}/edit`)} // Update this line
+          >
+            Edit Profile
+          </Button>
+        </Card>
+      </Container>
 
       <Container style={{ border: "black" }}>
-          <DisplayAlbums />
-        </Container>
+        <DisplayAlbums />
+      </Container>
     </>
   );
 }

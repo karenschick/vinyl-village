@@ -12,10 +12,8 @@ import {
 import { useApiFetch } from "../../util/api";
 import AddAlbums from "../AddAlbums/AddAlbums";
 import axios from "axios";
-//import { API_URL } from "../util/constants";
 import ConfirmDelete from "../ConfirmDelete/ConfirmDelete";
 import { API_URL } from "../../util/constants";
-
 
 export const DisplayAlbums = () => {
   const { response } = useApiFetch("/albums");
@@ -23,7 +21,7 @@ export const DisplayAlbums = () => {
 
   const [displayedAlbums, setDisplayedAlbums] = useState([]);
   const [sortAlbum, setSortAlbum] = useState("albumTitle");
-  // const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [albumToDelete, setAlbumToDelete] = useState({ id: null, title: "" });
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
@@ -45,11 +43,11 @@ export const DisplayAlbums = () => {
     setAlbumToDelete({ id: null, title: "" });
   };
 
-  // const toggleModal = () => setShowModal(!showModal);
+  const toggleModal = () => setShowModal(!showModal);
 
-  // const handleAddAlbum = (newAlbum) => {
-  //   setDisplayedAlbums([...displayedAlbums, newAlbum]);
-  // };
+  const handleAddAlbum = (newAlbum) => {
+    setDisplayedAlbums([...displayedAlbums, newAlbum]);
+  };
 
   const handleRemoveAlbum = async (id) => {
     try {
@@ -78,8 +76,8 @@ export const DisplayAlbums = () => {
   };
 
   const handleSort = (sortBy) => {
-    setSortAlbum(sortBy)
-  }
+    setSortAlbum(sortBy);
+  };
 
   useEffect(() => {
     const fetchAlbums = async () => {
@@ -98,34 +96,46 @@ export const DisplayAlbums = () => {
 
   return (
     <>
-      {/* <Modal show={showModal} onHide={toggleModal}>
+      <Modal show={showModal} onHide={toggleModal}>
         <Modal.Header closeButton>
           <Modal.Title>Add New Album</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <AddAlbums onAlbumSubmit={handleAddAlbum} toggleModal={toggleModal} />
         </Modal.Body>
-      </Modal> */}
+      </Modal>
       <Container className="mt-5">
-        {/* <Row className="justify-content-center">
-          <Col md={4} className="text-center">
-            <Card className="mb-3">
-              <Card.Body>
-                <h3>Add Album to Collection</h3>
-                <Button variant="primary" onClick={toggleModal}>
-                  Add
-                </Button>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row> */}
-
         <div className="mt-5">
-          
           <div className="sort-tabs">
-            <Button className="m-2" variant="outline-primary" onClick={() => handleSort('albumTitle')}>Title</Button>
-            <Button className="m-2"variant="outline-primary" onClick={() => handleSort('releaseYear')}>Year</Button>
-            <Button className="m-2"variant="outline-primary" onClick={() => handleSort('artistName')}>Artist</Button>
+            <Button
+              className="m-2"
+              variant="outline-info"
+              onClick={() => handleSort("albumTitle")}
+            >
+              Title
+            </Button>
+            <Button
+              className="m-2"
+              variant="outline-info"
+              onClick={() => handleSort("releaseYear")}
+            >
+              Year
+            </Button>
+            <Button
+              className="m-2"
+              variant="outline-info"
+              onClick={() => handleSort("artistName")}
+            >
+              Artist
+            </Button>
+            <Button
+              className="m-2"
+              variant="info"
+              style={{ color: "white" }}
+              onClick={toggleModal}
+            >
+              Add Album
+            </Button>
           </div>
           <ConfirmDelete
             showConfirmModal={showConfirmModal}
@@ -137,13 +147,14 @@ export const DisplayAlbums = () => {
           {displayedAlbums &&
             displayedAlbums.map((album) => (
               <Card
-                className="mx-auto bg-dark mt-5"
+                className="mx-auto  mt-5"
                 key={album._id}
-                style={{ margin: "5px", padding: "15px", width: "80%" }}
+                style={{ backgroundColor:"#39FF14", margin: "5px", padding: "15px", width: "80%" }}
               >
                 <Card.Body>
                   <div className="row">
                     <Col
+                    
                       lg={6}
                       xs={12}
                       style={{
@@ -152,7 +163,7 @@ export const DisplayAlbums = () => {
                         padding: "20px",
                       }}
                     >
-                      <Card.Title style={{ fontSize: "27px" }}>
+                      <Card.Title  style={{ fontSize: "27px" }}>
                         {album.albumTitle}
                       </Card.Title>
                       <Card.Subtitle className="mt-4">
@@ -199,7 +210,14 @@ export const DisplayAlbums = () => {
                             >
                               {track.trackNumber}. {track.trackTitle}
                             </div>
-                            <Badge style={{ marginLeft: "5px" }}>
+                            <Badge
+                    bg="info"
+                              style={{
+                                border: "none",
+                                color: "white",
+                                marginLeft: "5px",
+                              }}
+                            >
                               {durationConversion(track.trackDuration)}
                             </Badge>
                           </ListGroup.Item>

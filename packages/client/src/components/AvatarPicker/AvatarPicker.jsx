@@ -10,37 +10,29 @@ let imgs = [
   "/boombox.jpg",
   "/burger.jpg",
   "/headphone.jpg",
-  
+
   "/_unicorn.jpg",
-  
-  
+
   "/moon.jpg",
   "/turntable.jpg",
-  
-  "/_astrosax.jpg",
+
+  "/_dinosaur.jpg",
   "/_cactus.jpg",
   "/_cow.jpg",
-  
-  
-  
-  
+
   "/_panda.jpg",
   "/_pandaboom.jpg",
-  "/_dinosaur.jpg",
-  
- 
-  
+
+  "/_astrosax.jpg",
   "/keyboard.jpg",
 ];
-
 
 const AvatarPicker = ({ profileImage, setProfileImage, setAvatarChanged }) => {
   const handleAvatarPicker = (src) => {
     setProfileImage(src);
-    setAvatarChanged(true)
+    setAvatarChanged(true);
   };
-console.log("profile image set:", profileImage)
-
+  console.log("profile image set:", profileImage);
 
   return (
     <Container className="mb-4 mt-4">

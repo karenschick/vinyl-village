@@ -12,20 +12,14 @@ import {
   Badge,
 } from "react-bootstrap";
 import { useApiFetch } from "../../util/api";
-
 import { useProvideAuth } from "../../hooks/useAuth";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
-
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
-
-import Header from "../Header/Header";
 import AvatarPicker from "../AvatarPicker/AvatarPicker";
 import AddAlbums from "../AddAlbums/AddAlbums";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../../util/api";
-
 import { toast } from "react-toastify";
-
 
 const EditProfile = (props) => {
   const { state } = useProvideAuth();
@@ -85,10 +79,14 @@ const EditProfile = (props) => {
     setData({
       ...data,
       [event.target.name]: event.target.value,
-    })
-    if (event.target.name === "currentPassword" || event.target.name === "password" || event.target.name === "confirmPassword") {
+    });
+    if (
+      event.target.name === "currentPassword" ||
+      event.target.name === "password" ||
+      event.target.name === "confirmPassword"
+    ) {
       setPasswordChanged(true);
-    };
+    }
   };
 
   const handleUpdatePassword = async (event) => {
@@ -96,8 +94,8 @@ const EditProfile = (props) => {
       event.preventDefault();
       event.stopPropagation();
     }
-    
-    const form = document.getElementById('passwordForm'); // Add an ID to your form
+
+    const form = document.getElementById("passwordForm"); // Add an ID to your form
     if (form && form.checkValidity() === false) {
       setValidated(true);
       return;
@@ -162,10 +160,11 @@ const EditProfile = (props) => {
     }
   };
 
-  
   const updateAvatar = async () => {
     try {
-      const response = await api.put(`/users/${params.uname}/avatar`, { profile_image: profileImage });
+      const response = await api.put(`/users/${params.uname}/avatar`, {
+        profile_image: profileImage,
+      });
       console.log("Avatar Updated", response.data);
       toast.success(`Successfully updated the Avatar`);
     } catch (error) {
@@ -173,35 +172,31 @@ const EditProfile = (props) => {
       toast.error(`Error updating avatar: ${error.message}`);
     }
   };
-  
-  
 
   const handleSubmitAll = async () => {
-  if (passwordChanged) {
-    await handleUpdatePassword();
-  }
+    if (passwordChanged) {
+      await handleUpdatePassword();
+    }
 
-  if (avatarChanged) {
-    await updateAvatar(); 
-  }
+    if (avatarChanged) {
+      await updateAvatar();
+    }
 
-  
-  // Reset change flags
-  setPasswordChanged(false);
-  setAvatarChanged(false);
-  // setAlbumChanged(false);
-  
+    // Reset change flags
+    setPasswordChanged(false);
+    setAvatarChanged(false);
+    // setAlbumChanged(false);
+
     navigate(`/u/${user.username}`);
-  
-};
+  };
 
-if (!isAuthenticated) {
-  return <LoadingSpinner full />;
-}
+  if (!isAuthenticated) {
+    return <LoadingSpinner full />;
+  }
 
-if (loading) {
-  return <LoadingSpinner full />;
-}
+  if (loading) {
+    return <LoadingSpinner full />;
+  }
   return (
     <>
       <Container>
@@ -217,7 +212,10 @@ if (loading) {
         </Button>
 
         <Container animation="false">
-          <Card bg="header" className="text-center justify-content-center align-items-center mt-3" >
+          <Card
+            bg="header"
+            className="text-center justify-content-center align-items-center mt-3"
+          >
             <Card.Body>
               <Row>
                 <Col xs="auto">
@@ -237,18 +235,16 @@ if (loading) {
                   </Figure>
                 </Col>
                 <Col xs="auto">
-                  <div>
-                    {capitalizeFirstLetter(state.user?.username)}
-                  </div>
-                  {/* <Card.Text className="mb-3">{user.email}</Card.Text> */}
+                  <div>{capitalizeFirstLetter(state.user?.username)}</div>
+                  <Card.Text className="mb-3">{user.email}</Card.Text>
                 </Col>
-                </Row>
+              </Row>
             </Card.Body>
           </Card>
 
-          <Card className= "mt-3 p-3">
+          <Card className="mt-3 p-3">
             <Form
-            id="passwordForm"
+              id="passwordForm"
               noValidate
               validated={validated}
               onSubmit={handleUpdatePassword}
@@ -300,36 +296,17 @@ if (loading) {
               {data.errorMessage && (
                 <span className="form-error">{data.errorMessage}</span>
               )}
-              {/* <Button
-                className=" mt-3"
-                type="submit"
-                disabled={data.isSubmitting}
-              >
-                {data.isSubmitting ? <LoadingSpinner /> : "Update"}
-              </Button> */}
             </Form>
           </Card>
           <Card className="mt-3 p-3">
             <div className="mt-5 justify-content-center">
-              <Form
-                className="avatarChange"
-                noValidate
-                validated={validated}
-                // onSubmit={handleAvatarChange}
-              >
+              <Form className="avatarChange" noValidate validated={validated}>
                 <h6 className="mt-1">Select a new Avatar:</h6>
                 <AvatarPicker
                   setProfileImage={setProfileImage}
                   profileImage={profileImage}
                   setAvatarChanged={setAvatarChanged}
                 />
-                {/* <Button
-                  className="mt-3"
-                  type="submit"
-                  disabled={data.isSubmitting}
-                >
-                  {data.isSubmitting ? <LoadingSpinner /> : "Update"}
-                </Button> */}
               </Form>
             </div>
           </Card>
@@ -345,24 +322,14 @@ if (loading) {
               />
             </Modal.Body>
           </Modal>
-          <Row className="justify-content-center">
-            <Col md={4} className="text-center">
-              <Card className="m-3">
-                <Card.Body>
-                  <h3>Add Album to Collection</h3>
-                  <Button variant="primary" onClick={toggleModal}>
-                    Add
-                  </Button>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-          {/* <Card>
-          <h3>Add Album to Collection</h3>
-          <AddAlbums/>
-          </Card> */}
         </Container>
-        <Button onClick={handleSubmitAll}>Submit All</Button>
+        <Button
+          variant="info"
+          style={{ border: "none", color: "white" }}
+          onClick={handleSubmitAll}
+        >
+          Submit All
+        </Button>
       </Container>
     </>
   );

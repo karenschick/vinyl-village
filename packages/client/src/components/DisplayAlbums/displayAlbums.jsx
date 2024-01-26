@@ -104,9 +104,9 @@ export const DisplayAlbums = () => {
           <AddAlbums onAlbumSubmit={handleAddAlbum} toggleModal={toggleModal} />
         </Modal.Body>
       </Modal>
-      <Container className="mt-5">
-        <div className="mt-5">
-          <div className="sort-tabs">
+      <Container className="mt-5 ">
+        
+          <div className="sort-tabs text-center">
             <Button
               className="m-2"
               variant="outline-info"
@@ -129,9 +129,11 @@ export const DisplayAlbums = () => {
               Artist
             </Button>
             <Button
+            
               className="m-2"
               variant="info"
               style={{ color: "white" }}
+              // style={{ color: "white", backgroundColor: "#bdfa7b", border: "#bdfa7b", }}
               onClick={toggleModal}
             >
               Add Album
@@ -244,7 +246,7 @@ export const DisplayAlbums = () => {
                 </Card.Body>
               </Card>
             ))}
-        </div>
+        
       </Container>
     </>
   );

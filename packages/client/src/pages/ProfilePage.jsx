@@ -1,17 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Card,
-  Form,
-  Button,
-  Figure,
-  Modal,
-  Row,
-  Col,
-  ListGroup,
-  Badge,
-} from "react-bootstrap";
-import { useApiFetch } from "../util/api";
+import { Container, Card, Button, Figure, Row, Col } from "react-bootstrap";
+//import { useApiFetch } from "../util/api";
 import DisplayAlbums from "../components/DisplayAlbums/displayAlbums";
 import { useProvideAuth } from "../hooks/useAuth";
 import { useRequireAuth } from "../hooks/useRequireAuth";
@@ -19,10 +8,10 @@ import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 import Header from "../components/Header/Header";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../util/api";
-import AvatarPicker from "../components/AvatarPicker/AvatarPicker";
-import { toast } from "react-toastify";
-import AddAlbums from "../components/AddAlbums/AddAlbums";
-import EditProfile from "../components/EditProfile/EditProfile";
+//import AvatarPicker from "../components/AvatarPicker/AvatarPicker";
+//import { toast } from "react-toastify";
+//import AddAlbums from "../components/AddAlbums/AddAlbums";
+//import EditProfile from "../components/EditProfile/EditProfile";
 
 export default function ProfilePage(props) {
   const { state } = useProvideAuth();
@@ -77,7 +66,7 @@ export default function ProfilePage(props) {
   return (
     <>
       <Header />
-      <Container>
+      <Container className="mt-3">
         <Card bg="header" className="text-center">
           <Card.Body>
             <Row
@@ -102,8 +91,7 @@ export default function ProfilePage(props) {
               </Col>
               <Col xs="auto">
                 <div>
-                  {capitalizeFirstLetter(params.uname)}'s Album
-                  Collection
+                  {capitalizeFirstLetter(params.uname)}'s Album Collection
                 </div>
                 <Card.Text className="mb-3">{user.email}</Card.Text>
               </Col>
@@ -111,17 +99,26 @@ export default function ProfilePage(props) {
           </Card.Body>
 
           {state.user.username === params.uname && (
-          <Button
-            variant="info"
-            style={{ border: "none", color: "white" }}
-            onClick={() => navigate(`/u/${params.uname}/edit`)} 
-          >
-            Edit Profile
-          </Button>)}
+            <div className="text-center mb-3">
+              {" "}
+              <Button
+                variant="info"
+                className="d-inline-block" 
+                style={{
+                  border: "none",
+                  color: "white",
+                  display: "inline-block",
+                }}
+                onClick={() => navigate(`/u/${params.uname}/edit`)}
+              >
+                Edit Profile
+              </Button>
+            </div>
+          )}
         </Card>
       </Container>
 
-      <Container style={{ border: "black" }}>
+      <Container>
         <DisplayAlbums />
       </Container>
     </>

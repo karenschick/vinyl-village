@@ -146,11 +146,11 @@ export const DisplayAlbums = () => {
 
           {displayedAlbums &&
             displayedAlbums.map((album) => (
-              <Card
+              <Card bg="dark"
                 className="mx-auto mt-5"
                 key={album._id}
                 style={{
-                  backgroundColor: "#bdfa7b",
+                  // backgroundColor: "#bdfa7b",
                   margin: "5px",
                   padding: "15px",
                   width: "80%",

@@ -9,7 +9,8 @@
                 </Button> */}
 
 
-#37dbff
+#bdfa7b green of boombox background
+#0dcaf0 blue of info color
 
 
   "/_unicorn.jpg",

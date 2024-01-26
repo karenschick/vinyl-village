@@ -16,7 +16,8 @@ export default function Header() {
   return (
     <Navbar
       expand="lg"
-      className="bg-body-tertiary"
+      bg="info"
+      
       style={{ minHeight: "100px" }}
     >
       {" "}

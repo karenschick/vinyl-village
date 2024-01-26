@@ -103,7 +103,7 @@ const PostDetailPage = () => {
         onClick={() => {
           navigate(-1);
         }}
-        style={{ border: "none", color: "#E5E1DF" }}
+        style={{ border: "none", color: "#white" }}
         className="mt-3"
       >
         Go Back
@@ -128,7 +128,8 @@ const PostDetailPage = () => {
             value={data.commentText}
             onChange={handleInputChange}
           />
-          <Button className="float-right mt-3" type="submit">
+          <Button variant="info"
+            style={{ border: "none", color: "white" }} className="float-right mt-3" type="submit">
             Comment
           </Button>
           <Form.Control.Feedback type="invalid" className="text-warning">

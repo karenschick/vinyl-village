@@ -2,10 +2,11 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { Col, Row, ToastContainer } from "react-bootstrap";
 import { useProvideAuth } from "./hooks/useAuth";
-import RegisterPage from "./pages/RegisterPage";
+import RegisterPage from "./pages/RegisterPage/RegisterPage";
+
 import PostDetailPage from "./components/PostDetail/PostDetailPage";
 import ProfilePage from "./pages/ProfilePage";
-//import HomePage from "./pages/HomePage";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import UploadProfilePhoto from "./components/UploadProfilePhoto/UploadProfilePhoto";

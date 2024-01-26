@@ -96,12 +96,7 @@ const EditProfile = (props) => {
       event.preventDefault();
       event.stopPropagation();
     }
-    // const form = event.currentTarget;
-    // // handle invalid or empty form
-    // if (form.checkValidity() === false) {
-    //   setValidated(true);
-    //   return;
-    // }
+    
     const form = document.getElementById('passwordForm'); // Add an ID to your form
     if (form && form.checkValidity() === false) {
       setValidated(true);
@@ -167,27 +162,7 @@ const EditProfile = (props) => {
     }
   };
 
-  // const handleAvatarChange = (event) => {
-  //   event.preventDefault();
-
-  //   setUser({
-  //     ...user,
-  //     profile_image: profileImage,
-  //   });
-
-  //   api
-  //     .put(`/users/${params.uname}/avatar`, { profile_image: profileImage })
-  //     .then((response) => {
-  //       console.log("Avatar Updated", response.data);
-  //       toast.success(`Successfully updated the Avatar`);
-  //     })
-  //     .catch((error) => {
-  //       console.log("Error with Avatar upload", error);
-  //       toast.error(`Error updating to ${response.data.profile_image}`);
-  //     });
-  //     setAvatarChanged(true);
-  // };
-
+  
   const updateAvatar = async () => {
     try {
       const response = await api.put(`/users/${params.uname}/avatar`, { profile_image: profileImage });
@@ -210,10 +185,7 @@ const EditProfile = (props) => {
     await updateAvatar(); 
   }
 
-  // if (albumChanged && addAlbumSubmitRef.current) {
-  //   addAlbumSubmitRef.current();
-  // }
-
+  
   // Reset change flags
   setPasswordChanged(false);
   setAvatarChanged(false);

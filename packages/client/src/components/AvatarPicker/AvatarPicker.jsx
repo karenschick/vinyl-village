@@ -4,26 +4,33 @@ import "./AvatarPicker.scss";
 //import UploadProfilePhoto from "../UploadProfilePhoto/UploadProfilePhoto";
 
 let imgs = [
+  "/donut.jpg",
   "/astronaunt.jpg",
+  "/_pinkdino.jpg",
   "/boombox.jpg",
   "/burger.jpg",
   "/headphone.jpg",
-  "/keyboard.jpg",
+  
+  "/_unicorn.jpg",
+  
+  
   "/moon.jpg",
   "/turntable.jpg",
-  "/donut.jpg",
+  
   "/_astrosax.jpg",
   "/_cactus.jpg",
   "/_cow.jpg",
-  "/_dinosaur.jpg",
-  "/_flower.jpg",
-  "/_giraffe.jpg",
-  "/_koala.jpg",
+  
+  
+  
+  
   "/_panda.jpg",
   "/_pandaboom.jpg",
-  "/_pinkdino.jpg",
-  "/_unicorn.jpg",
-  "/bunny.jpg"
+  "/_dinosaur.jpg",
+  
+ 
+  
+  "/keyboard.jpg",
 ];
 
 

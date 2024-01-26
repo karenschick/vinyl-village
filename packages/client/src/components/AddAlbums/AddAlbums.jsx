@@ -12,6 +12,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
     artistName: "",
     tracks: [{ trackTitle: "", trackDuration: "" }],
     bandMembers: [{ memberName: "" }],
+    condition: "excellent",
   });
 
   const isValidYear = (year) => {
@@ -120,7 +121,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
     };
 
     console.log("sending data:", adjustedAlbumData);
-
+    
     try {
       const response = await axios.post(API_URL + "/albums", adjustedAlbumData);
       console.log("response data:", response.data);
@@ -249,6 +250,21 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
             </Col>
           </Row>
         </Form.Group>
+        <Form.Group className="mt-3">
+          <h5>Condition</h5>
+          <Form.Control
+            as="select"
+            name="condition"
+            value={albumData.condition}
+            onChange={handleInputChange}
+          >
+            <option value="poor">Poor</option>
+            <option value="fair">Fair</option>
+            <option value="good">Good</option>
+            <option value="excellent">Excellent</option>
+          </Form.Control>
+        </Form.Group>
+
         <Row className="text-center mt-5">
           <Col>
             <Button type="submit">Submit</Button>

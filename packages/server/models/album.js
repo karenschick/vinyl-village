@@ -53,6 +53,11 @@ const albumSchema = new mongoose.Schema({
       message: "Each track must have a valid title and duration greater than 0",
     },
   },
+  condition: {
+    type: String,
+    required: true,
+    enum: ["poor", "fair", "good", "excellent"],
+  },
 });
 
 const Album = mongoose.model("Album", albumSchema);

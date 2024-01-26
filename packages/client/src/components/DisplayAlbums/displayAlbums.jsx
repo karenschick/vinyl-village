@@ -79,6 +79,11 @@ export const DisplayAlbums = () => {
     setSortAlbum(sortBy);
   };
 
+  const capitalizeFirstLetter = (string) => {
+    if (!string) return "Unknown";
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  };
+
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
@@ -198,6 +203,9 @@ export const DisplayAlbums = () => {
                         <br></br>
                         <div className="mb-4">
                           Album Duration: {albumDuration(album)}
+                        </div>
+                        <div className="mb-4">
+                        Album Condition: {capitalizeFirstLetter(album.condition)}
                         </div>
                       </Card.Body>
                     </Col>

@@ -13,30 +13,27 @@ export default function Header() {
     return null;
   }
 
+  const linkStyle = { color: "#0dcaf0" }; 
+
   return (
     <Navbar
       expand="lg"
-      bg="info"
-      
+      bg="dark"
       style={{ minHeight: "100px" }}
     >
-      {" "}
-      {/* Set minimum height */}
       <Container>
-        <Navbar.Brand as={Link} to="/" style={{ marginLeft: "50px" }}>
+        <Navbar.Brand as={Link} to="/" style={{ ...linkStyle, marginLeft: "50px" }}>
           Landing (put logo here)
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           {user && (
             <Nav className="d-flex align-items-center justify-content-end w-100">
-              {" "}
-              {/* Adjust for center alignment and spacing */}
               <Nav.Item
                 as={Link}
                 to={`/feed`}
                 className="d-flex align-items-center"
-                style={{ marginRight: "50px" }}
+                style={{ ...linkStyle, marginRight: "50px" }}
               >
                 Feed
               </Nav.Item>
@@ -44,6 +41,7 @@ export default function Header() {
                 as={Link}
                 to={`/u/${user.username}`}
                 className="d-flex align-items-center"
+                style={linkStyle}
               >
                 <Figure
                   className="bg-border-color rounded-circle overflow-hidden my-auto ml-2 p-1"
@@ -70,7 +68,7 @@ export default function Header() {
                 style={{
                   border: "none",
                   marginRight: "50px",
-                  color: "#4d4b4b",
+                  color: "white",
                 }}
               >
                 Sign Out

@@ -147,14 +147,18 @@ export const DisplayAlbums = () => {
           {displayedAlbums &&
             displayedAlbums.map((album) => (
               <Card
-                className="mx-auto  mt-5"
+                className="mx-auto mt-5"
                 key={album._id}
-                style={{ backgroundColor:"#39FF14", margin: "5px", padding: "15px", width: "80%" }}
+                style={{
+                  backgroundColor: "#bdfa7b",
+                  margin: "5px",
+                  padding: "15px",
+                  width: "80%",
+                }}
               >
                 <Card.Body>
                   <div className="row">
                     <Col
-                    
                       lg={6}
                       xs={12}
                       style={{
@@ -163,7 +167,7 @@ export const DisplayAlbums = () => {
                         padding: "20px",
                       }}
                     >
-                      <Card.Title  style={{ fontSize: "27px" }}>
+                      <Card.Title style={{ fontSize: "27px" }}>
                         {album.albumTitle}
                       </Card.Title>
                       <Card.Subtitle className="mt-4">
@@ -211,8 +215,9 @@ export const DisplayAlbums = () => {
                               {track.trackNumber}. {track.trackTitle}
                             </div>
                             <Badge
-                    bg="info"
+                            bg="info"
                               style={{
+                                // backgroundColor: "#37dbff",
                                 border: "none",
                                 color: "white",
                                 marginLeft: "5px",

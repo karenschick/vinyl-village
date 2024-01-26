@@ -9,12 +9,12 @@ import {
   Container,
   Row,
 } from "react-bootstrap";
-import { useApiFetch } from "../util/api";
-import AddAlbums from "./AddAlbums/AddAlbums";
+import { useApiFetch } from "../../util/api";
+import AddAlbums from "../AddAlbums/AddAlbums";
 import axios from "axios";
 //import { API_URL } from "../util/constants";
-import ConfirmDelete from "./ConfirmDelete/ConfirmDelete";
-import { API_URL } from "../util/constants";
+import ConfirmDelete from "../ConfirmDelete/ConfirmDelete";
+import { API_URL } from "../../util/constants";
 
 
 export const DisplayAlbums = () => {

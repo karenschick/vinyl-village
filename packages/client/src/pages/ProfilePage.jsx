@@ -12,7 +12,7 @@ import {
   Badge,
 } from "react-bootstrap";
 import { useApiFetch } from "../util/api";
-import DisplayAlbums from "../components/displayAlbums";
+import DisplayAlbums from "../components/DisplayAlbums/displayAlbums";
 import { useProvideAuth } from "../hooks/useAuth";
 import { useRequireAuth } from "../hooks/useRequireAuth";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";

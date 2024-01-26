@@ -102,20 +102,22 @@ export default function ProfilePage(props) {
               </Col>
               <Col xs="auto">
                 <div>
-                  {capitalizeFirstLetter(state.user?.username)}'s Album
+                  {capitalizeFirstLetter(params.uname)}'s Album
                   Collection
                 </div>
                 <Card.Text className="mb-3">{user.email}</Card.Text>
               </Col>
             </Row>
           </Card.Body>
+
+          {state.user.username === params.uname && (
           <Button
             variant="info"
             style={{ border: "none", color: "white" }}
-            onClick={() => navigate(`/u/${params.uname}/edit`)} // Update this line
+            onClick={() => navigate(`/u/${params.uname}/edit`)} 
           >
             Edit Profile
-          </Button>
+          </Button>)}
         </Card>
       </Container>
 

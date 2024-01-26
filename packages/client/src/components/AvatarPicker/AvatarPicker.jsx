@@ -7,23 +7,31 @@ let imgs = [
   "/donut.jpg",
   "/astronaunt.jpg",
   "/_pinkdino.jpg",
+
   "/boombox.jpg",
-  "/burger.jpg",
-  "/headphone.jpg",
-
-  "/_unicorn.jpg",
-
-  "/moon.jpg",
-  "/turntable.jpg",
-
-  "/_dinosaur.jpg",
-  "/_cactus.jpg",
-  "/_cow.jpg",
-
   "/_panda.jpg",
   "/_pandaboom.jpg",
 
+  "/burger.jpg",
   "/_astrosax.jpg",
+  "/bunny.jpg",
+
+  "/headphone.jpg",
+  "/_giraffe.jpg",
+  "/_koala.jpg",
+
+  "/_unicorn.jpg",
+  "/_cow.jpg",
+  "/moon.jpg",
+  "/turntable.jpg",
+"1astro.jpg",
+  "/_dinosaur.jpg",
+  "/_cactus.jpg",
+  "1astrokey.jpg",
+
+  
+  
+  "1astro.jpg",
   "/keyboard.jpg",
 ];
 

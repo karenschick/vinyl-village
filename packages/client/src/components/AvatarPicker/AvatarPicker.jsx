@@ -24,14 +24,11 @@ let imgs = [
   "/_cow.jpg",
   "/moon.jpg",
   "/turntable.jpg",
-"1astro.jpg",
+
   "/_dinosaur.jpg",
   "/_cactus.jpg",
-  "1astrokey.jpg",
-
   
   
-  "1astro.jpg",
   "/keyboard.jpg",
 ];
 

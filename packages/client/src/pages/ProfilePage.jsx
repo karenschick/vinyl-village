@@ -8,26 +8,12 @@ import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 import Header from "../components/Header/Header";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../util/api";
-//import AvatarPicker from "../components/AvatarPicker/AvatarPicker";
-//import { toast } from "react-toastify";
-//import AddAlbums from "../components/AddAlbums/AddAlbums";
-//import EditProfile from "../components/EditProfile/EditProfile";
+
 
 export default function ProfilePage(props) {
   const { state } = useProvideAuth();
-  //const { error, isLoading, response } = useApiFetch("/albums");
   const [user, setUser] = useState();
   const [loading, setLoading] = useState(true);
-  //const [validated, setValidated] = useState(false);
-  //const [showModal, setShowModal] = useState(false);
-  //const [open, setOpen] = useState(false);
-  // const [data, setData] = useState({
-  //   password: "",
-  //   currentPassword: "",
-  //   confirmPassword: "",
-  //   isSubmitting: false,
-  //   errorMessage: null,
-  // });
   const [profileImage, setProfileImage] = useState("");
 
   let navigate = useNavigate();
@@ -66,7 +52,7 @@ export default function ProfilePage(props) {
   return (
     <>
       <Header />
-      <Container className="mt-3">
+      <Container className="mt-3"style={{width: "50%"}}>
         <Card bg="header" className="text-center">
           <Card.Body>
             <Row
@@ -90,16 +76,16 @@ export default function ProfilePage(props) {
                 </Figure>
               </Col>
               <Col xs="auto">
-                <div>
+                <h1>
                   {capitalizeFirstLetter(params.uname)}'s Album Collection
-                </div>
+                </h1>
                 <Card.Text className="mb-3">{user.email}</Card.Text>
               </Col>
             </Row>
           </Card.Body>
 
           {state.user.username === params.uname && (
-            <div className="text-center mb-3">
+            <div className="mb-3">
               {" "}
               <Button
                 variant="info"

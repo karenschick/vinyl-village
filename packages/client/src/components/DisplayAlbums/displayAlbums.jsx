@@ -109,7 +109,7 @@ export const DisplayAlbums = () => {
           <AddAlbums onAlbumSubmit={handleAddAlbum} toggleModal={toggleModal} />
         </Modal.Body>
       </Modal>
-      <Container className="mt-5 ">
+      <Container className="mt-5">
         
           <div className="sort-tabs text-center">
             <Button

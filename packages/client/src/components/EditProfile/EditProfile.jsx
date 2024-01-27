@@ -199,18 +199,19 @@ const EditProfile = (props) => {
   }
   return (
     <>
-      <Container>
+      <Container style={{width: "50%"}}>
+        
         <Button
           variant="outline-info"
           onClick={() => {
             navigate(`/u/${user.username}`);
           }}
-          style={{ border: "none", color: "#E5E1DF" }}
+          style={{ border: "none", color: "black" }}
           className="mt-3 mb-3"
         >
           Go Back
         </Button>
-
+        
         <Container animation="false">
           <Card
             bg="header"
@@ -323,6 +324,7 @@ const EditProfile = (props) => {
             </Modal.Body>
           </Modal>
         </Container>
+        <div className="text-center m-3">
         <Button
           variant="info"
           style={{ border: "none", color: "white" }}
@@ -330,6 +332,7 @@ const EditProfile = (props) => {
         >
           Submit All
         </Button>
+        </div>
       </Container>
     </>
   );

@@ -29,6 +29,10 @@ const userSchema = new mongoose.Schema({
       ref: "Post",
     },
   ],
+  albums:[{
+    type: ObjectId,
+    ref: "Album"
+  }]
 });
 
 const User = mongoose.model("User", userSchema);

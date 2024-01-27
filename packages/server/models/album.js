@@ -1,5 +1,6 @@
 // models/album.js
 import mongoose from "mongoose";
+const { ObjectId } = mongoose.Schema.Types;
 
 const validateYear = (year) => {
   const currentYear = new Date().getFullYear();
@@ -7,6 +8,14 @@ const validateYear = (year) => {
 };
 
 const albumSchema = new mongoose.Schema({
+  author: {
+    type: ObjectId,
+    ref: "User",
+  },
+  created: {
+    type: Date,
+    default: Date.now,
+  },
   albumTitle: {
     type: String,
     required: true,
@@ -58,7 +67,7 @@ const albumSchema = new mongoose.Schema({
     required: true,
     enum: ["poor", "fair", "good", "excellent"],
   },
-});
+},  { timestamps: true });
 
 const Album = mongoose.model("Album", albumSchema);
 

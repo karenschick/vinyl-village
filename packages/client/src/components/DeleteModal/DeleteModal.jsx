@@ -9,10 +9,10 @@ const DeleteModal = ({ show, handleClose, handleDelete }) => {
       </Modal.Header>
       <Modal.Body>Are you sure you wish to delete this post?</Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button variant="outline-info" onClick={handleClose}>
           Cancel
         </Button>
-        <Button variant="danger" onClick={handleDelete}>
+        <Button style={{backgroundColor: "#ff52ce", border: "none"}} onClick={handleDelete}>
           Delete
         </Button>
       </Modal.Footer>

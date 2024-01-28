@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Form, Button, Col, Row } from "react-bootstrap";
+import { Form, Button, Col, Row, Container } from "react-bootstrap";
 import axios from "axios";
 import { API_URL } from "../../util/constants";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import TrashIcon from "../icons/TrashIcon";
 
 export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
   const [albumData, setAlbumData] = useState({
@@ -201,9 +202,15 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
                 />
               </Col>
               <Col xs="auto">
-                <Button variant="danger" onClick={() => removeTrack(index)}>
+                <Container className="close">
+                  <TrashIcon
+                    color="#ff52ce"
+                    onClick={() => removeTrack(index)}
+                  />
+                </Container>
+                {/* <Button variant="danger" onClick={() => removeTrack(index)}>
                   Remove
-                </Button>
+                </Button> */}
               </Col>
             </Row>
           ))}
@@ -225,16 +232,26 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
                 />
               </Col>
               <Col xs="auto">
-                <Button
+                <Container className="close">
+                  <TrashIcon
+                    color="#ff52ce"
+                    onClick={() => removeBandMember(index)}
+                  />
+                </Container>
+                {/* <Button
                   variant="danger"
                   onClick={() => removeBandMember(index)}
                 >
                   Remove
-                </Button>
+                </Button> */}
               </Col>
             </Row>
           ))}
-          <Button variant="outline-info" onClick={addBandMember} className="mt-1">
+          <Button
+            variant="outline-info"
+            onClick={addBandMember}
+            className="mt-1"
+          >
             Add Member
           </Button>
         </Form.Group>
@@ -255,8 +272,9 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
 
         <Row className="text-center mt-4">
           <Col>
-            <Button variant="info"
-              style={{ color: "white" }}type="submit">Submit</Button>
+            <Button variant="info" style={{ color: "white" }} type="submit">
+              Submit
+            </Button>
           </Col>
         </Row>
       </Form>

@@ -11,6 +11,9 @@
 
 #bdfa7b green of boombox background
 #0dcaf0 blue of info color
+#ff52ce pink of headset
+
+
 
 
   "/_unicorn.jpg",

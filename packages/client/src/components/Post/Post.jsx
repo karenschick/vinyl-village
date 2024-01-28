@@ -118,7 +118,7 @@ const Post = ({ post: { _id, author, text, comments, created, likes } }) => {
               <div className="d-flex align-items-center">
                 {user.username === author.username && (
                   <Container className="close">
-                    <TrashIcon onClick={toggleShowDelete} />
+                    <TrashIcon color="#ff52ce" onClick={toggleShowDelete} />
                   </Container>
                 )}
               </div>
@@ -129,7 +129,7 @@ const Post = ({ post: { _id, author, text, comments, created, likes } }) => {
                   size="md"
                   onClick={() => navigate(`/p/${_id}`)}
                 >
-                  <ReplyIcon />
+                  <ReplyIcon color="#0dcaf0"/>
                 </Button>
                 <span>{comments.length > 0 ? comments.length : 0}</span>
               </div>
@@ -139,7 +139,7 @@ const Post = ({ post: { _id, author, text, comments, created, likes } }) => {
                 }`}
               >
                 <Button variant="link" size="md" onClick={handleToggleLike}>
-                  {likedState ? <LikeIconFill /> : <LikeIcon />}
+                  {likedState ? <LikeIconFill color="#0dcaf0"/> : <LikeIcon color="#0dcaf0"/>}
                 </Button>
                 <OverlayTrigger
                   overlay={

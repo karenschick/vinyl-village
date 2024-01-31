@@ -8,6 +8,7 @@ import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 import Header from "../components/Header/Header";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../util/api";
+import "../custom.scss"
 
 
 export default function ProfilePage(props) {
@@ -105,7 +106,7 @@ export default function ProfilePage(props) {
       </Container>
 
       <Container>
-        <DisplayAlbums />
+        <DisplayAlbums username={params.uname}/>
       </Container>
     </>
   );

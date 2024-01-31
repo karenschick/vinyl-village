@@ -15,8 +15,12 @@ import axios from "axios";
 import ConfirmDelete from "../ConfirmDelete/ConfirmDelete";
 import { API_URL } from "../../util/constants";
 import TrashIcon from "../icons/TrashIcon";
+import api from "../../util/api";
+import { useProvideAuth } from "../../hooks/useAuth";
+import { useRequireAuth } from "../../hooks/useRequireAuth";
+import { useNavigate, useParams } from "react-router-dom";
 
-export const DisplayAlbums = () => {
+export const DisplayAlbums = ({ username }) => {
   const { response } = useApiFetch("/albums");
   console.log("response:", response);
 
@@ -25,6 +29,12 @@ export const DisplayAlbums = () => {
   const [showModal, setShowModal] = useState(false);
   const [albumToDelete, setAlbumToDelete] = useState({ id: null, title: "" });
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  const { state } = useProvideAuth();
+  let params = useParams();
+  const {
+    state: { isAuthenticated },
+  } = useRequireAuth();
 
   const handleConfirmDelete = async () => {
     setShowConfirmModal(false);
@@ -88,9 +98,7 @@ export const DisplayAlbums = () => {
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
-        const response = await axios.get(
-          `${API_URL}/albums?sortBy=${sortAlbum}`
-        );
+        const response = await api.get(`${API_URL}/albums?sortBy=${sortAlbum}&username=${username}`);
         setDisplayedAlbums(response.data);
       } catch (error) {
         console.error("Error fetching albums:", error);
@@ -98,7 +106,7 @@ export const DisplayAlbums = () => {
     };
 
     fetchAlbums();
-  }, [sortAlbum]);
+  }, [sortAlbum, username]);
 
   return (
     <>
@@ -133,6 +141,10 @@ export const DisplayAlbums = () => {
           >
             Artist
           </Button>
+
+          {state.user.username === params.uname && (
+           
+              
           <Button
             className="m-2"
             variant="info"
@@ -142,6 +154,8 @@ export const DisplayAlbums = () => {
           >
             Add Album
           </Button>
+          
+          )}
         </div>
         <ConfirmDelete
           showConfirmModal={showConfirmModal}

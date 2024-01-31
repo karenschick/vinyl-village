@@ -1,8 +1,12 @@
 import React, { useState } from "react";
+
 import { Form, Button, Col, Row, Container } from "react-bootstrap";
 import axios from "axios";
 import { API_URL } from "../../util/constants";
 import { ToastContainer, toast } from "react-toastify";
+import { useProvideAuth } from "../../hooks/useAuth";
+import { useRequireAuth } from "../../hooks/useRequireAuth";
+import api from "../../util/api";
 import "react-toastify/dist/ReactToastify.css";
 import TrashIcon from "../icons/TrashIcon";
 
@@ -15,6 +19,12 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
     bandMembers: [{ memberName: "" }],
     condition: "excellent",
   });
+  const {
+    state: { user },
+  } = useProvideAuth();
+  const {
+    state: { isAuthenticated },
+  } = useRequireAuth();
 
   const isValidYear = (year) => {
     const currentYear = new Date().getFullYear();
@@ -124,7 +134,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
     console.log("sending data:", adjustedAlbumData);
 
     try {
-      const response = await axios.post(API_URL + "/albums", adjustedAlbumData);
+      const response = await api.post("/albums", adjustedAlbumData);
       console.log("response data:", response.data);
       onAlbumSubmit(adjustedAlbumData);
       toggleModal();

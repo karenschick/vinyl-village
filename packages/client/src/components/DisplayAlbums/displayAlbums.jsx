@@ -62,7 +62,7 @@ export const DisplayAlbums = ({ username }) => {
 
   const handleRemoveAlbum = async (id) => {
     try {
-      await axios.delete(`${API_URL}/albums/${id}`);
+      await api.delete(`${API_URL}/albums/${id}`);
       const updatedAlbum = displayedAlbums.filter((album) => album._id !== id);
       setDisplayedAlbums(updatedAlbum);
     } catch (error) {
@@ -254,6 +254,8 @@ export const DisplayAlbums = ({ username }) => {
                       ))}
                     </ListGroup>
                   </Col>
+
+                  {state.user.username === params.uname && (
                   <div className="mx-auto mt-3">
                     <Container className="close">
                       <TrashIcon
@@ -273,6 +275,8 @@ export const DisplayAlbums = ({ username }) => {
                         Remove Album
                       </Button> */}
                   </div>
+)}
+
                 </div>
               </Card.Body>
             </Card>

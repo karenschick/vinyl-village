@@ -102,6 +102,7 @@ const Post = ({ post: { _id, author, text, comments, created, likes } }) => {
               <Link
                 to={`/u/${author.username}`}
                 className="text-muted mr-1 username"
+                variant="secondary"
               >
                 @{author.username}
               </Link>

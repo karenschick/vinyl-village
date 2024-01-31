@@ -94,6 +94,11 @@ export const DisplayAlbums = ({ username }) => {
     if (!string) return "Unknown";
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   };
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+  
 
   useEffect(() => {
     const fetchAlbums = async () => {
@@ -221,6 +226,10 @@ export const DisplayAlbums = ({ username }) => {
                       <div className="mb-4">
                         Album Condition:{" "}
                         {capitalizeFirstLetter(album.condition)}
+                      </div>
+                      <div className="mb-4">
+                        Date added:{" "}
+                        {formatDate(album.created)}
                       </div>
                     </Card.Body>
                   </Col>

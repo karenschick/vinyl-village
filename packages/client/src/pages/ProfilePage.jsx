@@ -53,14 +53,14 @@ export default function ProfilePage(props) {
   return (
     <>
       <Header />
-      <Container className="mt-3"style={{width: "50%"}}>
+      <Container className="mt-3">
         <Card bg="header" className="text-center">
           <Card.Body>
             <Row
               className="justify-content-center align-items-center mt-3"
-              style={{ height: "100px" }}
+              
             >
-              <Col xs="auto">
+              <Col xs={12} sm={4} md={3} lg={2}>
                 <Figure
                   className="bg-border-color overflow-hidden my-auto ml-2 p-1"
                   style={{ height: "100px", width: "100px" }}

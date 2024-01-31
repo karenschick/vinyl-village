@@ -22,7 +22,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export const DisplayAlbums = ({ username }) => {
   const { response } = useApiFetch("/albums");
-  console.log("response:", response);
+  //console.log("response:", response);
 
   const [displayedAlbums, setDisplayedAlbums] = useState([]);
   const [sortAlbum, setSortAlbum] = useState("albumTitle");

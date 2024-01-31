@@ -156,8 +156,8 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
   return (
     <>
       <ToastContainer />
-      <Form onSubmit={handleSubmit} style={{ padding: "50px" }}>
-        <Form.Group>
+      <Form onSubmit={handleSubmit} className="p-sm-4 p-2">
+        <Form.Group className="mb-4">
           <h5>Album</h5>
           <Form.Control
             type="text"
@@ -188,6 +188,43 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
             value={albumData.artistName}
             onChange={handleInputChange}
           />
+        </Form.Group>
+        <Form.Group className="mt-4">
+          <h5>Band Members</h5>
+          {albumData.bandMembers.map((member, index) => (
+            <Row key={index} className="align-items-center mb-2">
+              <Col>
+                <Form.Control
+                  type="text"
+                  name="memberName"
+                  placeholder="Band Member Name"
+                  value={member.memberName}
+                  onChange={(e) => handleBandMemberChange(index, e)}
+                />
+              </Col>
+              <Col xs="auto">
+                <Container className="close">
+                  <TrashIcon
+                    color="#ff52ce"
+                    onClick={() => removeBandMember(index)}
+                  />
+                </Container>
+                {/* <Button
+                  variant="danger"
+                  onClick={() => removeBandMember(index)}
+                >
+                  Remove
+                </Button> */}
+              </Col>
+            </Row>
+          ))}
+          <Button
+            variant="outline-info"
+            onClick={addBandMember}
+            className="mt-1"
+          >
+            Add Member
+          </Button>
         </Form.Group>
         <Form.Group className="mt-4">
           <h5>Tracks</h5>
@@ -228,43 +265,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
             Add Track
           </Button>
         </Form.Group>
-        <Form.Group className="mt-4">
-          <h5>Band Members</h5>
-          {albumData.bandMembers.map((member, index) => (
-            <Row key={index} className="align-items-center mb-2">
-              <Col>
-                <Form.Control
-                  type="text"
-                  name="memberName"
-                  placeholder="Band Member Name"
-                  value={member.memberName}
-                  onChange={(e) => handleBandMemberChange(index, e)}
-                />
-              </Col>
-              <Col xs="auto">
-                <Container className="close">
-                  <TrashIcon
-                    color="#ff52ce"
-                    onClick={() => removeBandMember(index)}
-                  />
-                </Container>
-                {/* <Button
-                  variant="danger"
-                  onClick={() => removeBandMember(index)}
-                >
-                  Remove
-                </Button> */}
-              </Col>
-            </Row>
-          ))}
-          <Button
-            variant="outline-info"
-            onClick={addBandMember}
-            className="mt-1"
-          >
-            Add Member
-          </Button>
-        </Form.Group>
+        
         <Form.Group className="mt-4">
           <h5>Condition</h5>
           <Form.Control

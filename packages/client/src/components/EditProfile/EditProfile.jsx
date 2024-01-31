@@ -199,7 +199,7 @@ const EditProfile = (props) => {
   }
   return (
     <>
-      <Container style={{width: "50%"}}>
+      <Container fluid className="p-3" style={{maxWidth: "500px"}}>
         
         <Button
           variant="outline-info"
@@ -299,7 +299,7 @@ const EditProfile = (props) => {
               )}
             </Form>
           </Card>
-          <Card className="mt-3 p-3">
+          <Card className="mt-3">
             <div className="mt-5 justify-content-center">
               <Form className="avatarChange" noValidate validated={validated}>
                 <h6 className="mt-1">Select a new Avatar:</h6>

@@ -80,7 +80,9 @@ export default function ProfilePage(props) {
                 <h1>
                   {capitalizeFirstLetter(params.uname)}'s Album Collection
                 </h1>
+                <Card.Text className="mb-3">{user.firstName} {user.lastName}</Card.Text>
                 <Card.Text className="mb-3">{user.email}</Card.Text>
+                <Card.Text className="mb-3">{user.city}, {user.state}</Card.Text>
               </Col>
             </Row>
           </Card.Body>

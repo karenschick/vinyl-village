@@ -11,7 +11,7 @@ router.route("/").get((req, res, next) => {
 });
 
 router.post("/signup", async (req, res) => {
-  const { username, password, confirmPassword, email, profile_image } =
+  const { username, password, confirmPassword, email, profile_image, firstName, lastName, city, state } =
     req.body;
 
   if (!password || !username || !email) {
@@ -47,7 +47,11 @@ router.post("/signup", async (req, res) => {
           username,
           email,
           passwordHash: hashedpassword,
-          profile_image: profile_image,
+          profile_image,
+          firstName,
+          lastName,
+          city,
+          state
         });
 
         user

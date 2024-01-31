@@ -28,9 +28,19 @@ export const useFetch = (url, options = {}) => {
   return { response, error, isLoading };
 };
 
+// export const useApiFetch = (url, options) => {
+//   return useFetch(API_URL + url, options);
+// };
 export const useApiFetch = (url, options) => {
-  return useFetch(API_URL + url, options);
+  return useFetch(api.defaults.baseURL + url, {
+    ...options,
+    headers: {
+      ...options?.headers,
+      'Authorization': `Bearer ${getUserToken()}`
+    }
+  });
 };
+
 
 const getUserToken = () => {
   const savedUser = JSON.parse(localStorage.getItem("MernAppUser"));

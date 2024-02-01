@@ -78,21 +78,29 @@ export function useProvideAuth() {
     }
   };
 
-  const signup = async (username, email, password, confirmPassword,firstName, lastName, city, state, profile_image) => {
+  const signup = async (
+    username,
+    email,
+    password,
+    confirmPassword,
+    firstName,
+    lastName,
+    city,
+    state,
+    profile_image
+  ) => {
     try {
       await api.post(`/auth/signup`, {
         username,
-      email,
-      password,
-      
-      firstName,
-      lastName,
-      city,
-      state,
-      profile_image,
+        email,
+        password,
+
+        firstName,
+        lastName,
+        city,
+        state,
+        profile_image,
         confirmPassword: confirmPassword,
-        
-        
       });
       return await signin(username, password);
     } catch (error) {

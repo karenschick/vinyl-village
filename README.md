@@ -27,7 +27,26 @@
 "/_koala.jpg",
 
 
-
+{/* <Form.Group className="mt-2" controlId="username">
+              <Form.Label>Username</Form.Label>
+              <Form.Control
+                type="text"
+                value={userDetails.username}
+                onChange={(e) =>
+                  setUserDetails({ ...userDetails, username: e.target.value })
+                }
+              />
+            </Form.Group>
+            <Form.Group className="mt-2" controlId="email">
+              <Form.Label>email</Form.Label>
+              <Form.Control
+                type="text"
+                value={userDetails.email}
+                onChange={(e) =>
+                  setUserDetails({ ...userDetails, email: e.target.value })
+                }
+              /> */}
+            {/* </Form.Group> */}
 
 
 

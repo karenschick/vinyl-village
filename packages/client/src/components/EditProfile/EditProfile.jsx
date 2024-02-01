@@ -42,6 +42,76 @@ const EditProfile = (props) => {
   const [albumChanged, setAlbumChanged] = useState(false);
   const [displayedAlbums, setDisplayedAlbums] = useState([]);
   const addAlbumSubmitRef = useRef(null);
+  const [userDetails, setUserDetails] = useState({
+    firstName: "",
+    lastName: "",
+    city: "",
+    state: "",
+  });
+
+  useEffect(() => {
+    if (user) {
+      setUserDetails({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        city: user.city,
+        state: user.state,
+      });
+    }
+  }, [user]);
+
+  const usStates = [
+    "Alabama",
+    "Alaska",
+    "Arizona",
+    "Arkansas",
+    "California",
+    "Colorado",
+    "Connecticut",
+    "Delaware",
+    "Florida",
+    "Georgia",
+    "Hawaii",
+    "Idaho",
+    "Illinois",
+    "Indiana",
+    "Iowa",
+    "Kansas",
+    "Kentucky",
+    "Louisiana",
+    "Maine",
+    "Maryland",
+    "Massachusetts",
+    "Michigan",
+    "Minnesota",
+    "Mississippi",
+    "Missouri",
+    "Montana",
+    "Nebraska",
+    "Nevada",
+    "New Hampshire",
+    "New Jersey",
+    "New Mexico",
+    "New York",
+    "North Carolina",
+    "North Dakota",
+    "Ohio",
+    "Oklahoma",
+    "Oregon",
+    "Pennsylvania",
+    "Rhode Island",
+    "South Carolina",
+    "South Dakota",
+    "Tennessee",
+    "Texas",
+    "Utah",
+    "Vermont",
+    "Virginia",
+    "Washington",
+    "West Virginia",
+    "Wisconsin",
+    "Wyoming",
+  ];
 
   let navigate = useNavigate();
   let params = useParams();
@@ -175,19 +245,32 @@ const EditProfile = (props) => {
 
   const handleSubmitAll = async () => {
     if (passwordChanged) {
-      await handleUpdatePassword();
+      try {
+        await handleUpdatePassword();
+        setPasswordChanged(false);
+      } catch (error) {
+        // Handle password update error
+      }
     }
 
     if (avatarChanged) {
-      await updateAvatar();
+      try {
+        await updateAvatar();
+        setAvatarChanged(false);
+      } catch (error) {
+        // Handle avatar update error
+      }
     }
 
-    // Reset change flags
-    setPasswordChanged(false);
-    setAvatarChanged(false);
-    // setAlbumChanged(false);
+    try {
+      await api.put(`/users/${params.uname}`, userDetails);
+      toast.success("Profile updated successfully");
+      // If username is part of userDetails and it's changed, handle it appropriately
+    } catch (error) {
+      toast.error("Failed to update profile");
+    }
 
-    navigate(`/u/${user.username}`);
+    navigate(`/u/${user.username}`); // Ensure user.username is updated if username changes
   };
 
   if (!isAuthenticated) {
@@ -199,8 +282,7 @@ const EditProfile = (props) => {
   }
   return (
     <>
-      <Container fluid className="p-3" style={{maxWidth: "500px"}}>
-        
+      <Container fluid className="p-3" style={{ maxWidth: "500px" }}>
         <Button
           variant="outline-info"
           onClick={() => {
@@ -211,7 +293,7 @@ const EditProfile = (props) => {
         >
           Go Back
         </Button>
-        
+
         <Container animation="false">
           <Card
             bg="header"
@@ -242,7 +324,60 @@ const EditProfile = (props) => {
               </Row>
             </Card.Body>
           </Card>
-
+          <Card className="mt-3 p-3">
+            <Form>
+              <Form.Group controlId="firstName">
+                <Form.Label>First Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={userDetails.firstName}
+                  onChange={(e) =>
+                    setUserDetails({
+                      ...userDetails,
+                      firstName: e.target.value,
+                    })
+                  }
+                />
+              </Form.Group>
+              {/* Repeat for lastName and city */}
+              <Form.Group controlId="lastName">
+                <Form.Label>last Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={userDetails.lastName}
+                  onChange={(e) =>
+                    setUserDetails({ ...userDetails, lastName: e.target.value })
+                  }
+                />
+              </Form.Group>
+              <Form.Group controlId="city">
+                <Form.Label>City</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={userDetails.city}
+                  onChange={(e) =>
+                    setUserDetails({ ...userDetails, city: e.target.value })
+                  }
+                />
+              </Form.Group>
+              <Form.Group controlId="state">
+                <Form.Label>State</Form.Label>
+                <Form.Select
+                  value={userDetails.state}
+                  onChange={(e) =>
+                    setUserDetails({ ...userDetails, state: e.target.value })
+                  }
+                >
+                  <option value="">Select State</option>
+                  {usStates.map((state, index) => (
+                    <option key={index} value={state}>
+                      {state}
+                    </option>
+                  ))}
+                </Form.Select>
+              </Form.Group>
+            </Form>
+          </Card>
           <Card className="mt-3 p-3">
             <Form
               id="passwordForm"
@@ -325,13 +460,13 @@ const EditProfile = (props) => {
           </Modal>
         </Container>
         <div className="text-center m-3">
-        <Button
-          variant="info"
-          style={{ border: "none", color: "white" }}
-          onClick={handleSubmitAll}
-        >
-          Submit All
-        </Button>
+          <Button
+            variant="info"
+            style={{ border: "none", color: "white" }}
+            onClick={handleSubmitAll}
+          >
+            Submit All
+          </Button>
         </div>
       </Container>
     </>

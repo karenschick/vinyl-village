@@ -23,10 +23,10 @@ export default function ProfilePage(props) {
     state: { isAuthenticated },
   } = useRequireAuth();
 
-  function capitalizeFirstLetter(string) {
-    if (!string) return "";
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
+  // function capitalizeFirstLetter(string) {
+  //   if (!string) return "";
+  //   return string.charAt(0).toUpperCase() + string.slice(1);
+  // }
 
   useEffect(() => {
     const getUser = async () => {
@@ -78,7 +78,8 @@ export default function ProfilePage(props) {
               </Col>
               <Col xs="auto">
                 <h1>
-                  {capitalizeFirstLetter(params.uname)}'s Album Collection
+                  {/* {capitalizeFirstLetter(params.uname)}'s Album Collection */}
+                  {user.firstName}'s Album Collection
                 </h1>
                 <Card.Text className="mb-3">{user.firstName} {user.lastName}</Card.Text>
                 <Card.Text className="mb-3">{user.email}</Card.Text>

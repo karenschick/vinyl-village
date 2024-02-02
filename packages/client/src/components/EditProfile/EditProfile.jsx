@@ -33,9 +33,9 @@ const EditProfile = (props) => {
     password: "",
     currentPassword: "",
     confirmPassword: "",
-    // email: "",
     firstName: "",
     lastName: "",
+    email: "",
     city: "",
     state: "",
     isSubmitting: false,
@@ -47,14 +47,14 @@ const EditProfile = (props) => {
   const [albumChanged, setAlbumChanged] = useState(false);
   const [displayedAlbums, setDisplayedAlbums] = useState([]);
   const addAlbumSubmitRef = useRef(null);
-  
 
   useEffect(() => {
     if (user) {
-      setData(prevData => ({
+      setData((prevData) => ({
         ...prevData,
         firstName: user.firstName,
         lastName: user.lastName,
+        email: user.email,
         city: user.city,
         state: user.state,
       }));
@@ -320,8 +320,16 @@ const EditProfile = (props) => {
                   </Figure>
                 </Col>
                 <Col xs="auto">
-                  <div>{capitalizeFirstLetter(state.user?.username)}</div>
-                  <Card.Text className="mb-3">{user.email}</Card.Text>
+                  <Card.Text>
+                    {capitalizeFirstLetter(state.user?.username)}
+                  </Card.Text>
+                  <Card.Text>
+                    {user.firstName} {user.lastName}
+                  </Card.Text>
+                  <Card.Text >{user.email}</Card.Text>
+                  <Card.Text>
+                    {user.city}, {user.state}
+                  </Card.Text>
                 </Col>
               </Row>
             </Card.Body>
@@ -352,23 +360,29 @@ const EditProfile = (props) => {
                   }
                 />
               </Form.Group>
+              <Form.Group controlId="email">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={data.email}
+                  onChange={(e) =>
+                    setData({ ...data, email: e.target.value })
+                  }
+                />
+              </Form.Group>
               <Form.Group controlId="city">
                 <Form.Label>City</Form.Label>
                 <Form.Control
                   type="text"
                   value={data.city}
-                  onChange={(e) =>
-                    setData({ ...data, city: e.target.value })
-                  }
+                  onChange={(e) => setData({ ...data, city: e.target.value })}
                 />
               </Form.Group>
               <Form.Group controlId="state">
                 <Form.Label>State</Form.Label>
                 <Form.Select
                   value={data.state}
-                  onChange={(e) =>
-                    setData({ ...data, state: e.target.value })
-                  }
+                  onChange={(e) => setData({ ...data, state: e.target.value })}
                 >
                   <option value="">Select State</option>
                   {usStates.map((state, index) => (

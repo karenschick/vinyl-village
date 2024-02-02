@@ -72,6 +72,7 @@ router
       confirmPassword,
       firstName,
       lastName,
+      email,
       city,
       state,
     } = req.body;
@@ -106,6 +107,7 @@ router
 
     user.firstName = firstName || user.firstName;
     user.lastName = lastName || user.lastName;
+    user.email = email || user.email;
     user.city = city || user.city;
     user.state = state || user.state;
 

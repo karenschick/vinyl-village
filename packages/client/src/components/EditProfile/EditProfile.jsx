@@ -295,14 +295,16 @@ const EditProfile = (props) => {
         >
           Go Back
         </Button>
-
+        <div className="text-center mt-2 mb-5">
+          <h1>Edit Profile</h1>
+        </div>
         <Container animation="false">
           <Card
             bg="header"
             className="text-center justify-content-center align-items-center mt-3"
           >
             <Card.Body>
-              <Row>
+              <Row className="align-items-center">
                 <Col xs="auto">
                   <Figure
                     className="bg-border-color overflow-hidden my-auto ml-2 p-1"
@@ -319,17 +321,8 @@ const EditProfile = (props) => {
                     />
                   </Figure>
                 </Col>
-                <Col xs="auto">
-                  <Card.Text>
-                    {capitalizeFirstLetter(state.user?.username)}
-                  </Card.Text>
-                  <Card.Text>
-                    {user.firstName} {user.lastName}
-                  </Card.Text>
-                  <Card.Text >{user.email}</Card.Text>
-                  <Card.Text>
-                    {user.city}, {user.state}
-                  </Card.Text>
+                <Col xs="auto ">
+                  <h2>{capitalizeFirstLetter(state.user?.username)}</h2>
                 </Col>
               </Row>
             </Card.Body>
@@ -365,9 +358,7 @@ const EditProfile = (props) => {
                 <Form.Control
                   type="text"
                   value={data.email}
-                  onChange={(e) =>
-                    setData({ ...data, email: e.target.value })
-                  }
+                  onChange={(e) => setData({ ...data, email: e.target.value })}
                 />
               </Form.Group>
               <Form.Group controlId="city">

@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
       path: "comments",
       populate: { path: "author", select: ["username", "profile_image"] },
     },
-    "likes"
+    "likes",
   ];
   const posts = await Post.find({})
     .sort({ created: -1 })
@@ -28,13 +28,19 @@ router.post("/", requireAuth, async (req, res, next) => {
     text: text,
     author: user._id,
   });
-  if (req.files && req.files.image){
-    const postImage = req.files.image
-    const imageName = uuid() + path.extname(postImage.name)
-    const uploadPath = path.join(__dirname, "..", "public", "images", imageName)
-    await postImage.mv(uploadPath)
+  if (req.files && req.files.image) {
+    const postImage = req.files.image;
+    const imageName = uuid() + path.extname(postImage.name);
+    const uploadPath = path.join(
+      __dirname,
+      "..",
+      "public",
+      "images",
+      imageName
+    );
+    await postImage.mv(uploadPath);
 
-    post.image = `/images/${imageName}`
+    post.image = `/images/${imageName}`;
   }
   try {
     const savedPost = await post.save();
@@ -63,6 +69,23 @@ router.get("/:id", async (req, res) => {
     res.json(post.toJSON());
   } else {
     res.status(404).end();
+  }
+});
+
+router.put("/:id", requireAuth, async (req, res, next) => {
+  const { id } = req.params;
+  const updatedData = req.body;
+
+  try {
+    const updatedPost = await Post.findByIdAndUpdate(id, updatedData, {
+      new: true,
+    });
+    if (!updatedPost) {
+      return res.sendStatus(404);
+    }
+    res.json(updatedPost);
+  } catch (error) {
+    next(error);
   }
 });
 

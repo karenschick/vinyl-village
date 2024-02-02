@@ -1,21 +1,20 @@
-
 import React, { useState, useEffect } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import api from "../util/api";
 //import api from "../../utils/api.utils.js";
 //import { Post, LoadingSpinner } from "../components";
-import Post from '../components/Post/Post';
-import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner';
+import Post from "../components/Post/Post";
+import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 import { useProvideAuth } from "../hooks/useAuth";
 import Header from "../components/Header/Header";
 //import { useProvideAuth } from "../../hooks/useAuth";
 //import SearchBar from "../SearchBar/SearchBar.jsx";
 const initialState = {
-    postText: "",
-    isSubmitting: false,
-    errorMessage: null,
-  };
+  postText: "",
+  isSubmitting: false,
+  errorMessage: null,
+};
 
 const FeedPage = () => {
   const {
@@ -82,6 +81,17 @@ const FeedPage = () => {
       );
   };
 
+  const handlePostUpdate = (postId, newText) => {
+    setPosts(
+      posts.map((post) => {
+        if (post._id === postId) {
+          return { ...post, text: newText };
+        }
+        return post;
+      })
+    );
+  };
+
   useEffect(() => {
     const getPosts = async () => {
       try {
@@ -99,8 +109,8 @@ const FeedPage = () => {
 
   return (
     <>
-    <Header/>
-      <Container className="pt-3 pb-3 clearfix" style={{width: "50%"}}>
+      <Header />
+      <Container className="pt-3 pb-3 clearfix" style={{ width: "50%" }}>
         <h4>Share a Snip</h4>
         <Form noValidate validated={validated} onSubmit={handlePostSubmit}>
           <Form.Control
@@ -120,7 +130,8 @@ const FeedPage = () => {
             <span className="form-error">{data.errorMessage}</span>
           )}
           <Button
-          variant="info" style={{ border: "none", color: "white" }}
+            variant="info"
+            style={{ border: "none", color: "white" }}
             className="float-right mt-3"
             type="submit"
             disabled={data.isSubmitting}
@@ -131,7 +142,7 @@ const FeedPage = () => {
       </Container>
       {/* <SearchBar keywords={keywords} setKeywords={setKeyWords} /> */}
       {!postLoading ? (
-        <Container className="pt-3 pb-3" style={{width: "50%"}}>
+        <Container className="pt-3 pb-3" style={{ width: "50%" }}>
           <h6>Recent Snips</h6>
           {postError && "Error fetching posts"}
           {posts &&
@@ -139,7 +150,13 @@ const FeedPage = () => {
               .filter((post) =>
                 post.text.toLowerCase().includes(keywords.toLowerCase())
               )
-              .map((post) => <Post key={post._id} post={post} />)}
+              .map((post) => (
+                <Post
+                  key={post._id}
+                  post={post}
+                  onPostUpdate={handlePostUpdate}
+                />
+              ))}
         </Container>
       ) : (
         <LoadingSpinner full />

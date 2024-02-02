@@ -9,7 +9,6 @@ import { useProvideAuth } from "../../hooks/useAuth.jsx";
 import api from "../../util/api.jsx";
 import { toast } from "react-toastify";
 
-
 const initialState = {
   commentText: "",
   isSubmitting: false,
@@ -74,6 +73,17 @@ const PostDetailPage = () => {
     state: { isAuthenticated },
   } = useRequireAuth();
 
+  const handlePostUpdate = (postId, newText) => {
+    setPosts(
+      posts.map((post) => {
+        if (post._id === postId) {
+          return { ...post, text: newText };
+        }
+        return post;
+      })
+    );
+  };
+
   useEffect(() => {
     const getPost = async () => {
       try {
@@ -108,7 +118,7 @@ const PostDetailPage = () => {
       >
         Go Back
       </Button>
-      <Post post={post} detail />
+      <Post post={post} onPostUpdate={handlePostUpdate} detail />
       <div>
         <br />
         <Form
@@ -128,8 +138,12 @@ const PostDetailPage = () => {
             value={data.commentText}
             onChange={handleInputChange}
           />
-          <Button variant="info"
-            style={{ border: "none", color: "white" }} className="float-right mt-3" type="submit">
+          <Button
+            variant="info"
+            style={{ border: "none", color: "white" }}
+            className="float-right mt-3"
+            type="submit"
+          >
             Comment
           </Button>
           <Form.Control.Feedback type="invalid" className="text-warning">

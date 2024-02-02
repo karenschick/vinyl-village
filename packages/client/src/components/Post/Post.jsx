@@ -21,16 +21,45 @@ import api from "../../util/api.jsx";
 import { timeSince } from "../../util/timeSince";
 import useToggle from "../../hooks/useToggle";
 
-const Post = ({ post: { _id, author, text, comments, created, likes } }) => {
+const Post = ({
+  post: { _id, author, text, comments, created, likes },
+  onPostUpdate,
+}) => {
   const [showDelete, toggleShowDelete] = useToggle();
   const [isDeleted, toggleIsDeleted] = useToggle();
+  const [editMode, setEditMode] = useState(false);
+  const [editedText, setEditedText] = useState(text);
 
   let navigate = useNavigate();
   const {
     state: { user },
   } = useProvideAuth();
+
   const [likedState, setLiked] = useState(likes.includes(user.uid));
   const [likesState, setLikes] = useState(likes.length);
+
+  // const toggleEditMode = () => {
+  //   setEditMode(!editMode);
+  // };
+
+  const handleTextChange = (e) => {
+    setEditedText(e.target.value);
+  };
+
+  const toggleEditMode = async () => {
+    if (editMode) {
+      try {
+        const response = await api.put(`/posts/${_id}`, { text: editedText });
+        // Assuming response.data.text is the updated text
+        onPostUpdate(_id, response.data.text);
+        toast.success("Post updated successfully");
+      } catch (error) {
+        console.error(error);
+        toast.error("Failed to update post");
+      }
+    }
+    setEditMode(!editMode);
+  };
 
   const handleToggleLike = async () => {
     if (!likedState) {
@@ -79,7 +108,7 @@ const Post = ({ post: { _id, author, text, comments, created, likes } }) => {
   return (
     <>
       <ListGroup.Item className="text-danger rounded-edge" as={"div"}>
-        <Card className=" py-2 px-3 d-flex flex-row gap-3 align-items-start78 mt-2" >
+        <Card className=" py-2 px-3 d-flex flex-row gap-3 align-items-start78 mt-2">
           <Figure
             as={Link}
             to={`/u/${author.username}`}
@@ -110,12 +139,27 @@ const Post = ({ post: { _id, author, text, comments, created, likes } }) => {
               <span className="text-muted">{timeSince(created)} ago</span>
             </div>
             <div className="mb-n1 mt-1 position-relative">
-              <blockquote className="mb-1 mw-100">
-                <div className="mw-100 overflow-hidden">{text}</div>
-              </blockquote>
+              <div className="mb-n1 mt-1 position-relative">
+                {editMode ? (
+                  <textarea
+                    className="p-2"
+                    value={editedText}
+                    onChange={handleTextChange}
+                  />
+                ) : (
+                  <blockquote className="mb-1  mw-100">
+                    <div className="mw-100 overflow-hidden mt-2">{text}</div>
+                  </blockquote>
+                )}
+              </div>
             </div>
 
             <div className="d-flex justify-content-end align-items-bottom">
+              {user.username === author.username && (
+                <Button onClick={toggleEditMode}>
+                  {editMode ? "Save" : "Edit"}
+                </Button>
+              )}
               <div className="d-flex align-items-center">
                 {user.username === author.username && (
                   <Container className="close">
@@ -130,7 +174,7 @@ const Post = ({ post: { _id, author, text, comments, created, likes } }) => {
                   size="md"
                   onClick={() => navigate(`/p/${_id}`)}
                 >
-                  <ReplyIcon color="#0dcaf0"/>
+                  <ReplyIcon color="#0dcaf0" />
                 </Button>
                 <span>{comments.length > 0 ? comments.length : 0}</span>
               </div>
@@ -140,7 +184,11 @@ const Post = ({ post: { _id, author, text, comments, created, likes } }) => {
                 }`}
               >
                 <Button variant="link" size="md" onClick={handleToggleLike}>
-                  {likedState ? <LikeIconFill color="#0dcaf0"/> : <LikeIcon color="#0dcaf0"/>}
+                  {likedState ? (
+                    <LikeIconFill color="#0dcaf0" />
+                  ) : (
+                    <LikeIcon color="#0dcaf0" />
+                  )}
                 </Button>
                 <OverlayTrigger
                   overlay={

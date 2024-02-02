@@ -100,6 +100,11 @@ const PostDetailPage = () => {
     );
   };
 
+  const handleCommentDeleted = (deletedCommentId) => {
+    // Update the state to remove the comment
+    setComments(comments.filter(comment => comment._id !== deletedCommentId));
+  };
+
   useEffect(() => {
     const getPost = async () => {
       try {
@@ -178,7 +183,9 @@ const PostDetailPage = () => {
               <Comment
                 key={c._id}
                 comment={c}
+                onCommentDeleted={handleCommentDeleted}
                 onUpdateComment={handleUpdateComment}
+                
               />
             ))}
           </Container>

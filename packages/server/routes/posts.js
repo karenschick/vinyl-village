@@ -123,33 +123,7 @@ router.all("/like/:postId", requireAuth, async (req, res) => {
   }
 });
 
-router.put("/comments", async (req, res, next) => {
-  const { text, userId, postId } = req.body;
-  const comment = {
-    text: text,
-    author: userId,
-  };
-  const populateQuery = [
-    { path: "comments.author", select: ["username", "profile_image"] },
-  ];
-  Post.findByIdAndUpdate(
-    postId,
-    {
-      $push: { comments: comment },
-    },
-    {
-      new: true,
-    }
-  )
-    .populate(populateQuery)
-    .exec((err, result) => {
-      if (err) {
-        next(err);
-      } else {
-        res.json(result);
-      }
-    });   
-});
+
 
 router.put('/comments/:commentId', requireAuth, async (req, res) => {
   const { commentId } = req.params;
@@ -177,6 +151,56 @@ router.put('/comments/:commentId', requireAuth, async (req, res) => {
     // Error handling
     res.status(500).send('Server error');
   }
+});
+
+router.delete("/comments/:commentId", requireAuth, async (req, res) => {
+  const { commentId } = req.params;
+
+  try {
+    // Find the post that contains the comment
+    const post = await Post.findOne({ "comments._id": commentId });
+    if (!post) {
+      return res.status(404).send('Post containing the comment not found');
+    }
+
+    // Remove the comment from the post
+    post.comments = post.comments.filter(comment => comment._id.toString() !== commentId);
+
+    // Save the updated post
+    await post.save();
+
+    res.status(200).send('Comment deleted successfully');
+  } catch (error) {
+    res.status(500).send('Server error');
+  }
+});
+
+router.put("/comments", async (req, res, next) => {
+  const { text, userId, postId } = req.body;
+  const comment = {
+    text: text,
+    author: userId,
+  };
+  const populateQuery = [
+    { path: "comments.author", select: ["username", "profile_image"] },
+  ];
+  Post.findByIdAndUpdate(
+    postId,
+    {
+      $push: { comments: comment },
+    },
+    {
+      new: true,
+    }
+  )
+    .populate(populateQuery)
+    .exec((err, result) => {
+      if (err) {
+        next(err);
+      } else {
+        res.json(result);
+      }
+    });   
 });
 
 module.exports = router;

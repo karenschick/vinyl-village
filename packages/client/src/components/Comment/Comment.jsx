@@ -1,18 +1,22 @@
 import React, { useState } from "react";
-import { Figure, Row, Col, Button } from "react-bootstrap";
+import { Figure, Row, Col, Button, Container } from "react-bootstrap";
 //import "./Comment.scss";
 import { timeSince } from "../../util/timeSince";
 import { Link } from "react-router-dom";
 import api from "../../util/api"; 
 import { toast } from "react-toastify";
 import { useProvideAuth } from "../../hooks/useAuth";
+import DeleteModal from "../DeleteModal/DeleteModal";
+import TrashIcon from "../icons/TrashIcon";
+import useToggle from "../../hooks/useToggle";
 
-const Comment = ({ comment, onUpdateComment}) => {
+const Comment = ({ comment, onUpdateComment, onCommentDeleted}) => {
   
   const { author } = comment;
   const [editMode, setEditMode] = useState(false);
   const [editedText, setEditedText] = useState(comment.text);
-  
+  const [showDelete, toggleShowDelete] = useToggle();
+  const [isDeleted, toggleIsDeleted] = useToggle();
 
   const {
     state: { user },
@@ -41,6 +45,18 @@ const Comment = ({ comment, onUpdateComment}) => {
       toast.error("Failed to update comment");
     }
     toggleEditMode();
+  };
+
+  const handleDeleteComment = async () => {
+    try {
+      await api.delete(`/posts/comments/${comment._id}`);
+      onCommentDeleted(comment._id);
+      toggleShowDelete();
+      toggleIsDeleted();
+    } catch (error) {
+      toast.error(`An error occurred deleting post ${comment._id}.`);
+      toggleShowDelete();
+    }
   };
 
   return (
@@ -90,6 +106,21 @@ const Comment = ({ comment, onUpdateComment}) => {
             </>
           )}
         </div>
+        
+              
+              <div className="d-flex align-items-center">
+                {user.username === author.username && (
+                  <Container className="close">
+                    <TrashIcon color="#ff52ce" onClick={toggleShowDelete} />
+                  </Container>
+                )}
+              </div>
+              
+              <DeleteModal
+        show={showDelete}
+        handleClose={toggleShowDelete}
+        handleDelete={handleDeleteComment}
+      />
       </Col>
     </Row>
   );

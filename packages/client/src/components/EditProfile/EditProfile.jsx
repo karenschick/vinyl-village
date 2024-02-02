@@ -33,6 +33,11 @@ const EditProfile = (props) => {
     password: "",
     currentPassword: "",
     confirmPassword: "",
+    // email: "",
+    firstName: "",
+    lastName: "",
+    city: "",
+    state: "",
     isSubmitting: false,
     errorMessage: null,
   });
@@ -42,21 +47,17 @@ const EditProfile = (props) => {
   const [albumChanged, setAlbumChanged] = useState(false);
   const [displayedAlbums, setDisplayedAlbums] = useState([]);
   const addAlbumSubmitRef = useRef(null);
-  const [userDetails, setUserDetails] = useState({
-    firstName: "",
-    lastName: "",
-    city: "",
-    state: "",
-  });
+  
 
   useEffect(() => {
     if (user) {
-      setUserDetails({
+      setData(prevData => ({
+        ...prevData,
         firstName: user.firstName,
         lastName: user.lastName,
         city: user.city,
         state: user.state,
-      });
+      }));
     }
   }, [user]);
 
@@ -115,6 +116,7 @@ const EditProfile = (props) => {
 
   let navigate = useNavigate();
   let params = useParams();
+
   const {
     state: { isAuthenticated },
   } = useRequireAuth();
@@ -263,7 +265,7 @@ const EditProfile = (props) => {
     }
 
     try {
-      await api.put(`/users/${params.uname}`, userDetails);
+      await api.put(`/users/${params.uname}`, data);
       toast.success("Profile updated successfully");
       // If username is part of userDetails and it's changed, handle it appropriately
     } catch (error) {
@@ -330,10 +332,10 @@ const EditProfile = (props) => {
                 <Form.Label>First Name</Form.Label>
                 <Form.Control
                   type="text"
-                  value={userDetails.firstName}
+                  value={data.firstName}
                   onChange={(e) =>
-                    setUserDetails({
-                      ...userDetails,
+                    setData({
+                      ...data,
                       firstName: e.target.value,
                     })
                   }
@@ -341,12 +343,12 @@ const EditProfile = (props) => {
               </Form.Group>
               {/* Repeat for lastName and city */}
               <Form.Group controlId="lastName">
-                <Form.Label>last Name</Form.Label>
+                <Form.Label>Last Name</Form.Label>
                 <Form.Control
                   type="text"
-                  value={userDetails.lastName}
+                  value={data.lastName}
                   onChange={(e) =>
-                    setUserDetails({ ...userDetails, lastName: e.target.value })
+                    setData({ ...data, lastName: e.target.value })
                   }
                 />
               </Form.Group>
@@ -354,18 +356,18 @@ const EditProfile = (props) => {
                 <Form.Label>City</Form.Label>
                 <Form.Control
                   type="text"
-                  value={userDetails.city}
+                  value={data.city}
                   onChange={(e) =>
-                    setUserDetails({ ...userDetails, city: e.target.value })
+                    setData({ ...data, city: e.target.value })
                   }
                 />
               </Form.Group>
               <Form.Group controlId="state">
                 <Form.Label>State</Form.Label>
                 <Form.Select
-                  value={userDetails.state}
+                  value={data.state}
                   onChange={(e) =>
-                    setUserDetails({ ...userDetails, state: e.target.value })
+                    setData({ ...data, state: e.target.value })
                   }
                 >
                   <option value="">Select State</option>

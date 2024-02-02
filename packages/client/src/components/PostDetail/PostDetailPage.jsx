@@ -66,6 +66,22 @@ const PostDetailPage = () => {
       );
   };
 
+  const handleUpdateComment = async (commentId, newText) => {
+    try {
+      await api.put(`/posts/comments/${commentId}`, { text: newText });
+      // Update the local state with the new text
+      setStateComments((currentComments) =>
+        currentComments.map((comment) =>
+          comment._id === commentId ? { ...comment, text: newText } : comment
+        )
+      );
+      toast.success("Comment updated successfully");
+    } catch (error) {
+      console.error("Failed to update comment", error);
+      toast.error("Failed to update comment");
+    }
+  };
+
   let navigate = useNavigate();
   let params = useParams();
 
@@ -159,7 +175,11 @@ const PostDetailPage = () => {
         ) : (
           <Container>
             {stateComments.map((c, index) => (
-              <Comment key={c._id} comment={c} />
+              <Comment
+                key={c._id}
+                comment={c}
+                onUpdateComment={handleUpdateComment}
+              />
             ))}
           </Container>
         )}

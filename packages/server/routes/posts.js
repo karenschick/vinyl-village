@@ -148,7 +148,35 @@ router.put("/comments", async (req, res, next) => {
       } else {
         res.json(result);
       }
-    });
+    });   
+});
+
+router.put('/comments/:commentId', requireAuth, async (req, res) => {
+  const { commentId } = req.params;
+  const {text} = req.body;
+
+  try {
+    // Find the post that contains the comment
+    const post = await Post.findOne({ "comments._id": commentId });
+    if (!post) {
+      return res.status(404).send('Post containing the comment not found');
+    }
+
+    // Update the specific comment in the post
+    const comment = post.comments.id(commentId);
+    if (!comment) {
+      return res.status(404).send('Comment not found');
+    }
+    comment.text = text;
+
+    // Save the post with the updated comment
+    await post.save();
+
+    res.json(comment);
+  } catch (error) {
+    // Error handling
+    res.status(500).send('Server error');
+  }
 });
 
 module.exports = router;

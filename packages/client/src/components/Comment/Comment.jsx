@@ -1,11 +1,48 @@
-import React from "react";
-import { Figure, Row, Col } from "react-bootstrap";
+import React, { useState } from "react";
+import { Figure, Row, Col, Button } from "react-bootstrap";
 //import "./Comment.scss";
 import { timeSince } from "../../util/timeSince";
 import { Link } from "react-router-dom";
+import api from "../../util/api"; 
+import { toast } from "react-toastify";
+import { useProvideAuth } from "../../hooks/useAuth";
 
-const Comment = ({ comment }) => {
+const Comment = ({ comment, onUpdateComment}) => {
+  
   const { author } = comment;
+  const [editMode, setEditMode] = useState(false);
+  const [editedText, setEditedText] = useState(comment.text);
+  
+
+  const {
+    state: { user },
+  } = useProvideAuth();
+
+  console.log(comment);
+  
+  console.log("Comment Author ID:", comment.author?._id)
+  const handleCommentTextChange = (e) => {
+    setEditedText(e.target.value);
+  };
+
+  const toggleEditMode = () => {
+    setEditMode(!editMode);
+  };
+
+  const saveComment = async () => {
+    try {
+      const response = await api.put(`/posts/comments/${comment._id}`, {
+        text: editedText,
+      });
+      onUpdateComment(comment._id, response.data.text); // Update comment in the parent component
+      toast.success("Comment updated successfully");
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to update comment");
+    }
+    toggleEditMode();
+  };
+
   return (
     <Row className="comment-card my-3 px-3 py-2" style={{ flexWrap: "nowrap" }}>
       <Col
@@ -34,7 +71,25 @@ const Comment = ({ comment }) => {
           &nbsp; - &nbsp;
           <span className="text-muted ">{timeSince(comment.created)} ago</span>
         </div>
-        <p className="comment-text">{comment.text}</p>
+
+        <div>
+          {editMode ? (
+            <>
+              <textarea
+                className="p-2"
+                value={editedText}
+                onChange={handleCommentTextChange}
+              />
+              <Button onClick={saveComment}>Save</Button>
+              <Button onClick={toggleEditMode}>Cancel</Button>
+            </>
+          ) : (
+            <>
+              <p className="comment-text">{comment.text}</p>
+              {user.username === author.username && <Button onClick={toggleEditMode}>Edit</Button>}
+            </>
+          )}
+        </div>
       </Col>
     </Row>
   );

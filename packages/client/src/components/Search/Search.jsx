@@ -6,7 +6,7 @@ import { API_URL } from "../../util/constants";
 import api from "../../util/api";
 import { useProvideAuth } from "../../hooks/useAuth";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 
 const SearchForm = () => {
   const [search, setSearch] = useState({
@@ -25,30 +25,23 @@ const SearchForm = () => {
   };
 
   //const response = await api.get(`${API_URL}/albums/search`,{
-   // params: { ...search, filteredSearchParams },
+  // params: { ...search, filteredSearchParams },
 
   const handleSearch = async (e) => {
     e.preventDefault();
     const filteredSearchParams = Object.fromEntries(
-      Object.entries(search).filter(([key, value]) => value.trim() !== '')
+      Object.entries(search).filter(([key, value]) => value.trim() !== "")
     );
     try {
       const response = await api.get("/albums/search", {
         params: filteredSearchParams,
       });
       setSearchResults(response.data);
-      
-        setShowModal(true);
+
+      setShowModal(true);
     } catch (error) {
       console.error("Error handling search:", error.message);
     }
-  };
-  
-  
-  
-  
-  const closeModal = () => {
-    setShowModal(false);
   };
 
   return (
@@ -105,27 +98,35 @@ const SearchForm = () => {
             <Modal.Title>Search Results</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-      <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
-        {searchResults.map((album, index) => (
-          <Card key={index} style={{ width: "18rem", margin: "10px" }}>
-            <Card.Body>
-            {album.author.profile_image && (
-                <img src={album.author.profile_image} alt="Profile" style={{ width: "50px", height: "50px" }} />
-              )}
-              <Card.Title>{album.albumTitle}</Card.Title>
-              <Card.Text>
-                Owner: {album.author.firstName} {album.author.lastName}
-                <br />
-                {album.author.city} {album.author.state}
-                
-              </Card.Text>
-              {/* Display profile image if available */}
-              
-            </Card.Body>
-          </Card>
-        ))}
-      </div>
-    </Modal.Body>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+              }}
+            >
+              {searchResults.map((album, index) => (
+                <Card key={index} style={{ width: "18rem", margin: "10px" }}>
+                <Card.Body>
+                  {album.author.profile_image && (
+                    <Link to={`/u/${album.author.username}`}>
+                      <img src={album.author.profile_image} alt="Profile" style={{ width: "50px", height: "50px" }} />
+                    </Link>
+                  )}
+                  <Card.Title>{album.albumTitle}</Card.Title>
+                  <Card.Text>
+                    Owner: 
+                    <Link to={`/u/${album.author.username}`}>
+                      {album.author.firstName} {album.author.lastName}
+                    </Link>
+                    <br />
+                    {album.author.city} {album.author.state}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+              ))}
+            </div>
+          </Modal.Body>
         </Modal>
       )}
     </div>

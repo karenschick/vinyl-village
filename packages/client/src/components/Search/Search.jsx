@@ -101,12 +101,13 @@ const SearchForm = () => {
         <Button type="submit">Search</Button>
       </Form>
 
-      {searchResults.length > 0 && (
+      {showModal && (
         <Modal show={showModal} onHide={() => setShowModal(false)}>
           <Modal.Header closeButton>
             <Modal.Title>Search Results</Modal.Title>
           </Modal.Header>
           <Modal.Body>
+          {searchResults.length > 0 ? (
             <div
               style={{
                 display: "flex",
@@ -135,6 +136,11 @@ const SearchForm = () => {
               </Card>
               ))}
             </div>
+            ) : (
+              <div style={{ textAlign: "center" }}>
+                No results available. 
+              </div>
+            )}
           </Modal.Body>
         </Modal>
       )}

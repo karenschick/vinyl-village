@@ -39,6 +39,13 @@ const SearchForm = () => {
       setSearchResults(response.data);
 
       setShowModal(true);
+      setSearch({
+        albumTitle: "",
+        artistName: "",
+        bandMember: "",
+        trackTitle: "",
+        releaseYear: "",
+      });
     } catch (error) {
       console.error("Error handling search:", error.message);
     }

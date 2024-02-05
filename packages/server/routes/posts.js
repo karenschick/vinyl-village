@@ -72,22 +72,6 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.put("/:id", requireAuth, async (req, res, next) => {
-  const { id } = req.params;
-  const updatedData = req.body;
-
-  try {
-    const updatedPost = await Post.findByIdAndUpdate(id, updatedData, {
-      new: true,
-    });
-    if (!updatedPost) {
-      return res.sendStatus(404);
-    }
-    res.json(updatedPost);
-  } catch (error) {
-    next(error);
-  }
-});
 
 router.delete("/:id", requireAuth, async (req, res, next) => {
   const { id } = req.params;
@@ -201,6 +185,24 @@ router.put("/comments", async (req, res, next) => {
         res.json(result);
       }
     });   
+});
+
+
+router.put("/:id", requireAuth, async (req, res, next) => {
+  const { id } = req.params;
+  const updatedData = req.body;
+
+  try {
+    const updatedPost = await Post.findByIdAndUpdate(id, updatedData, {
+      new: true,
+    });
+    if (!updatedPost) {
+      return res.sendStatus(404);
+    }
+    res.json(updatedPost);
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;

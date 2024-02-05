@@ -8,8 +8,7 @@ import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 import Header from "../components/Header/Header";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../util/api";
-import "../custom.scss"
-
+import "../custom.scss";
 
 export default function ProfilePage(props) {
   const { state } = useProvideAuth();
@@ -56,10 +55,7 @@ export default function ProfilePage(props) {
       <Container className="mt-3">
         <Card bg="header" className="text-center">
           <Card.Body>
-            <Row
-              className="justify-content-center align-items-center mt-3"
-              
-            >
+            <Row className="justify-content-center align-items-center mt-3">
               <Col xs={12} sm={4} md={3} lg={2}>
                 <Figure
                   className="bg-border-color overflow-hidden my-auto ml-2 p-1"
@@ -81,9 +77,13 @@ export default function ProfilePage(props) {
                   {/* {capitalizeFirstLetter(params.uname)}'s Album Collection */}
                   {user.firstName}'s Album Collection
                 </h1>
-                <Card.Text className="mb-3">{user.firstName} {user.lastName}</Card.Text>
+                <Card.Text className="mb-3">
+                  {user.firstName} {user.lastName}
+                </Card.Text>
                 <Card.Text className="mb-3">{user.email}</Card.Text>
-                <Card.Text className="mb-3">{user.city}, {user.state}</Card.Text>
+                <Card.Text className="mb-3">
+                  {user.city}, {user.state}
+                </Card.Text>
               </Col>
             </Row>
           </Card.Body>
@@ -93,7 +93,7 @@ export default function ProfilePage(props) {
               {" "}
               <Button
                 variant="info"
-                className="d-inline-block" 
+                className="d-inline-block"
                 style={{
                   border: "none",
                   color: "white",
@@ -109,7 +109,7 @@ export default function ProfilePage(props) {
       </Container>
 
       <Container>
-        <DisplayAlbums username={params.uname}/>
+        <DisplayAlbums username={params.uname} />
       </Container>
     </>
   );

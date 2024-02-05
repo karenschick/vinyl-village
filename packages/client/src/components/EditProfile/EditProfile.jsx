@@ -128,11 +128,6 @@ const EditProfile = (props) => {
     setAlbumChanged(true);
   };
 
-  function capitalizeFirstLetter(string) {
-    if (!string) return "";
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -285,48 +280,10 @@ const EditProfile = (props) => {
   return (
     <>
       <Container fluid className="p-3" style={{ maxWidth: "500px" }}>
-        <Button
-          variant="outline-info"
-          onClick={() => {
-            navigate(`/u/${user.username}`);
-          }}
-          style={{ border: "none", color: "black" }}
-          className="mt-3 mb-3"
-        >
-          Go Back
-        </Button>
         <div className="text-center mt-2 mb-5">
           <h1>Edit Profile</h1>
         </div>
         <Container animation="false">
-          <Card
-            bg="header"
-            className="text-center justify-content-center align-items-center mt-3"
-          >
-            <Card.Body>
-              <Row className="align-items-center">
-                <Col xs="auto">
-                  <Figure
-                    className="bg-border-color overflow-hidden my-auto ml-2 p-1"
-                    style={{ height: "100px", width: "100px" }}
-                  >
-                    <Figure.Image
-                      src={user.profile_image}
-                      style={{
-                        borderRadius: "50%",
-                        height: "100%",
-                        width: "auto",
-                        objectFit: "cover",
-                      }}
-                    />
-                  </Figure>
-                </Col>
-                <Col xs="auto ">
-                  <h2>{capitalizeFirstLetter(state.user?.username)}</h2>
-                </Col>
-              </Row>
-            </Card.Body>
-          </Card>
           <Card className="mt-3 p-3">
             <Form>
               <Form.Group controlId="firstName">

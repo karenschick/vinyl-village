@@ -10,6 +10,8 @@ import { useProvideAuth } from "../hooks/useAuth";
 import Header from "../components/Header/Header";
 //import { useProvideAuth } from "../../hooks/useAuth";
 //import SearchBar from "../SearchBar/SearchBar.jsx";
+import SearchForm from "../components/Search/Search";
+
 const initialState = {
   postText: "",
   isSubmitting: false,
@@ -111,6 +113,8 @@ const FeedPage = () => {
     <>
       <Header />
       <Container className="pt-3 pb-3 clearfix" style={{ width: "50%" }}>
+        <SearchForm />
+
         <h4>Share a Snip</h4>
         <Form noValidate validated={validated} onSubmit={handlePostSubmit}>
           <Form.Control

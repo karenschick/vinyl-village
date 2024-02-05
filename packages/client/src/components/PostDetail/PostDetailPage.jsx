@@ -102,7 +102,7 @@ const PostDetailPage = () => {
 
   const handleCommentDeleted = (deletedCommentId) => {
     // Update the state to remove the comment
-    setComments(comments.filter(comment => comment._id !== deletedCommentId));
+    setStateComments(currentComments => currentComments.filter(comment => comment._id !== deletedCommentId));
   };
 
   useEffect(() => {

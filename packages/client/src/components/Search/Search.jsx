@@ -46,7 +46,18 @@ const SearchForm = () => {
 
   return (
     <div>
+      <h1>Search for Albums</h1>
       <Form onSubmit={handleSearch}>
+      <Form.Group controlId="formTitle">
+          <Form.Control
+            type="text"
+            placeholder="Album Title"
+            value={search.albumTitle}
+            onChange={handleInputChange}
+            name="albumTitle"
+            style={{ marginBottom: "2px", opacity: "0.8" }}
+          />
+        </Form.Group>
         <Form.Group controlId="formArtist">
           <Form.Control
             type="text"
@@ -58,16 +69,7 @@ const SearchForm = () => {
           />
         </Form.Group>
 
-        <Form.Group controlId="formTitle">
-          <Form.Control
-            type="text"
-            placeholder="Album Title"
-            value={search.albumTitle}
-            onChange={handleInputChange}
-            name="albumTitle"
-            style={{ marginBottom: "2px", opacity: "0.8" }}
-          />
-        </Form.Group>
+        
 
         <Form.Group controlId="formMember">
           <Form.Control

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Form, Button } from "react-bootstrap";
+import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import { toast } from "react-toastify";
 import api from "../util/api";
 //import api from "../../utils/api.utils.js";
@@ -112,59 +112,65 @@ const FeedPage = () => {
   return (
     <>
       <Header />
-      <Container className="pt-3 pb-3 clearfix" style={{ width: "50%" }}>
-        <SearchForm />
+      <Container className="pt-3 pb-3 clearfix" style={{ width: "80%" }}>
+        <Row>
+          <Col md={4}>
+            <SearchForm />
+          </Col>
+          <Col md={8}>
+            <h4>Share a Snip</h4>
+            <Form noValidate validated={validated} onSubmit={handlePostSubmit}>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                maxLength="120"
+                name="postText"
+                placeholder="What's on your mind?"
+                aria-describedby="post-form"
+                size="lg"
+                required
+                value={data.postText}
+                onChange={handleInputChange}
+              />
 
-        <h4>Share a Snip</h4>
-        <Form noValidate validated={validated} onSubmit={handlePostSubmit}>
-          <Form.Control
-            as="textarea"
-            rows={3}
-            maxLength="120"
-            name="postText"
-            placeholder="What's on your mind?"
-            aria-describedby="post-form"
-            size="lg"
-            required
-            value={data.postText}
-            onChange={handleInputChange}
-          />
+              {data.errorMessage && (
+                <span className="form-error">{data.errorMessage}</span>
+              )}
+              <Button
+                variant="info"
+                style={{ border: "none", color: "white" }}
+                className="float-right mt-3"
+                type="submit"
+                disabled={data.isSubmitting}
+              >
+                {data.isSubmitting ? <LoadingSpinner /> : "Post"}
+              </Button>
+            </Form>
 
-          {data.errorMessage && (
-            <span className="form-error">{data.errorMessage}</span>
-          )}
-          <Button
-            variant="info"
-            style={{ border: "none", color: "white" }}
-            className="float-right mt-3"
-            type="submit"
-            disabled={data.isSubmitting}
-          >
-            {data.isSubmitting ? <LoadingSpinner /> : "Post"}
-          </Button>
-        </Form>
+            {/* <SearchBar keywords={keywords} setKeywords={setKeyWords} /> */}
+            {!postLoading ? (
+              <Container className="pt-3 pb-3" >
+                <h6>Recent Snips</h6>
+                {postError && "Error fetching posts"}
+                {posts &&
+                  posts
+                    .filter((post) =>
+                      post.text.toLowerCase().includes(keywords.toLowerCase())
+                    )
+                    .map((post) => (
+                      <Post
+                        key={post._id}
+                        post={post}
+                        onPostUpdate={handlePostUpdate}
+                      />
+                    ))}
+              </Container>
+            ) : (
+              <LoadingSpinner full />
+            )}
+          </Col>
+        </Row>
       </Container>
-      {/* <SearchBar keywords={keywords} setKeywords={setKeyWords} /> */}
-      {!postLoading ? (
-        <Container className="pt-3 pb-3" style={{ width: "50%" }}>
-          <h6>Recent Snips</h6>
-          {postError && "Error fetching posts"}
-          {posts &&
-            posts
-              .filter((post) =>
-                post.text.toLowerCase().includes(keywords.toLowerCase())
-              )
-              .map((post) => (
-                <Post
-                  key={post._id}
-                  post={post}
-                  onPostUpdate={handlePostUpdate}
-                />
-              ))}
-        </Container>
-      ) : (
-        <LoadingSpinner full />
-      )}
     </>
   );
 };

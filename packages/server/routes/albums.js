@@ -9,20 +9,26 @@ const router = express.Router();
 
 router.get("/search", async (req, res) => {
   try {
-    const { albumTitle, artistName, bandMember, trackTitle, releaseYear } = req.query;
+    const { albumTitle, artistName, bandMember, trackTitle, releaseYear, condition } = req.query;
 
     let queryConditions = [];
     if (albumTitle) queryConditions.push({ albumTitle: new RegExp(albumTitle, 'i') });
     if (artistName) queryConditions.push({ artistName: new RegExp(artistName, 'i') });
     if (bandMember) queryConditions.push({ bandMembers: { $elemMatch: { memberName: new RegExp(bandMember, 'i') } } });
     if (trackTitle) queryConditions.push({ 'tracks.trackTitle': new RegExp(trackTitle, 'i') });
-    if (releaseYear) queryConditions.push({ releaseYear });
+    if (releaseYear) {
+      const year = parseInt(releaseYear); // Convert to number
+      if (!isNaN(year)) {
+        queryConditions.push({ releaseYear: year });
+      }
+    }
+    if (condition) queryConditions.push({ condition });
 
     if (queryConditions.length === 0) {
       return res.status(400).json({ error: "Must provide at least one search parameter" });
     }
 
-    const albums = await Album.find({ $or: queryConditions }).populate('author', 'firstName lastName username city profile_image state');
+    const albums = await Album.find({ $or: queryConditions }).populate('author', 'firstName lastName username city profile_image state ');
     res.json(albums);
   } catch (error) {
     console.error(error);

@@ -15,6 +15,7 @@ const SearchForm = () => {
     bandMember: "",
     trackTitle: "",
     releaseYear: "",
+    condition: "",
   });
   const [searchResults, setSearchResults] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -45,6 +46,7 @@ const SearchForm = () => {
         bandMember: "",
         trackTitle: "",
         releaseYear: "",
+        condition: "",
       });
     } catch (error) {
       console.error("Error handling search:", error.message);
@@ -97,6 +99,32 @@ const SearchForm = () => {
             onChange={handleInputChange}
             style={{ marginBottom: "2px", opacity: "0.8" }}
           />
+        </Form.Group>
+        <Form.Group controlId="formYear">
+          <Form.Control
+            type="number"
+            placeholder="Release Year"
+            value={search.releaseYear}
+            name="releaseYear"
+            onChange={handleInputChange}
+            min="1889"
+            max={new Date().getFullYear()}
+            style={{ marginBottom: "2px", opacity: "0.8" }}
+          />
+        </Form.Group>
+        <Form.Group controlId="formCondition">
+        <Form.Control
+            as="select"
+            name="condition"
+            value={search.condition}
+            onChange={handleInputChange}
+            style={{ marginBottom: "2px", opacity: "0.8" }}
+          >
+            <option value="poor">Poor</option>
+            <option value="fair">Fair</option>
+            <option value="good">Good</option>
+            <option value="excellent">Excellent</option>
+          </Form.Control>
         </Form.Group>
         <Button type="submit">Search</Button>
       </Form>

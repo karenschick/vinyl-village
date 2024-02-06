@@ -156,7 +156,7 @@ const Post = ({
                   <img
                     src={image}
                     alt="Post"
-                    style={{ maxWidth: "100%", height: "auto" }}
+                    style={{ maxWidth:"300px", maxheight: "auto" }}
                   />
                 )}
               </div>

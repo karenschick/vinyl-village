@@ -120,6 +120,7 @@ const SearchForm = () => {
             onChange={handleInputChange}
             style={{ marginBottom: "2px", opacity: "0.8" }}
           >
+            <option value="">Condition</option>
             <option value="poor">Poor</option>
             <option value="fair">Fair</option>
             <option value="good">Good</option>

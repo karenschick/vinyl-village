@@ -28,7 +28,7 @@ router.get("/search", async (req, res) => {
       return res.status(400).json({ error: "Must provide at least one search parameter" });
     }
 
-    const albums = await Album.find({ $or: queryConditions }).populate('author', 'firstName lastName username city profile_image state ');
+    const albums = await Album.find({ $and: queryConditions }).populate('author', 'firstName lastName username city profile_image state ');
     res.json(albums);
   } catch (error) {
     console.error(error);

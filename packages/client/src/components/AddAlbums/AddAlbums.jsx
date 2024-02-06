@@ -177,6 +177,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
             min="1889"
             max={new Date().getFullYear()}
             onChange={handleInputChange}
+            
           />
         </Form.Group>
         <Form.Group className="mt-4">
@@ -273,6 +274,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
             name="condition"
             value={albumData.condition}
             onChange={handleInputChange}
+            style={{  opacity: "0.8" }}
           >
             <option value="poor">Poor</option>
             <option value="fair">Fair</option>

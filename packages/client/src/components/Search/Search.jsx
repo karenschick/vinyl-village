@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Modal, Card, Form, Button } from "react-bootstrap";
+import { Modal, Card, Form, Button, Row, Col } from "react-bootstrap";
 import { useApiFetch } from "../../util/api";
 import { API_URL } from "../../util/constants";
 import api from "../../util/api";
@@ -57,7 +57,7 @@ const SearchForm = () => {
     <div>
       <h1>Search for Albums</h1>
       <Form onSubmit={handleSearch}>
-      <Form.Group controlId="formTitle">
+        <Form.Group controlId="formTitle">
           <Form.Control
             type="text"
             placeholder="Album Title"
@@ -77,8 +77,6 @@ const SearchForm = () => {
             style={{ marginBottom: "2px", opacity: "0.8" }}
           />
         </Form.Group>
-
-        
 
         <Form.Group controlId="formMember">
           <Form.Control
@@ -113,7 +111,7 @@ const SearchForm = () => {
           />
         </Form.Group>
         <Form.Group controlId="formCondition">
-        <Form.Control
+          <Form.Control
             as="select"
             name="condition"
             value={search.condition}
@@ -135,40 +133,51 @@ const SearchForm = () => {
           <Modal.Header closeButton>
             <Modal.Title>Search Results</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-          {searchResults.length > 0 ? (
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "center",
-              }}
-            >
-              {searchResults.map((album, index) => (
-                <Card key={index} style={{ width: "18rem", margin: "10px" }}>
-                <Card.Body>
-                  {album.author.profile_image && (
-                    <Link to={`/u/${album.author.username}`}>
-                      <img src={album.author.profile_image} alt="Profile" style={{ width: "50px", height: "50px" }} />
-                    </Link>
-                  )}
-                  <Card.Title>{album.albumTitle}</Card.Title>
-                  <Card.Text>
-                    Owner: 
-                    <Link to={`/u/${album.author.username}`}>
-                      {album.author.firstName} {album.author.lastName}
-                    </Link>
-                    <br />
-                    {album.author.city} {album.author.state}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-              ))}
-            </div>
-            ) : (
-              <div style={{ textAlign: "center" }}>
-                No results available. 
+          <Modal.Body className="align-items-center text-center">
+            {searchResults.length > 0 ? (
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "center",
+                }}
+              >
+                {searchResults.map((album, index) => (
+                  <Card key={index} style={{ width: "18rem", margin: "10px" }}>
+                    <Card.Body>
+                      <Card.Title>{album.albumTitle}</Card.Title>
+                      <Card.Subtitle>{album.artistName}</Card.Subtitle>
+                      <Card.Text>
+                        Condition: {album.condition.toUpperCase()}
+                      </Card.Text>
+                      <Card.Text className="mt-3">
+                        <Row className="align-items-center">
+                          <Col>
+                            {album.author.profile_image && (
+                              <Link to={`/u/${album.author.username}`}>
+                                <img
+                                  src={album.author.profile_image}
+                                  alt="Profile"
+                                  style={{ width: "50px", height: "50px" }}
+                                />
+                              </Link>
+                            )}{" "}
+                          </Col>{" "}
+                          <Col>
+                            <Link to={`/u/${album.author.username}`}>
+                              {album.author.firstName} {album.author.lastName}
+                            </Link>
+                            <br />
+                            {album.author.city}, {album.author.state}
+                          </Col>
+                        </Row>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                ))}
               </div>
+            ) : (
+              <div style={{ textAlign: "center" }}>No results available.</div>
             )}
           </Modal.Body>
         </Modal>

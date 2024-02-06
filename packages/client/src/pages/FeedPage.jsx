@@ -118,7 +118,7 @@ const FeedPage = () => {
             <SearchForm />
           </Col>
           <Col md={8}>
-            <h4>Share a Snip</h4>
+            <h1>Chat</h1>
             <Form noValidate validated={validated} onSubmit={handlePostSubmit}>
               <Form.Control
                 as="textarea"
@@ -150,7 +150,7 @@ const FeedPage = () => {
             {/* <SearchBar keywords={keywords} setKeywords={setKeyWords} /> */}
             {!postLoading ? (
               <Container className="pt-3 pb-3" >
-                <h6>Recent Snips</h6>
+                <h6>Recent Posts</h6>
                 {postError && "Error fetching posts"}
                 {posts &&
                   posts

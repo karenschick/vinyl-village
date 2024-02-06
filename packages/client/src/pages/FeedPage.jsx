@@ -108,7 +108,12 @@ const FeedPage = () => {
                 value={data.postText}
                 onChange={handleInputChange}
               />
-              <input type="file" onChange={event => setSelectedFile(event.target.files[0])} />
+              <Form.Control
+            type="file"
+            name="image"
+            onChange={event => setSelectedFile(event.target.files[0])}
+          />
+              
               {data.errorMessage && <span className="form-error">{data.errorMessage}</span>}
               <Button
                 variant="info"

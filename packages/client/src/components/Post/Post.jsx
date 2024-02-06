@@ -22,7 +22,7 @@ import { timeSince } from "../../util/timeSince";
 import useToggle from "../../hooks/useToggle";
 
 const Post = ({
-  post: { _id, author, text, comments, created, likes },
+  post: { _id, author, text, comments, created, likes, image },
   onPostUpdate,
 }) => {
   const [showDelete, toggleShowDelete] = useToggle();
@@ -37,7 +37,8 @@ const Post = ({
 
   const [likedState, setLiked] = useState(likes.includes(user.uid));
   const [likesState, setLikes] = useState(likes.length);
-
+  console.log("Image URL:", image)
+  const defaultImage = '/images/default-post.jpg';
   // const toggleEditMode = () => {
   //   setEditMode(!editMode);
   // };
@@ -150,6 +151,13 @@ const Post = ({
                   <blockquote className="mb-1  mw-100">
                     <div className="mw-100 overflow-hidden mt-2">{text}</div>
                   </blockquote>
+                )}
+                {image && image !== defaultImage && (
+                  <img
+                    src={image}
+                    alt="Post"
+                    style={{ maxWidth: "100%", height: "auto" }}
+                  />
                 )}
               </div>
             </div>

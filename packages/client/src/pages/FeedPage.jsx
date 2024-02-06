@@ -2,14 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import { toast } from "react-toastify";
 import api from "../util/api";
-//import api from "../../utils/api.utils.js";
-//import { Post, LoadingSpinner } from "../components";
 import Post from "../components/Post/Post";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 import { useProvideAuth } from "../hooks/useAuth";
 import Header from "../components/Header/Header";
-//import { useProvideAuth } from "../../hooks/useAuth";
-//import SearchBar from "../SearchBar/SearchBar.jsx";
 import SearchForm from "../components/Search/Search";
 
 const initialState = {
@@ -19,79 +15,58 @@ const initialState = {
 };
 
 const FeedPage = () => {
-  const {
-    state: { user },
-  } = useProvideAuth();
+  const { state: { user } } = useProvideAuth();
   const [posts, setPosts] = useState(null);
   const [postLoading, setPostLoading] = useState(true);
   const [postError, setPostError] = useState(false);
-
   const [data, setData] = useState(initialState);
   const [validated, setValidated] = useState(false);
-
-  const [keywords, setKeyWords] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null); // Added state for selected file
+  const [keywords, setKeywords] = useState("");
 
   const handleInputChange = (event) => {
-    setData({
-      ...data,
-      [event.target.name]: event.target.value,
-    });
+    setData({ ...data, [event.target.name]: event.target.value });
   };
 
   const handlePostSubmit = async (event) => {
-    const form = event.currentTarget;
     event.preventDefault();
+    const form = event.currentTarget;
+
     if (form.checkValidity() === false) {
+      event.stopPropagation();
       toast.error("Post text is required");
       setValidated(true);
       return;
     }
 
-    setData({
-      ...data,
-      isSubmitting: true,
-      errorMessage: null,
-    });
+    setData({ ...data, isSubmitting: true, errorMessage: null });
 
-    api
-      .post("/posts", {
-        text: data.postText,
-        author: user.username,
-      })
-      .then(
-        (res) => {
-          setData(initialState);
-          setPosts((posts) => [
-            {
-              ...res.data,
-              author: {
-                username: user.username,
-                profile_image: user.profile_image,
-              },
-            },
-            ...posts,
-          ]);
-          setValidated(false);
-        },
-        (error) => {
-          setData({
-            ...data,
-            isSubmitting: false,
-            errorMessage: error.message,
-          });
+    const formData = new FormData();
+    formData.append('text', data.postText);
+    if (selectedFile) {
+      formData.append('image', selectedFile);
+    }
+
+    try {
+      const response = await api.post("/posts", formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
         }
-      );
+      });
+
+      setData(initialState);
+      setSelectedFile(null); // Reset file input
+      setPosts([response.data, ...posts]);
+      setValidated(false);
+      toast.success("Post created successfully!");
+    } catch (error) {
+      setData({ ...data, isSubmitting: false, errorMessage: error.message });
+      toast.error("Error creating post: " + error.message);
+    }
   };
 
   const handlePostUpdate = (postId, newText) => {
-    setPosts(
-      posts.map((post) => {
-        if (post._id === postId) {
-          return { ...post, text: newText };
-        }
-        return post;
-      })
-    );
+    setPosts(posts.map(post => post._id === postId ? { ...post, text: newText } : post));
   };
 
   useEffect(() => {
@@ -102,8 +77,9 @@ const FeedPage = () => {
         setPostLoading(false);
       } catch (err) {
         console.error(err.message);
-        setPostLoading(false);
         setPostError(true);
+      } finally {
+        setPostLoading(false);
       }
     };
     getPosts();
@@ -132,10 +108,8 @@ const FeedPage = () => {
                 value={data.postText}
                 onChange={handleInputChange}
               />
-
-              {data.errorMessage && (
-                <span className="form-error">{data.errorMessage}</span>
-              )}
+              <input type="file" onChange={event => setSelectedFile(event.target.files[0])} />
+              {data.errorMessage && <span className="form-error">{data.errorMessage}</span>}
               <Button
                 variant="info"
                 style={{ border: "none", color: "white" }}
@@ -147,27 +121,17 @@ const FeedPage = () => {
               </Button>
             </Form>
 
-            {/* <SearchBar keywords={keywords} setKeywords={setKeyWords} /> */}
             {!postLoading ? (
-              <Container className="pt-3 pb-3" >
+              <Container className="pt-3 pb-3">
                 <h6>Recent Posts</h6>
                 {postError && "Error fetching posts"}
                 {posts &&
-                  posts
-                    .filter((post) =>
-                      post.text.toLowerCase().includes(keywords.toLowerCase())
-                    )
-                    .map((post) => (
-                      <Post
-                        key={post._id}
-                        post={post}
-                        onPostUpdate={handlePostUpdate}
-                      />
-                    ))}
+                  posts.filter(post => post.text.toLowerCase().includes(keywords.toLowerCase()))
+                  .map(post => (
+                    <Post key={post._id} post={post} onPostUpdate={handlePostUpdate} />
+                  ))}
               </Container>
-            ) : (
-              <LoadingSpinner full />
-            )}
+            ) : <LoadingSpinner full />}
           </Col>
         </Row>
       </Container>
@@ -175,4 +139,4 @@ const FeedPage = () => {
   );
 };
 
-export default FeedPage;
+export default FeedPage

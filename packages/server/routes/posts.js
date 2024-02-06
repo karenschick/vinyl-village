@@ -2,6 +2,9 @@ import express from "express";
 const router = express.Router();
 import { Post } from "../models";
 import { requireAuth } from "../middleware";
+import { v4 as uuid } from 'uuid';
+import path from 'path';
+
 
 router.get("/", async (req, res) => {
   const populateQuery = [

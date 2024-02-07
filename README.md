@@ -13,7 +13,9 @@
 #0dcaf0 blue of info color
 #ff52ce pink of headset
 
-
+<Button className="mb-5" onClick={toggleAvatarUpload}>
+              {showAvatarOptions ? "Upload Image" : "Choose Avatar"}
+            </Button>
 
 
   "/_unicorn.jpg",

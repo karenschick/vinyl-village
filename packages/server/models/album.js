@@ -68,6 +68,8 @@ const albumSchema = new mongoose.Schema({
     required: true,
     enum: ["poor", "fair", "good", "excellent"],
   },
+  //path set up for static file serving
+  image: { type: String, default: "/images/default-post.jpg" },
 },  { timestamps: true });
 
 const Album = mongoose.model("Album", albumSchema);

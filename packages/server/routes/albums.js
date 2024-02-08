@@ -4,6 +4,8 @@ import Album from "../models/album";
 import { User } from "../models";
 import { requireAuth } from "../middleware";
 import { Express } from "express";
+import { v4 as uuidv4 } from 'uuid'; 
+import path from 'path'; 
 
 const router = express.Router();
 
@@ -58,13 +60,39 @@ router.get("/", requireAuth, async (req, res) => {
 });
 
 router.post("/", requireAuth, async (req, res) => {
+  console.log("Received req.body:", req.body);
+  console.log("Received tracks data:", req.body.tracks);
+
+  const { user } = req;
+  const newAlbumData = {
+    ...req.body,
+    tracks: JSON.parse(req.body.tracks || "[]"),
+    bandMembers: JSON.parse(req.body.bandMembers || "[]"),
+  };
+
+
+  
+  const newAlbum = new Album({
+    ...newAlbumData, // Spread syntax to copy all album data
+    author: user._id, // Associate album with logged-in user
+  });
+
+  if (req.files && req.files.image) {
+    const albumImage = req.files.image;
+    const imageName = uuidv4() + path.extname(albumImage.name); // Use uuidv4() to generate a unique file name
+    const uploadPath = path.join(
+      __dirname,
+      "..",
+      "public",
+      "images",
+      imageName
+    );
+    await albumImage.mv(uploadPath);
+    newAlbum.image = `/images/${imageName}`; // Update the image path in the album object
+  }
+console.log("req.body",req.body)
+console.log("req.files",req.files)
   try {
-    const { user } = req;
-    const newAlbumData = req.body;
-    const newAlbum = new Album({
-      ...newAlbumData, // Spread syntax to copy all album data
-      author: user._id, // Associate album with logged-in user
-    });
     await newAlbum.save();
     res.status(201).json(newAlbum);
   } catch (error) {

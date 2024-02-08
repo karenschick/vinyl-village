@@ -95,10 +95,10 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   };
   const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const options = { year: "numeric", month: "long", day: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
-  
+
   useEffect(() => {
     onAlbumsChange(displayedAlbums.length);
   }, [displayedAlbums]);
@@ -106,7 +106,9 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
-        const response = await api.get(`${API_URL}/albums?sortBy=${sortAlbum}&username=${username}`);
+        const response = await api.get(
+          `${API_URL}/albums?sortBy=${sortAlbum}&username=${username}`
+        );
         setDisplayedAlbums(response.data);
       } catch (error) {
         console.error("Error fetching albums:", error);
@@ -151,18 +153,15 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
           </Button>
 
           {state.user.username === params.uname && (
-           
-              
-          <Button
-            className="m-2"
-            variant="info"
-            style={{ color: "white" }}
-            // style={{ color: "white", backgroundColor: "#bdfa7b", border: "#bdfa7b", }}
-            onClick={toggleModal}
-          >
-            Add Album
-          </Button>
-          
+            <Button
+              className="m-2"
+              variant="info"
+              style={{ color: "white" }}
+              // style={{ color: "white", backgroundColor: "#bdfa7b", border: "#bdfa7b", }}
+              onClick={toggleModal}
+            >
+              Add Album
+            </Button>
           )}
         </div>
         <ConfirmDelete
@@ -196,6 +195,15 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                       padding: "20px",
                     }}
                   >
+                    <img
+                      src={album.image || "/default-image.jpg"} // Fallback to default if main image is not available
+                      alt={album.albumTitle}
+                      style={{ width: "100%", height: "auto" }}
+                      onError={(e) => {
+                        e.target.onerror = null; // Prevents recursion
+                        e.target.src = "/album8.jpg"; // Path to your default image
+                      }}
+                    />
                     <Card.Title style={{ fontSize: "27px" }}>
                       {album.albumTitle}
                     </Card.Title>
@@ -231,8 +239,7 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                         {capitalizeFirstLetter(album.condition)}
                       </div>
                       <div className="mb-4">
-                        Date added:{" "}
-                        {formatDate(album.created)}
+                        Date added: {formatDate(album.created)}
                       </div>
                     </Card.Body>
                   </Col>
@@ -268,16 +275,16 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                   </Col>
 
                   {state.user.username === params.uname && (
-                  <div className="mx-auto mt-3">
-                    <Container className="close">
-                      <TrashIcon
-                        color="#ff52ce"
-                        onClick={() =>
-                          handleShowConfirmModal(album._id, album.albumTitle)
-                        }
-                      />
-                    </Container>
-                    {/* <Button
+                    <div className="mx-auto mt-3">
+                      <Container className="close">
+                        <TrashIcon
+                          color="#ff52ce"
+                          onClick={() =>
+                            handleShowConfirmModal(album._id, album.albumTitle)
+                          }
+                        />
+                      </Container>
+                      {/* <Button
                         variant="secondary"
                         style={{ marginTop: "15px" }}
                         onClick={() =>
@@ -286,9 +293,8 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                       >
                         Remove Album
                       </Button> */}
-                  </div>
-)}
-
+                    </div>
+                  )}
                 </div>
               </Card.Body>
             </Card>

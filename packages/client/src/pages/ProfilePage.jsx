@@ -15,6 +15,7 @@ export default function ProfilePage(props) {
   const [user, setUser] = useState();
   const [loading, setLoading] = useState(true);
   const [profileImage, setProfileImage] = useState("");
+  const [albumCount, setAlbumCount] = useState(0)
 
   let navigate = useNavigate();
   let params = useParams();
@@ -26,6 +27,10 @@ export default function ProfilePage(props) {
   //   if (!string) return "";
   //   return string.charAt(0).toUpperCase() + string.slice(1);
   // }
+
+  const updateAlbumCount = (count) =>{
+    setAlbumCount(count)
+  }
 
   useEffect(() => {
     const getUser = async () => {
@@ -52,7 +57,7 @@ export default function ProfilePage(props) {
   return (
     <>
       <Header />
-      <Container className="mt-3">
+      <Container className="mt-3" style={{ width: "60%" }}>
         <Card bg="header" className="text-center">
           <Card.Body>
             <Row className="justify-content-center align-items-center mt-3">
@@ -73,10 +78,6 @@ export default function ProfilePage(props) {
                 </Figure>
               </Col>
               <Col xs="auto">
-                <h1>
-                  {/* {capitalizeFirstLetter(params.uname)}'s Album Collection */}
-                  {user.firstName}'s Album Collection
-                </h1>
                 <Card.Text className="mb-3">
                   {user.firstName} {user.lastName}
                 </Card.Text>
@@ -84,6 +85,8 @@ export default function ProfilePage(props) {
                 <Card.Text className="mb-3">
                   {user.city}, {user.state}
                 </Card.Text>
+                <Card.Text>{albumCount} albums</Card.Text>
+
               </Col>
             </Row>
           </Card.Body>
@@ -109,7 +112,11 @@ export default function ProfilePage(props) {
       </Container>
 
       <Container>
-        <DisplayAlbums username={params.uname} />
+        {/* <h1 className="mt-5 text-center">
+          {capitalizeFirstLetter(params.uname)}'s Album Collection
+          {user.firstName}'s Album Collection
+        </h1> */}
+        <DisplayAlbums username={params.uname} onAlbumsChange={updateAlbumCount} />
       </Container>
     </>
   );

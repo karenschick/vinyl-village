@@ -20,7 +20,7 @@ import { useProvideAuth } from "../../hooks/useAuth";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
 import { useNavigate, useParams } from "react-router-dom";
 
-export const DisplayAlbums = ({ username }) => {
+export const DisplayAlbums = ({ username, onAlbumsChange }) => {
   const { response } = useApiFetch("/albums");
   //console.log("response:", response);
 
@@ -99,6 +99,9 @@ export const DisplayAlbums = ({ username }) => {
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
   
+  useEffect(() => {
+    onAlbumsChange(displayedAlbums.length);
+  }, [displayedAlbums]);
 
   useEffect(() => {
     const fetchAlbums = async () => {

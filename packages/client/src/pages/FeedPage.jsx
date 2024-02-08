@@ -105,9 +105,7 @@ const FeedPage = () => {
                 src="album1.jpg"
               />
             </Figure>
-            <SearchForm />
-          </Col>
-          <Col md={8}>
+            <Container className="mb-5">
             <h1>Chat</h1>
             <Form noValidate validated={validated} onSubmit={handlePostSubmit}>
               <Form.Control
@@ -134,17 +132,22 @@ const FeedPage = () => {
               <Button
                 variant="info"
                 style={{ border: "none", color: "white" }}
-                className="float-right mt-3"
+                className="m-auto mt-3"
                 type="submit"
                 disabled={data.isSubmitting}
               >
                 {data.isSubmitting ? <LoadingSpinner /> : "Post"}
               </Button>
             </Form>
-
+            </Container>
+            
+            <SearchForm />
+          </Col>
+          <Col md={8}>
+            
             {!postLoading ? (
               <Container className="pt-3 pb-3">
-                <h6>Recent Posts</h6>
+               
                 {postError && "Error fetching posts"}
                 {posts &&
                   posts

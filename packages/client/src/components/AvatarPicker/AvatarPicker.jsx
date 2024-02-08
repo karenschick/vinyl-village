@@ -13,6 +13,7 @@ let imgs = [
   "/__astrokey.jpg",
   "/headphone.jpg",
   "/_pinkdino.jpg",
+  "/ablumavatar2.png",
 ];
 
 const AvatarPicker = ({ profileImage, setProfileImage, setAvatarChanged }) => {

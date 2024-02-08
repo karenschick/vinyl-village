@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Form, Button, Row, Col } from "react-bootstrap";
+import { Container, Form, Button, Row, Col, Figure } from "react-bootstrap";
 import { toast } from "react-toastify";
 import api from "../util/api";
 import Post from "../components/Post/Post";
@@ -15,7 +15,9 @@ const initialState = {
 };
 
 const FeedPage = () => {
-  const { state: { user } } = useProvideAuth();
+  const {
+    state: { user },
+  } = useProvideAuth();
   const [posts, setPosts] = useState(null);
   const [postLoading, setPostLoading] = useState(true);
   const [postError, setPostError] = useState(false);
@@ -42,16 +44,16 @@ const FeedPage = () => {
     setData({ ...data, isSubmitting: true, errorMessage: null });
 
     const formData = new FormData();
-    formData.append('text', data.postText);
+    formData.append("text", data.postText);
     if (selectedFile) {
-      formData.append('image', selectedFile);
+      formData.append("image", selectedFile);
     }
 
     try {
       const response = await api.post("/posts", formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          "Content-Type": "multipart/form-data",
+        },
       });
 
       setData(initialState);
@@ -66,7 +68,11 @@ const FeedPage = () => {
   };
 
   const handlePostUpdate = (postId, newText) => {
-    setPosts(posts.map(post => post._id === postId ? { ...post, text: newText } : post));
+    setPosts(
+      posts.map((post) =>
+        post._id === postId ? { ...post, text: newText } : post
+      )
+    );
   };
 
   useEffect(() => {
@@ -91,6 +97,14 @@ const FeedPage = () => {
       <Container className="pt-3 pb-3 clearfix" style={{ width: "80%" }}>
         <Row>
           <Col md={4}>
+            <Figure>
+              <Figure.Image
+                width={400}
+                height={180}
+                alt="171x180"
+                src="album1.jpg"
+              />
+            </Figure>
             <SearchForm />
           </Col>
           <Col md={8}>
@@ -109,12 +123,14 @@ const FeedPage = () => {
                 onChange={handleInputChange}
               />
               <Form.Control
-            type="file"
-            name="image"
-            onChange={event => setSelectedFile(event.target.files[0])}
-          />
-              
-              {data.errorMessage && <span className="form-error">{data.errorMessage}</span>}
+                type="file"
+                name="image"
+                onChange={(event) => setSelectedFile(event.target.files[0])}
+              />
+
+              {data.errorMessage && (
+                <span className="form-error">{data.errorMessage}</span>
+              )}
               <Button
                 variant="info"
                 style={{ border: "none", color: "white" }}
@@ -131,12 +147,21 @@ const FeedPage = () => {
                 <h6>Recent Posts</h6>
                 {postError && "Error fetching posts"}
                 {posts &&
-                  posts.filter(post => post.text.toLowerCase().includes(keywords.toLowerCase()))
-                  .map(post => (
-                    <Post key={post._id} post={post} onPostUpdate={handlePostUpdate} />
-                  ))}
+                  posts
+                    .filter((post) =>
+                      post.text.toLowerCase().includes(keywords.toLowerCase())
+                    )
+                    .map((post) => (
+                      <Post
+                        key={post._id}
+                        post={post}
+                        onPostUpdate={handlePostUpdate}
+                      />
+                    ))}
               </Container>
-            ) : <LoadingSpinner full />}
+            ) : (
+              <LoadingSpinner full />
+            )}
           </Col>
         </Row>
       </Container>
@@ -144,4 +169,4 @@ const FeedPage = () => {
   );
 };
 
-export default FeedPage
+export default FeedPage;

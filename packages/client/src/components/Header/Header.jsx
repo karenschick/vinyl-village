@@ -13,7 +13,7 @@ export default function Header() {
     return null;
   }
 
-  const linkStyle = { color: "#0dcaf0" }; 
+  const linkStyle = { color: "white" }; 
 
   return (
     <Navbar

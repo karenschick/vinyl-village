@@ -11,8 +11,8 @@ function LandingCarousel() {
           src="/album12.jpg"
           alt="First slide"
         />
-        <Carousel.Caption>
-          <h2>Need an Album?</h2>
+        <Carousel.Caption style={{color: "black"}}>
+          <h1>Need an Album?</h1>
         </Carousel.Caption>
       </Carousel.Item>
 
@@ -23,7 +23,7 @@ function LandingCarousel() {
           alt="Second slide"
         />
         <Carousel.Caption>
-          <h2>Share an Album</h2>
+          <h1>Share an Album</h1>
         </Carousel.Caption>
       </Carousel.Item>
 
@@ -34,7 +34,7 @@ function LandingCarousel() {
           alt="Third slide"
         />
         <Carousel.Caption>
-          <h2>Chat with Music Lovers</h2>
+          <h1>Chat with Music Lovers</h1>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>

@@ -79,7 +79,7 @@ const Login = () => {
           <Row>
             <Col xs={12} className="text-center mt-3">
               <p>
-                Don't have an account sign up <Link to="/signup">HERE</Link>
+                Don't have an account? sign up <Link to="/signup">HERE</Link>
               </p>
             </Col>
           </Row>

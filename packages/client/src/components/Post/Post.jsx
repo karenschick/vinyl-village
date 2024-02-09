@@ -134,7 +134,7 @@ const Post = ({
                 className="text-muted mr-1 username"
                 variant="secondary"
               >
-                @{author.username}
+                {author.username}
               </Link>
               <pre className="m-0 text-muted">{" - "}</pre>
               <span className="text-muted">{timeSince(created)} ago</span>
@@ -171,7 +171,7 @@ const Post = ({
               <div className="d-flex align-items-center">
                 {user.username === author.username && (
                   <Container className="close">
-                    <TrashIcon color="#ff52ce" onClick={toggleShowDelete} />
+                    <TrashIcon color="red" onClick={toggleShowDelete} />
                   </Container>
                 )}
               </div>
@@ -182,7 +182,7 @@ const Post = ({
                   size="md"
                   onClick={() => navigate(`/p/${_id}`)}
                 >
-                  <ReplyIcon color="#0dcaf0" />
+                  <ReplyIcon  />
                 </Button>
                 <span>{comments.length > 0 ? comments.length : 0}</span>
               </div>
@@ -193,9 +193,9 @@ const Post = ({
               >
                 <Button variant="link" size="md" onClick={handleToggleLike}>
                   {likedState ? (
-                    <LikeIconFill color="#0dcaf0" />
+                    <LikeIconFill color="" />
                   ) : (
-                    <LikeIcon color="#0dcaf0" />
+                    <LikeIcon color="" />
                   )}
                 </Button>
                 <OverlayTrigger

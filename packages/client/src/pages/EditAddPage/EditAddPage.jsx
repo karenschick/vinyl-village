@@ -88,7 +88,7 @@ const EditAddPage = () => {
                     <Figure.Image
                       src={user.profile_image}
                       style={{
-                        borderRadius: "50%",
+                        borderRadius: "0%",
                         height: "100%",
                         width: "auto",
                         objectFit: "cover",

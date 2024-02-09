@@ -44,7 +44,7 @@ export default function Header() {
                 style={linkStyle}
               >
                 <Figure
-                  className="bg-border-color rounded-circle overflow-hidden my-auto ml-2 p-1"
+                  className="bg-border-color overflow-hidden my-auto ml-2 p-1"
                   style={{
                     marginRight: "50px",
                   }}
@@ -53,7 +53,7 @@ export default function Header() {
                     src={user.profile_image}
                     className="w-100 h-100"
                     style={{
-                      borderRadius: "20%",
+                      borderRadius: "0%",
                       maxHeight: "50px",
                       width: "auto",
                       objectFit: "cover",

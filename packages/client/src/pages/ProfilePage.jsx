@@ -69,7 +69,7 @@ export default function ProfilePage(props) {
                   <Figure.Image
                     src={user.profile_image}
                     style={{
-                      borderRadius: "20%",
+                      borderRadius: "0%",
                       height: "100%",
                       width: "auto",
                       objectFit: "cover",

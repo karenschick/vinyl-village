@@ -1,5 +1,5 @@
 .selectedAvatar {
-  border-radius: 10%;
+  border-radius: 50%;
   border: 2px solid white;
   background-color: #fcc44c;
   margin: 8px;
@@ -8,7 +8,7 @@
 }
 
 .avatar {
-  border-radius: 20%;
+  border-radius: 0%;
   border: 2px solid white;
   margin: 8px;
   height: 75px;
@@ -16,7 +16,7 @@
 }
 
 .avatar:hover {
-  border-radius: 10%;
+  border-radius:50%;
   border: 2px solid white;
   background-color: white;
   cursor: pointer;

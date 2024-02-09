@@ -1,12 +1,6 @@
 /* Your CSS Here */
 
-main {
+/* main {
   text-align: center;
-}
+} */
 
-@media only screen and (min-width: 768px) {
-  .band-members {
-    padding-left: 100px;
-    padding-right: 100px;
-  }
-}

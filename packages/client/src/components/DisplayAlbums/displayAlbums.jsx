@@ -182,6 +182,7 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                 margin: "5px",
                 padding: "15px",
                 width: "80%",
+                postition: "relative",
               }}
             >
               <Card.Body>
@@ -204,12 +205,12 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                         e.target.src = "/album8.jpg"; // Path to your default image
                       }}
                     />
-                    <Card.Title className="mt-4" style={{ fontSize: "27px" }}>
-                      {album.albumTitle}
-                    </Card.Title>
+                    
                     
                     <Card.Body >
-                    
+                    <div className="mt-2" style={{ fontSize: "27px" }}>
+                      {album.albumTitle}
+                    </div>
                     <div className="" style={{ fontSize: "22px" }}>{album.artistName}</div>
                        
                       {album.bandMembers.length > 1 ? (
@@ -244,8 +245,12 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                     </Card.Body>
                   </Col>
 
-                  <Col lg={6} xs={12}>
-                    <ListGroup>
+                  <Col lg={6} xs={12} style={{
+                      color: "white",
+                      
+                      padding: "20px",
+                    }}>
+                    <ListGroup className="">
                       {album.tracks.map((track, index) => (
                         <ListGroup.Item
                           as="li"
@@ -274,11 +279,14 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                     </ListGroup>
                   </Col>
 
-                  {state.user.username === params.uname && (
-                    <div className="mx-auto mt-3">
+                  
+                </div>
+                {state.user.username === params.uname && (
+                    <div className=" ">
                       <Container className="close">
                         <TrashIcon
-                          color="#ff52ce"
+                        style={{position: "absolute", bottom: "30px", right: '40px' }}
+                          color="red"
                           onClick={() =>
                             handleShowConfirmModal(album._id, album.albumTitle)
                           }
@@ -295,7 +303,6 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                       </Button> */}
                     </div>
                   )}
-                </div>
               </Card.Body>
             </Card>
           ))}

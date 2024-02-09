@@ -4,16 +4,13 @@ import "./AvatarPicker.scss";
 //import UploadProfilePhoto from "../UploadProfilePhoto/UploadProfilePhoto";
 
 let imgs = [
-  "/__astropeach.jpg",
-  "/donut.jpg",
-  "/moon.jpg",
-  "/astronaunt.jpg",
-  "/boombox.jpg",
-  "/_unicorn.jpg",
-  "/__astrokey.jpg",
-  "/headphone.jpg",
-  "/_pinkdino.jpg",
-  "/ablumavatar234.png",
+  "/albumblue.jpg",
+  "/albumgreen.jpg",
+  "/albumorange.jpg",
+  "/albumpurple.jpg",
+  "/albumred.jpg",
+  "/albumyellow.jpg",
+  
 ];
 
 const AvatarPicker = ({ profileImage, setProfileImage, setAvatarChanged }) => {

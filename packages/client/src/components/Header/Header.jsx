@@ -53,7 +53,7 @@ export default function Header() {
                     src={user.profile_image}
                     className="w-100 h-100"
                     style={{
-                      borderRadius: "50%",
+                      borderRadius: "20%",
                       maxHeight: "50px",
                       width: "auto",
                       objectFit: "cover",

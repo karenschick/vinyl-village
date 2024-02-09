@@ -7,6 +7,7 @@ import {
   ListGroup,
   OverlayTrigger,
   Tooltip,
+  Dropdown,
 } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -162,19 +163,23 @@ const Post = ({
               </div>
             </div>
 
-            <div className="d-flex justify-content-end align-items-bottom">
-              {user.username === author.username && (
-                <Button onClick={toggleEditMode}>
-                  {editMode ? "Save" : "Edit"}
-                </Button>
-              )}
-              <div className="d-flex align-items-center">
-                {user.username === author.username && (
-                  <Container className="close">
-                    <TrashIcon color="red" onClick={toggleShowDelete} />
-                  </Container>
-                )}
-              </div>
+            <div className="d-flex justify-content-end align-items-to">
+            {user.username === author.username && (
+              <Dropdown>
+                <Dropdown.Toggle variant="success" id="dropdown-basic" bsPrefix="p-0">
+                  <span className="text-muted" style={{ fontSize: '30px' }}>&#8230;</span> 
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Dropdown.Item onClick={toggleEditMode}>
+                    {editMode ? "Save" : "Edit"}
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={toggleShowDelete}>
+                    Delete
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            )}
 
               <div className="d-flex align-items-center mr-2">
                 <Button

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form } from "react-bootstrap";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -42,38 +42,51 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <ToastContainer />
-      <Form onSubmit={handleSubmit} className={styles.form}>
-        <label htmlFor="username">
-          <input
-            type="text"
-            id="username"
-            value={username}
-            placeholder="username"
-            onChange={(e) => setUserName(e.target.value)}
-            aria-label="Username"
-            autoComplete="username"
-          ></input>
-        </label>
-        <label htmlFor="password">
-          <input
-            type="password"
-            id="password"
-            value={password}
-            placeholder="password"
-            onChange={(e) => setPassword(e.target.value)}
-            aria-label="Password"
-            autoComplete="off"
-          ></input>
-        </label>
-        <button className={styles.button}>Sign In</button>
-      </Form>
-      <p className="text-center">
-        Don't have an account sign up <Link to="/signup">HERE</Link>
-      </p>
-    </div>
+    <>
+      <Container className="d-flex justify-content-center align-items-center">
+        <ToastContainer />
+        <Form onSubmit={handleSubmit}>
+          <Form.Group as={Row} className="mb-2 mt-3">
+            <Form.Control
+              type="text"
+              id="username"
+              value={username}
+              placeholder="username"
+              onChange={(e) => setUserName(e.target.value)}
+              aria-label="Username"
+              autoComplete="username"
+            />
+          </Form.Group>
+          <Form.Group as={Row} className="mb-3">
+            <Form.Control
+              type="password"
+              id="password"
+              value={password}
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+              aria-label="Password"
+              autoComplete="off"
+            />
+          </Form.Group>
+          
+          <Row className="mb-2">
+            <Col xs={12} className="text-center">
+              <Button variant="primary" type="submit">
+                Sign In
+              </Button>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12} className="text-center mt-3">
+              <p>
+                Don't have an account sign up <Link to="/signup">HERE</Link>
+              </p>
+            </Col>
+          </Row>
+        </Form>
+      </Container>
+    </>
   );
-};
+  }  
 
 export default Login;

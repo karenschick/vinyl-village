@@ -198,7 +198,7 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                     <img
                       src={album.image || "/default-image.jpg"} // Fallback to default if main image is not available
                       alt={album.albumTitle}
-                      style={{ width: "100%", height: "auto", objectFit: "cover" }}
+                      style={{ width: "100%", height: "auto", objectFit: "cover", borderRadius: "8px" }}
                       onError={(e) => {
                         e.target.onerror = null; // Prevents recursion
                         e.target.src = "/album8.jpg"; // Path to your default image

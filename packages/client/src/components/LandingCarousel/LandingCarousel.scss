@@ -1,0 +1,5 @@
+.carousel-image {
+  height: 66.67vh; /* 2/3 of the viewport height */
+  width: 100%; /* Full width of the viewport */
+  object-fit: cover; /* This ensures the image covers the area without stretching */
+}

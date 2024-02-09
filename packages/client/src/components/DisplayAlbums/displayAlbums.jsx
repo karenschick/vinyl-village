@@ -185,7 +185,7 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
               }}
             >
               <Card.Body>
-                <div className="row">
+                <div className="row text-center">
                   <Col
                     lg={6}
                     xs={12}
@@ -198,23 +198,23 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                     <img
                       src={album.image || "/default-image.jpg"} // Fallback to default if main image is not available
                       alt={album.albumTitle}
-                      style={{ width: "100%", height: "auto" }}
+                      style={{ width: "100%", height: "auto", objectFit: "cover" }}
                       onError={(e) => {
                         e.target.onerror = null; // Prevents recursion
                         e.target.src = "/album8.jpg"; // Path to your default image
                       }}
                     />
-                    <Card.Title style={{ fontSize: "27px" }}>
+                    <Card.Title className="mt-4" style={{ fontSize: "27px" }}>
                       {album.albumTitle}
                     </Card.Title>
-                    <Card.Subtitle className="mt-4">
-                      {album.releaseYear}
-                    </Card.Subtitle>
-                    <Card.Body className="mt-1">
-                      {album.artistName} <br></br>
+                    
+                    <Card.Body >
+                    
+                    <div className="" style={{ fontSize: "22px" }}>{album.artistName}</div>
+                       
                       {album.bandMembers.length > 1 ? (
                         <>
-                          <div className="mt-3 band-members">
+                          <div className="mb-3 band-members" >
                             (
                             {album.bandMembers.map((member, index) => (
                               <span key={index}>
@@ -230,16 +230,16 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                       ) : (
                         ""
                       )}
-                      <br></br>
-                      <div className="mb-4">
-                        Album Duration: {albumDuration(album)}
+                      
+                      <div className="mt-2">
+                      {album.releaseYear} 
                       </div>
-                      <div className="mb-4">
-                        Album Condition:{" "}
-                        {capitalizeFirstLetter(album.condition)}
+                      <div className="">
+                      {albumDuration(album)} Mins
                       </div>
-                      <div className="mb-4">
-                        Date added: {formatDate(album.created)}
+                      <div  className="mt-3">{capitalizeFirstLetter(album.condition)} Condition</div>
+                      <div className="">
+                       Added {formatDate(album.created)}
                       </div>
                     </Card.Body>
                   </Col>

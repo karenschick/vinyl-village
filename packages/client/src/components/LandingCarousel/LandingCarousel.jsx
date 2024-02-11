@@ -11,7 +11,7 @@ function LandingCarousel() {
           src="/album12.jpg"
           alt="First slide"
         />
-        <Carousel.Caption style={{color: "black"}}>
+        <Carousel.Caption style={{color: "black", textAlign: "left", padding: "0", marginLeft: "-100px" }} >
           <h1>Need an Album?</h1>
         </Carousel.Caption>
       </Carousel.Item>

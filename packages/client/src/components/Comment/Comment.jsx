@@ -1,17 +1,24 @@
 import React, { useState } from "react";
-import { Figure, Row, Col, Button, Container } from "react-bootstrap";
+import {
+  Figure,
+  Row,
+  Col,
+  Button,
+  Container,
+  Dropdown,
+  DropdownMenu,
+} from "react-bootstrap";
 //import "./Comment.scss";
 import { timeSince } from "../../util/timeSince";
 import { Link } from "react-router-dom";
-import api from "../../util/api"; 
+import api from "../../util/api";
 import { toast } from "react-toastify";
 import { useProvideAuth } from "../../hooks/useAuth";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import TrashIcon from "../icons/TrashIcon";
 import useToggle from "../../hooks/useToggle";
 
-const Comment = ({ comment, onUpdateComment, onCommentDeleted}) => {
-  
+const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
   const { author } = comment;
   const [editMode, setEditMode] = useState(false);
   const [editedText, setEditedText] = useState(comment.text);
@@ -23,8 +30,8 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted}) => {
   } = useProvideAuth();
 
   console.log(comment);
-  
-  console.log("Comment Author ID:", comment.author?._id)
+
+  console.log("Comment Author ID:", comment.author?._id);
   const handleCommentTextChange = (e) => {
     setEditedText(e.target.value);
   };
@@ -102,25 +109,35 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted}) => {
           ) : (
             <>
               <p className="comment-text">{comment.text}</p>
-              {user.username === author.username && <Button onClick={toggleEditMode}>Edit</Button>}
             </>
           )}
         </div>
-        
-              
-              <div className="d-flex align-items-center">
-                {user.username === author.username && (
-                  <Container className="close">
-                    <TrashIcon color="#ff52ce" onClick={toggleShowDelete} />
-                  </Container>
-                )}
-              </div>
-              
-              <DeleteModal
-        show={showDelete}
-        handleClose={toggleShowDelete}
-        handleDelete={handleDeleteComment}
-      />
+
+        <div className="d-flex align-items-center">
+          {user.username === author.username && (
+            <Dropdown>
+              <Dropdown.Toggle
+                variant="success"
+                id="dropdown-basic"
+                bsPrefix="p-0"
+              >
+                <span className="text-muted" style={{ fontSize: "30px" }}>
+                  &#8230;
+                </span>
+              </Dropdown.Toggle>
+              <DropdownMenu>
+                <Dropdown.Item onClick={toggleShowDelete}>Delete</Dropdown.Item>
+                <Dropdown.Item onClick={toggleEditMode}>Edit</Dropdown.Item>
+              </DropdownMenu>
+            </Dropdown>
+          )}
+        </div>
+
+        <DeleteModal
+          show={showDelete}
+          handleClose={toggleShowDelete}
+          handleDelete={handleDeleteComment}
+        />
       </Col>
     </Row>
   );

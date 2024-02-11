@@ -156,8 +156,14 @@ const Post = ({
                   }
                 >
                   <div> likes: {likesState}</div> 
-                </OverlayTrigger>
-                <div>comments: {comments.length > 0 ? comments.length : 0}</div>
+                </OverlayTrigger> <Button
+                  variant="link"
+                  size="md"
+                  onClick={() => navigate(`/p/${_id}`)}
+                > Comments:
+                  
+                </Button>
+                <div> {comments.length > 0 ? comments.length : 0}</div>
             </div>
             <div className="mb-n1 mt-1 position-relative">
               <div className="mb-n1 mt-1 position-relative">

@@ -48,19 +48,28 @@ const Post = ({
     setEditedText(e.target.value);
   };
 
-  const toggleEditMode = async () => {
-    if (editMode) {
-      try {
-        const response = await api.put(`/posts/${_id}`, { text: editedText });
-        // Assuming response.data.text is the updated text
-        onPostUpdate(_id, response.data.text);
-        toast.success("Post updated successfully");
-      } catch (error) {
-        console.error(error);
-        toast.error("Failed to update post");
-      }
+  const handleSaveEdit = async () => {
+    try {
+      const response = await api.put(`/posts/${_id}`, { text: editedText });
+      onPostUpdate(_id, response.data.text);
+      toast.success("Post updated successfully");
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to update post");
     }
+    setEditMode(false);
+  };
+
+  const handleCancelEdit = () => {
+    setEditedText(text); // Reset text to original if cancelled
+    setEditMode(false);
+  };
+
+  const toggleEditMode = () => {
     setEditMode(!editMode);
+    if (!editMode) {
+      setEditedText(text); // Reset to original text when entering edit mode
+    }
   };
 
   const handleToggleLike = async () => {
@@ -142,17 +151,23 @@ const Post = ({
             </div>
             <div className="mb-n1 mt-1 position-relative">
               <div className="mb-n1 mt-1 position-relative">
-                {editMode ? (
-                  <textarea
-                    className="p-2"
-                    value={editedText}
-                    onChange={handleTextChange}
-                  />
-                ) : (
-                  <blockquote className="mb-1  mw-100">
-                    <div className="mw-100 overflow-hidden mt-2">{text}</div>
-                  </blockquote>
-                )}
+              {editMode ? (
+        <div>
+          <textarea
+            className="p-2"
+            value={editedText}
+            onChange={handleTextChange}
+          />
+          <div>
+            <Button variant="success" onClick={handleSaveEdit}>Save</Button>
+            <Button variant="secondary" onClick={handleCancelEdit}>Cancel</Button>
+          </div>
+        </div>
+      ) : (
+        <blockquote className="mb-1 mw-100">
+          <div className="mw-100 overflow-hidden mt-2">{text}</div>
+        </blockquote>
+      )}
                 {image && image !== defaultImage && (
                   <img
                     src={image}
@@ -165,21 +180,21 @@ const Post = ({
 
             <div className="d-flex justify-content-end align-items-to">
             {user.username === author.username && (
-              <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic" bsPrefix="p-0">
-                  <span className="text-muted" style={{ fontSize: '30px' }}>&#8230;</span> 
-                </Dropdown.Toggle>
+          <Dropdown>
+            <Dropdown.Toggle variant="success" id="dropdown-basic" bsPrefix="p-0">
+              <span className="text-muted" style={{ fontSize: '30px' }}>&#8230;</span> 
+            </Dropdown.Toggle>
 
-                <Dropdown.Menu>
-                  <Dropdown.Item onClick={toggleEditMode}>
-                    {editMode ? "Save" : "Edit"}
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={toggleShowDelete}>
-                    Delete
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            )}
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={toggleEditMode}>
+                Edit
+              </Dropdown.Item>
+              <Dropdown.Item onClick={toggleShowDelete}>
+                Delete
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        )}
 
               <div className="d-flex align-items-center mr-2">
                 <Button

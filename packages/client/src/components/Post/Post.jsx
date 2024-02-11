@@ -38,8 +38,8 @@ const Post = ({
 
   const [likedState, setLiked] = useState(likes.includes(user.uid));
   const [likesState, setLikes] = useState(likes.length);
-  console.log("Image URL:", image)
-  const defaultImage = '/images/default-post.jpg';
+  console.log("Image URL:", image);
+  const defaultImage = "/images/default-post.jpg";
   // const toggleEditMode = () => {
   //   setEditMode(!editMode);
   // };
@@ -148,63 +148,81 @@ const Post = ({
               </Link>
               <pre className="m-0 text-muted">{" - "}</pre>
               <span className="text-muted">{timeSince(created)} ago</span>
+              <OverlayTrigger
+                  overlay={
+                    <Tooltip id="tooltip">
+                      {likes.map((like) => like.username).join(", ")}
+                    </Tooltip>
+                  }
+                >
+                  <div> likes: {likesState}</div> 
+                </OverlayTrigger>
+                <div>comments: {comments.length > 0 ? comments.length : 0}</div>
             </div>
             <div className="mb-n1 mt-1 position-relative">
               <div className="mb-n1 mt-1 position-relative">
-              {editMode ? (
-        <div>
-          <textarea
-            className="p-2"
-            value={editedText}
-            onChange={handleTextChange}
-          />
-          <div>
-            <Button variant="success" onClick={handleSaveEdit}>Save</Button>
-            <Button variant="secondary" onClick={handleCancelEdit}>Cancel</Button>
-          </div>
-        </div>
-      ) : (
-        <blockquote className="mb-1 mw-100">
-          <div className="mw-100 overflow-hidden mt-2">{text}</div>
-        </blockquote>
-      )}
+                {editMode ? (
+                  <div>
+                    <textarea
+                      className="p-2"
+                      value={editedText}
+                      onChange={handleTextChange}
+                    />
+                    <div>
+                      <Button variant="success" onClick={handleSaveEdit}>
+                        Save
+                      </Button>
+                      <Button variant="secondary" onClick={handleCancelEdit}>
+                        Cancel
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <blockquote className="mb-1 mw-100">
+                    <div className="mw-100 overflow-hidden mt-2">{text}</div>
+                  </blockquote>
+                )}
                 {image && image !== defaultImage && (
                   <img
                     src={image}
                     alt="Post"
-                    style={{ maxWidth:"300px", maxheight: "auto" }}
+                    style={{ maxWidth: "300px", maxheight: "auto" }}
                   />
                 )}
               </div>
             </div>
 
             <div className="d-flex justify-content-end align-items-to">
-            {user.username === author.username && (
-          <Dropdown>
-            <Dropdown.Toggle variant="success" id="dropdown-basic" bsPrefix="p-0">
-              <span className="text-muted" style={{ fontSize: '30px' }}>&#8230;</span> 
-            </Dropdown.Toggle>
+              {user.username === author.username && (
+                <Dropdown>
+                  <Dropdown.Toggle
+                    variant="success"
+                    id="dropdown-basic"
+                    bsPrefix="p-0"
+                  >
+                    <span className="text-muted" style={{ fontSize: "30px" }}>
+                      &#8230;
+                    </span>
+                  </Dropdown.Toggle>
 
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={toggleEditMode}>
-                Edit
-              </Dropdown.Item>
-              <Dropdown.Item onClick={toggleShowDelete}>
-                Delete
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        )}
+                  <Dropdown.Menu>
+                    <Dropdown.Item onClick={toggleEditMode}>Edit</Dropdown.Item>
+                    <Dropdown.Item onClick={toggleShowDelete}>
+                      Delete
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              )}
 
               <div className="d-flex align-items-center mr-2">
                 <Button
                   variant="link"
                   size="md"
                   onClick={() => navigate(`/p/${_id}`)}
-                >
-                  <ReplyIcon  />
+                > Comment
+                  
                 </Button>
-                <span>{comments.length > 0 ? comments.length : 0}</span>
+                
               </div>
               <div
                 className={`d-flex align-items-center mr-3 ${
@@ -212,21 +230,10 @@ const Post = ({
                 }`}
               >
                 <Button variant="link" size="md" onClick={handleToggleLike}>
-                  {likedState ? (
-                    <LikeIconFill color="" />
-                  ) : (
-                    <LikeIcon color="" />
-                  )}
+                  Like
                 </Button>
-                <OverlayTrigger
-                  overlay={
-                    <Tooltip id="tooltip">
-                      {likes.map((like) => like.username).join(", ")}
-                    </Tooltip>
-                  }
-                >
-                  <span>{likesState}</span>
-                </OverlayTrigger>
+                
+                
               </div>
             </div>
           </div>

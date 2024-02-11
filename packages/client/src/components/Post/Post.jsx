@@ -174,13 +174,10 @@ const Post = ({
                     style={{ textDecoration: "none" }}
                   >
                     {author.username}
-                    {" - "}
                   </Link>
+                  &nbsp; - &nbsp;
                 </div>
-                <span className="">
-                  {" - "}
-                  {` ${timeSince(created)} ago`}
-                </span>
+                <span className="">{` ${timeSince(created)} ago`}</span>
               </div>
               <div className="d-flex align-items-center justify-content-start mt-2">
                 <OverlayTrigger

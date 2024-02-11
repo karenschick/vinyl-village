@@ -118,7 +118,7 @@ const Post = ({
     <>
       <ListGroup.Item className="text-danger rounded-edge" as={"div"}>
         <Card
-          className={`p-2 mt-2 ${
+          className={`p-2 mb-2 ${
             user.username === author.username ? "pt-1" : "pt-4"
           }`}
         >

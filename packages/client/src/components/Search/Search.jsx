@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Modal, Card, Form, Button, Row, Col } from "react-bootstrap";
+import { Modal, Card, Form, Button, Row, Col, Container } from "react-bootstrap";
 import { useApiFetch } from "../../util/api";
 import { API_URL } from "../../util/constants";
 import api from "../../util/api";
@@ -54,8 +54,9 @@ const SearchForm = () => {
   };
 
   return (
-    <div>
-      <h1>Search for Albums</h1>
+    
+      <Container>
+      <h1>Album Search</h1>
       <Form onSubmit={handleSearch}>
         <Form.Group controlId="formTitle">
           <Form.Control
@@ -125,7 +126,16 @@ const SearchForm = () => {
             <option value="excellent">Excellent</option>
           </Form.Control>
         </Form.Group>
-        <Button type="submit">Search</Button>
+        
+        <Button
+          type="submit"
+          variant="info"
+          className="mt-3"
+          style={{ border: "none", color: "white" }}
+        >
+          Search
+        </Button>
+        
       </Form>
 
       {showModal && (
@@ -182,7 +192,8 @@ const SearchForm = () => {
           </Modal.Body>
         </Modal>
       )}
-    </div>
+      </Container>
+    
   );
 };
 

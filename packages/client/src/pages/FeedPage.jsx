@@ -106,48 +106,52 @@ const FeedPage = () => {
               />
             </Figure>
             <Container className="mb-5">
-            <h1>Chat</h1>
-            <Form noValidate validated={validated} onSubmit={handlePostSubmit}>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                maxLength="120"
-                name="postText"
-                placeholder="What's on your mind?"
-                aria-describedby="post-form"
-                size="lg"
-                required
-                value={data.postText}
-                onChange={handleInputChange}
-              />
-              <Form.Control
-                type="file"
-                name="image"
-                onChange={(event) => setSelectedFile(event.target.files[0])}
-              />
-
-              {data.errorMessage && (
-                <span className="form-error">{data.errorMessage}</span>
-              )}
-              <Button
-                variant="info"
-                style={{ border: "none", color: "white" }}
-                className="m-auto mt-3"
-                type="submit"
-                disabled={data.isSubmitting}
+              <h1>Chat</h1>
+              <Form
+                noValidate
+                validated={validated}
+                onSubmit={handlePostSubmit}
               >
-                {data.isSubmitting ? <LoadingSpinner /> : "Post"}
-              </Button>
-            </Form>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  maxLength="120"
+                  name="postText"
+                  placeholder="What's on your mind?"
+                  aria-describedby="post-form"
+                  size="lg"
+                  required
+                  value={data.postText}
+                  onChange={handleInputChange}
+                  style={{ marginBottom: "2px", opacity: "0.8" }}
+                />
+                <Form.Control
+                  style={{ opacity: "0.8" }}
+                  type="file"
+                  name="image"
+                  onChange={(event) => setSelectedFile(event.target.files[0])}
+                />
+
+                {data.errorMessage && (
+                  <span className="form-error">{data.errorMessage}</span>
+                )}
+                <Button
+                  variant="info"
+                  style={{ border: "none", color: "white" }}
+                  className="m-auto mt-3"
+                  type="submit"
+                  disabled={data.isSubmitting}
+                >
+                  {data.isSubmitting ? <LoadingSpinner /> : "Post"}
+                </Button>
+              </Form>
             </Container>
-            
+
             <SearchForm />
           </Col>
           <Col md={8}>
-            
             {!postLoading ? (
               <Container className="pt-3 pb-3">
-               
                 {postError && "Error fetching posts"}
                 {posts &&
                   posts

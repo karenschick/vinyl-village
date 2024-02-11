@@ -68,7 +68,7 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
 
   return (
     <>
-      <Card className="mt-2 pb-3"style={{ width: "30%" }}>
+      <Card className="mt-2 pb-3" style={{ width: "30%" }}>
         <div className="d-flex justify-content-end align-items-center">
           {user.username === author.username && (
             <Dropdown>
@@ -137,8 +137,11 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
                   className="p-2"
                   value={editedText}
                   onChange={handleCommentTextChange}
-                />
-                <Button onClick={saveComment}>Save</Button>
+                />{" "}
+                <br></br>
+                <Button className="m-2" onClick={saveComment}>
+                  Save
+                </Button>
                 <Button onClick={toggleEditMode}>Cancel</Button>
               </>
             ) : (

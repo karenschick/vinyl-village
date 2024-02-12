@@ -18,11 +18,11 @@ export default function Header() {
   return (
     <Navbar
       expand="lg"
-      bg="dark"
+      bg="info"
       style={{ minHeight: "100px" }}
     >
       <Container>
-        <Navbar.Brand as={Link} to="/" style={{ ...linkStyle, marginLeft: "50px" }}>
+        <Navbar.Brand as={Link} to="/" style={{ marginLeft: "50px", textDecoration:"none" }}>
           Landing (put logo here)
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -33,7 +33,7 @@ export default function Header() {
                 as={Link}
                 to={`/feed`}
                 className="d-flex align-items-center"
-                style={{ ...linkStyle, marginRight: "50px" }}
+                style={{ color: "white", marginRight: "50px", textDecoration:"none" }}
               >
                 Feed
               </Nav.Item>

@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Modal, Card, Form, Button, Row, Col, Container } from "react-bootstrap";
+import {
+  Modal,
+  Card,
+  Form,
+  Button,
+  Row,
+  Col,
+  Container,
+} from "react-bootstrap";
 import { useApiFetch } from "../../util/api";
 import { API_URL } from "../../util/constants";
 import api from "../../util/api";
@@ -24,7 +32,10 @@ const SearchForm = () => {
   const handleInputChange = (e) => {
     setSearch({ ...search, [e.target.name]: e.target.value });
   };
-
+  const capitalizeFirstLetter = (string) => {
+    if (!string) return "Unknown";
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  };
   //const response = await api.get(`${API_URL}/albums/search`,{
   // params: { ...search, filteredSearchParams },
 
@@ -54,8 +65,7 @@ const SearchForm = () => {
   };
 
   return (
-    
-      <Container>
+    <Container>
       <h1>Album Search</h1>
       <Form onSubmit={handleSearch}>
         <Form.Group controlId="formTitle">
@@ -126,7 +136,7 @@ const SearchForm = () => {
             <option value="excellent">Excellent</option>
           </Form.Control>
         </Form.Group>
-        
+
         <Button
           type="submit"
           variant="info"
@@ -135,7 +145,6 @@ const SearchForm = () => {
         >
           Search
         </Button>
-        
       </Form>
 
       {showModal && (
@@ -154,15 +163,16 @@ const SearchForm = () => {
               >
                 {searchResults.map((album, index) => (
                   <Card key={index} style={{ width: "18rem", margin: "10px" }}>
+                    <Card.Img variant="top" src={album.image}></Card.Img>
                     <Card.Body>
                       <Card.Title>{album.albumTitle}</Card.Title>
                       <Card.Subtitle>{album.artistName}</Card.Subtitle>
-                      <Card.Text>
-                        Condition: {album.condition.toUpperCase()}
+                      <Card.Text className="mt-2">
+                        {capitalizeFirstLetter(album.condition)} condition
                       </Card.Text>
                       <Card.Text className="mt-3">
-                        <Row className="align-items-center">
-                          <Col>
+                        <Row className="align-items-center mt-4">
+                          <Col md={2} className="ms-4">
                             {album.author.profile_image && (
                               <Link to={`/u/${album.author.username}`}>
                                 <img
@@ -173,8 +183,11 @@ const SearchForm = () => {
                               </Link>
                             )}{" "}
                           </Col>{" "}
-                          <Col>
-                            <Link to={`/u/${album.author.username}`}>
+                          <Col md={8}>
+                            <Link
+                              style={{ textDecoration: "none" }}
+                              to={`/u/${album.author.username}`}
+                            >
                               {album.author.firstName} {album.author.lastName}
                             </Link>
                             <br />
@@ -192,8 +205,7 @@ const SearchForm = () => {
           </Modal.Body>
         </Modal>
       )}
-      </Container>
-    
+    </Container>
   );
 };
 

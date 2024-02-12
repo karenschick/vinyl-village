@@ -199,23 +199,29 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                     <img
                       src={album.image || "/default-image.jpg"} // Fallback to default if main image is not available
                       alt={album.albumTitle}
-                      style={{ width: "100%", height: "auto", objectFit: "cover", borderRadius: "8px" }}
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        objectFit: "cover",
+                        borderRadius: "8px",
+                      }}
                       onError={(e) => {
                         e.target.onerror = null; // Prevents recursion
                         e.target.src = "/album8.jpg"; // Path to your default image
                       }}
                     />
-                    
-                    
-                    <Card.Body >
-                    <div className="mt-2" style={{ fontSize: "27px" }}>
-                      {album.albumTitle}
-                    </div>
-                    <div className="" style={{ fontSize: "22px" }}>{album.artistName}</div>
-                       
+
+                    <Card.Body>
+                      <div className="mt-2" style={{ fontSize: "27px" }}>
+                        {album.albumTitle}
+                      </div>
+                      <div className="" style={{ fontSize: "22px" }}>
+                        {album.artistName}
+                      </div>
+
                       {album.bandMembers.length > 1 ? (
                         <>
-                          <div className="mb-3 band-members" >
+                          <div className="mb-3 band-members">
                             (
                             {album.bandMembers.map((member, index) => (
                               <span key={index}>
@@ -231,25 +237,25 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                       ) : (
                         ""
                       )}
-                      
-                      <div className="mt-2">
-                      {album.releaseYear} 
+
+                      <div className="mt-2">{album.releaseYear}</div>
+                      <div className="">{albumDuration(album)} Mins</div>
+                      <div className="mt-3">
+                        {capitalizeFirstLetter(album.condition)} Condition
                       </div>
-                      <div className="">
-                      {albumDuration(album)} Mins
-                      </div>
-                      <div  className="mt-3">{capitalizeFirstLetter(album.condition)} Condition</div>
-                      <div className="">
-                       Added {formatDate(album.created)}
-                      </div>
+                      <div className="">Added {formatDate(album.created)}</div>
                     </Card.Body>
                   </Col>
 
-                  <Col lg={6} xs={12} style={{
+                  <Col
+                    lg={6}
+                    xs={12}
+                    style={{
                       color: "white",
-                      
+
                       padding: "20px",
-                    }}>
+                    }}
+                  >
                     <ListGroup className="">
                       {album.tracks.map((track, index) => (
                         <ListGroup.Item
@@ -278,31 +284,35 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                       ))}
                     </ListGroup>
                   </Col>
-
-                  
                 </div>
                 {state.user.username === params.uname && (
-                    <div className=" ">
-                      <Container className="close">
-                        <TrashIcon
-                        style={{position: "absolute", bottom: "30px", right: '40px' }}
-                          color="red"
-                          onClick={() =>
-                            handleShowConfirmModal(album._id, album.albumTitle)
-                          }
-                        />
-                      </Container>
-                      {/* <Button
+                  <div className=" ">
+                    <Container className="close">
+                      <Button
                         variant="secondary"
-                        style={{ marginTop: "15px" }}
+                        style={{
+                          color: "white",
+                          marginTop: "15px",
+                          position: "absolute",
+                          bottom: "30px",
+                          right: "40px",
+                        }}
                         onClick={() =>
                           handleShowConfirmModal(album._id, album.albumTitle)
                         }
                       >
                         Remove Album
-                      </Button> */}
-                    </div>
-                  )}
+                      </Button>
+                      {/* <TrashIcon
+                        style={{position: "absolute", bottom: "30px", right: '40px' }}
+                          color="red"
+                          onClick={() =>
+                            handleShowConfirmModal(album._id, album.albumTitle)
+                          }
+                        /> */}
+                    </Container>
+                  </div>
+                )}
               </Card.Body>
             </Card>
           ))}

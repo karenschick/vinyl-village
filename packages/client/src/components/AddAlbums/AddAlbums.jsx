@@ -17,7 +17,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
     artistName: "",
     tracks: [{ trackTitle: "", trackDuration: "" }],
     bandMembers: [{ memberName: "" }],
-    condition: "excellent",
+    condition: "",
   });
   const {
     state: { user },
@@ -90,17 +90,17 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     if (!albumData.albumTitle) {
       toast.error("Album title is required");
       return;
     }
-  
+
     if (!albumData.artistName) {
       toast.error("Artist name is required");
       return;
     }
-  
+
     const year = parseInt(albumData.releaseYear, 10);
     if (isNaN(year) || !isValidYear(year)) {
       toast.error(
@@ -108,7 +108,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
       );
       return;
     }
-  
+
     if (
       albumData.tracks.length === 0 ||
       albumData.tracks.some(
@@ -118,24 +118,26 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
       toast.error("Each track must have a title and duration");
       return;
     }
-  
+
     const adjustedAlbumData = {
       albumTitle: albumData.albumTitle,
       releaseYear: year,
       artistName: albumData.artistName,
       condition: albumData.condition,
-      tracks: JSON.stringify(albumData.tracks
-        .filter((track) => track.trackTitle)
-        .map((track, index) => ({
-          trackTitle: track.trackTitle,
-          trackNumber: index + 1,
-          trackDuration: parseInt(track.trackDuration, 10) || 0,
-        }))),
-        bandMembers: JSON.stringify(albumData.bandMembers),
+      tracks: JSON.stringify(
+        albumData.tracks
+          .filter((track) => track.trackTitle)
+          .map((track, index) => ({
+            trackTitle: track.trackTitle,
+            trackNumber: index + 1,
+            trackDuration: parseInt(track.trackDuration, 10) || 0,
+          }))
+      ),
+      bandMembers: JSON.stringify(albumData.bandMembers),
     };
-  
+
     const formData = new FormData();
-    Object.keys(adjustedAlbumData).forEach(key => {
+    Object.keys(adjustedAlbumData).forEach((key) => {
       formData.append(key, adjustedAlbumData[key]);
     });
     // Object.keys(adjustedAlbumData).forEach(key => {
@@ -149,14 +151,14 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
     //     formData.append(key, adjustedAlbumData[key]);
     //   }
     // });
-  
+
     if (selectedFile) {
       formData.append("image", selectedFile);
     }
     for (let [key, value] of formData.entries()) {
       console.log(key, value);
     }
-    
+
     try {
       const response = await api.post("/albums", formData, {
         headers: {
@@ -170,7 +172,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
       console.error("Error:", error.response?.data || error);
       toast.error("An error occurred while submitting the form.");
     }
-  
+
     setAlbumData({
       albumTitle: "",
       releaseYear: "",
@@ -179,7 +181,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
       bandMembers: [{ memberName: "" }],
     });
   };
-  
+
   // const handleSubmit = async (event) => {
   //   event.preventDefault();
 
@@ -211,8 +213,6 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
   //     return;
   //   }
 
-    
-
   //   const adjustedAlbumData = {
   //     ...albumData,
   //     releaseYear: year,
@@ -223,7 +223,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
   //         trackNumber: index + 1,
   //         trackDuration: parseInt(track.trackDuration, 10) || 0,
   //       })),
-        
+
   //   };
 
   //   console.log("sending data:", adjustedAlbumData);
@@ -234,7 +234,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
   //         "Content-Type": "multipart/form-data",
   //       },});
   //     console.log("response data:", response.data);
-      
+
   //     onAlbumSubmit(adjustedAlbumData);
   //     toggleModal();
   //   } catch (error) {
@@ -256,9 +256,12 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
     <>
       <ToastContainer />
       <Form onSubmit={handleSubmit} className="p-sm-4 p-2">
-      <Form.Group controlId="formFile" className="mb-3">
-          <Form.Label>Album Image</Form.Label>
-          <Form.Control type="file" onChange={(e) => setSelectedFile(e.target.files[0])} />
+        <Form.Group controlId="formFile" className="mb-3">
+          <h5>Album Image</h5>
+          <Form.Control
+            type="file"
+            onChange={(e) => setSelectedFile(e.target.files[0])}
+          />
         </Form.Group>
         <Form.Group className="mb-4">
           <h5>Album</h5>
@@ -280,7 +283,6 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
             min="1889"
             max={new Date().getFullYear()}
             onChange={handleInputChange}
-            
           />
         </Form.Group>
         <Form.Group className="mt-4">
@@ -308,17 +310,18 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
               </Col>
               <Col xs="auto">
                 <Container className="close">
-                  <TrashIcon
+                  <Button
+                    style={{ color: "white" }}
+                    variant="info"
+                    onClick={() => removeBandMember(index)}
+                  >
+                    Remove
+                  </Button>
+                  {/* <TrashIcon
                     color="#ff52ce"
                     onClick={() => removeBandMember(index)}
-                  />
+                  /> */}
                 </Container>
-                {/* <Button
-                  variant="danger"
-                  onClick={() => removeBandMember(index)}
-                >
-                  Remove
-                </Button> */}
               </Col>
             </Row>
           ))}
@@ -354,14 +357,18 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
               </Col>
               <Col xs="auto">
                 <Container className="close">
-                  <TrashIcon
+                  <Button
+                    variant="info"
+                    style={{ color: "white" }}
+                    onClick={() => removeTrack(index)}
+                  >
+                    Remove
+                  </Button>
+                  {/* <TrashIcon
                     color="#ff52ce"
                     onClick={() => removeTrack(index)}
-                  />
+                  /> */}
                 </Container>
-                {/* <Button variant="danger" onClick={() => removeTrack(index)}>
-                  Remove
-                </Button> */}
               </Col>
             </Row>
           ))}
@@ -369,7 +376,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
             Add Track
           </Button>
         </Form.Group>
-        
+
         <Form.Group className="mt-4">
           <h5>Condition</h5>
           <Form.Control
@@ -377,8 +384,9 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
             name="condition"
             value={albumData.condition}
             onChange={handleInputChange}
-            style={{  opacity: "0.8" }}
+            style={{ opacity: "0.8" }}
           >
+            <option value=""></option>
             <option value="poor">Poor</option>
             <option value="fair">Fair</option>
             <option value="good">Good</option>
@@ -388,7 +396,11 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
 
         <Row className="text-center mt-4">
           <Col>
-            <Button variant="info" style={{ color: "white" }} type="submit">
+            <Button
+              variant="secondary"
+              style={{ color: "white" }}
+              type="submit"
+            >
               Submit
             </Button>
           </Col>

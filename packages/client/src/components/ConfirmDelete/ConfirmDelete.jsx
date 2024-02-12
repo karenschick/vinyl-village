@@ -19,7 +19,11 @@ const ConfirmDelete = ({
         <Button variant="outline-info" onClick={handleCloseConfirmModal}>
           Cancel
         </Button>
-        <Button style={{backgroundColor: "#ff52ce", border: "none"}} onClick={handleConfirmDelete}>
+        <Button
+          variant="info"
+          style={{ color: "white", border: "none" }}
+          onClick={handleConfirmDelete}
+        >
           Delete
         </Button>
       </Modal.Footer>

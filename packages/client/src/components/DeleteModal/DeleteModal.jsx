@@ -12,7 +12,11 @@ const DeleteModal = ({ show, handleClose, handleDelete }) => {
         <Button variant="outline-info" onClick={handleClose}>
           Cancel
         </Button>
-        <Button style={{backgroundColor: "#ff52ce", border: "none"}} onClick={handleDelete}>
+        <Button
+          variant="info"
+          style={{ color: "white" }}
+          onClick={handleDelete}
+        >
           Delete
         </Button>
       </Modal.Footer>

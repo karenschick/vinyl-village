@@ -9,8 +9,24 @@ let imgs = [
   "/albumorange.jpg",
   "/albumpurple.jpg",
   "/albumred.jpg",
-  "/albumyellow.jpg",
+  "/albumyellow3.jpg",
+  "/albumgray2.jpg",
+  "/albumaqua3.jpg",
+  "/albumpink.jpg",
   
+
+  // "/albumyellow.jpg",
+  // "/albumyellow2.jpg",
+  
+  // "/albumyellow4.jpg",
+  // "/albumaqua.jpg",
+  // "/albumaqua2.jpg",
+  
+  // "/albumgray.jpg",
+  
+  
+  // "/albumpink2.jpg",
+  // "/albumpink1.jpg",
 ];
 
 const AvatarPicker = ({ profileImage, setProfileImage, setAvatarChanged }) => {

@@ -166,9 +166,11 @@ const SearchForm = () => {
                     <Card.Img variant="top" src={album.image}></Card.Img>
                     <Card.Body>
                       <Card.Title>{album.albumTitle}</Card.Title>
-                      <Card.Subtitle>{album.artistName}</Card.Subtitle>
+                      <Card.Subtitle className="mt-2">
+                        {album.artistName}
+                      </Card.Subtitle>
                       <Card.Text className="mt-2">
-                        {capitalizeFirstLetter(album.condition)} condition
+                        {capitalizeFirstLetter(album.condition)} Condition
                       </Card.Text>
                       <Card.Text className="mt-3">
                         <Row className="align-items-center mt-4">

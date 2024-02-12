@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Container, Form, Button, Row, Col, Figure } from "react-bootstrap";
 import { toast } from "react-toastify";
 import api from "../util/api";
@@ -25,6 +25,7 @@ const FeedPage = () => {
   const [validated, setValidated] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null); // Added state for selected file
   const [keywords, setKeywords] = useState("");
+  const fileInputRef = useRef(null);
 
   const handleInputChange = (event) => {
     setData({ ...data, [event.target.name]: event.target.value });
@@ -58,6 +59,7 @@ const FeedPage = () => {
 
       setData(initialState);
       setSelectedFile(null); // Reset file input
+      fileInputRef.current.value = ""; //clear file input field
       setPosts([response.data, ...posts]);
       setValidated(false);
       toast.success("Post created successfully!");
@@ -130,6 +132,7 @@ const FeedPage = () => {
                   type="file"
                   name="image"
                   onChange={(event) => setSelectedFile(event.target.files[0])}
+                  ref={fileInputRef}
                 />
 
                 {data.errorMessage && (

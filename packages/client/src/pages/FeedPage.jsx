@@ -151,7 +151,7 @@ const FeedPage = () => {
           </Col>
           <Col md={8}>
             {!postLoading ? (
-              <Container className="pt-3 pb-3">
+              <Container className=" pb-3">
                 {postError && "Error fetching posts"}
                 {posts &&
                   posts

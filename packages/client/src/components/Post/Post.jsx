@@ -144,12 +144,12 @@ const Post = ({
               </Dropdown>
             )}
           </div>
-          <Row className="d-flex justify-content-md-start align-items-center ">
-            <Col className="d-flex flex-column align-items-center">
+          <Row className="d-flex profile ">
+            <Col className="d-flex ms-4">
               <Figure
                 as={Link}
                 to={`/u/${author.username}`}
-                className="mr-4 bg-border-color ml-2 p-1  "
+                className="   "
                 style={{
                   height: "70px",
                   minHeight: "70px",
@@ -161,17 +161,17 @@ const Post = ({
               >
                 <Figure.Image
                   src={author.profile_image}
-                  className="avatar w-100 h-100 mr-4"
+                  className=" "
                 />
               </Figure>
             </Col>
-            <Col md={10}>
-              <div className="d-flex align-items-center justify-content-start">
-                <div className="username">
+            <Col md={10} className="mt-2">
+              <div className="d-flex">
+                <div className="">
                   <Link
                     to={`/u/${author.username}`}
-                    className=" mr-1"
-                    style={{ textDecoration: "none" }}
+                    className=" "
+                    style={{ textDecoration: "none",  }}
                   >
                     {author.username}
                   </Link>
@@ -179,7 +179,7 @@ const Post = ({
                 </div>
                 <span className="">{` ${timeSince(created)} ago`}</span>
               </div>
-              <div className="d-flex align-items-center justify-content-start mt-2">
+              <div className=" ">
                 <OverlayTrigger
                   overlay={
                     <Tooltip id="tooltip">
@@ -195,7 +195,7 @@ const Post = ({
                   style={{ textDecoration: "none" }}
                   variant="link"
                   size="md"
-                  className="ml-2"
+                  className=""
                   onClick={() => navigate(`/p/${_id}`)}
                 >
                   {comments.length === 1
@@ -209,6 +209,7 @@ const Post = ({
           <Row className="mt-5 text-center">
             {image && image !== defaultImage && (
               <img
+              className="mb-3"
                 src={image}
                 alt="Post"
                 style={{ maxWidth: "300px", maxheight: "auto", margin: "auto" }}

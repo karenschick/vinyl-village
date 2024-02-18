@@ -146,40 +146,30 @@ const Post = ({
           </div>
           <Row className="d-flex profile ">
             <Col className="d-flex ms-4">
-              <Figure
-                as={Link}
-                to={`/u/${author.username}`}
-                className="   "
-                style={{
-                  height: "70px",
-                  minHeight: "70px",
-                  width: "70px",
-                  minWidth: "70px",
-                  marginTop: "0px",
-                  textDecoration: "none",
-                }}
-              >
+              <Figure as={Link} to={`/u/${author.username}`}>
                 <Figure.Image
                   src={author.profile_image}
-                  className=" "
+                  className={`img-fluid mb-3 ${
+                    window.innerWidth < 768 ? "half-size" : ""
+                  }`}
+                  style={{ maxWidth: "100%", height: "auto", margin: "auto" }}
                 />
               </Figure>
             </Col>
-            <Col md={10} className="mt-2">
-              <div className="d-flex">
-                <div className="">
+            <Col md={10} className="mt-2 profile_info mx-auto mx-md-0">
+              <div className="d-flex align-items-center justify-content-center justify-content-md-start">
+                <div>
                   <Link
                     to={`/u/${author.username}`}
-                    className=" "
-                    style={{ textDecoration: "none",  }}
+                    style={{ textDecoration: "none" }}
                   >
                     {author.username}
                   </Link>
                   &nbsp; - &nbsp;
                 </div>
-                <span className="">{` ${timeSince(created)} ago`}</span>
+                <span>{` ${timeSince(created)} ago`}</span>
               </div>
-              <div className=" ">
+              <div className="d-flex align-items-center justify-content-center justify-content-md-start">
                 <OverlayTrigger
                   overlay={
                     <Tooltip id="tooltip">
@@ -195,7 +185,6 @@ const Post = ({
                   style={{ textDecoration: "none" }}
                   variant="link"
                   size="md"
-                  className=""
                   onClick={() => navigate(`/p/${_id}`)}
                 >
                   {comments.length === 1
@@ -209,7 +198,7 @@ const Post = ({
           <Row className="mt-5 text-center">
             {image && image !== defaultImage && (
               <img
-              className="mb-3"
+                className="img-fluid mb-3"
                 src={image}
                 alt="Post"
                 style={{ maxWidth: "300px", maxheight: "auto", margin: "auto" }}
@@ -223,10 +212,18 @@ const Post = ({
                   onChange={handleTextChange}
                 />
                 <div>
-                  <Button variant="success" onClick={handleSaveEdit}>
+                  <Button
+                    size="sm"
+                    variant="secondary-outline"
+                    onClick={handleSaveEdit}
+                  >
                     Save
                   </Button>
-                  <Button variant="secondary" onClick={handleCancelEdit}>
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    onClick={handleCancelEdit}
+                  >
                     Cancel
                   </Button>
                 </div>
@@ -243,7 +240,7 @@ const Post = ({
                 className="m-2"
                 variant="info"
                 style={{ border: "none", color: "white" }}
-                size="md"
+                size="sm"
                 onClick={() => navigate(`/p/${_id}`)}
               >
                 {" "}
@@ -254,7 +251,7 @@ const Post = ({
                 className="m-2"
                 variant="info"
                 style={{ border: "none", color: "white" }}
-                size="md"
+                size="sm"
                 onClick={handleToggleLike}
               >
                 Like

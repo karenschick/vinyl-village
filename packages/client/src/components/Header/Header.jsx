@@ -2,6 +2,7 @@ import React from "react";
 import { Navbar, Nav, Button, Figure, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useProvideAuth } from "../../hooks/useAuth";
+//import "./Header.scss";
 
 export default function Header() {
   const {
@@ -13,17 +14,28 @@ export default function Header() {
     return null;
   }
 
-  const linkStyle = { color: "white" }; 
+  const linkStyle = { color: "white" };
 
   return (
     <Navbar
+      className="flex-column"
       expand="lg"
-      bg="info"
+      bg="dark"
       style={{ minHeight: "100px" }}
     >
       <Container>
-        <Navbar.Brand as={Link} to="/" style={{ marginLeft: "50px", textDecoration:"none" }}>
-          Landing (put logo here)
+        <Navbar.Brand
+          as={Link}
+          to="/"
+          style={{ marginLeft: "50px", textDecoration: "none" }}
+        >
+          <img
+            src="/logo2.jpg"
+            width="150"
+            height="auto"
+            className="d-inline-block align-top"
+            alt="React Bootstrap logo"
+          ></img>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -33,7 +45,11 @@ export default function Header() {
                 as={Link}
                 to={`/feed`}
                 className="d-flex align-items-center"
-                style={{ color: "white", marginRight: "50px", textDecoration:"none" }}
+                style={{
+                  color: "white",
+                  marginRight: "50px",
+                  textDecoration: "none",
+                }}
               >
                 Feed
               </Nav.Item>

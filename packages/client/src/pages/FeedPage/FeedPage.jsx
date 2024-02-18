@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Form, Button, Row, Col, Figure } from "react-bootstrap";
 import { toast } from "react-toastify";
-import api from "../util/api";
-import Post from "../components/Post/Post";
-import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
-import { useProvideAuth } from "../hooks/useAuth";
-import Header from "../components/Header/Header";
-import SearchForm from "../components/Search/Search";
+import api from "../../util/api";
+import Post from "../../components/Post/Post";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import { useProvideAuth } from "../../hooks/useAuth";
+import Header from "../../components/Header/Header";
+import SearchForm from "../../components/Search/Search";
+import "./FeedPage.scss";
 
 const initialState = {
   postText: "",
@@ -108,7 +109,7 @@ const FeedPage = () => {
               />
             </Figure>
             <Container className="mb-5">
-              <h1>Chat</h1>
+              <h1>Post</h1>
               <Form
                 noValidate
                 validated={validated}
@@ -152,7 +153,7 @@ const FeedPage = () => {
 
             <SearchForm />
           </Col>
-          <Col md={8}>
+          <Col md={8} className="post-feed">
             {!postLoading ? (
               <Container className=" pb-3">
                 {postError && "Error fetching posts"}

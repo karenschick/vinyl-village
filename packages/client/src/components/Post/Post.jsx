@@ -150,7 +150,7 @@ const Post = ({
                 <Figure.Image
                   src={author.profile_image}
                   className={`img-fluid mb-3 ${
-                    window.innerWidth < 768 ? "half-size" : ""
+                    window.innerWidth < 768 ? "author-image" : ""
                   }`}
                   style={{ maxWidth: "100%", height: "auto", margin: "auto" }}
                 />

@@ -9,8 +9,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import UploadProfilePhoto from "./components/UploadProfilePhoto/UploadProfilePhoto";
 import ErrorBoundary from "./components/ErrorBoundary";
-import FeedPage from "./pages/FeedPage";
+//import FeedPage from "./pages/FeedPage";
 import EditAddPage from "./pages/EditAddPage/EditAddPage";
+import FeedPage from "./pages/FeedPage/FeedPage";
 
 const App = () => {
   const {

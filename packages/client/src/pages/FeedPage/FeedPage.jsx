@@ -99,7 +99,7 @@ const FeedPage = () => {
       <Header />
       <Container className="pt-3 pb-3 clearfix" style={{ width: "80%" }}>
         <Row>
-          <Col md={4}>
+          <Col md={4} className="left-column">
             <Figure>
               <Figure.Image
                 width={400}
@@ -108,7 +108,7 @@ const FeedPage = () => {
                 src="album1.jpg"
               />
             </Figure>
-            <Container className="mb-5">
+            <Container className="mb-5 post">
               <h1>Post</h1>
               <Form
                 noValidate
@@ -151,7 +151,7 @@ const FeedPage = () => {
               </Form>
             </Container>
 
-            <SearchForm />
+            <SearchForm className="search" />
           </Col>
           <Col md={8} className="post-feed">
             {!postLoading ? (

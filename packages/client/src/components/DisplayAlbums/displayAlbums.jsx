@@ -183,6 +183,7 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                 padding: "15px",
                 width: "80%",
                 postition: "relative",
+                maxWidth: "800px"
               }}
             >
               <Card.Body>

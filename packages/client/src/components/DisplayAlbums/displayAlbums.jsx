@@ -288,14 +288,15 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                 {state.user.username === params.uname && (
                   <div className=" ">
                     <Container className="close">
-                      <Button
+                      <Button size="sm"
                         variant="secondary"
                         style={{
+                          
                           color: "white",
                           marginTop: "15px",
                           position: "absolute",
-                          bottom: "30px",
-                          right: "40px",
+                          bottom: "10px",
+                          right: "10px",
                         }}
                         onClick={() =>
                           handleShowConfirmModal(album._id, album.albumTitle)

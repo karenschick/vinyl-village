@@ -132,7 +132,7 @@ const Post = ({
                   bsPrefix="p-0"
                   style={{ lineHeight: ".75", padding: "0", fontSize: "30px" }}
                 >
-                  <span className="text-muted">&#8230;</span>
+                  <img src= "/menu.png" style={{maxHeight:"50px"}}></img>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>

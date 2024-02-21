@@ -25,44 +25,63 @@ export default function Header() {
     >
       <Container>
         <Navbar.Brand
+          className=""
           as={Link}
           to="/"
-          style={{ marginLeft: "50px", textDecoration: "none" }}
+          style={{ textDecoration: "none" }}
         >
           <img
             src="/logo2.jpg"
             width="150"
             height="auto"
             className="d-inline-block align-top"
-            alt="React Bootstrap logo"
+            alt="Vinyl Village Logo"
           ></img>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           {user && (
-            <Nav className="d-flex align-items-center justify-content-end w-100">
+            <Nav className="d-flex align-items-center justify-content-around w-100 ">
               <Nav.Item
                 as={Link}
                 to={`/feed`}
                 className="d-flex align-items-center"
                 style={{
                   color: "white",
-                  marginRight: "50px",
                   textDecoration: "none",
                 }}
-              >
-                Feed
+              > <Figure
+              className="bg-border-color overflow-hidden my-auto p-1"
+              style={{
+                textDecoration: "none",
+              }}
+            >
+              <Figure.Image
+                src="/home.png"
+                className="w-100 h-100"
+                style={{
+                  borderRadius: "0%",
+                  maxHeight: "60px",
+                  width: "auto",
+                  objectFit: "cover",
+                }}
+              />
+            </Figure>
+                Home
               </Nav.Item>
               <Nav.Item
                 as={Link}
                 to={`/u/${user.username}`}
                 className="d-flex align-items-center"
-                style={linkStyle}
+                style={{
+                  color: "white",
+                  textDecoration: "none",
+                }}
               >
                 <Figure
-                  className="bg-border-color overflow-hidden my-auto ml-2 p-1"
+                  className="bg-border-color overflow-hidden my-auto p-1"
                   style={{
-                    marginRight: "50px",
+                    textDecoration: "none",
                   }}
                 >
                   <Figure.Image
@@ -70,12 +89,15 @@ export default function Header() {
                     className="w-100 h-100"
                     style={{
                       borderRadius: "0%",
-                      maxHeight: "50px",
+                      maxHeight: "60px",
                       width: "auto",
                       objectFit: "cover",
                     }}
                   />
                 </Figure>
+                <span className="ml-1" style={{ textDecoration: "none" }}>
+                  Profile
+                </span>
               </Nav.Item>
               <Nav.Item
                 as={Button}
@@ -83,7 +105,7 @@ export default function Header() {
                 onClick={() => signout()}
                 style={{
                   border: "none",
-                  marginRight: "50px",
+                  marginRight: "",
                   color: "white",
                 }}
               >

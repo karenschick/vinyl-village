@@ -310,13 +310,15 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
               </Col>
               <Col xs="auto">
                 <Container className="close">
-                  <Button
-                    style={{ color: "white" }}
-                    variant="info"
+                  <img
+                    src="/trash2.png"
+                    style={{
+                      width: "30px",
+                      height: "30px",
+                      cursor: "pointer",
+                    }}
                     onClick={() => removeBandMember(index)}
-                  >
-                    Remove
-                  </Button>
+                  ></img>
                   {/* <TrashIcon
                     color="#ff52ce"
                     onClick={() => removeBandMember(index)}
@@ -357,13 +359,15 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
               </Col>
               <Col xs="auto">
                 <Container className="close">
-                  <Button
-                    variant="info"
-                    style={{ color: "white" }}
+                  <img
+                    src="/trash2.png"
+                    style={{
+                      width: "30px",
+                      height: "30px",
+                      cursor: "pointer",
+                    }}
                     onClick={() => removeTrack(index)}
-                  >
-                    Remove
-                  </Button>
+                  ></img>
                   {/* <TrashIcon
                     color="#ff52ce"
                     onClick={() => removeTrack(index)}

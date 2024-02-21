@@ -183,7 +183,7 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                 padding: "15px",
                 width: "80%",
                 postition: "relative",
-                maxWidth: "800px"
+                maxWidth: "800px",
               }}
             >
               <Card.Body>
@@ -289,12 +289,14 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                 {state.user.username === params.uname && (
                   <div className=" ">
                     <Container className="close">
-                      <Button size="sm"
-                        variant="secondary"
+                      {/* Replace the button with the image */}
+                      <img
+                        src="/trash2.png" // Path to your image file in the public directory
+                        alt="Trash Icon"
                         style={{
-                          
-                          color: "white",
-                          marginTop: "15px",
+                          width: "30px",
+                          height: "30px",
+                          cursor: "pointer",
                           position: "absolute",
                           bottom: "10px",
                           right: "10px",
@@ -302,17 +304,15 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                         onClick={() =>
                           handleShowConfirmModal(album._id, album.albumTitle)
                         }
-                      >
-                        Remove Album
-                      </Button>
-                      {/* <TrashIcon
+                      />
+                    </Container>
+                    {/* <TrashIcon
                         style={{position: "absolute", bottom: "30px", right: '40px' }}
                           color="red"
                           onClick={() =>
                             handleShowConfirmModal(album._id, album.albumTitle)
                           }
                         /> */}
-                    </Container>
                   </div>
                 )}
               </Card.Body>

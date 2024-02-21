@@ -12,7 +12,7 @@ import {
   Badge,
 } from "react-bootstrap";
 import { useApiFetch } from "../../util/api";
-import { useProvideAuth } from "../../hooks/useAuth";
+import { useProvideAuth, useAuth } from "../../hooks/useAuth";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import AvatarPicker from "../AvatarPicker/AvatarPicker";
@@ -47,7 +47,7 @@ const EditProfile = (props) => {
   const [albumChanged, setAlbumChanged] = useState(false);
   const [displayedAlbums, setDisplayedAlbums] = useState([]);
   const addAlbumSubmitRef = useRef(null);
-
+  const { updateUser } = useAuth();
   useEffect(() => {
     if (user) {
       setData((prevData) => ({
@@ -234,6 +234,8 @@ const EditProfile = (props) => {
       });
       console.log("Avatar Updated", response.data);
       toast.success(`Successfully updated the Avatar`);
+      // Update the profile_image field in the user object stored in the state
+      updateUser({ profile_image: profileImage });
     } catch (error) {
       console.log("Error with Avatar upload", error);
       toast.error(`Error updating avatar: ${error.message}`);
@@ -279,15 +281,15 @@ const EditProfile = (props) => {
   }
   return (
     <>
-      <Container fluid className="p-3" style={{ maxWidth: "500px" }}>
-        <div className="text-center mt-2 mb-5">
+      <Container fluid style={{ maxWidth: "500px" }}>
+        {/* <div className="text-center mt-2 mb-5">
           <h1>Edit Profile</h1>
-        </div>
-        <Container animation="false">
+        </div> */}
+        <Container>
           <Card className="mt-3 p-3">
-            <Form>
-              <Form.Group controlId="firstName">
-                <Form.Label>First Name</Form.Label>
+            <Form className="text-start">
+              <Form.Group controlId="firstName" className="mt-1">
+                <h5>First Name</h5>
                 <Form.Control
                   type="text"
                   value={data.firstName}
@@ -300,8 +302,8 @@ const EditProfile = (props) => {
                 />
               </Form.Group>
               {/* Repeat for lastName and city */}
-              <Form.Group controlId="lastName">
-                <Form.Label>Last Name</Form.Label>
+              <Form.Group controlId="lastName" className="mt-3">
+                <h5>Last Name</h5>
                 <Form.Control
                   type="text"
                   value={data.lastName}
@@ -310,24 +312,24 @@ const EditProfile = (props) => {
                   }
                 />
               </Form.Group>
-              <Form.Group controlId="email">
-                <Form.Label>Email</Form.Label>
+              <Form.Group controlId="email" className="mt-3">
+                <h5>Email</h5>
                 <Form.Control
                   type="text"
                   value={data.email}
                   onChange={(e) => setData({ ...data, email: e.target.value })}
                 />
               </Form.Group>
-              <Form.Group controlId="city">
-                <Form.Label>City</Form.Label>
+              <Form.Group controlId="city" className="mt-3">
+                <h5>City</h5>
                 <Form.Control
                   type="text"
                   value={data.city}
                   onChange={(e) => setData({ ...data, city: e.target.value })}
                 />
               </Form.Group>
-              <Form.Group controlId="state">
-                <Form.Label>State</Form.Label>
+              <Form.Group controlId="state" className="mt-3">
+                <h5>State</h5>
                 <Form.Select
                   value={data.state}
                   onChange={(e) => setData({ ...data, state: e.target.value })}
@@ -344,13 +346,14 @@ const EditProfile = (props) => {
           </Card>
           <Card className="mt-3 p-3">
             <Form
+              className="text-start mt-2"
               id="passwordForm"
               noValidate
               validated={validated}
               onSubmit={handleUpdatePassword}
             >
               <Form.Group>
-                <Form.Label htmlFor="password">Current Password</Form.Label>
+                <h5 htmlFor="password">Current Password</h5>
                 <Form.Control
                   type="password"
                   name="currentPassword"
@@ -363,7 +366,7 @@ const EditProfile = (props) => {
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="mt-2">
-                <Form.Label htmlFor="password">New Password</Form.Label>
+                <h5 htmlFor="password">New Password</h5>
                 <Form.Control
                   type="password"
                   name="password"
@@ -379,7 +382,7 @@ const EditProfile = (props) => {
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="mt-2">
-                <Form.Label htmlFor="password">Confirm New Password</Form.Label>
+                <h5 htmlFor="password">Confirm New Password</h5>
                 <Form.Control
                   type="password"
                   name="confirmPassword"
@@ -399,9 +402,9 @@ const EditProfile = (props) => {
             </Form>
           </Card>
           <Card className="mt-3">
-            <div className="mt-5 justify-content-center">
+            <div className="mt-3 justify-content-center">
               <Form className="avatarChange" noValidate validated={validated}>
-                <h6 className="mt-1">Select a new Avatar:</h6>
+                <h5 className="mt-1">Select a new Avatar:</h5>
                 <AvatarPicker
                   setProfileImage={setProfileImage}
                   profileImage={profileImage}

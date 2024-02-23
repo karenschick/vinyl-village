@@ -15,7 +15,7 @@ export default function ProfilePage(props) {
   const [user, setUser] = useState();
   const [loading, setLoading] = useState(true);
   const [profileImage, setProfileImage] = useState("");
-  const [albumCount, setAlbumCount] = useState(0)
+  const [albumCount, setAlbumCount] = useState(0);
 
   let navigate = useNavigate();
   let params = useParams();
@@ -28,9 +28,9 @@ export default function ProfilePage(props) {
   //   return string.charAt(0).toUpperCase() + string.slice(1);
   // }
 
-  const updateAlbumCount = (count) =>{
-    setAlbumCount(count)
-  }
+  const updateAlbumCount = (count) => {
+    setAlbumCount(count);
+  };
 
   useEffect(() => {
     const getUser = async () => {
@@ -57,13 +57,16 @@ export default function ProfilePage(props) {
   return (
     <>
       <Header />
-      <Container className="mt-3" style={{ width: "60%" }}>
-        <Card bg="header" className="text-center">
+      <Container className="" style={{ maxWidth: "500px" }}>
+        <Card
+          bg="header"
+          className="text-center justify-content-center align-items-center mt-5"
+        >
           <Card.Body>
-            <Row className="justify-content-center align-items-center mt-3">
-              <Col xs={12} sm={4} md={3} lg={2}>
+            <Row className="align-items-center ">
+              <Col>
                 <Figure
-                  className="bg-border-color overflow-hidden my-auto ml-2 p-1"
+                  className="bg-border-color overflow-hidden my-auto ml-2 p-1 "
                   style={{ height: "100px", width: "100px" }}
                 >
                   <Figure.Image
@@ -77,16 +80,15 @@ export default function ProfilePage(props) {
                   />
                 </Figure>
               </Col>
-              <Col xs="auto">
-                <Card.Text className="mb-3">
+              <Col xs="auto ">
+                <Card.Text className="mb-2">
                   {user.firstName} {user.lastName}
                 </Card.Text>
-                <Card.Text className="mb-3">{user.email}</Card.Text>
-                <Card.Text className="mb-3">
+                <Card.Text className="mb-2">{user.email}</Card.Text>
+                <Card.Text className="mb-2">
                   {user.city}, {user.state}
                 </Card.Text>
                 <Card.Text>{albumCount} albums</Card.Text>
-
               </Col>
             </Row>
           </Card.Body>
@@ -95,6 +97,7 @@ export default function ProfilePage(props) {
             <div className="mb-3">
               {" "}
               <Button
+                size="sm"
                 variant="info"
                 className="d-inline-block"
                 style={{
@@ -116,7 +119,10 @@ export default function ProfilePage(props) {
           {capitalizeFirstLetter(params.uname)}'s Album Collection
           {user.firstName}'s Album Collection
         </h1> */}
-        <DisplayAlbums username={params.uname} onAlbumsChange={updateAlbumCount} />
+        <DisplayAlbums
+          username={params.uname}
+          onAlbumsChange={updateAlbumCount}
+        />
       </Container>
     </>
   );

@@ -1,8 +1,15 @@
+@media (max-width: 767px) {
+  .author-image {
+    width: 40%;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+  }
+  
 
-@media (max-width: 767px){
-    .author-image{
-        width: 40%;
-        margin: 0 auto;
-        display: block;
-    }
+  .profile_info {
+    margin-top: 10px; 
+    text-align: center;
+    ;
+  }
 }

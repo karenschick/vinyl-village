@@ -139,7 +139,7 @@ const SearchForm = () => {
 
         <Button
           type="submit"
-          variant="info"
+          variant="orange"
           className="mt-3"
           style={{ border: "none", color: "white" }}
         >
@@ -187,7 +187,10 @@ const SearchForm = () => {
                           </Col>{" "}
                           <Col md={8}>
                             <Link
-                              style={{ textDecoration: "none" }}
+                              style={{
+                                textDecoration: "none",
+                                color: "orange",
+                              }}
                               to={`/u/${album.author.username}`}
                             >
                               {album.author.firstName} {album.author.lastName}

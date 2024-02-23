@@ -132,7 +132,7 @@ const Post = ({
                   bsPrefix="p-0"
                   style={{ lineHeight: ".75", padding: "0", fontSize: "30px" }}
                 >
-                  <img src= "/menu.png" style={{maxHeight:"50px"}}></img>
+                  <img src="/menu.png" style={{ maxHeight: "50px" }}></img>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
@@ -156,12 +156,12 @@ const Post = ({
                 />
               </Figure>
             </Col>
-            <Col md={10} className="mt-2 profile_info mx-auto mx-md-0">
-              <div className="d-flex align-items-center justify-content-center justify-content-md-start">
+            <Col md={10} className="mt-2 mx-auto mx-md-0">
+              <div className="d-flex align-items-center justify-content-center justify-content-md-start profile_info">
                 <div>
                   <Link
                     to={`/u/${author.username}`}
-                    style={{ textDecoration: "none" }}
+                    style={{ textDecoration: "none", color: "orange" }}
                   >
                     {author.username}
                   </Link>
@@ -169,7 +169,7 @@ const Post = ({
                 </div>
                 <span>{` ${timeSince(created)} ago`}</span>
               </div>
-              <div className="d-flex align-items-center justify-content-center justify-content-md-start">
+              <div className="d-flex align-items-center profile_info justify-content-center justify-content-md-start">
                 <OverlayTrigger
                   overlay={
                     <Tooltip id="tooltip">
@@ -213,15 +213,18 @@ const Post = ({
                 />
                 <div>
                   <Button
+                    className="m-2"
                     size="sm"
-                    variant="secondary-outline"
+                    variant="orange"
+                    style={{ border: "none", color: "white" }}
                     onClick={handleSaveEdit}
                   >
                     Save
                   </Button>
                   <Button
                     size="sm"
-                    variant="secondary"
+                    variant="stone"
+                    style={{ border: "none", color: "white" }}
                     onClick={handleCancelEdit}
                   >
                     Cancel
@@ -238,7 +241,7 @@ const Post = ({
             <div className="text-center">
               <Button
                 className="m-2"
-                variant="info"
+                variant="orange"
                 style={{ border: "none", color: "white" }}
                 size="sm"
                 onClick={() => navigate(`/p/${_id}`)}
@@ -249,7 +252,7 @@ const Post = ({
 
               <Button
                 className="m-2"
-                variant="info"
+                variant="orange"
                 style={{ border: "none", color: "white" }}
                 size="sm"
                 onClick={handleToggleLike}

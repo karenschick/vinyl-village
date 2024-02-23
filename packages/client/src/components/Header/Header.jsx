@@ -50,23 +50,25 @@ export default function Header() {
                   color: "white",
                   textDecoration: "none",
                 }}
-              > <Figure
-              className="bg-border-color overflow-hidden my-auto p-1"
-              style={{
-                textDecoration: "none",
-              }}
-            >
-              <Figure.Image
-                src="/home.png"
-                className="w-100 h-100"
-                style={{
-                  borderRadius: "0%",
-                  maxHeight: "60px",
-                  width: "auto",
-                  objectFit: "cover",
-                }}
-              />
-            </Figure>
+              >
+                {" "}
+                <Figure
+                  className="bg-border-color overflow-hidden my-auto p-1"
+                  style={{
+                    textDecoration: "none",
+                  }}
+                >
+                  <Figure.Image
+                    src="/home.png"
+                    className="w-100 h-100"
+                    style={{
+                      borderRadius: "0%",
+                      maxHeight: "60px",
+                      width: "auto",
+                      objectFit: "cover",
+                    }}
+                  />
+                </Figure>
                 Home
               </Nav.Item>
               <Nav.Item

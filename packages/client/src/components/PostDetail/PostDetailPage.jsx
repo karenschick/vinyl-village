@@ -102,7 +102,9 @@ const PostDetailPage = () => {
 
   const handleCommentDeleted = (deletedCommentId) => {
     // Update the state to remove the comment
-    setStateComments(currentComments => currentComments.filter(comment => comment._id !== deletedCommentId));
+    setStateComments((currentComments) =>
+      currentComments.filter((comment) => comment._id !== deletedCommentId)
+    );
   };
 
   useEffect(() => {
@@ -129,67 +131,78 @@ const PostDetailPage = () => {
 
   return (
     <Container>
-      <Button
-        variant="outline-info"
-        onClick={() => {
-          navigate(-1);
-        }}
-        style={{ border: "none", color: "#white" }}
-        className="mt-3"
-      >
-        Go Back
-      </Button>
-      <Post post={post} onPostUpdate={handlePostUpdate} detail />
-      <div>
-        <br />
-        <Form
-          noValidate
-          validated={validated}
-          onSubmit={handleCommentSubmit}
-          className="clearfix"
-        >
-          <Form.Control
-            type="text"
-            size="md"
-            name="commentText"
-            maxLength="120"
-            placeholder="Reply"
-            aria-describedby="comment-input"
-            required
-            value={data.commentText}
-            onChange={handleInputChange}
-          />
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <div style={{ width: "60%" }}>
           <Button
-            variant="info"
-            style={{ border: "none", color: "white" }}
-            className="float-right mt-3"
-            type="submit"
+            variant="outline-info"
+            onClick={() => {
+              navigate(-1);
+            }}
+            style={{ border: "none", color: "#white" }}
+            className="mt-3"
           >
-            Comment
+            Go Back
           </Button>
-          <Form.Control.Feedback type="invalid" className="text-warning">
-            Comment text is required
-          </Form.Control.Feedback>
 
-          {data.errorMessage && (
-            <span className="form-error">{data.errorMessage}</span>
-          )}
-        </Form>
-        {!stateComments.length > 0 ? (
-          <div>no comments</div>
-        ) : (
-          <Container>
-            {stateComments.map((c, index) => (
-              <Comment
-                key={c._id}
-                comment={c}
-                onCommentDeleted={handleCommentDeleted}
-                onUpdateComment={handleUpdateComment}
-                
+          <Post post={post} onPostUpdate={handlePostUpdate} detail />
+          <br />
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Form
+              noValidate
+              validated={validated}
+              onSubmit={handleCommentSubmit}
+              className="clearfix"
+              style={{ width: "80%" }}
+            >
+              <Form.Control
+                type="text"
+                size="md"
+                name="commentText"
+                maxLength="120"
+                placeholder="Reply"
+                aria-describedby="comment-input"
+                required
+                value={data.commentText}
+                onChange={handleInputChange}
               />
-            ))}
-          </Container>
-        )}
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <Button
+                  variant="orange"
+                  style={{ border: "none", color: "white" }}
+                  className="float-right mt-3 mb-5"
+                  type="submit"
+                >
+                  Comment
+                </Button>
+              </div>
+              <Form.Control.Feedback type="invalid" className="text-warning">
+                Comment text is required
+              </Form.Control.Feedback>
+
+              {data.errorMessage && (
+                <span className="form-error">{data.errorMessage}</span>
+              )}
+            </Form>
+          </div>
+          {!stateComments.length > 0 ? (
+            <div>no comments</div>
+          ) : (
+            <Container>
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <div>
+                  {stateComments.map((c, index) => (
+                    <Comment
+                      key={c._id}
+                      comment={c}
+                      onCommentDeleted={handleCommentDeleted}
+                      onUpdateComment={handleUpdateComment}
+                    />
+                  ))}
+                </div>
+              </div>
+            </Container>
+          )}
+        </div>
       </div>
     </Container>
   );

@@ -12,7 +12,11 @@ $font-family-base: "Raleway", sans-serif;
 $decoration: lightgray;
 $link-color: $secondary;
 $link-hover-color: $primary;
-$card-border-color: $decoration;
+
+$orange: orange;
+$card-border-color: $orange;
+$label-color: $orange;
+
 
 // To modify an existing color in Bootstrap $theme-colors map,
 // add the following to your custom Sass file:
@@ -26,6 +30,8 @@ $theme-colors: (
   "header": $header,
   "stone": $stone,
   "card-border-color": $decoration,
+  "orange": $orange,
+  "black":$body-color,
 );
 
 .card {
@@ -34,3 +40,7 @@ $theme-colors: (
 
 // Import Bootstrap and its default variables
 @import "bootstrap/scss/bootstrap.scss";
+
+h5 {
+  color: $orange;
+}

@@ -68,7 +68,7 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
 
   return (
     <>
-      <Card className="mt-2 pb-3" style={{ width: "30%" }}>
+      <Card className="mt-2 pb-3" style={{ width: "100%" }}>
         <div className="d-flex justify-content-end align-items-center">
           {user.username === author.username && (
             <Dropdown>
@@ -76,11 +76,12 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
                 variant="light"
                 id="dropdown-basic"
                 bsPrefix="p-0"
-                style={{ lineHeight: ".75", padding: "0", fontSize: "30px" }}
+                style={{ lineHeight: ".5", padding: "0", fontSize: "30px" }}
               >
-                <span className="text-muted" style={{ fontSize: "30px" }}>
-                  &#8230;
-                </span>
+                <img
+                  src="/menu.png"
+                  style={{ maxHeight: "30px", marginRight: "15px" }}
+                ></img>
               </Dropdown.Toggle>
               <DropdownMenu>
                 <Dropdown.Item onClick={toggleShowDelete}>Delete</Dropdown.Item>
@@ -89,10 +90,7 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
             </Dropdown>
           )}
         </div>
-        <Row
-          className="comment-card my-3 px-3 py-2"
-          style={{ flexWrap: "nowrap" }}
-        >
+        <Row className="my-3 px-3 py-2" style={{ flexWrap: "nowrap" }}>
           <Col
             as={Link}
             to={`/u/${author.username}`}
@@ -139,10 +137,22 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
                   onChange={handleCommentTextChange}
                 />{" "}
                 <br></br>
-                <Button className="m-2" onClick={saveComment}>
+                <Button
+                  size="sm"
+                  variant="outline-orange"
+                  className="m-2"
+                  onClick={saveComment}
+                >
                   Save
                 </Button>
-                <Button onClick={toggleEditMode}>Cancel</Button>
+                <Button
+                  size="sm"
+                  variant="orange"
+                  style={{ color: "white" }}
+                  onClick={toggleEditMode}
+                >
+                  Cancel
+                </Button>
               </>
             ) : (
               <>

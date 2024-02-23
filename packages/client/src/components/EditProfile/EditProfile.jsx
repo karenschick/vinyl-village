@@ -301,7 +301,7 @@ const EditProfile = (props) => {
                   }
                 />
               </Form.Group>
-              {/* Repeat for lastName and city */}
+
               <Form.Group controlId="lastName" className="mt-3">
                 <h5>Last Name</h5>
                 <Form.Control
@@ -428,7 +428,7 @@ const EditProfile = (props) => {
         </Container>
         <div className="text-center m-3">
           <Button
-            variant="info"
+            variant="orange"
             style={{ border: "none", color: "white" }}
             onClick={handleSubmitAll}
           >

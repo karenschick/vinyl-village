@@ -132,21 +132,21 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
         <div className="sort-tabs text-center">
           <Button
             className="m-2"
-            variant="outline-info"
+            variant="outline-orange"
             onClick={() => handleSort("albumTitle")}
           >
             Title
           </Button>
           <Button
             className="m-2"
-            variant="outline-info"
+            variant="outline-orange"
             onClick={() => handleSort("releaseYear")}
           >
             Year
           </Button>
           <Button
             className="m-2"
-            variant="outline-info"
+            variant="outline-orange"
             onClick={() => handleSort("artistName")}
           >
             Artist
@@ -155,7 +155,7 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
           {state.user.username === params.uname && (
             <Button
               className="m-2"
-              variant="info"
+              variant="orange"
               style={{ color: "white" }}
               // style={{ color: "white", backgroundColor: "#bdfa7b", border: "#bdfa7b", }}
               onClick={toggleModal}
@@ -178,12 +178,12 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
               className="mx-auto mt-5"
               key={album._id}
               style={{
-                // backgroundColor: "#bdfa7b",
                 margin: "5px",
                 padding: "15px",
                 width: "80%",
                 postition: "relative",
                 maxWidth: "800px",
+                borderColor: "transparent",
               }}
             >
               <Card.Body>
@@ -198,7 +198,7 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                     }}
                   >
                     <img
-                      src={album.image || "/default-image.jpg"} // Fallback to default if main image is not available
+                      src={album.image || "/default-image.jpg"}
                       alt={album.albumTitle}
                       style={{
                         width: "100%",
@@ -208,7 +208,7 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                       }}
                       onError={(e) => {
                         e.target.onerror = null; // Prevents recursion
-                        e.target.src = "/album8.jpg"; // Path to your default image
+                        e.target.src = "/album8.jpg";
                       }}
                     />
 
@@ -271,9 +271,8 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                             {track.trackNumber}. {track.trackTitle}
                           </div>
                           <Badge
-                            bg="info"
+                            bg="orange"
                             style={{
-                              // backgroundColor: "#37dbff",
                               border: "none",
                               color: "white",
                               marginLeft: "5px",

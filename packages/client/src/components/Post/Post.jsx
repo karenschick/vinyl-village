@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Container,
   Row,
   Col,
   Button,
@@ -38,9 +37,6 @@ const Post = ({
   const [likesState, setLikes] = useState(likes.length);
   console.log("Image URL:", image);
   const defaultImage = "/images/default-post.jpg";
-  // const toggleEditMode = () => {
-  //   setEditMode(!editMode);
-  // };
 
   const handleTextChange = (e) => {
     setEditedText(e.target.value);
@@ -104,14 +100,6 @@ const Post = ({
     }
   };
 
-  //console.log(likes)
-
-  // const tooltip = (
-  //   <Tooltip id="tooltip">
-  //     {likes.map((like) => like.username).join(", ")}
-  //   </Tooltip>
-  // );
-
   if (isDeleted) return <></>;
 
   return (
@@ -130,11 +118,10 @@ const Post = ({
                   variant="light"
                   id="dropdown-basic"
                   bsPrefix="p-0"
-                  style={{ lineHeight: ".75", padding: "0", fontSize: "30px" }}
+                  style={{ lineHeight: ".5", padding: "0" }}
                 >
-                  <img src="/menu.png" style={{ maxHeight: "50px" }}></img>
+                  <img src="/menu.png" style={{ maxHeight: "40px" }}></img>
                 </Dropdown.Toggle>
-
                 <Dropdown.Menu>
                   <Dropdown.Item onClick={toggleEditMode}>Edit</Dropdown.Item>
                   <Dropdown.Item onClick={toggleShowDelete}>
@@ -182,8 +169,12 @@ const Post = ({
                   </span>
                 </OverlayTrigger>
                 <Button
-                  style={{ textDecoration: "none" }}
-                  variant="link"
+                  style={{
+                    textDecoration: "none",
+                    border: "none",
+                    marginLeft: "3px",
+                  }}
+                  variant="outline-orange"
                   size="md"
                   onClick={() => navigate(`/p/${_id}`)}
                 >

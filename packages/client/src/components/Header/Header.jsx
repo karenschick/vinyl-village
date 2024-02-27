@@ -103,7 +103,7 @@ export default function Header() {
               </Nav.Item>
               <Nav.Item
                 as={Button}
-                variant="outline-info"
+                variant="outline-orange"
                 onClick={() => signout()}
                 style={{
                   border: "none",

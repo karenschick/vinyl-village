@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 
 import { Form, Button, Col, Row, Container } from "react-bootstrap";
-import axios from "axios";
-import { API_URL } from "../../util/constants";
+
 import { ToastContainer, toast } from "react-toastify";
 import { useProvideAuth } from "../../hooks/useAuth";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
 import api from "../../util/api";
 import "react-toastify/dist/ReactToastify.css";
-import TrashIcon from "../icons/TrashIcon";
 
 export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
   const [albumData, setAlbumData] = useState({
@@ -19,12 +17,15 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
     bandMembers: [{ memberName: "" }],
     condition: "",
   });
+
   const {
     state: { user },
   } = useProvideAuth();
+
   const {
     state: { isAuthenticated },
   } = useRequireAuth();
+
   const [selectedFile, setSelectedFile] = useState(null);
 
   const isValidYear = (year) => {
@@ -88,6 +89,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
     newBandMembers.splice(index, 1);
     setAlbumData({ ...albumData, bandMembers: newBandMembers });
   };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -140,17 +142,6 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
     Object.keys(adjustedAlbumData).forEach((key) => {
       formData.append(key, adjustedAlbumData[key]);
     });
-    // Object.keys(adjustedAlbumData).forEach(key => {
-    //   if (Array.isArray(adjustedAlbumData[key])) {
-    //     adjustedAlbumData[key].forEach((item, index) => {
-    //       Object.keys(item).forEach(subKey => {
-    //         formData.append(`${key}[${index}][${subKey}]`, item[subKey]);
-    //       });
-    //     });
-    //   } else {
-    //     formData.append(key, adjustedAlbumData[key]);
-    //   }
-    // });
 
     if (selectedFile) {
       formData.append("image", selectedFile);
@@ -182,80 +173,10 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
     });
   };
 
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-
-  //   if (!albumData.albumTitle) {
-  //     toast.error("Album title is required");
-  //     return;
-  //   }
-
-  //   if (!albumData.artistName) {
-  //     toast.error("Artist name is required");
-  //     return;
-  //   }
-
-  //   const year = parseInt(albumData.releaseYear, 10);
-  //   if (isNaN(year) || !isValidYear(year)) {
-  //     toast.error(
-  //       "Invalid release year. Please enter a year between 1889 and the current year."
-  //     );
-  //     return;
-  //   }
-
-  //   if (
-  //     albumData.tracks.length === 0 ||
-  //     albumData.tracks.some(
-  //       (track) => !track.trackTitle || !track.trackDuration
-  //     )
-  //   ) {
-  //     toast.error("Each track must have a title and duration");
-  //     return;
-  //   }
-
-  //   const adjustedAlbumData = {
-  //     ...albumData,
-  //     releaseYear: year,
-  //     tracks: albumData.tracks
-  //       .filter((track) => track.trackTitle)
-  //       .map((track, index) => ({
-  //         ...track,
-  //         trackNumber: index + 1,
-  //         trackDuration: parseInt(track.trackDuration, 10) || 0,
-  //       })),
-
-  //   };
-
-  //   console.log("sending data:", adjustedAlbumData);
-
-  //   try {
-  //     const response = await api.post("/albums", adjustedAlbumData, formData, {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //       },});
-  //     console.log("response data:", response.data);
-
-  //     onAlbumSubmit(adjustedAlbumData);
-  //     toggleModal();
-  //   } catch (error) {
-  //     console.error("Error:", error.response?.data || error);
-  //     toast.error("An error occurred while submitting the form.");
-  //     //console.error("Error:", error.response.data);
-  //   }
-
-  //   setAlbumData({
-  //     albumTitle: "",
-  //     releaseYear: "",
-  //     artistName: "",
-  //     tracks: [{ trackTitle: "", trackDuration: "" }],
-  //     bandMembers: [{ memberName: "" }],
-  //   });
-  // };
-
   return (
     <>
       <ToastContainer />
-      <Form onSubmit={handleSubmit} className="p-sm-4 p-2">
+      <Form noValidate validated onSubmit={handleSubmit} className="p-sm-4 p-2">
         <Form.Group controlId="formFile" className="mb-3">
           <h5>Album Image</h5>
           <Form.Control

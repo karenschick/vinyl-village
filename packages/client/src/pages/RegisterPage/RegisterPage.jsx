@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, InputGroup, Form, Button } from "react-bootstrap";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import { setAuthToken } from "../../util/api";
-//import LandingHeader from "../components/LandingHeader";
+
 import AvatarPicker from "../../components/AvatarPicker/AvatarPicker";
-import UploadProfilePhoto from "../../components/UploadProfilePhoto/UploadProfilePhoto";
+
 import { useProvideAuth } from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import "./RegisterPage.scss";
@@ -82,23 +82,7 @@ const RegisterPage = () => {
 
   let navigate = useNavigate();
 
-  const [profileImage, setProfileImage] = useState(getRandomProfileUrl());
-
-  function getRandomProfileUrl() {
-    //geneartes random pic in img
-    let imgs = [
-      "bird.svg",
-      "dog.svg",
-      "fox.svg",
-      "frog.svg",
-      "lion.svg",
-      "owl.svg",
-      "tiger.svg",
-      "whale.svg",
-    ];
-    let img = imgs[Math.floor(Math.random() * imgs.length)];
-    return `/${img}`;
-  }
+  const [profileImage, setProfileImage] = useState("/albumorange.jpg");
 
   const handleInputChange = (event) => {
     setData({
@@ -158,8 +142,6 @@ const RegisterPage = () => {
   console.log("profile image:", profileImage);
   return (
     <div style={{ overflow: "auto", height: "100vh" }}>
-      {/* <LandingHeader /> */}
-
       <Container className="mb-5">
         <Row className="pt-5 justify-content-center">
           <Form
@@ -169,7 +151,7 @@ const RegisterPage = () => {
             onSubmit={handleSignup}
           >
             <h2 className="mb-4">Join Us!</h2>
-            <h5>Select an Avatar:</h5>
+            <h4>Select an Avatar:</h4>
             <AvatarPicker
               setProfileImage={setProfileImage}
               profileImage={profileImage}

@@ -9,9 +9,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import UploadProfilePhoto from "./components/UploadProfilePhoto/UploadProfilePhoto";
 import ErrorBoundary from "./components/ErrorBoundary";
-//import FeedPage from "./pages/FeedPage";
 import EditAddPage from "./pages/EditAddPage/EditAddPage";
 import FeedPage from "./pages/FeedPage/FeedPage";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
   const {
@@ -27,7 +27,6 @@ const App = () => {
           <Route path="/signup" element={<RegisterPage />} />
           <Route path="/u/:uname" element={<ProfilePage />} />
           <Route path="/upload" element={<UploadProfilePhoto />} />
-          {/* <Route path="/p/:postId" element={<PostDetailPage />} /> */}
           <Route exact path="/p/:pid" element={<PostDetailPage />} />
           <Route path="/u/:uname/edit" element={<EditAddPage />} />
         </Routes>

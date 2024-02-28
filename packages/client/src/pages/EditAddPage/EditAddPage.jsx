@@ -63,7 +63,7 @@ const EditAddPage = () => {
     <div className="text-center">
       <Container style={{ maxWidth: "500px" }}>
         <Button
-          variant="outline-info"
+          variant="outline-dark"
           onClick={() => {
             navigate(`/u/${user.username}`);
           }}

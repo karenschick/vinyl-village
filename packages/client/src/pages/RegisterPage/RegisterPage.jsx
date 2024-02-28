@@ -269,12 +269,12 @@ const RegisterPage = () => {
             <Row className="mr-0 mt-3">
               <Col>
                 Already Registered?
-                <Button as="a" variant="link" onClick={() => navigate("/")}>
+                <Button as="a" variant="link" style={{color: "gray"}}onClick={() => navigate("/")}>
                   Login
                 </Button>
               </Col>
 
-              <Button type="submit" disabled={data.isSubmitting}>
+              <Button variant="dark"type="submit" disabled={data.isSubmitting}>
                 {data.isSubmitting ? <LoadingSpinner /> : "Sign up"}
               </Button>
             </Row>

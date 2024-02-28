@@ -114,7 +114,7 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
               <Link
                 to={`/u/${author.username}`}
                 className="comment-author-link"
-                style={{ textDecoration: "none" }}
+                style={{ textDecoration: "none", color:"black" }}
               >
                 <span style={{ textDecoration: "none" }}>
                   {comment.author?.username}

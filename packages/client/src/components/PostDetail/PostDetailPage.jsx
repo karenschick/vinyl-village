@@ -134,7 +134,7 @@ const PostDetailPage = () => {
       <div style={{ display: "flex", justifyContent: "center" }}>
         <div style={{ width: "60%" }}>
           <Button
-            variant="outline-info"
+            variant="outline-dark"
             onClick={() => {
               navigate(-1);
             }}

@@ -148,7 +148,7 @@ const Post = ({
                 <div>
                   <Link
                     to={`/u/${author.username}`}
-                    style={{ textDecoration: "none", color: "dark" }}
+                    style={{ textDecoration: "none", color: "black" }}
                   >
                     {author.username}
                   </Link>

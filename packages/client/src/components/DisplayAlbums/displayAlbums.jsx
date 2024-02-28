@@ -22,8 +22,6 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export const DisplayAlbums = ({ username, onAlbumsChange }) => {
   const { response } = useApiFetch("/albums");
-  //console.log("response:", response);
-
   const [displayedAlbums, setDisplayedAlbums] = useState([]);
   const [sortAlbum, setSortAlbum] = useState("albumTitle");
   const [showModal, setShowModal] = useState(false);
@@ -132,21 +130,21 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
         <div className="sort-tabs text-center">
           <Button
             className="m-2"
-            variant="outline-orange"
+            variant="outline-dark"
             onClick={() => handleSort("albumTitle")}
           >
             Title
           </Button>
           <Button
             className="m-2"
-            variant="outline-orange"
+            variant="outline-dark"
             onClick={() => handleSort("releaseYear")}
           >
             Year
           </Button>
           <Button
             className="m-2"
-            variant="outline-orange"
+            variant="outline-dark"
             onClick={() => handleSort("artistName")}
           >
             Artist
@@ -155,7 +153,7 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
           {state.user.username === params.uname && (
             <Button
               className="m-2"
-              variant="orange"
+              variant="dark"
               style={{ color: "white" }}
               // style={{ color: "white", backgroundColor: "#bdfa7b", border: "#bdfa7b", }}
               onClick={toggleModal}
@@ -271,7 +269,7 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                             {track.trackNumber}. {track.trackTitle}
                           </div>
                           <Badge
-                            bg="orange"
+                            bg="dark"
                             style={{
                               border: "none",
                               color: "white",

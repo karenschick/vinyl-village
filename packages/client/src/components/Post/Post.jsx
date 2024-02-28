@@ -148,7 +148,7 @@ const Post = ({
                 <div>
                   <Link
                     to={`/u/${author.username}`}
-                    style={{ textDecoration: "none", color: "orange" }}
+                    style={{ textDecoration: "none", color: "dark" }}
                   >
                     {author.username}
                   </Link>
@@ -174,7 +174,7 @@ const Post = ({
                     border: "none",
                     marginLeft: "3px",
                   }}
-                  variant="outline-orange"
+                  variant="outline-dark"
                   size="md"
                   onClick={() => navigate(`/p/${_id}`)}
                 >
@@ -206,7 +206,7 @@ const Post = ({
                   <Button
                     className="m-2"
                     size="sm"
-                    variant="orange"
+                    variant="dark"
                     style={{ border: "none", color: "white" }}
                     onClick={handleSaveEdit}
                   >
@@ -232,7 +232,7 @@ const Post = ({
             <div className="text-center">
               <Button
                 className="m-2"
-                variant="orange"
+                variant="dark"
                 style={{ border: "none", color: "white" }}
                 size="sm"
                 onClick={() => navigate(`/p/${_id}`)}
@@ -243,7 +243,7 @@ const Post = ({
 
               <Button
                 className="m-2"
-                variant="orange"
+                variant="dark"
                 style={{ border: "none", color: "white" }}
                 size="sm"
                 onClick={handleToggleLike}

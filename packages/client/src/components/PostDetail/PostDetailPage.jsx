@@ -167,7 +167,7 @@ const PostDetailPage = () => {
               />
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <Button
-                  variant="orange"
+                  variant="dark"
                   style={{ border: "none", color: "white" }}
                   className="float-right mt-3 mb-5"
                   type="submit"

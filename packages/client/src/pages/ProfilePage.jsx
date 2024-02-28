@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Container, Card, Button, Figure, Row, Col } from "react-bootstrap";
-//import { useApiFetch } from "../util/api";
 import DisplayAlbums from "../components/DisplayAlbums/displayAlbums";
 import { useProvideAuth } from "../hooks/useAuth";
 import { useRequireAuth } from "../hooks/useRequireAuth";
@@ -8,7 +7,7 @@ import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 import Header from "../components/Header/Header";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../util/api";
-import "../custom.scss";
+
 
 export default function ProfilePage(props) {
   const { state } = useProvideAuth();
@@ -23,11 +22,7 @@ export default function ProfilePage(props) {
     state: { isAuthenticated },
   } = useRequireAuth();
 
-  // function capitalizeFirstLetter(string) {
-  //   if (!string) return "";
-  //   return string.charAt(0).toUpperCase() + string.slice(1);
-  // }
-
+  
   const updateAlbumCount = (count) => {
     setAlbumCount(count);
   };
@@ -98,13 +93,13 @@ export default function ProfilePage(props) {
               {" "}
               <Button
                 size="sm"
-                variant="orange"
+                variant="dark"
                 className="d-inline-block"
-                style={{
-                  border: "none",
-                  color: "white",
-                  display: "inline-block",
-                }}
+                // style={{
+                //   border: "none",
+                //   color: "white",
+                //   display: "inline-block",
+                // }}
                 onClick={() => navigate(`/u/${params.uname}/edit`)}
               >
                 Edit Profile
@@ -115,10 +110,6 @@ export default function ProfilePage(props) {
       </Container>
 
       <Container>
-        {/* <h1 className="mt-5 text-center">
-          {capitalizeFirstLetter(params.uname)}'s Album Collection
-          {user.firstName}'s Album Collection
-        </h1> */}
         <DisplayAlbums
           username={params.uname}
           onAlbumsChange={updateAlbumCount}

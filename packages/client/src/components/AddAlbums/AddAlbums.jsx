@@ -297,7 +297,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
               </Col>
             </Row>
           ))}
-          <Button variant="outline-orange" onClick={addTrack} className="mt-1">
+          <Button variant="outline-dark" onClick={addTrack} className="mt-1">
             Add Track
           </Button>
         </Form.Group>
@@ -321,7 +321,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
 
         <Row className="text-center mt-4">
           <Col>
-            <Button variant="orange" style={{ color: "white" }} type="submit">
+            <Button variant="dark" style={{ color: "white" }} type="submit">
               Submit
             </Button>
           </Col>

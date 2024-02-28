@@ -139,7 +139,7 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
                 <br></br>
                 <Button
                   size="sm"
-                  variant="outline-orange"
+                  variant="outline-dark"
                   className="m-2"
                   onClick={saveComment}
                 >
@@ -147,7 +147,7 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
                 </Button>
                 <Button
                   size="sm"
-                  variant="orange"
+                  variant="dark"
                   style={{ color: "white" }}
                   onClick={toggleEditMode}
                 >

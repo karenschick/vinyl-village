@@ -2,7 +2,6 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { useProvideAuth } from "./hooks/useAuth";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
-import PostDetailPage from "./components/PostDetail/PostDetailPage";
 import ProfilePage from "./pages/ProfilePage";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -12,7 +11,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import EditAddPage from "./pages/EditAddPage/EditAddPage";
 import FeedPage from "./pages/FeedPage/FeedPage";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import PostDetailPage from "./pages/PostDetail/PostDetailPage";
 const App = () => {
   const {
     state: { user },

@@ -195,14 +195,17 @@ const PostDetailPage = () => {
           ) : (
             <Container style={{ width: "80%" }}>
               <div>
-                {stateComments.map((c, index) => (
-                  <Comment
-                    key={c._id}
-                    comment={c}
-                    onCommentDeleted={handleCommentDeleted}
-                    onUpdateComment={handleUpdateComment}
-                  />
-                ))}
+                {stateComments
+                  .slice()
+                  .reverse()
+                  .map((c, index) => (
+                    <Comment
+                      key={c._id}
+                      comment={c}
+                      onCommentDeleted={handleCommentDeleted}
+                      onUpdateComment={handleUpdateComment}
+                    />
+                  ))}
               </div>
             </Container>
           )}

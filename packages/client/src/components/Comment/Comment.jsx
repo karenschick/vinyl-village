@@ -68,7 +68,7 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
 
   return (
     <>
-      <Card className="mt-2 pb-3" style={{ width: "100%" }}>
+      <Card className="mt-2 pb-3">
         <div className="d-flex justify-content-end align-items-center">
           {user.username === author.username && (
             <Dropdown>

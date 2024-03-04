@@ -22,6 +22,7 @@ import useToggle from "../../hooks/useToggle";
 const Post = ({
   post: { _id, author, text, comments, created, likes, image },
   onPostUpdate,
+  detailView = true,
 }) => {
   const [showDelete, toggleShowDelete] = useToggle();
   const [isDeleted, toggleIsDeleted] = useToggle();
@@ -230,26 +231,29 @@ const Post = ({
           </Row>
           <Row className="mt-5">
             <div className="text-center">
-              <Button
-                className="m-2"
-                variant="dark"
-                style={{ border: "none", color: "white" }}
-                size="sm"
-                onClick={() => navigate(`/p/${_id}`)}
-              >
-                {" "}
-                Comment
-              </Button>
-
-              <Button
-                className="m-2"
-                variant="dark"
-                style={{ border: "none", color: "white" }}
-                size="sm"
-                onClick={handleToggleLike}
-              >
-                Like
-              </Button>
+              {detailView && (
+                <Button
+                  className="m-2"
+                  variant="dark"
+                  style={{ border: "none", color: "white" }}
+                  size="sm"
+                  onClick={() => navigate(`/p/${_id}`)}
+                >
+                  {" "}
+                  Comment
+                </Button>
+              )}
+              {detailView && (
+                <Button
+                  className="m-2"
+                  variant="dark"
+                  style={{ border: "none", color: "white" }}
+                  size="sm"
+                  onClick={handleToggleLike}
+                >
+                  Like
+                </Button>
+              )}
             </div>
           </Row>
         </Card>

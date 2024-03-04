@@ -144,7 +144,13 @@ const PostDetailPage = () => {
             Go Back
           </Button>
 
-          <Post className=""post={post} onPostUpdate={handlePostUpdate} detail />
+          <Post
+            className=""
+            post={post}
+            onPostUpdate={handlePostUpdate}
+            detail
+            detailView={false}
+          />
           <br />
           <div style={{ display: "flex", justifyContent: "center" }}>
             <Form
@@ -172,7 +178,7 @@ const PostDetailPage = () => {
                   className="float-right mt-3 mb-5"
                   type="submit"
                 >
-                  Comment
+                  Post
                 </Button>
               </div>
               <Form.Control.Feedback type="invalid" className="text-warning">
@@ -187,19 +193,18 @@ const PostDetailPage = () => {
           {!stateComments.length > 0 ? (
             <div>no comments</div>
           ) : (
-              <Container style={{width:"80%"}} >
-                <div>
-                  {stateComments.map((c, index) => (
-                    <Comment
-                      key={c._id}
-                      comment={c}
-                      onCommentDeleted={handleCommentDeleted}
-                      onUpdateComment={handleUpdateComment}
-                    />
-                  ))}
-                </div>
-              </Container>
-           
+            <Container style={{ width: "80%" }}>
+              <div>
+                {stateComments.map((c, index) => (
+                  <Comment
+                    key={c._id}
+                    comment={c}
+                    onCommentDeleted={handleCommentDeleted}
+                    onUpdateComment={handleUpdateComment}
+                  />
+                ))}
+              </div>
+            </Container>
           )}
         </div>
       </div>

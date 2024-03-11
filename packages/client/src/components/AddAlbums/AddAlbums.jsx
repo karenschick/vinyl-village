@@ -176,7 +176,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
   return (
     <>
       <ToastContainer />
-      <Form noValidate validated onSubmit={handleSubmit} className="p-sm-4 p-2">
+      <Form onSubmit={handleSubmit} className="p-sm-4 p-2">
         <Form.Group controlId="formFile" className="mb-3">
           <h5>Album Image</h5>
           <Form.Control
@@ -240,16 +240,12 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
                     }}
                     onClick={() => removeBandMember(index)}
                   ></img>
-                  {/* <TrashIcon
-                    color="#ff52ce"
-                    onClick={() => removeBandMember(index)}
-                  /> */}
                 </Container>
               </Col>
             </Row>
           ))}
           <Button
-            variant="outline-orange"
+            variant="outline-dark"
             onClick={addBandMember}
             className="mt-1"
           >
@@ -289,10 +285,6 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
                     }}
                     onClick={() => removeTrack(index)}
                   ></img>
-                  {/* <TrashIcon
-                    color="#ff52ce"
-                    onClick={() => removeTrack(index)}
-                  /> */}
                 </Container>
               </Col>
             </Row>

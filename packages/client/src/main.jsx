@@ -1,3 +1,4 @@
+import "dotenv/config"
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
@@ -12,7 +13,7 @@ const Root = () => {
   useEffect(() => {
     const time = setTimeout(() => {
       setLoading(false);
-    }, 8000);
+    }, 9000);
     return () => clearTimeout(timer);
   }, []);
 

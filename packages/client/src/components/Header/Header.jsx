@@ -1,20 +1,46 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Navbar, Nav, Button, Figure, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useProvideAuth } from "../../hooks/useAuth";
 //import "./Header.scss";
+import { useRequireAuth } from "../../hooks/useRequireAuth";
+import { useNavigate, useParams } from "react-router-dom";
+import api from "../../util/api";
 
 export default function Header() {
+  const [loading, setLoading] = useState(true);
+  let params = useParams();
   const {
     state: { user },
     signout,
   } = useProvideAuth();
 
+  const { state, updateUser } = useProvideAuth();
   if (!user) {
     return null;
   }
 
+  const {
+    state: { isAuthenticated },
+  } = useRequireAuth();
   const linkStyle = { color: "white" };
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const userResponse = await api.get(`/users/${params.uname}`);
+        updateUser(userResponse.data);
+        setLoading(false);
+      } catch (err) {
+        console.error(err.message);
+      }
+    };
+
+    // Only fetch user data if isAuthenticated is true and it's not already loading
+    if (isAuthenticated && loading) {
+      getUser();
+    }
+  }, [params.uname, isAuthenticated, loading, updateUser]);
 
   return (
     <Navbar
@@ -87,7 +113,7 @@ export default function Header() {
                   }}
                 >
                   <Figure.Image
-                    src={user.profile_image}
+                    src={state.user.profile_image}
                     className="w-100 h-100"
                     style={{
                       borderRadius: "0%",

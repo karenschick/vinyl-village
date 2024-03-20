@@ -1,38 +1,26 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Button, Container, Card, Row, Col, Figure } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import {
+  Button,
+  Container,
+  Card,
+  Row,
+  Col,
+  Figure,
+  Modal,
+} from "react-bootstrap";
 import { useProvideAuth } from "../../hooks/useAuth";
 import { useApiFetch } from "../../util/api";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../../util/api";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
 import EditProfile from "../../components/EditProfile/EditProfile";
+import EditProfilePhoto from "../../components/EditProfilePhoto/EditProfilePhoto";
 
 const EditAddPage = () => {
-  const { state } = useProvideAuth();
+  const { state, updateUser } = useProvideAuth();
   const { error, isLoading, response } = useApiFetch("/albums");
-  const [user, setUser] = useState();
   const [loading, setLoading] = useState(true);
-  const [validated, setValidated] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [data, setData] = useState({
-    password: "",
-    currentPassword: "",
-    confirmPassword: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    city: "",
-    state: "",
-    isSubmitting: false,
-    errorMessage: null,
-  });
-  const [profileImage, setProfileImage] = useState("");
-  const [passwordChanged, setPasswordChanged] = useState(false);
-  const [avatarChanged, setAvatarChanged] = useState(false);
-  const [albumChanged, setAlbumChanged] = useState(false);
-  const [displayedAlbums, setDisplayedAlbums] = useState([]);
-  const addAlbumSubmitRef = useRef(null);
 
   let navigate = useNavigate();
   let params = useParams();
@@ -44,20 +32,27 @@ const EditAddPage = () => {
     const getUser = async () => {
       try {
         const userResponse = await api.get(`/users/${params.uname}`);
-        setUser(userResponse.data);
-        setProfileImage(userResponse.data.profile_image);
+        updateUser(userResponse.data);
         setLoading(false);
       } catch (err) {
         console.error(err.message);
       }
     };
-    isAuthenticated && getUser();
-  }, [params.uname, isAuthenticated]);
+
+    // Only fetch user data if isAuthenticated is true and it's not already loading
+    if (isAuthenticated && loading) {
+      getUser();
+    }
+  }, [params.uname, isAuthenticated, loading, updateUser]);
 
   function capitalizeFirstLetter(string) {
     if (!string) return "";
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
+
+  const handleEditProfileImage = () => {
+    setShowModal(true);
+  };
 
   return (
     <div className="text-center">
@@ -65,7 +60,7 @@ const EditAddPage = () => {
         <Button
           variant="outline-dark"
           onClick={() => {
-            navigate(`/u/${user.username}`);
+            navigate(`/u/${state.user?.username}`);
           }}
           style={{ border: "none", color: "black" }}
           className="mt-3 mb-3"
@@ -84,9 +79,9 @@ const EditAddPage = () => {
                     className="bg-border-color overflow-hidden my-auto ml-2 p-1"
                     style={{ height: "100px", width: "100px" }}
                   >
-                    {user && (
+                    {!loading && state.user && (
                       <Figure.Image
-                        src={user.profile_image}
+                        src={state.user.profile_image}
                         style={{
                           borderRadius: "0%",
                           height: "100%",
@@ -96,6 +91,18 @@ const EditAddPage = () => {
                       />
                     )}
                   </Figure>
+                  {state.user && (
+                    <div>
+                      <Button
+                        size="sm"
+                        variant="dark"
+                        className="d-inline-block"
+                        onClick={handleEditProfileImage}
+                      >
+                        Edit Profile Image
+                      </Button>
+                    </div>
+                  )}
                 </Col>
                 <Col xs="auto ">
                   <h2>{capitalizeFirstLetter(state.user?.username)}</h2>
@@ -105,6 +112,18 @@ const EditAddPage = () => {
           </Card>
         </Container>
       </Container>
+
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Profile Image</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <EditProfilePhoto
+            handleCloseModal={() => setShowModal(false)}
+            user={state.user}
+          />
+        </Modal.Body>
+      </Modal>
 
       <EditProfile />
     </div>

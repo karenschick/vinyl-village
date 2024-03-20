@@ -1,34 +1,18 @@
-import React, { useState, useEffect, useRef } from "react";
-import {
-  Container,
-  Card,
-  Form,
-  Button,
-  Figure,
-  Modal,
-  Row,
-  Col,
-  ListGroup,
-  Badge,
-} from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Container, Card, Form, Button } from "react-bootstrap";
 import { useApiFetch } from "../../util/api";
 import { useProvideAuth, useAuth } from "../../hooks/useAuth";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
-import AvatarPicker from "../AvatarPicker/AvatarPicker";
-import AddAlbums from "../AddAlbums/AddAlbums";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../../util/api";
 import { toast } from "react-toastify";
 
 const EditProfile = (props) => {
   const { state } = useProvideAuth();
-  const { error, isLoading, response } = useApiFetch("/albums");
   const [user, setUser] = useState();
   const [loading, setLoading] = useState(true);
   const [validated, setValidated] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [open, setOpen] = useState(false);
   const [data, setData] = useState({
     password: "",
     currentPassword: "",
@@ -41,13 +25,10 @@ const EditProfile = (props) => {
     isSubmitting: false,
     errorMessage: null,
   });
-  const [profileImage, setProfileImage] = useState("");
   const [passwordChanged, setPasswordChanged] = useState(false);
-  const [avatarChanged, setAvatarChanged] = useState(false);
-  const [albumChanged, setAlbumChanged] = useState(false);
-  const [displayedAlbums, setDisplayedAlbums] = useState([]);
-  const addAlbumSubmitRef = useRef(null);
+
   const { updateUser } = useAuth();
+
   useEffect(() => {
     if (user) {
       setData((prevData) => ({
@@ -121,19 +102,11 @@ const EditProfile = (props) => {
     state: { isAuthenticated },
   } = useRequireAuth();
 
-  const toggleModal = () => setShowModal(!showModal);
-
-  const handleAddAlbum = (newAlbum) => {
-    setDisplayedAlbums([...displayedAlbums, newAlbum]);
-    setAlbumChanged(true);
-  };
-
   useEffect(() => {
     const getUser = async () => {
       try {
         const userResponse = await api.get(`/users/${params.uname}`);
         setUser(userResponse.data);
-        setProfileImage(userResponse.data.profile_image);
         setLoading(false);
       } catch (err) {
         console.error(err.message);
@@ -162,7 +135,7 @@ const EditProfile = (props) => {
       event.stopPropagation();
     }
 
-    const form = document.getElementById("passwordForm"); // Add an ID to your form
+    const form = document.getElementById("passwordForm");
     if (form && form.checkValidity() === false) {
       setValidated(true);
       return;
@@ -180,7 +153,6 @@ const EditProfile = (props) => {
       console.log(data.password, uid, username);
       setValidated(false);
 
-      // write code to call edit user endpoint 'users/:id'
       api
         .put(`/users/${username}`, {
           currentPassword: data.currentPassword,
@@ -227,21 +199,6 @@ const EditProfile = (props) => {
     }
   };
 
-  const updateAvatar = async () => {
-    try {
-      const response = await api.put(`/users/${params.uname}/avatar`, {
-        profile_image: profileImage,
-      });
-      console.log("Avatar Updated", response.data);
-      toast.success(`Successfully updated the Avatar`);
-      // Update the profile_image field in the user object stored in the state
-      updateUser({ profile_image: profileImage });
-    } catch (error) {
-      console.log("Error with Avatar upload", error);
-      toast.error(`Error updating avatar: ${error.message}`);
-    }
-  };
-
   const handleSubmitAll = async () => {
     if (passwordChanged) {
       try {
@@ -249,15 +206,6 @@ const EditProfile = (props) => {
         setPasswordChanged(false);
       } catch (error) {
         // Handle password update error
-      }
-    }
-
-    if (avatarChanged) {
-      try {
-        await updateAvatar();
-        setAvatarChanged(false);
-      } catch (error) {
-        // Handle avatar update error
       }
     }
 
@@ -279,12 +227,10 @@ const EditProfile = (props) => {
   if (loading) {
     return <LoadingSpinner full />;
   }
+
   return (
     <>
       <Container fluid style={{ maxWidth: "500px" }}>
-        {/* <div className="text-center mt-2 mb-5">
-          <h1>Edit Profile</h1>
-        </div> */}
         <Container>
           <Card className="mt-3 p-3">
             <Form className="text-start">
@@ -301,7 +247,6 @@ const EditProfile = (props) => {
                   }
                 />
               </Form.Group>
-
               <Form.Group controlId="lastName" className="mt-3">
                 <h5>Last Name</h5>
                 <Form.Control
@@ -401,30 +346,6 @@ const EditProfile = (props) => {
               )}
             </Form>
           </Card>
-          <Card className="mt-3">
-            <div className="mt-3 justify-content-center">
-              <Form className="avatarChange" noValidate validated={validated}>
-                <h5 className="mt-1">Select a new Avatar:</h5>
-                <AvatarPicker
-                  setProfileImage={setProfileImage}
-                  profileImage={profileImage}
-                  setAvatarChanged={setAvatarChanged}
-                />
-              </Form>
-            </div>
-          </Card>
-
-          <Modal show={showModal} onHide={toggleModal}>
-            <Modal.Header closeButton>
-              <Modal.Title>Add New Album</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <AddAlbums
-                onAlbumSubmit={handleAddAlbum}
-                toggleModal={toggleModal}
-              />
-            </Modal.Body>
-          </Modal>
         </Container>
         <div className="text-center m-3">
           <Button

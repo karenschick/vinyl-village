@@ -9,13 +9,9 @@ import api from "../../util/api";
 
 export default function Header() {
   const [loading, setLoading] = useState(true);
-  const {
-    state: authState,
-    signout,
-    updateUser,
-  } = useProvideAuth();
-  const user = authState.user
-  const isAuthenticated = authState.isAuthenticated
+  const { state: authState, signout, updateUser } = useProvideAuth();
+  const user = authState.user;
+  const isAuthenticated = authState.isAuthenticated;
   let params = useParams();
 
   useEffect(() => {

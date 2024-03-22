@@ -2,28 +2,21 @@ import React, { useState, useEffect } from "react";
 import { Navbar, Nav, Button, Figure, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useProvideAuth } from "../../hooks/useAuth";
-//import "./Header.scss";
+import { useParams } from "react-router-dom";
+import { useApiFetch } from "../../util/api";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
-import { useNavigate, useParams } from "react-router-dom";
 import api from "../../util/api";
 
 export default function Header() {
   const [loading, setLoading] = useState(true);
-  let params = useParams();
   const {
-    state: { user },
+    state: authState,
     signout,
+    updateUser,
   } = useProvideAuth();
-
-  const { state, updateUser } = useProvideAuth();
-  if (!user) {
-    return null;
-  }
-
-  const {
-    state: { isAuthenticated },
-  } = useRequireAuth();
-  const linkStyle = { color: "white" };
+  const user = authState.user
+  const isAuthenticated = authState.isAuthenticated
+  let params = useParams();
 
   useEffect(() => {
     const getUser = async () => {
@@ -41,6 +34,12 @@ export default function Header() {
       getUser();
     }
   }, [params.uname, isAuthenticated, loading, updateUser]);
+
+  const linkStyle = { color: "white" };
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <Navbar
@@ -66,7 +65,7 @@ export default function Header() {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          {user && (
+          {!loading && user && (
             <Nav className="d-flex align-items-center justify-content-around w-100 ">
               <Nav.Item
                 as={Link}
@@ -113,7 +112,7 @@ export default function Header() {
                   }}
                 >
                   <Figure.Image
-                    src={state.user.profile_image}
+                    src={user.profile_image}
                     className="w-100 h-100"
                     style={{
                       borderRadius: "0%",

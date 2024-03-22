@@ -42,7 +42,9 @@ function EditProfilePhoto({ handleCloseModal }) {
       console.log("Avatar Updated", response.data);
 
       // Update the profile_image field in the user object stored in the state
-      updateUser({ profile_image: profileImage });
+      //updateUser({ profile_image: profileImage });
+      const updatedUser = { ...state.user, profile_image: profileImage };
+    updateUser(updatedUser);
       toast.success(`Successfully updated the Avatar`);
     } catch (error) {
       console.log("Error with Avatar upload", error);

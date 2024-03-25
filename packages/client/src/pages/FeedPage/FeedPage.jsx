@@ -5,6 +5,7 @@ import api from "../../util/api";
 import Post from "../../components/Post/Post";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import { useProvideAuth } from "../../hooks/useAuth";
+import { useRequireAuth } from "../../hooks/useRequireAuth";
 import Header from "../../components/Header/Header";
 import SearchForm from "../../components/Search/Search";
 import "./FeedPage.scss";
@@ -16,17 +17,22 @@ const initialState = {
 };
 
 const FeedPage = () => {
-  const {
-    state: { user },
-  } = useProvideAuth();
+  const { state } = useProvideAuth();
   const [posts, setPosts] = useState(null);
   const [postLoading, setPostLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [postError, setPostError] = useState(false);
   const [data, setData] = useState(initialState);
   const [validated, setValidated] = useState(false);
-  const [selectedFile, setSelectedFile] = useState(null); // Added state for selected file
+  const [selectedFile, setSelectedFile] = useState(null);
   const [keywords, setKeywords] = useState("");
   const fileInputRef = useRef(null);
+  const {
+    state: { isAuthenticated },
+  } = useRequireAuth();
+  // if (authState === undefined){
+  //   return <LoadingSpinner/>
+  // }
 
   const handleInputChange = (event) => {
     setData({ ...data, [event.target.name]: event.target.value });
@@ -84,19 +90,30 @@ const FeedPage = () => {
         const allPosts = await api.get("/posts");
         setPosts(allPosts.data);
         setPostLoading(false);
+        setLoading(false);
       } catch (err) {
         console.error(err.message);
         setPostError(true);
       } finally {
         setPostLoading(false);
+        setLoading(false);
       }
     };
-    getPosts();
-  }, []);
+    isAuthenticated && getPosts();
+  }, [isAuthenticated]);
+
+  if (!isAuthenticated) {
+    return <LoadingSpinner full />;
+  }
+
+  if (loading) {
+    return <LoadingSpinner full />;
+  }
 
   return (
     <>
-      <Header />
+      {/* { authState && <Header authState={authState}/>} */}
+      <Header authState={state} />
       <Container className="pt-3 pb-3 clearfix" style={{ width: "80%" }}>
         <Row>
           <Col md={4} className="left-column">

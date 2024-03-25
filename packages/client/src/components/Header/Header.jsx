@@ -7,33 +7,39 @@ import { useApiFetch } from "../../util/api";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
 import api from "../../util/api";
 
-export default function Header() {
+export default function Header({ authState }) {
+  const { state, updateUser, signout } = useProvideAuth();
   const [loading, setLoading] = useState(true);
-  const { state: authState, signout, updateUser } = useProvideAuth();
-  const user = authState.user;
-  const isAuthenticated = authState.isAuthenticated;
   let params = useParams();
+  const isAuthenticated = useRequireAuth();
+  const username = params.uname ? params.uname : state.user.username;
 
   useEffect(() => {
-    const getUser = async () => {
-      try {
-        const userResponse = await api.get(`/users/${params.uname}`);
-        updateUser(userResponse.data);
-        setLoading(false);
-      } catch (err) {
-        console.error(err.message);
-      }
-    };
+    console.log("AuthState:", authState);
+    console.log("Params:", params);
+    console.log("Username:", username);
 
-    // Only fetch user data if isAuthenticated is true and it's not already loading
-    if (isAuthenticated && loading) {
-      getUser();
+    if (username) {
+      const getUser = async () => {
+        try {
+          const userResponse = await api.get(`/users/${username}`);
+          updateUser(userResponse.data);
+          setLoading(false);
+        } catch (err) {
+          console.error(err.message);
+        }
+      };
+
+      // Only fetch user data if isAuthenticated is true and it's not already loading
+      if (isAuthenticated && loading) {
+        getUser();
+      }
     }
-  }, [params.uname, isAuthenticated, loading, updateUser]);
+  }, [username, isAuthenticated, loading, updateUser]);
 
   const linkStyle = { color: "white" };
 
-  if (!user) {
+  if (!state.user) {
     return null;
   }
 
@@ -61,7 +67,7 @@ export default function Header() {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          {!loading && user && (
+          {!loading && state.user && (
             <Nav className="d-flex align-items-center justify-content-around w-100 ">
               <Nav.Item
                 as={Link}
@@ -94,7 +100,7 @@ export default function Header() {
               </Nav.Item>
               <Nav.Item
                 as={Link}
-                to={`/u/${user.username}`}
+                to={`/u/${state.user.username}`}
                 className="d-flex align-items-center"
                 style={{
                   color: "white",
@@ -108,7 +114,7 @@ export default function Header() {
                   }}
                 >
                   <Figure.Image
-                    src={user.profile_image}
+                    src={state.user.profile_image}
                     className="w-100 h-100"
                     style={{
                       borderRadius: "0%",

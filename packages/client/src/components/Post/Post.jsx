@@ -208,15 +208,13 @@ const Post = ({
                     className="m-2"
                     size="sm"
                     variant="dark"
-                    style={{ border: "none", color: "white" }}
                     onClick={handleSaveEdit}
                   >
                     Save
                   </Button>
                   <Button
                     size="sm"
-                    variant="stone"
-                    style={{ border: "none", color: "white" }}
+                    variant="outline-dark"
                     onClick={handleCancelEdit}
                   >
                     Cancel

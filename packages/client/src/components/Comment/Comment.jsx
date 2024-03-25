@@ -8,14 +8,12 @@ import {
   Dropdown,
   DropdownMenu,
 } from "react-bootstrap";
-//import "./Comment.scss";
 import { timeSince } from "../../util/timeSince";
 import { Link } from "react-router-dom";
 import api from "../../util/api";
 import { toast } from "react-toastify";
 import { useProvideAuth } from "../../hooks/useAuth";
 import DeleteModal from "../DeleteModal/DeleteModal";
-import TrashIcon from "../icons/TrashIcon";
 import useToggle from "../../hooks/useToggle";
 
 const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
@@ -114,7 +112,7 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
               <Link
                 to={`/u/${author.username}`}
                 className="comment-author-link"
-                style={{ textDecoration: "none", color:"black" }}
+                style={{ textDecoration: "none", color: "black" }}
               >
                 <span style={{ textDecoration: "none" }}>
                   {comment.author?.username}
@@ -139,7 +137,7 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
                 <br></br>
                 <Button
                   size="sm"
-                  variant="outline-dark"
+                  variant="dark"
                   className="m-2"
                   onClick={saveComment}
                 >
@@ -147,8 +145,7 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
                 </Button>
                 <Button
                   size="sm"
-                  variant="dark"
-                  style={{ color: "white" }}
+                  variant="outline-dark"
                   onClick={toggleEditMode}
                 >
                   Cancel

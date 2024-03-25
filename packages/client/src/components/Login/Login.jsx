@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import styles from "./Login.module.css";
 import { useProvideAuth } from "../../hooks/useAuth";
 
 const Login = () => {
@@ -68,10 +66,10 @@ const Login = () => {
               autoComplete="off"
             />
           </Form.Group>
-          
+
           <Row className="mb-2">
             <Col xs={12} className="text-center">
-              <Button variant="primary" type="submit">
+              <Button variant="dark" type="submit">
                 Sign In
               </Button>
             </Col>
@@ -79,7 +77,10 @@ const Login = () => {
           <Row>
             <Col xs={12} className="text-center mt-3">
               <p>
-                Don't have an account? sign up <Link to="/signup">HERE</Link>
+                Don't have an account? sign up{" "}
+                <Link to="/signup" style={{ color: "black" }}>
+                  HERE
+                </Link>
               </p>
             </Col>
           </Row>
@@ -87,6 +88,6 @@ const Login = () => {
       </Container>
     </>
   );
-  }  
+};
 
 export default Login;

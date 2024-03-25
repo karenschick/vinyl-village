@@ -3,6 +3,8 @@ import { Carousel } from "react-bootstrap";
 import "./LandingCarousel.scss";
 
 function LandingCarousel() {
+  const isSmallScreen = window.innerWidth < 768;
+
   return (
     <Carousel fade>
       <Carousel.Item>
@@ -11,7 +13,7 @@ function LandingCarousel() {
           src="/album12.jpg"
           alt="First slide"
         />
-        <Carousel.Caption style={{color: "black", textAlign: "left", padding: "0", marginLeft: "-100px" }} >
+        <Carousel.Caption style={{color: "black", textAlign: isSmallScreen ? "center" : "left", padding: "0", marginLeft: isSmallScreen ? "0" :"-100px", marginBottom: isSmallScreen ? "20px" :"0px" }} >
           <h1>Need an Album?</h1>
         </Carousel.Caption>
       </Carousel.Item>

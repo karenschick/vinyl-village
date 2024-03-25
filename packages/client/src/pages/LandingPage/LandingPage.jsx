@@ -7,11 +7,10 @@ import { Container } from "react-bootstrap";
 const LandingPage = () => {
   return (
     <Container className="full-width-container">
-      <div className="mb-3">
+      <div className="mb-3 mt-5">
         <LandingCarousel />
       </div>
       {/* <h1>Need an album? Share an album. Chat with other music lovers</h1> */}
-
       <Login />
     </Container>
   );

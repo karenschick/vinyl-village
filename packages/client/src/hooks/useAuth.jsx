@@ -64,7 +64,9 @@ export function useProvideAuth() {
   let navigate = useNavigate();
 
   const updateUser = (userData) => {
+    console.log("Current User:", state.user);
     dispatch({ type: 'UPDATE_USER', payload: userData });
+    console.log("Updated User:", state.user);
   };
 
   const signin = async (username, password) => {

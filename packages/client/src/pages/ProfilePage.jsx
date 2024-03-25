@@ -28,6 +28,7 @@ export default function ProfilePage(props) {
   };
 
   useEffect(() => {
+    console.log("username on profile page:", params)
     const getUser = async () => {
       try {
         const userResponse = await api.get(`/users/${params.uname}`);

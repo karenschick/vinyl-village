@@ -2,18 +2,41 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import api from "../../util/api";
 
-const UploadFile = ({ onUpload, handleClose }) => {
+const UploadFile = ({ onUpload, handleClose, setSelectedFile }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [previewUrl, setPreviewUrl] = useState("")
   // const [userId, setUserId] = useState(userData?._id);
-  const handleFileUpload = (event) => {
-    setSelectedFiles([...selectedFiles, ...event.target.files]);
-  };
 
+  // const handleFileUpload = (event) => {
+  //   setSelectedFiles([...selectedFiles, ...event.target.files]);
+  // };
+  const handleFileUpload = (event) => {
+    const files = event.target.files;
+    setSelectedFiles([...selectedFiles, ...files]);
+
+    // Set preview URL for the first selected file
+    if (files.length > 0) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(files[0]);
+    }
+  };
   const handleDrop = (event) => {
     event.preventDefault();
     event.stopPropagation();
     const filesArray = Array.from(event.dataTransfer.files);
     setSelectedFiles([...selectedFiles, ...filesArray]);
+    setSelectedFile(event.target.files[0])
+    // Set preview URL for the first dropped file
+    if (filesArray.length > 0) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(filesArray[0]);
+    }
   };
 
   const handleUpload = async () => {
@@ -39,6 +62,7 @@ const UploadFile = ({ onUpload, handleClose }) => {
     const newFiles = [...selectedFiles];
     newFiles.splice(index, 1);
     setSelectedFiles(newFiles);
+    setPreviewUrl("")
   };
 
   const preventDefaults = (event) => {
@@ -85,6 +109,12 @@ const UploadFile = ({ onUpload, handleClose }) => {
           ))}
         </ul>
       </div>
+      {previewUrl && (
+        <div>
+          <h5>Preview:</h5>
+          <img src={previewUrl} alt="Preview" className="img-thumbnail" />
+        </div>
+      )}
       <button className="btn btn-primary mt-3" onClick={handleUpload}>
         Upload
       </button>

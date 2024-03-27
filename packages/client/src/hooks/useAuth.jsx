@@ -63,10 +63,14 @@ export function useProvideAuth() {
   const { state, dispatch } = useAuth();
   let navigate = useNavigate();
 
+  const getCurrentUser = () => {
+    return JSON.parse(localStorage.getItem("MernAppUser"));
+  };
+
   const updateUser = (userData) => {
-    console.log("Current User:", state.user);
+    
     dispatch({ type: 'UPDATE_USER', payload: userData });
-    console.log("Updated User:", state.user);
+    
   };
 
   const signin = async (username, password) => {
@@ -107,7 +111,6 @@ export function useProvideAuth() {
         username,
         email,
         password,
-
         firstName,
         lastName,
         city,
@@ -133,9 +136,9 @@ export function useProvideAuth() {
     navigate("/");
   };
 
-  const getCurrentUser = () => {
-    return JSON.parse(localStorage.getItem("MernAppUser"));
-  };
+  // const getCurrentUser = () => {
+  //   return JSON.parse(localStorage.getItem("MernAppUser"));
+  // };
 
   useEffect(() => {
     const savedUser = JSON.parse(localStorage.getItem("MernAppUser")) || false;

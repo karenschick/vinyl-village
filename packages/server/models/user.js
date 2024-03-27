@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     pattern: "[a-z0-9]+@[a-z]+.[a-z]{2,3}",
   },
-  profile_image: { type: String, default: "/fox.svg" },
+  profile_image: { type: String, default: "/albumorange.jpg" },
   firstName: {
     type: String,
     required: true,

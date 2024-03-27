@@ -35,6 +35,7 @@ export default function ProfilePage(props) {
         setUser(userResponse.data);
         setProfileImage(userResponse.data.profile_image);
         setLoading(false);
+        updateUser(userResponse.data)
       } catch (err) {
         console.error(err.message);
       }

@@ -17,7 +17,7 @@ const initialState = {
 };
 
 const FeedPage = () => {
-  const { state } = useProvideAuth();
+  const { state, updateUser } = useProvideAuth();
   const [posts, setPosts] = useState(null);
   const [postLoading, setPostLoading] = useState(true);
   const [loading, setLoading] = useState(true);
@@ -76,14 +76,26 @@ const FeedPage = () => {
     }
   };
 
-  const handlePostUpdate = (postId, newText) => {
-    setPosts(
-      posts.map((post) =>
-        post._id === postId ? { ...post, text: newText } : post
-      )
-    );
+  // const handlePostUpdate = (postId, newText) => {
+  //   setPosts(
+  //     posts.map((post) =>
+  //       post._id === postId ? { ...post, text: newText } : post
+  //     )
+  //   );
+  // };
+  const handlePostUpdate = async (postId, newText) => {
+    try {
+      const response = await api.put(`/posts/${postId}`, { text: newText });
+      // Assuming the response contains the updated post object
+      // Update the user object in the state with the updated post
+      updateUser(response.data);
+      toast.success("Post updated successfully!");
+    } catch (error) {
+      console.error("Error updating post:", error);
+      toast.error("Error updating post: " + error.message);
+    }
   };
-
+  
   useEffect(() => {
     const getPosts = async () => {
       try {

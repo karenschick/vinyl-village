@@ -16,7 +16,6 @@ export async function uploadImage(req, res, next) {
   const uploadPath = path.join(
     __dirname,
     "..",
-    "..",
     "public",
     "images",
     generatedImageName

@@ -2,14 +2,11 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import api from "../../util/api";
 
-const UploadFile = ({ onUpload, handleClose, setSelectedFile }) => {
+const UploadFile = ({ onUpload }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [previewUrl, setPreviewUrl] = useState("")
+  const [previewUrl, setPreviewUrl] = useState("");
   // const [userId, setUserId] = useState(userData?._id);
 
-  // const handleFileUpload = (event) => {
-  //   setSelectedFiles([...selectedFiles, ...event.target.files]);
-  // };
   const handleFileUpload = (event) => {
     const files = event.target.files;
     setSelectedFiles([...selectedFiles, ...files]);
@@ -23,13 +20,14 @@ const UploadFile = ({ onUpload, handleClose, setSelectedFile }) => {
       reader.readAsDataURL(files[0]);
     }
   };
+
   const handleDrop = (event) => {
     event.preventDefault();
     event.stopPropagation();
     const filesArray = Array.from(event.dataTransfer.files);
     setSelectedFiles([...selectedFiles, ...filesArray]);
-    setSelectedFile(event.target.files[0])
-    // Set preview URL for the first dropped file
+    // setSelectedFile(event.target.files[0])
+    //Set preview URL for the first dropped file
     if (filesArray.length > 0) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -52,7 +50,6 @@ const UploadFile = ({ onUpload, handleClose, setSelectedFile }) => {
       });
       onUpload(response.data.path);
 
-      handleClose();
       console.log(response.data);
     } catch (err) {
       console.error("Upload failed:", err);
@@ -62,7 +59,7 @@ const UploadFile = ({ onUpload, handleClose, setSelectedFile }) => {
     const newFiles = [...selectedFiles];
     newFiles.splice(index, 1);
     setSelectedFiles(newFiles);
-    setPreviewUrl("")
+    setPreviewUrl("");
   };
 
   const preventDefaults = (event) => {

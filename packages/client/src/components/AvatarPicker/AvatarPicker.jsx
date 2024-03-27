@@ -13,26 +13,18 @@ let imgs = [
   "/albumgray2.jpg",
   "/albumaqua3.jpg",
   "/albumpink.jpg",
-  
-
-  // "/albumyellow.jpg",
-  // "/albumyellow2.jpg",
-  
-  // "/albumyellow4.jpg",
-  // "/albumaqua.jpg",
-  // "/albumaqua2.jpg",
-  
-  // "/albumgray.jpg",
-  
-  
-  // "/albumpink2.jpg",
-  // "/albumpink1.jpg",
 ];
 
-const AvatarPicker = ({ profileImage, setProfileImage, setAvatarChanged }) => {
+const AvatarPicker = ({
+  profileImage,
+  setProfileImage,
+  setAvatarChanged,
+  handleAvatarSelection,
+}) => {
   const handleAvatarPicker = (src) => {
     setProfileImage(src);
     setAvatarChanged(true);
+    handleAvatarSelection(src);
   };
   console.log("profile image set:", profileImage);
 
@@ -45,7 +37,7 @@ const AvatarPicker = ({ profileImage, setProfileImage, setAvatarChanged }) => {
             onClick={() => handleAvatarPicker(avatar)}
             key={index}
             src={avatar}
-            alt="profile image"
+            alt={`Avatar ${index}`}
           ></Image>
         ))}
       </div>

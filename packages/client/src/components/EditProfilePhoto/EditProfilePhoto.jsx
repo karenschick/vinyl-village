@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Card, Form, Button } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import { useApiFetch } from "../../util/api";
 import AvatarPicker from "../AvatarPicker/AvatarPicker";
+import UploadFile from "../UploadFile/UploadFile";
 import { useProvideAuth } from "../../hooks/useAuth";
-import { useRequireAuth } from "../../hooks/useRequireAuth";
 import api from "../../util/api";
 import { toast } from "react-toastify";
 
@@ -41,10 +40,9 @@ function EditProfilePhoto({ handleCloseModal }) {
       });
       console.log("Avatar Updated", response.data);
 
-      // Update the profile_image field in the user object stored in the state
-      //updateUser({ profile_image: profileImage });
-      const updatedUser = { ...state.user, profile_image: profileImage };
-    updateUser(updatedUser);
+      const updatedProfileImage = response.data.profile_image; // Get the updated profile image path from the response
+      setProfileImage(updatedProfileImage); // Update the profile image state with the new path
+      updateUser({ profile_image: updatedProfileImage });
       toast.success(`Successfully updated the Avatar`);
     } catch (error) {
       console.log("Error with Avatar upload", error);
@@ -59,6 +57,20 @@ function EditProfilePhoto({ handleCloseModal }) {
       handleCloseModal();
     } else {
       console.log("please select an image");
+    }
+  };
+
+  const handleUpload = async (path) => {
+    try {
+      const response = await api.put(`/users/${params.uname}/avatar`, {
+        profile_image: path,
+      });
+      const updatedProfileImage = response.data.profile_image; // Get the updated profile image path from the response
+      setProfileImage(updatedProfileImage); // Update the profile image state with the new path
+      // Update the user object in the authentication context
+      updateUser({ profile_image: updatedProfileImage });
+    } catch (err) {
+      console.error("Upload failed:", err);
     }
   };
 
@@ -84,6 +96,7 @@ function EditProfilePhoto({ handleCloseModal }) {
             profileImage={profileImage}
             setAvatarChanged={setAvatarChanged}
           />
+          <UploadFile onUpload={handleUpload} />
           <Button type="submit" variant="dark" className="mt-3 mb-3">
             Update Profile Image
           </Button>

@@ -140,7 +140,9 @@ const Post = ({
                   className={`img-fluid mb-3 ${
                     window.innerWidth < 768 ? "author-image" : ""
                   }`}
-                  style={{ maxWidth: "100%", height: "auto", margin: "auto" }}
+                  style={{
+                    width: "60px", height: "60px", margin: "auto"
+                  }}
                 />
               </Figure>
             </Col>

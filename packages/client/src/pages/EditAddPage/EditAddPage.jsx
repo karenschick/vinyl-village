@@ -84,9 +84,10 @@ const EditAddPage = () => {
                         src={state.user.profile_image}
                         style={{
                           borderRadius: "0%",
-                          height: "100%",
-                          width: "auto",
-                          objectFit: "cover",
+                      maxheight: "90px",
+                      maxWidth: "90px",
+                      width: "auto",
+                      objectFit: "cover",
                         }}
                       />
                     )}

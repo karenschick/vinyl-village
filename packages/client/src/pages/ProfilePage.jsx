@@ -70,7 +70,8 @@ export default function ProfilePage(props) {
                     src={user.profile_image}
                     style={{
                       borderRadius: "0%",
-                      height: "100%",
+                      maxheight: "90px",
+                      maxWidth: "90px",
                       width: "auto",
                       objectFit: "cover",
                     }}

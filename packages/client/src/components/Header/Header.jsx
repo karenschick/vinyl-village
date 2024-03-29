@@ -115,13 +115,9 @@ export default function Header({ authState }) {
                 >
                   <Figure.Image
                     src={state.user.profile_image}
-                    className="w-100 h-100"
+                    className="img-fluid"
                     style={{
-                      borderRadius: "0%",
-                      maxheight: "90px",
-                      maxWidth: "90px",
-                      width: "auto",
-                      objectFit: "cover",
+                      width: "60px", height: "60px", margin: "auto"
                     }}
                   />
                 </Figure>

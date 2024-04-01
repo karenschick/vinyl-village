@@ -96,7 +96,6 @@ export default function Header({ authState }) {
                     }}
                   />
                 </Figure>
-              
               </Nav.Item>
               <Nav.Item
                 as={Link}
@@ -110,20 +109,26 @@ export default function Header({ authState }) {
                 <Figure
                   className="bg-border-color overflow-hidden my-auto p-1"
                   style={{
-                    height: "60px", width: "60px"
+                    height: "60px",
+                    width: "60px",
+                    overflow: "hidden",
                   }}
                 >
                   <Figure.Image
                     src={state.user.profile_image}
                     className="img-fluid"
                     style={{
-                      width: "60px", height: "60px", margin: "auto"
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      objectPosition: "center",
                     }}
                   />
                 </Figure>
-                <span className="ml-1" style={{ textDecoration: "none" }}>
-                  
-                </span>
+                <span
+                  className="ml-1"
+                  style={{ textDecoration: "none" }}
+                ></span>
               </Nav.Item>
               <Nav.Item
                 as={Button}

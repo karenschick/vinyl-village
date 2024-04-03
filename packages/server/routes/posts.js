@@ -47,11 +47,14 @@ router.post("/", requireAuth, async (req, res, next) => {
   }
   try {
     const savedPost = await post.save();
+    const populatedPost = await Post.findById(savedPost._id)
+      .populate({ path: "author", select: ["username", "profile_image"] })
+      .exec();
     user.posts = user.posts.concat(savedPost._id);
 
     await user.save();
 
-    res.json(savedPost.toJSON());
+    res.json(populatedPost.toJSON());
   } catch (error) {
     next(error);
   }

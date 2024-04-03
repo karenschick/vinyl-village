@@ -14,7 +14,7 @@ const Root = () => {
     const time = setTimeout(() => {
       setLoading(false);
     }, 1000);
-    return () => clearTimeout(timer);
+    return () => clearTimeout(time);
   }, []);
 
   return (

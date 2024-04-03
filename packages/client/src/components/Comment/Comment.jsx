@@ -27,9 +27,6 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
     state: { user },
   } = useProvideAuth();
 
-  console.log(comment);
-
-  console.log("Comment Author ID:", comment.author?._id);
   const handleCommentTextChange = (e) => {
     setEditedText(e.target.value);
   };

@@ -5,6 +5,7 @@ import { useProvideAuth, useAuth } from "../../hooks/useAuth";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { useNavigate, useParams } from "react-router-dom";
+import AvatarPicker from "../AvatarPicker/AvatarPicker";
 import api from "../../util/api";
 import { toast } from "react-toastify";
 
@@ -150,7 +151,6 @@ const EditProfile = (props) => {
       const {
         user: { uid, username },
       } = state;
-      console.log(data.password, uid, username);
       setValidated(false);
 
       api
@@ -160,7 +160,6 @@ const EditProfile = (props) => {
           confirmPassword: data.confirmPassword,
         })
         .then((response) => {
-          console.log("password correct", response.data);
           setData({
             ...data,
             isSubmitting: false,
@@ -174,7 +173,6 @@ const EditProfile = (props) => {
           setLoading(false);
         })
         .catch((error) => {
-          console.log(error);
           setData({
             ...data,
             isSubmitting: false,

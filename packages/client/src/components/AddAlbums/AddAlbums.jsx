@@ -156,7 +156,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log("response data:", response.data);
+
       onAlbumSubmit(response.data);
       toggleModal();
     } catch (error) {

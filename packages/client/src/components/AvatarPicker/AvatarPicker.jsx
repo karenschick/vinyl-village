@@ -26,7 +26,6 @@ const AvatarPicker = ({
     setAvatarChanged(true);
     handleAvatarSelection(src);
   };
-  console.log("profile image set:", profileImage);
 
   return (
     <Container className="mb-4 mt-4">

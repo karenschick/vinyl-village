@@ -36,7 +36,6 @@ const Post = ({
 
   const [likedState, setLiked] = useState(likes.includes(user.uid));
   const [likesState, setLikes] = useState(likes.length);
-  console.log("Image URL:", image);
   const defaultImage = "/images/default-post.jpg";
 
   const handleTextChange = (e) => {
@@ -74,7 +73,6 @@ const Post = ({
       try {
         await api.post(`/posts/like/${_id}`);
       } catch (error) {
-        console.log(error);
         return error;
       }
     } else {
@@ -83,7 +81,6 @@ const Post = ({
       try {
         await api.post(`/posts/like/${_id}`);
       } catch (error) {
-        console.log(error);
         return error;
       }
     }
@@ -92,7 +89,6 @@ const Post = ({
   const handleDeletePost = async () => {
     try {
       await api.delete(`/posts/${_id}`);
-
       toggleShowDelete();
       toggleIsDeleted();
     } catch (error) {
@@ -141,7 +137,9 @@ const Post = ({
                     window.innerWidth < 768 ? "author-image" : ""
                   }`}
                   style={{
-                    width: "60px", height: "60px", margin: "auto"
+                    width: "60px",
+                    height: "60px",
+                    margin: "auto",
                   }}
                 />
               </Figure>

@@ -44,17 +44,15 @@ const UploadFile = ({ onUpload }) => {
       selectedFiles.forEach((file) => {
         formData.append("files", file);
       });
-
       const response = await api.post(`/files/images`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       onUpload(response.data.path);
-
-      console.log(response.data);
     } catch (err) {
       console.error("Upload failed:", err);
     }
   };
+
   const removeFile = (index) => {
     const newFiles = [...selectedFiles];
     newFiles.splice(index, 1);

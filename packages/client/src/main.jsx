@@ -5,7 +5,6 @@ import { ProvideAuth } from "./hooks/useAuth";
 import App from "./App";
 import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
 
-// Create the root
 const root = createRoot(document.getElementById("root"));
 
 const Root = () => {
@@ -27,6 +26,5 @@ const Root = () => {
     </BrowserRouter>
   );
 };
-
 
 root.render(<Root />);

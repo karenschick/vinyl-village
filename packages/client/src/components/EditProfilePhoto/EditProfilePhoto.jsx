@@ -73,7 +73,10 @@ function EditProfilePhoto({ handleCloseModal }) {
       console.error("Upload failed:", err);
     }
   };
-
+  const handleAvatarSelection = (avatar) => {
+    console.log("Selected avatar:", avatar);
+  };
+  
   useEffect(() => {
     if (avatarChanged) {
       updateAvatar();
@@ -95,6 +98,7 @@ function EditProfilePhoto({ handleCloseModal }) {
             setProfileImage={setProfileImage}
             profileImage={profileImage}
             setAvatarChanged={setAvatarChanged}
+            handleAvatarSelection={handleAvatarSelection}
           />
           <UploadFile onUpload={handleUpload} />
           <Button type="submit" variant="dark" className="mt-3 mb-3">

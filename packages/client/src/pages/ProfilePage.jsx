@@ -10,7 +10,7 @@ import api from "../util/api";
 
 
 export default function ProfilePage(props) {
-  const { state } = useProvideAuth();
+  const { state, updateUser } = useProvideAuth();
   const [user, setUser] = useState();
   const [loading, setLoading] = useState(true);
   const [profileImage, setProfileImage] = useState("");

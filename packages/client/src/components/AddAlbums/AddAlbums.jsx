@@ -8,7 +8,7 @@ import { useRequireAuth } from "../../hooks/useRequireAuth";
 import api from "../../util/api";
 import "react-toastify/dist/ReactToastify.css";
 
-export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
+const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
   const [albumData, setAlbumData] = useState({
     albumTitle: "",
     releaseYear: "",

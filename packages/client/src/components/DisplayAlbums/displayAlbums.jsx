@@ -20,7 +20,7 @@ import { useProvideAuth } from "../../hooks/useAuth";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
 import { useNavigate, useParams } from "react-router-dom";
 
-export const DisplayAlbums = ({ username, onAlbumsChange }) => {
+const DisplayAlbums = ({ username, onAlbumsChange }) => {
   const { response } = useApiFetch("/albums");
   const [displayedAlbums, setDisplayedAlbums] = useState([]);
   const [sortAlbum, setSortAlbum] = useState("albumTitle");

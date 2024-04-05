@@ -15,11 +15,11 @@ const reducer = (state, action) => {
         isAuthenticated: true,
         user: action.payload,
       };
-      case "UPDATE_USER":
-        return {
-          ...state,
-          user: {...state.user, ...action.payload},
-        }
+    case "UPDATE_USER":
+      return {
+        ...state,
+        user: { ...state.user, ...action.payload },
+      };
     case "LOGOUT":
       localStorage.clear();
       return {
@@ -33,8 +33,6 @@ const reducer = (state, action) => {
 };
 
 const authContext = createContext();
-
-
 
 // Provider component that wraps your app and makes auth object ...
 // ... available to any child component that calls useAuth().
@@ -68,10 +66,13 @@ export function useProvideAuth() {
   };
 
   const updateUser = (userData) => {
-    
-    dispatch({ type: 'UPDATE_USER', payload: userData });
-    
+    console.log("User Before update:", state.user);
+    dispatch({ type: "UPDATE_USER", payload: userData });
+    console.log("User After update:", state.user);
   };
+  useEffect(() => {
+    console.log("User updated:", state.user);
+  }, [state.user]);
 
   const signin = async (username, password) => {
     try {

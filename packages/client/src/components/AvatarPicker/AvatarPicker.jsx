@@ -1,7 +1,6 @@
 import React from "react";
 import { Container, Image } from "react-bootstrap";
 import "./AvatarPicker.scss";
-//import UploadProfilePhoto from "../UploadProfilePhoto/UploadProfilePhoto";
 
 let imgs = [
   "/albumblue.jpg",
@@ -20,11 +19,13 @@ const AvatarPicker = ({
   setProfileImage,
   setAvatarChanged,
   handleAvatarSelection,
+  updateUser,
 }) => {
   const handleAvatarPicker = (src) => {
     setProfileImage(src);
     setAvatarChanged(true);
     handleAvatarSelection(src);
+    updateUser({ profile_image: src });
   };
 
   return (
@@ -40,7 +41,6 @@ const AvatarPicker = ({
           ></Image>
         ))}
       </div>
-      {/* <UploadProfilePhoto /> */}
     </Container>
   );
 };

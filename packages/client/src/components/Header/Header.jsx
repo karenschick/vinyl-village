@@ -86,22 +86,21 @@ export default function Header() {
                   textDecoration: "none",
                 }}
               >
+                {" "}
                 <Figure
                   className="bg-border-color overflow-hidden my-auto p-1"
                   style={{
-                    height: "60px",
-                    width: "60px",
-                    overflow: "hidden",
+                    textDecoration: "none",
                   }}
                 >
                   <Figure.Image
-                    src={user.profile_image}
-                    className="img-fluid"
+                    src="/profile2.png"
+                    className="w-100 h-100"
                     style={{
-                      width: "100%",
-                      height: "100%",
+                      borderRadius: "0%",
+                      maxHeight: "60px",
+                      width: "auto",
                       objectFit: "cover",
-                      objectPosition: "center",
                     }}
                   />
                 </Figure>

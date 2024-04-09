@@ -7,7 +7,7 @@ import { useProvideAuth } from "../../hooks/useAuth";
 import api from "../../util/api";
 import { toast } from "react-toastify";
 
-function EditProfilePhoto({ handleCloseModal }) {
+function EditProfilePhoto({ handleCloseModal, onUpdateProfileImage }) {
   const [avatarChanged, setAvatarChanged] = useState(false);
   const [profileImage, setProfileImage] = useState("");
   const [validated, setValidated] = useState(false);
@@ -15,7 +15,7 @@ function EditProfilePhoto({ handleCloseModal }) {
   let params = useParams();
 
   const {
-    state: { isAuthenticated },
+    state: { isAuthenticated, user },
     updateUser,
   } = useProvideAuth();
 
@@ -43,6 +43,7 @@ function EditProfilePhoto({ handleCloseModal }) {
       const updatedProfileImage = response.data.profile_image; // Get the updated profile image path from the response
       setProfileImage(updatedProfileImage); // Update the profile image state with the new path
       updateUser({ profile_image: updatedProfileImage });
+      console.log("updateUser profile image:", user)
       toast.success(`Successfully updated the Avatar`);
     } catch (error) {
       console.log("Error with Avatar upload", error);
@@ -54,6 +55,7 @@ function EditProfilePhoto({ handleCloseModal }) {
     event.preventDefault();
     if (profileImage) {
       setAvatarChanged(true);
+      onUpdateProfileImage(profileImage);
       handleCloseModal();
     } else {
       console.log("please select an image");
@@ -76,7 +78,7 @@ function EditProfilePhoto({ handleCloseModal }) {
   const handleAvatarSelection = (avatar) => {
     console.log("Selected avatar:", avatar);
   };
-  
+
   useEffect(() => {
     if (avatarChanged) {
       updateAvatar();
@@ -99,6 +101,7 @@ function EditProfilePhoto({ handleCloseModal }) {
             profileImage={profileImage}
             setAvatarChanged={setAvatarChanged}
             handleAvatarSelection={handleAvatarSelection}
+            updateUser={updateUser}
           />
           <UploadFile onUpload={handleUpload} />
           <Button type="submit" variant="dark" className="mt-3 mb-3">

@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Container, Card, Form, Button } from "react-bootstrap";
-import { useApiFetch } from "../../util/api";
 import { useProvideAuth, useAuth } from "../../hooks/useAuth";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { useNavigate, useParams } from "react-router-dom";
-import AvatarPicker from "../AvatarPicker/AvatarPicker";
 import api from "../../util/api";
-import { toast } from "react-toastify";
 
 const EditProfile = (props) => {
   const { state } = useProvideAuth();
@@ -167,9 +164,7 @@ const EditProfile = (props) => {
             currentPassword: "",
             confirmPassword: "",
           });
-          toast.success(
-            `Without pain, without sacrifice, we would have nothing.`
-          );
+
           setLoading(false);
         })
         .catch((error) => {
@@ -178,7 +173,6 @@ const EditProfile = (props) => {
             isSubmitting: false,
             errorMessage: error.message,
           });
-          toast.error("We strayed from the formula, and we paid the price.");
         });
 
       setData({
@@ -202,20 +196,17 @@ const EditProfile = (props) => {
       try {
         await handleUpdatePassword();
         setPasswordChanged(false);
-      } catch (error) {
-        // Handle password update error
-      }
+      } catch (error) {}
     }
 
     try {
       await api.put(`/users/${params.uname}`, data);
-      toast.success("Profile updated successfully");
-      // If username is part of userDetails and it's changed, handle it appropriately
-    } catch (error) {
-      toast.error("Failed to update profile");
-    }
 
-    navigate(`/u/${user.username}`); // Ensure user.username is updated if username changes
+      updateUser(data);
+      console.log("User updated check(not auth log):", state.user);
+    } catch (error) {}
+
+    navigate(`/u/${user.username}`);
   };
 
   if (!isAuthenticated) {

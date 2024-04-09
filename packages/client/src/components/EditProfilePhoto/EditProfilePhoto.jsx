@@ -7,7 +7,7 @@ import { useProvideAuth } from "../../hooks/useAuth";
 import api from "../../util/api";
 import { toast } from "react-toastify";
 
-function EditProfilePhoto({ handleCloseModal, onUpdateProfileImage }) {
+function EditProfilePhoto({ handleCloseModal }) {
   const [avatarChanged, setAvatarChanged] = useState(false);
   const [profileImage, setProfileImage] = useState("");
   const [validated, setValidated] = useState(false);
@@ -55,7 +55,6 @@ function EditProfilePhoto({ handleCloseModal, onUpdateProfileImage }) {
     event.preventDefault();
     if (profileImage) {
       setAvatarChanged(true);
-      onUpdateProfileImage(profileImage);
       handleCloseModal();
     } else {
       console.log("please select an image");

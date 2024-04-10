@@ -169,7 +169,7 @@ const FeedPage = () => {
                   <span className="form-error">{data.errorMessage}</span>
                 )}
                 <Button
-                  variant="dark"
+                  variant="orange"
                   style={{ border: "none", color: "white" }}
                   className="m-auto mt-3"
                   type="submit"

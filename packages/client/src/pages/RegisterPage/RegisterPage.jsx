@@ -138,13 +138,13 @@ const RegisterPage = () => {
       <Container className="mb-5">
         <Row className="pt-5 justify-content-center">
           <Form
-            noValidate
-            validated
+            // noValidate
+            // validated
             style={{ width: "350px" }}
             onSubmit={handleSignup}
           >
             <h2 className="mb-4">Join Us!</h2>
-            <Form.Label>Select a Profile Image:</Form.Label>
+            <h5>Select a Profile Image:</h5>
 
             <AvatarPicker
               setProfileImageRegistration={setProfileImageRegistration}
@@ -152,7 +152,7 @@ const RegisterPage = () => {
               isRegistration={true}
             />
             <Form.Group controlId="username-register">
-              <Form.Label>Username</Form.Label>
+              <h5>Username</h5>
               <InputGroup>
                 <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
                 <Form.Control
@@ -168,7 +168,7 @@ const RegisterPage = () => {
             </Form.Group>
 
             <Form.Group controlId="firstName-register">
-              <Form.Label className="mt-3">First Name</Form.Label>
+              <h5 className="mt-3">First Name</h5>
               <Form.Control
                 type="text"
                 name="firstName"
@@ -179,7 +179,7 @@ const RegisterPage = () => {
               />
             </Form.Group>
             <Form.Group controlId="lastName-register">
-              <Form.Label className="mt-3">Last Name</Form.Label>
+              <h5 className="mt-3">Last Name</h5>
               <Form.Control
                 type="text"
                 name="lastName"
@@ -190,7 +190,7 @@ const RegisterPage = () => {
               />
             </Form.Group>
             <Form.Group controlId="city-register">
-              <Form.Label className="mt-3">City</Form.Label>
+              <h5 className="mt-3">City</h5>
               <Form.Control
                 type="text"
                 name="city"
@@ -201,7 +201,7 @@ const RegisterPage = () => {
               />
             </Form.Group>
             <Form.Group controlId="state-register">
-              <Form.Label className="mt-3">State</Form.Label>
+              <h5 className="mt-3">State</h5>
               <Form.Select
                 name="state"
                 required
@@ -217,7 +217,7 @@ const RegisterPage = () => {
               </Form.Select>
             </Form.Group>
             <Form.Group controlId="email-register">
-              <Form.Label className="mt-3">Email</Form.Label>
+              <h5 className="mt-3">Email</h5>
               <Form.Control
                 type="text"
                 name="email"
@@ -228,9 +228,9 @@ const RegisterPage = () => {
               />
             </Form.Group>
             <Form.Group>
-              <Form.Label className="mt-3" htmlFor="Register">
+              <h5 className="mt-3" htmlFor="Register">
                 Password
-              </Form.Label>
+              </h5>
               <Form.Control
                 type="password"
                 name="password"
@@ -244,9 +244,9 @@ const RegisterPage = () => {
               Must be 8-20 characters long.
             </Form.Text>
             <Form.Group>
-              <Form.Label className="mt-3" htmlFor="Register">
+              <h5 className="mt-3" htmlFor="Register">
                 Confirm Password
-              </Form.Label>
+              </h5>
               <Form.Control
                 type="password"
                 name="confirmPassword"
@@ -274,7 +274,12 @@ const RegisterPage = () => {
                 </Button>
               </Col>
 
-              <Button variant="dark" type="submit" disabled={data.isSubmitting}>
+              <Button
+                variant="orange"
+                style={{ color: "white" }}
+                type="submit"
+                disabled={data.isSubmitting}
+              >
                 {data.isSubmitting ? <LoadingSpinner /> : "Sign up"}
               </Button>
             </Row>

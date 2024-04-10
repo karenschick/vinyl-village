@@ -96,13 +96,11 @@ export default function ProfilePage(props) {
               {" "}
               <Button
                 size="sm"
-                variant="dark"
+                variant="orange"
                 className="d-inline-block"
-                // style={{
-                //   border: "none",
-                //   color: "white",
-                //   display: "inline-block",
-                // }}
+                style={{
+                  color: "white",
+                }}
                 onClick={() => navigate(`/u/${params.uname}/edit`)}
               >
                 Edit Profile

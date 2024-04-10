@@ -112,12 +112,16 @@ const UploadFile = ({ onUpload, toggleBack, isEditPage }) => {
           <img src={previewUrl} alt="Preview" className="img-thumbnail" />
         </div>
       )}
-      <Button variant="primary" onClick={handleUpload}>
+      <Button
+        variant="orange"
+        style={{ color: "white" }}
+        onClick={handleUpload}
+      >
         Upload
       </Button>{" "}
       <div>
         <h5 className="mt-4">Or Select an Avatar:</h5>
-        <Button variant="primary" onClick={toggleBack}>
+        <Button variant="outline-orange" onClick={toggleBack}>
           Back to Avatar
         </Button>
       </div>

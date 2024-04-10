@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-
 import { Form, Button, Col, Row, Container } from "react-bootstrap";
-
 import { ToastContainer, toast } from "react-toastify";
 import { useProvideAuth } from "../../hooks/useAuth";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
@@ -245,7 +243,7 @@ const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
             </Row>
           ))}
           <Button
-            variant="outline-dark"
+            variant="outline-orange"
             onClick={addBandMember}
             className="mt-1"
           >
@@ -289,7 +287,7 @@ const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
               </Col>
             </Row>
           ))}
-          <Button variant="outline-dark" onClick={addTrack} className="mt-1">
+          <Button variant="outline-orange" onClick={addTrack} className="mt-1">
             Add Track
           </Button>
         </Form.Group>
@@ -313,7 +311,7 @@ const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
 
         <Row className="text-center mt-4">
           <Col>
-            <Button variant="dark" style={{ color: "white" }} type="submit">
+            <Button variant="orange" style={{ color: "white" }} type="submit">
               Submit
             </Button>
           </Col>

@@ -69,7 +69,7 @@ const Login = () => {
 
           <Row className="mb-2">
             <Col xs={12} className="text-center">
-              <Button variant="dark" type="submit">
+              <Button variant="orange" style={{ color: "white" }} type="submit">
                 Sign In
               </Button>
             </Col>

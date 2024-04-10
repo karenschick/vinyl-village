@@ -62,11 +62,10 @@ const EditAddPage = () => {
     <div className="text-center">
       <Container style={{ maxWidth: "500px" }}>
         <Button
-          variant="outline-dark"
+          variant="outline-orange"
           onClick={() => {
             navigate(`/u/${state.user?.username}`);
           }}
-          style={{ border: "none", color: "black" }}
           className="mt-3 mb-3"
         >
           Go Back
@@ -100,7 +99,8 @@ const EditAddPage = () => {
                     <div>
                       <Button
                         size="sm"
-                        variant="dark"
+                        variant="orange"
+                        style={{ color: "white" }}
                         className="d-inline-block"
                         onClick={handleEditProfileImage}
                       >
@@ -120,7 +120,9 @@ const EditAddPage = () => {
 
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit Profile Image</Modal.Title>
+          <Modal.Title style={{ color: "black" }}>
+            Edit Profile Image
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <AvatarPicker

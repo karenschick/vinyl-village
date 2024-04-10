@@ -146,7 +146,8 @@ const AvatarPicker = ({
           {!isRegistration && (
             <Button
               type="submit"
-              variant="dark"
+              variant="orange"
+              style={{ color: "white" }}
               onClick={handleSubmitProfileImage}
               className="mt-3 mb-3"
             >
@@ -154,7 +155,10 @@ const AvatarPicker = ({
             </Button>
           )}
           <h5 className="mt-4">Or Upload an Image:</h5>
-          <Button variant="dark" onClick={() => setShowAvatarCard(false)}>
+          <Button
+            variant="outline-orange"
+            onClick={() => setShowAvatarCard(false)}
+          >
             Choose Image
           </Button>
         </div>

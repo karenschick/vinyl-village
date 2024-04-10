@@ -207,14 +207,15 @@ const Post = ({
                   <Button
                     className="m-2"
                     size="sm"
-                    variant="dark"
+                    variant="orange"
+                    style={{ color: "white" }}
                     onClick={handleSaveEdit}
                   >
                     Save
                   </Button>
                   <Button
                     size="sm"
-                    variant="outline-dark"
+                    variant="outline-orange"
                     onClick={handleCancelEdit}
                   >
                     Cancel

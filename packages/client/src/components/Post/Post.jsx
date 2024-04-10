@@ -233,8 +233,8 @@ const Post = ({
               {detailView && (
                 <Button
                   className="m-2"
-                  variant="dark"
-                  style={{ border: "none", color: "white" }}
+                  variant="orange"
+                  style={{ color: "white" }}
                   size="sm"
                   onClick={() => navigate(`/p/${_id}`)}
                 >
@@ -245,8 +245,8 @@ const Post = ({
               {detailView && (
                 <Button
                   className="m-2"
-                  variant="dark"
-                  style={{ border: "none", color: "white" }}
+                  variant="orange"
+                  style={{ color: "white" }}
                   size="sm"
                   onClick={handleToggleLike}
                 >

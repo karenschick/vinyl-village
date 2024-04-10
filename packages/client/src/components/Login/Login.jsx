@@ -44,7 +44,7 @@ const Login = () => {
       <Container className="d-flex justify-content-center align-items-center">
         <ToastContainer />
         <Form onSubmit={handleSubmit}>
-          <Form.Group as={Row} className="mb-2 mt-3">
+          <Form.Group as={Row} className="mb-2 mt-">
             <Form.Control
               type="text"
               id="username"
@@ -74,8 +74,19 @@ const Login = () => {
               </Button>
             </Col>
           </Row>
-          <Row>
-            <Col xs={12} className="text-center mt-3">
+          <Row className="justify-content-center ">
+            {/* <Col xs={5}> */}
+            <Col xs={8} className="text-center mt-1">
+              {/* <img
+            src="/logo2.jpg"
+            width="100"
+            height="auto"
+            //className="d-inline-block align-top"
+            alt="Vinyl Village Logo"
+          ></img>
+        </Col>
+             <Col xs={6} className="text-center mt-">  */}
+              {/* <Col xs={6} > */}
               <p>
                 Don't have an account? sign up{" "}
                 <Link to="/signup" style={{ color: "black" }}>

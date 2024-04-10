@@ -23,10 +23,14 @@ const AvatarPicker = ({
   profileImageRegistration,
   setProfileImageRegistration,
   isRegistration,
+  isEditPage,
+  handleClosePicker,
 }) => {
   const [avatarChanged, setAvatarChanged] = useState(false);
   const [validated, setValidated] = useState(false);
   const [profileImage, setProfileImage] = useState("");
+  const [showAvatarCard, setShowAvatarCard] = useState(true);
+
   let params = useParams();
 
   const {
@@ -90,6 +94,9 @@ const AvatarPicker = ({
         updateUser({ profile_image: updatedProfileImage });
         console.log("Updated profile image:", updatedProfileImage);
       }
+      if (isEditPage) {
+        handleClosePicker();
+      }
     } catch (err) {
       console.error("Upload failed:", err);
     }
@@ -114,7 +121,7 @@ const AvatarPicker = ({
     } else {
       // Use profileImage for editing
       setProfileImage(avatar);
-      setAvatarChanged(true); // Assuming avatar change triggers update for editing
+      setAvatarChanged(true);
       updateUser({ profile_image: avatar });
     }
     handleAvatarSelection(avatar);
@@ -122,33 +129,36 @@ const AvatarPicker = ({
 
   return (
     <Container className="mb-4 mt-4">
-      <Card className="mt-3">
-        <div className="mt-3 justify-content-center">
-          <h5 className="mt-1">Select a new Avatar:</h5>
-          <div className="">
-            {imgs.map((avatar, index) => (
-              <Image
-                className={
-                  profileImage === avatar ? "selectedAvatar " : "avatar"
-                }
-                onClick={() => handleAvatarPicker(avatar)}
-                key={index}
-                src={avatar}
-                alt={`Avatar ${index}`}
-              ></Image>
-            ))}
-          </div>
-          <UploadFile onUpload={handleUpload} />
-          <Button
-            type="submit"
-            variant="dark"
-            onClick={handleSubmitProfileImage}
-            className="mt-3 mb-3"
-          >
-            Update Profile Image
+      {showAvatarCard && (
+        <div className="avatar-card">
+          <h5 className="mt-1">Choose an Avatar:</h5>
+          {imgs.map((avatar, index) => (
+            <Image
+              className={profileImage === avatar ? "selectedAvatar " : "avatar"}
+              onClick={() => handleAvatarPicker(avatar)}
+              key={index}
+              src={avatar}
+              alt={`Avatar ${index}`}
+            ></Image>
+          ))}
+          {!isRegistration && (
+            <Button
+              type="submit"
+              variant="dark"
+              onClick={handleSubmitProfileImage}
+              className="mt-3 mb-3"
+            >
+              Update Profile Image
+            </Button>
+          )}
+          <h5 className="mt-4">Or Upload an Image:</h5>
+          <Button variant="dark" onClick={() => setShowAvatarCard(false)}>
+            Choose Image
           </Button>
         </div>
-      </Card>
+      )}
+
+      {!showAvatarCard && <UploadFile onUpload={handleUpload} />}
     </Container>
   );
 };

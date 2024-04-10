@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { Container, Image, Card, Form, Button } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import api from "../../util/api";
 
-const UploadFile = ({ onUpload }) => {
+const UploadFile = ({ onUpload, toggleBack, isEditPage }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [previewUrl, setPreviewUrl] = useState("");
   // const [userId, setUserId] = useState(userData?._id);
@@ -72,7 +74,7 @@ const UploadFile = ({ onUpload }) => {
       onDragOver={preventDefaults}
       onDragEnter={preventDefaults}
     >
-      <h3>Upload File</h3>
+      <h5>Upload File</h5>
       <div className="mb-3">
         <label htmlFor="fileInput" className="form-label">
           Drag and drop files here or click to browse.
@@ -86,7 +88,7 @@ const UploadFile = ({ onUpload }) => {
         />
       </div>
       <div>
-        <h5>Selected Files:</h5>
+        <h6>Selected Files:</h6>
         <ul className="list-group">
           {selectedFiles.map((file, index) => (
             <li
@@ -110,9 +112,15 @@ const UploadFile = ({ onUpload }) => {
           <img src={previewUrl} alt="Preview" className="img-thumbnail" />
         </div>
       )}
-      <button className="btn btn-primary mt-3" onClick={handleUpload}>
+      <Button variant="primary" onClick={handleUpload}>
         Upload
-      </button>
+      </Button>{" "}
+      <div>
+        <h5 className="mt-4">Or Select an Avatar:</h5>
+        <Button variant="primary" onClick={toggleBack}>
+          Back to Avatar
+        </Button>
+      </div>
     </div>
   );
 };

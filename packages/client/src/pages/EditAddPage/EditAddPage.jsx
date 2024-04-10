@@ -54,6 +54,9 @@ const EditAddPage = () => {
   const handleEditProfileImage = () => {
     setShowModal(true);
   };
+  const handleClosePicker = () => {
+    setShowModal(false);
+  };
 
   return (
     <div className="text-center">
@@ -124,6 +127,8 @@ const EditAddPage = () => {
             handleCloseModal={() => setShowModal(false)}
             user={state.user}
             isRegistration={false}
+            isEditPage={true}
+            handleClosePicker={handleClosePicker}
           />
         </Modal.Body>
       </Modal>

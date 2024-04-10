@@ -14,7 +14,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import api from "../../util/api";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
 import EditProfile from "../../components/EditProfile/EditProfile";
-import EditProfilePhoto from "../../components/EditProfilePhoto/EditProfilePhoto";
+
+import AvatarPicker from "../../components/AvatarPicker/AvatarPicker";
 
 const EditAddPage = () => {
   const { state, updateUser } = useProvideAuth();
@@ -84,10 +85,10 @@ const EditAddPage = () => {
                         src={state.user.profile_image}
                         style={{
                           borderRadius: "0%",
-                      maxheight: "90px",
-                      maxWidth: "90px",
-                      width: "auto",
-                      objectFit: "cover",
+                          maxheight: "90px",
+                          maxWidth: "90px",
+                          width: "auto",
+                          objectFit: "cover",
                         }}
                       />
                     )}
@@ -119,9 +120,10 @@ const EditAddPage = () => {
           <Modal.Title>Edit Profile Image</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <EditProfilePhoto
+          <AvatarPicker
             handleCloseModal={() => setShowModal(false)}
             user={state.user}
+            isRegistration={false}
           />
         </Modal.Body>
       </Modal>

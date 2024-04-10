@@ -1,5 +1,9 @@
-import React from "react";
-import { Container, Image } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Container, Image, Card, Form, Button } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
+import { useProvideAuth } from "../../hooks/useAuth";
+import api from "../../util/api";
+import UploadFile from "../UploadFile/UploadFile";
 import "./AvatarPicker.scss";
 
 let imgs = [
@@ -15,32 +19,136 @@ let imgs = [
 ];
 
 const AvatarPicker = ({
-  profileImage,
-  setProfileImage,
-  setAvatarChanged,
-  handleAvatarSelection,
-  updateUser,
+  handleCloseModal,
+  profileImageRegistration,
+  setProfileImageRegistration,
+  isRegistration,
 }) => {
-  const handleAvatarPicker = (src) => {
-    setProfileImage(src);
-    setAvatarChanged(true);
-    handleAvatarSelection(src);
-    updateUser({ profile_image: src });
+  const [avatarChanged, setAvatarChanged] = useState(false);
+  const [validated, setValidated] = useState(false);
+  const [profileImage, setProfileImage] = useState("");
+  let params = useParams();
+
+  const {
+    state: { isAuthenticated, user },
+    updateUser,
+  } = useProvideAuth();
+
+  useEffect(() => {
+    const getUserProfileImage = async () => {
+      try {
+        const userResponse = await api.get(`/users/${params.uname}`);
+        setProfileImage(userResponse.data.profile_image);
+      } catch (error) {
+        console.error("Error fetching user profile image", error);
+      }
+    };
+    if (isAuthenticated) {
+      getUserProfileImage();
+    }
+  }, [params.uname, isAuthenticated]);
+
+  const updateAvatar = async () => {
+    try {
+      const response = await api.put(`/users/${params.uname}/avatar`, {
+        profile_image: profileImage,
+      });
+      console.log("Avatar Updated", response.data);
+
+      const updatedProfileImage = response.data.profile_image;
+      setProfileImage(updatedProfileImage);
+      updateUser({ profile_image: updatedProfileImage });
+      console.log("updateUser profile image:", user);
+    } catch (error) {
+      console.log("Error with Avatar upload", error);
+    }
+  };
+
+  const handleSubmitProfileImage = (event) => {
+    event.preventDefault();
+    if (profileImage) {
+      setAvatarChanged(true);
+      handleCloseModal();
+    } else {
+      console.log("please select an image");
+    }
+  };
+
+  const handleUpload = async (path) => {
+    try {
+      if (isRegistration) {
+        // For registration, set profileImageRegistration
+        setProfileImageRegistration(path);
+        console.log("Uploaded image path for registration:", path);
+      } else {
+        // For editing, set profileImage
+        const response = await api.put(`/users/${params.uname}/avatar`, {
+          profile_image: path,
+        });
+        const updatedProfileImage = response.data.profile_image;
+        setProfileImage(updatedProfileImage);
+        updateUser({ profile_image: updatedProfileImage });
+        console.log("Updated profile image:", updatedProfileImage);
+      }
+    } catch (err) {
+      console.error("Upload failed:", err);
+    }
+  };
+
+  const handleAvatarSelection = (avatar) => {
+    console.log("Selected avatar:", avatar);
+  };
+
+  useEffect(() => {
+    if (avatarChanged) {
+      updateAvatar();
+      setAvatarChanged(false);
+    }
+  }, [avatarChanged]);
+
+  const handleAvatarPicker = (avatar) => {
+    // Check if it's for registration
+    if (isRegistration) {
+      // Use profileImageRegistration for registration
+      setProfileImageRegistration(avatar);
+    } else {
+      // Use profileImage for editing
+      setProfileImage(avatar);
+      setAvatarChanged(true); // Assuming avatar change triggers update for editing
+      updateUser({ profile_image: avatar });
+    }
+    handleAvatarSelection(avatar);
   };
 
   return (
     <Container className="mb-4 mt-4">
-      <div className="editAvatar">
-        {imgs.map((avatar, index) => (
-          <Image
-            className={profileImage === avatar ? "selectedAvatar " : "avatar"}
-            onClick={() => handleAvatarPicker(avatar)}
-            key={index}
-            src={avatar}
-            alt={`Avatar ${index}`}
-          ></Image>
-        ))}
-      </div>
+      <Card className="mt-3">
+        <div className="mt-3 justify-content-center">
+          <h5 className="mt-1">Select a new Avatar:</h5>
+          <div className="">
+            {imgs.map((avatar, index) => (
+              <Image
+                className={
+                  profileImage === avatar ? "selectedAvatar " : "avatar"
+                }
+                onClick={() => handleAvatarPicker(avatar)}
+                key={index}
+                src={avatar}
+                alt={`Avatar ${index}`}
+              ></Image>
+            ))}
+          </div>
+          <UploadFile onUpload={handleUpload} />
+          <Button
+            type="submit"
+            variant="dark"
+            onClick={handleSubmitProfileImage}
+            className="mt-3 mb-3"
+          >
+            Update Profile Image
+          </Button>
+        </div>
+      </Card>
     </Container>
   );
 };

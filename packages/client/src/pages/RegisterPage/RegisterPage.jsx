@@ -3,9 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, InputGroup, Form, Button } from "react-bootstrap";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import { setAuthToken } from "../../util/api";
-
 import AvatarPicker from "../../components/AvatarPicker/AvatarPicker";
-
 import { useProvideAuth } from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import "./RegisterPage.scss";
@@ -82,7 +80,8 @@ const RegisterPage = () => {
 
   let navigate = useNavigate();
 
-  const [profileImage, setProfileImage] = useState("/albumorange.jpg");
+  const [profileImageRegistration, setProfileImageRegistration] =
+    useState("/albumorange.jpg");
 
   const handleInputChange = (event) => {
     setData({
@@ -115,7 +114,7 @@ const RegisterPage = () => {
         data.lastName,
         data.city,
         data.state,
-        profileImage
+        profileImageRegistration
       );
       setData({
         ...data,
@@ -123,9 +122,7 @@ const RegisterPage = () => {
         errorMessage: null,
       });
       setAuthToken(res.token);
-      toast.success(
-        "Just because someone stumbles and loses their path, doesn't mean they're lost forever."
-      );
+
       navigate("/");
     } catch (error) {
       setData({
@@ -133,9 +130,6 @@ const RegisterPage = () => {
         isSubmitting: false,
         errorMessage: error ? error.message || error.statusText : null,
       });
-      toast.error(
-        "We've made some mistakes along the way.  Some, very recently"
-      );
     }
   };
 
@@ -151,9 +145,11 @@ const RegisterPage = () => {
           >
             <h2 className="mb-4">Join Us!</h2>
             <h4>Select an Avatar:</h4>
+
             <AvatarPicker
-              setProfileImage={setProfileImage}
-              profileImage={profileImage}
+              setProfileImageRegistration={setProfileImageRegistration}
+              profileImageRegistration={profileImageRegistration}
+              isRegistration={true}
             />
             <Form.Group controlId="username-register">
               <Form.Label>Username</Form.Label>

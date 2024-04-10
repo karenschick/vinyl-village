@@ -126,7 +126,9 @@ const AvatarPicker = ({
     }
     handleAvatarSelection(avatar);
   };
-
+  const handleToggleBack = () => {
+    setShowAvatarCard(true);
+  };
   return (
     <Container className="mb-4 mt-4">
       {showAvatarCard && (
@@ -158,7 +160,9 @@ const AvatarPicker = ({
         </div>
       )}
 
-      {!showAvatarCard && <UploadFile onUpload={handleUpload} />}
+      {!showAvatarCard && (
+        <UploadFile onUpload={handleUpload} toggleBack={handleToggleBack} />
+      )}
     </Container>
   );
 };

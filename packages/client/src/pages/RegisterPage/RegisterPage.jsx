@@ -144,7 +144,7 @@ const RegisterPage = () => {
             onSubmit={handleSignup}
           >
             <h2 className="mb-4">Join Us!</h2>
-            <h4>Select an Avatar:</h4>
+            <Form.Label>Select a Profile Image:</Form.Label>
 
             <AvatarPicker
               setProfileImageRegistration={setProfileImageRegistration}

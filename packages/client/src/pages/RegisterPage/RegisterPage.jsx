@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Row, Col, InputGroup, Form, Button } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  InputGroup,
+  Form,
+  Button,
+  Figure,
+} from "react-bootstrap";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import { setAuthToken } from "../../util/api";
 import AvatarPicker from "../../components/AvatarPicker/AvatarPicker";
@@ -122,7 +130,6 @@ const RegisterPage = () => {
         errorMessage: null,
       });
       setAuthToken(res.token);
-
       navigate("/");
     } catch (error) {
       setData({
@@ -137,15 +144,28 @@ const RegisterPage = () => {
     <div style={{ overflow: "auto", height: "100vh" }}>
       <Container className="mb-5">
         <Row className="pt-5 justify-content-center">
-          <Form
-            // noValidate
-            // validated
-            style={{ width: "350px" }}
-            onSubmit={handleSignup}
-          >
-            <h2 className="mb-4">Join Us!</h2>
-            <h5>Select a Profile Image:</h5>
-
+          <Form style={{ width: "350px" }} onSubmit={handleSignup}>
+            <Row className="text-center align-items-center">
+              <Figure
+                className=" bg-border-color overflow-hidden my-auto p-1"
+                style={{
+                  textDecoration: "none",
+                }}
+              >
+                <Figure.Image
+                  src="/logo2.jpg"
+                  className=""
+                  style={{
+                    borderRadius: "0%",
+                    maxHeight: "100px",
+                    width: "auto",
+                    objectFit: "cover",
+                  }}
+                />
+              </Figure>
+              <h3 className="mb-5">Create a new account</h3>
+            </Row>
+            <h5>Profile Image</h5>
             <AvatarPicker
               setProfileImageRegistration={setProfileImageRegistration}
               profileImageRegistration={profileImageRegistration}
@@ -166,7 +186,6 @@ const RegisterPage = () => {
                 />
               </InputGroup>
             </Form.Group>
-
             <Form.Group controlId="firstName-register">
               <h5 className="mt-3">First Name</h5>
               <Form.Control
@@ -261,7 +280,7 @@ const RegisterPage = () => {
                 {data.errorMessage}
               </span>
             )}
-            <Row className="mr-0 mt-3">
+            <Row className="mr-0 mt-3 text-center align-items-center">
               <Col>
                 Already Registered?
                 <Button
@@ -273,15 +292,18 @@ const RegisterPage = () => {
                   Login
                 </Button>
               </Col>
-
-              <Button
-                variant="orange"
-                style={{ color: "white" }}
-                type="submit"
-                disabled={data.isSubmitting}
-              >
-                {data.isSubmitting ? <LoadingSpinner /> : "Sign up"}
-              </Button>
+            </Row>
+            <Row className="text-center align-items-center mt-3">
+              <Col>
+                <Button
+                  variant="orange"
+                  style={{ color: "white" }}
+                  type="submit"
+                  disabled={data.isSubmitting}
+                >
+                  {data.isSubmitting ? <LoadingSpinner /> : "Sign up"}
+                </Button>
+              </Col>
             </Row>
           </Form>
         </Row>

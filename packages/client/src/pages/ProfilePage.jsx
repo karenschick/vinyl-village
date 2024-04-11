@@ -8,7 +8,6 @@ import Header from "../components/Header/Header";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../util/api";
 
-
 export default function ProfilePage(props) {
   const { state, updateUser } = useProvideAuth();
   const [user, setUser] = useState();
@@ -22,20 +21,24 @@ export default function ProfilePage(props) {
     state: { isAuthenticated },
   } = useRequireAuth();
 
-  
+  const capitalizeFirstLetter = (string) => {
+    if (!string) return "Unknown";
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  };
+
   const updateAlbumCount = (count) => {
     setAlbumCount(count);
   };
 
   useEffect(() => {
-    console.log("username on profile page:", params)
+    console.log("username on profile page:", params);
     const getUser = async () => {
       try {
         const userResponse = await api.get(`/users/${params.uname}`);
         setUser(userResponse.data);
         setProfileImage(userResponse.data.profile_image);
         setLoading(false);
-        updateUser(userResponse.data)
+        updateUser(userResponse.data);
       } catch (err) {
         console.error(err.message);
       }
@@ -79,18 +82,19 @@ export default function ProfilePage(props) {
                 </Figure>
               </Col>
               <Col xs="auto ">
+                <Card.Text className="mb-2">{user.username}</Card.Text>
                 <Card.Text className="mb-2">
-                  {user.firstName} {user.lastName}
+                  {capitalizeFirstLetter(user.firstName)}{" "}
+                  {capitalizeFirstLetter(user.lastName)}
                 </Card.Text>
-                <Card.Text className="mb-2">{user.email}</Card.Text>
-                <Card.Text className="mb-2">
-                  {user.city}, {user.state}
-                </Card.Text>
+                {/* <Card.Text className="mb-2">{user.email}</Card.Text> */}
+                {/* <Card.Text className="mb-2">
+                  {capitalizeFirstLetter(user.city)}, {user.state}
+                </Card.Text> */}
                 <Card.Text>{albumCount} albums</Card.Text>
               </Col>
             </Row>
           </Card.Body>
-
           {state.user.username === params.uname && (
             <div className="mb-3">
               {" "}
@@ -109,7 +113,6 @@ export default function ProfilePage(props) {
           )}
         </Card>
       </Container>
-
       <Container>
         <DisplayAlbums
           username={params.uname}

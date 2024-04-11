@@ -17,7 +17,6 @@ $orange: orange;
 $card-border-color: $primary;
 $label-color: $orange;
 
-
 // To modify an existing color in Bootstrap $theme-colors map,
 // add the following to your custom Sass file:
 // https://getbootstrap.com/docs/4.0/getting-started/theming/
@@ -31,7 +30,7 @@ $theme-colors: (
   "stone": $stone,
   "card-border-color": $decoration,
   "orange": $orange,
-  "black":$body-color,
+  "black": $body-color,
 );
 
 .card {
@@ -41,6 +40,7 @@ $theme-colors: (
 // Import Bootstrap and its default variables
 @import "bootstrap/scss/bootstrap.scss";
 
-h5 {
+h5,
+h6 {
   color: $orange;
 }

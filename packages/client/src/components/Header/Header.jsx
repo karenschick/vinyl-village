@@ -2,12 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Navbar, Nav, Button, Figure, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useProvideAuth } from "../../hooks/useAuth";
-import { useApiFetch } from "../../util/api";
-import { useRequireAuth } from "../../hooks/useRequireAuth";
-import api from "../../util/api";
 
 export default function Header() {
-  const { state: authState, updateUser, signout } = useProvideAuth();
+  const { state: authState, signout } = useProvideAuth();
   const [loading, setLoading] = useState(true);
   const { user } = authState;
 
@@ -16,8 +13,6 @@ export default function Header() {
       setLoading(false);
     }
   }, [user]);
-
-  const linkStyle = { color: "white" };
 
   if (!user) {
     return null;
@@ -116,7 +111,7 @@ export default function Header() {
                 style={{
                   border: "none",
                   marginRight: "",
-                  color: "white",
+                  color: "orange",
                 }}
               >
                 Sign Out

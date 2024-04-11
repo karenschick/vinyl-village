@@ -1,21 +1,11 @@
 import React, { useState } from "react";
-import {
-  Container,
-  Image,
-  Card,
-  Form,
-  Button,
-  Row,
-  Col,
-} from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import { Container, Button, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import api from "../../util/api";
 
 const UploadFile = ({ onUpload, toggleBack, isEditPage }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [previewUrl, setPreviewUrl] = useState("");
-  // const [userId, setUserId] = useState(userData?._id);
 
   const handleFileUpload = (event) => {
     const files = event.target.files;
@@ -37,6 +27,7 @@ const UploadFile = ({ onUpload, toggleBack, isEditPage }) => {
     const filesArray = Array.from(event.dataTransfer.files);
     setSelectedFiles([...selectedFiles, ...filesArray]);
     // setSelectedFile(event.target.files[0])
+
     //Set preview URL for the first dropped file
     if (filesArray.length > 0) {
       const reader = new FileReader();
@@ -48,7 +39,6 @@ const UploadFile = ({ onUpload, toggleBack, isEditPage }) => {
   };
 
   const handleUpload = async () => {
-    // console.log(userId);
     try {
       const formData = new FormData();
       selectedFiles.forEach((file) => {
@@ -87,11 +77,8 @@ const UploadFile = ({ onUpload, toggleBack, isEditPage }) => {
       onDragOver={preventDefaults}
       onDragEnter={preventDefaults}
     >
-      <h5>Upload File</h5>
-      <div className="mb-3">
-        <label htmlFor="fileInput" className="form-label">
-          Drag and drop files here or click to browse.
-        </label>
+      <h6>Drag and drop files here or click to browse</h6>
+      <div className=" mt-3 mb-3">
         <input
           type="file"
           id="fileInput"
@@ -102,8 +89,16 @@ const UploadFile = ({ onUpload, toggleBack, isEditPage }) => {
       </div>
       <div>
         {" "}
-        {selectedFiles.length > 0 && <h6>Selected Files:</h6>}
         <ul className="list-group">
+          {previewUrl && (
+            <div>
+              <img
+                src={previewUrl}
+                alt="Preview"
+                className="img-thumbnail mt-3"
+              />
+            </div>
+          )}
           {selectedFiles.map((file, index) => (
             <li
               key={index}
@@ -124,32 +119,31 @@ const UploadFile = ({ onUpload, toggleBack, isEditPage }) => {
           ))}
         </ul>
       </div>
-      {previewUrl && (
-        <div>
-          <h5 className="mt-3">Preview:</h5>
-          <img src={previewUrl} alt="Preview" className="img-thumbnail" />
-        </div>
-      )}
-      {selectedFiles.length > 0 && (<>
-        <h5 className="mt-3">Press:</h5>
-        {/* <Row className="text-center align-items-center"> */}
-        <Row>
-          <Col>
-            <Button
-              className="mt- "
-              variant="orange"
-              style={{ color: "white" }}
-              onClick={handleUpload}
-            >
-              Select
-            </Button>{" "}
-          </Col>
-        </Row></>
+
+      {selectedFiles.length > 0 && (
+        <>
+          <Row className="mt-3">
+            <Col>
+              <Button
+                className="mt- "
+                variant="orange"
+                style={{ color: "white" }}
+                onClick={handleUpload}
+              >
+                Select
+              </Button>{" "}
+            </Col>
+          </Row>
+        </>
       )}
       <div>
-        <h5 className="mt-4">Or Choose an Avatar:</h5>
-        <Button variant="outline-orange" onClick={toggleBack}>
-          Back to Avatar
+        <Button
+          size="sm"
+          variant="outline-orange"
+          className="mt-3"
+          onClick={toggleBack}
+        >
+          Or Choose an Avatar
         </Button>
       </div>
     </Container>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Container, Image, Card, Form, Button } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import { Image, Card, Button } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 import { useProvideAuth } from "../../hooks/useAuth";
 import api from "../../util/api";
 import UploadFile from "../UploadFile/UploadFile";
@@ -126,8 +126,6 @@ const AvatarPicker = ({
     } else {
       // Use profileImage for editing
       setProfileImage(avatar);
-      //setAvatarChanged(true);
-      //updateUser({ profile_image: avatar });
     }
     handleAvatarSelection(avatar);
   };
@@ -138,10 +136,10 @@ const AvatarPicker = ({
   };
 
   return (
-    <Card className="mb-4 mt-4 p-3">
+    <Card className="mb-4 mt-3 p-3">
       {showAvatarCard && (
         <div className="avatar-card">
-          <h5 className="mt-1">Choose an Avatar:</h5>
+          <h6 className="mt-1">Choose an Avatar</h6>
           {imgs.map((avatar, index) => (
             <Image
               className={profileImage === avatar ? "selectedAvatar " : "avatar"}
@@ -164,22 +162,22 @@ const AvatarPicker = ({
                 color: "white",
               }}
               onClick={handleSubmitProfileImage}
-              className="mt-3 mb-5"
+              className="mt-3 mb-2"
               disabled={!profileImage}
             >
               Select
             </Button>
           )}
-          <h5 className="mt-4">Or Upload an Image:</h5>
           <Button
+            size="sm"
+            className="mt-3"
             variant="outline-orange"
             onClick={() => setShowAvatarCard(false)}
           >
-            Choose Image
+            Or Upload an Image
           </Button>
         </div>
       )}
-
       {!showAvatarCard && (
         <UploadFile onUpload={handleUpload} toggleBack={handleToggleBack} />
       )}

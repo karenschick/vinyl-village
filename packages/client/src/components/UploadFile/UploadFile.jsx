@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Container, Image, Card, Form, Button } from "react-bootstrap";
+import {
+  Container,
+  Image,
+  Card,
+  Form,
+  Button,
+  Row,
+  Col,
+} from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import api from "../../util/api";
@@ -68,8 +76,8 @@ const UploadFile = ({ onUpload, toggleBack, isEditPage }) => {
   };
 
   return (
-    <div
-      className="container mt-5 p-3 border border-primary rounded"
+    <Container
+      className="container   "
       onDrop={handleDrop}
       onDragOver={preventDefaults}
       onDragEnter={preventDefaults}
@@ -87,8 +95,8 @@ const UploadFile = ({ onUpload, toggleBack, isEditPage }) => {
           onChange={handleFileUpload}
         />
       </div>
-      <div>
-        <h6>Selected Files:</h6>
+      <div> {selectedFiles.length > 0 && (
+        <h6>Selected Files:</h6>)}
         <ul className="list-group">
           {selectedFiles.map((file, index) => (
             <li
@@ -96,36 +104,46 @@ const UploadFile = ({ onUpload, toggleBack, isEditPage }) => {
               className="list-group-item d-flex justify-content-between align-items-center"
             >
               {file.name}
-              <button
-                className="btn btn-danger btn-sm"
-                onClick={() => removeFile(index)}
-              >
-                X
-              </button>
+              <Button className="btn  btn-sm" onClick={() => removeFile(index)}>
+                <img
+                  src="/trash2.png"
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    cursor: "pointer",
+                  }}
+                ></img>
+              </Button>
             </li>
           ))}
         </ul>
       </div>
       {previewUrl && (
         <div>
-          <h5>Preview:</h5>
+          <h5 className="mt-3">Preview:</h5>
           <img src={previewUrl} alt="Preview" className="img-thumbnail" />
         </div>
       )}
-      <Button
-        variant="orange"
-        style={{ color: "white" }}
-        onClick={handleUpload}
-      >
-        Upload
-      </Button>{" "}
+      {selectedFiles.length > 0 && (
+      <Row className="text-center align-items-center">
+        <Col>
+          <Button
+            className="mt-3 "
+            variant="orange"
+            style={{ color: "white" }}
+            onClick={handleUpload}
+          >
+            Upload
+          </Button>{" "}
+        </Col>
+      </Row>)}
       <div>
         <h5 className="mt-4">Or Select an Avatar:</h5>
         <Button variant="outline-orange" onClick={toggleBack}>
           Back to Avatar
         </Button>
       </div>
-    </div>
+    </Container>
   );
 };
 

@@ -73,6 +73,7 @@ const AvatarPicker = ({
     if (profileImage) {
       setAvatarChanged(true);
       handleCloseModal();
+      updateUser({ profile_image: profileImage });
     } else {
       console.log("please select an image");
     }
@@ -104,6 +105,10 @@ const AvatarPicker = ({
 
   const handleAvatarSelection = (avatar) => {
     console.log("Selected avatar:", avatar);
+    if (!isRegistration) {
+      // Only set profile_image if it's not a registration process
+      setProfileImage(avatar);
+    }
   };
 
   useEffect(() => {
@@ -121,16 +126,19 @@ const AvatarPicker = ({
     } else {
       // Use profileImage for editing
       setProfileImage(avatar);
-      setAvatarChanged(true);
-      updateUser({ profile_image: avatar });
+      //setAvatarChanged(true);
+      //updateUser({ profile_image: avatar });
     }
     handleAvatarSelection(avatar);
   };
+
   const handleToggleBack = () => {
     setShowAvatarCard(true);
+    setProfileImage("");
   };
+
   return (
-    <Container className="mb-4 mt-4">
+    <Card className="mb-4 mt-4 p-3">
       {showAvatarCard && (
         <div className="avatar-card">
           <h5 className="mt-1">Choose an Avatar:</h5>
@@ -147,11 +155,19 @@ const AvatarPicker = ({
             <Button
               type="submit"
               variant="orange"
-              style={{ color: "white" }}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                maxWidth: "350px",
+                margin: "auto",
+                color: "white",
+              }}
               onClick={handleSubmitProfileImage}
-              className="mt-3 mb-3"
+              className="mt-3 mb-5"
+              disabled={!profileImage}
             >
-              Update Profile Image
+              Select
             </Button>
           )}
           <h5 className="mt-4">Or Upload an Image:</h5>
@@ -167,7 +183,7 @@ const AvatarPicker = ({
       {!showAvatarCard && (
         <UploadFile onUpload={handleUpload} toggleBack={handleToggleBack} />
       )}
-    </Container>
+    </Card>
   );
 };
 

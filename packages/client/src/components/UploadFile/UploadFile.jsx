@@ -68,6 +68,11 @@ const UploadFile = ({ onUpload, toggleBack, isEditPage }) => {
     newFiles.splice(index, 1);
     setSelectedFiles(newFiles);
     setPreviewUrl("");
+
+    const fileInput = document.getElementById("fileInput");
+    if (fileInput) {
+      fileInput.value = "";
+    }
   };
 
   const preventDefaults = (event) => {
@@ -95,8 +100,9 @@ const UploadFile = ({ onUpload, toggleBack, isEditPage }) => {
           onChange={handleFileUpload}
         />
       </div>
-      <div> {selectedFiles.length > 0 && (
-        <h6>Selected Files:</h6>)}
+      <div>
+        {" "}
+        {selectedFiles.length > 0 && <h6>Selected Files:</h6>}
         <ul className="list-group">
           {selectedFiles.map((file, index) => (
             <li
@@ -125,20 +131,21 @@ const UploadFile = ({ onUpload, toggleBack, isEditPage }) => {
         </div>
       )}
       {selectedFiles.length > 0 && (
-      <Row className="text-center align-items-center">
-        <Col>
-          <Button
-            className="mt-3 "
-            variant="orange"
-            style={{ color: "white" }}
-            onClick={handleUpload}
-          >
-            Upload
-          </Button>{" "}
-        </Col>
-      </Row>)}
+        <Row className="text-center align-items-center">
+          <Col>
+            <Button
+              className="mt-3 "
+              variant="orange"
+              style={{ color: "white" }}
+              onClick={handleUpload}
+            >
+              Select
+            </Button>{" "}
+          </Col>
+        </Row>
+      )}
       <div>
-        <h5 className="mt-4">Or Select an Avatar:</h5>
+        <h5 className="mt-4">Or Choose an Avatar:</h5>
         <Button variant="outline-orange" onClick={toggleBack}>
           Back to Avatar
         </Button>

@@ -124,7 +124,15 @@ const EditAddPage = () => {
             Edit Profile Image
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            maxWidth: "350px",
+            margin: "auto",
+          }}
+        >
           <AvatarPicker
             handleCloseModal={() => setShowModal(false)}
             user={state.user}

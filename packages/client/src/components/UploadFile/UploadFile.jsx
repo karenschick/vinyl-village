@@ -130,11 +130,13 @@ const UploadFile = ({ onUpload, toggleBack, isEditPage }) => {
           <img src={previewUrl} alt="Preview" className="img-thumbnail" />
         </div>
       )}
-      {selectedFiles.length > 0 && (
-        <Row className="text-center align-items-center">
+      {selectedFiles.length > 0 && (<>
+        <h5 className="mt-3">Press:</h5>
+        {/* <Row className="text-center align-items-center"> */}
+        <Row>
           <Col>
             <Button
-              className="mt-3 "
+              className="mt- "
               variant="orange"
               style={{ color: "white" }}
               onClick={handleUpload}
@@ -142,7 +144,7 @@ const UploadFile = ({ onUpload, toggleBack, isEditPage }) => {
               Select
             </Button>{" "}
           </Col>
-        </Row>
+        </Row></>
       )}
       <div>
         <h5 className="mt-4">Or Choose an Avatar:</h5>

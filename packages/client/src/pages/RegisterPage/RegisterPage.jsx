@@ -130,6 +130,7 @@ const RegisterPage = () => {
         errorMessage: null,
       });
       setAuthToken(res.token);
+      toast.success("You've successfully registered!");
       navigate("/");
     } catch (error) {
       setData({
@@ -137,6 +138,7 @@ const RegisterPage = () => {
         isSubmitting: false,
         errorMessage: error ? error.message || error.statusText : null,
       });
+      toast.error("Please fill out all fields");
     }
   };
 

@@ -2,6 +2,7 @@ import { createRoot } from "react-dom/client";
 import React, { useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { ProvideAuth } from "./hooks/useAuth";
+import { ToastContainer } from "react-toastify";
 import App from "./App";
 import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
 
@@ -21,6 +22,7 @@ const Root = () => {
   return (
     <BrowserRouter>
       <ProvideAuth>
+        <ToastContainer />
         {loading ? <LoadingSpinner full={true} /> : <App />}
       </ProvideAuth>
     </BrowserRouter>

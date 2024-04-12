@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Form, Button, Col, Row, Container } from "react-bootstrap";
-import { ToastContainer, toast } from "react-toastify";
 import { useProvideAuth } from "../../hooks/useAuth";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
+import { toast } from "react-toastify";
 import api from "../../util/api";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -92,6 +92,7 @@ const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
     event.preventDefault();
 
     if (!albumData.albumTitle) {
+      console.log("Album title is required");
       toast.error("Album title is required");
       return;
     }
@@ -117,6 +118,10 @@ const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
     ) {
       toast.error("Each track must have a title and duration");
       return;
+    }
+
+    if (!albumData.condition) {
+      toast.error("Condition is required");
     }
 
     const adjustedAlbumData = {
@@ -173,7 +178,6 @@ const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
 
   return (
     <>
-      <ToastContainer />
       <Form onSubmit={handleSubmit} className="p-sm-4 p-2">
         <Form.Group controlId="formFile" className="mb-3">
           <h5>Album Image</h5>

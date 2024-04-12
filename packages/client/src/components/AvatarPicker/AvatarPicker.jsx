@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Image, Card, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useProvideAuth } from "../../hooks/useAuth";
+import { toast } from "react-toastify";
 import api from "../../util/api";
 import UploadFile from "../UploadFile/UploadFile";
 import "./AvatarPicker.scss";
@@ -61,10 +62,12 @@ const AvatarPicker = ({
 
       const updatedProfileImage = response.data.profile_image;
       setProfileImage(updatedProfileImage);
+      toast.success("Avatar updated successfully!");
       updateUser({ profile_image: updatedProfileImage });
       console.log("updateUser profile image:", user);
     } catch (error) {
       console.log("Error with Avatar upload", error);
+      //toast.error("Error updating avatar: " + error.message);
     }
   };
 
@@ -73,6 +76,7 @@ const AvatarPicker = ({
     if (profileImage) {
       setAvatarChanged(true);
       handleCloseModal();
+      toast.success("Avatar updated successfully!");
       updateUser({ profile_image: profileImage });
     } else {
       console.log("please select an image");
@@ -84,6 +88,7 @@ const AvatarPicker = ({
       if (isRegistration) {
         // For registration, set profileImageRegistration
         setProfileImageRegistration(path);
+        toast.success("Profile Image uploaded successfully!");
         console.log("Uploaded image path for registration:", path);
       } else {
         // For editing, set profileImage
@@ -92,6 +97,7 @@ const AvatarPicker = ({
         });
         const updatedProfileImage = response.data.profile_image;
         setProfileImage(updatedProfileImage);
+        toast.success("Profile Image updated successfully!");
         updateUser({ profile_image: updatedProfileImage });
         console.log("Updated profile image:", updatedProfileImage);
       }

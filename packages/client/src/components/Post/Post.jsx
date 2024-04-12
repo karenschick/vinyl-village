@@ -91,6 +91,7 @@ const Post = ({
       await api.delete(`/posts/${_id}`);
       toggleShowDelete();
       toggleIsDeleted();
+      toast.success("Post deleted successfully");
     } catch (error) {
       toast.error(`An error occurred deleting post ${_id}.`);
       toggleShowDelete();

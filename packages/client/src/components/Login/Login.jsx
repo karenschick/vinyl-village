@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useProvideAuth } from "../../hooks/useAuth";
 
@@ -42,7 +42,6 @@ const Login = () => {
   return (
     <>
       <Container className="d-flex justify-content-center align-items-center">
-        <ToastContainer />
         <Form onSubmit={handleSubmit}>
           <Form.Group as={Row} className="mb-2 mt-">
             <Form.Control
@@ -75,18 +74,7 @@ const Login = () => {
             </Col>
           </Row>
           <Row className="justify-content-center ">
-            {/* <Col xs={5}> */}
             <Col xs={8} className="text-center mt-1">
-              {/* <img
-            src="/logo2.jpg"
-            width="100"
-            height="auto"
-            //className="d-inline-block align-top"
-            alt="Vinyl Village Logo"
-          ></img>
-        </Col>
-             <Col xs={6} className="text-center mt-">  */}
-              {/* <Col xs={6} > */}
               <p>
                 Don't have an account? sign up{" "}
                 <Link to="/signup" style={{ color: "black" }}>

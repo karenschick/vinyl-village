@@ -4,6 +4,7 @@ import { useProvideAuth, useAuth } from "../../hooks/useAuth";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import api from "../../util/api";
 
 const EditProfile = (props) => {
@@ -166,6 +167,7 @@ const EditProfile = (props) => {
           });
 
           setLoading(false);
+          toast.success("Password updated successfully!");
         })
         .catch((error) => {
           setData({
@@ -173,6 +175,7 @@ const EditProfile = (props) => {
             isSubmitting: false,
             errorMessage: error.message,
           });
+          toast.error("Failed to update password. Please try again.");
         });
 
       setData({
@@ -196,15 +199,21 @@ const EditProfile = (props) => {
       try {
         await handleUpdatePassword();
         setPasswordChanged(false);
-      } catch (error) {}
+        toast.success("Profile updated successfully!");
+      } catch (error) {
+        toast.error("Failed to update profile. Please try again.");
+      }
     }
 
     try {
       await api.put(`/users/${params.uname}`, data);
-
-      updateUser(data);
+      toast.success("Profile updated successfully!");
+      updateUser({ ...state.user, ...data });
       console.log("User updated check(not auth log):", state.user);
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      //toast.error("Failed to update profile. Please try again.");
+    }
 
     navigate(`/u/${user.username}`);
   };
@@ -338,7 +347,7 @@ const EditProfile = (props) => {
         </Container>
         <div className="text-center m-3">
           <Button
-            variant="dark"
+            variant="orange"
             style={{ border: "none", color: "white" }}
             onClick={handleSubmitAll}
           >

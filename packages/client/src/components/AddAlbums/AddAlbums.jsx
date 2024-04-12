@@ -4,7 +4,6 @@ import { useProvideAuth } from "../../hooks/useAuth";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
 import { toast } from "react-toastify";
 import api from "../../util/api";
-import "react-toastify/dist/ReactToastify.css";
 
 const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
   const [albumData, setAlbumData] = useState({
@@ -162,6 +161,7 @@ const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
 
       onAlbumSubmit(response.data);
       toggleModal();
+      toast.success("Album added successfully!");
     } catch (error) {
       console.error("Error:", error.response?.data || error);
       toast.error("An error occurred while submitting the form.");

@@ -5,6 +5,7 @@ import { ProvideAuth } from "./hooks/useAuth";
 import { ToastContainer } from "react-toastify";
 import App from "./App";
 import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
+import "react-toastify/dist/ReactToastify.css";
 
 const root = createRoot(document.getElementById("root"));
 

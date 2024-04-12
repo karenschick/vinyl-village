@@ -9,11 +9,11 @@ const DeleteModal = ({ show, handleClose, handleDelete }) => {
       </Modal.Header>
       <Modal.Body>Are you sure you wish to delete this post?</Modal.Body>
       <Modal.Footer>
-        <Button variant="outline-dark" onClick={handleClose}>
+        <Button variant="outline-orange" onClick={handleClose}>
           Cancel
         </Button>
         <Button
-          variant="dark"
+          variant="orange"
           style={{ color: "white" }}
           onClick={handleDelete}
         >

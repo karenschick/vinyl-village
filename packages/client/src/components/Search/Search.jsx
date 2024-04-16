@@ -175,7 +175,7 @@ const SearchForm = () => {
                               <Link to={`/u/${album.author.username}`}>
                                 <img
                                   src={album.author.profile_image}
-                                  alt={`Profile Image of ${author.username}`}
+                                  alt={`Profile Image of ${album.author.username}`}
                                   style={{ width: "50px", height: "50px" }}
                                 />
                               </Link>

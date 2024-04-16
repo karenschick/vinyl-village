@@ -239,6 +239,7 @@ const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
               <Col xs="auto">
                 <Container className="close">
                   <img
+                     alt="Trash Icon"
                     src="/trash2.png"
                     style={{
                       width: "30px",
@@ -284,6 +285,7 @@ const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
               <Col xs="auto">
                 <Container className="close">
                   <img
+                     alt="Trash Icon"
                     src="/trash2.png"
                     style={{
                       width: "30px",

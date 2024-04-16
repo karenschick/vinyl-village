@@ -46,7 +46,7 @@ const EditAddPage = () => {
     }
   }, [params.uname, isAuthenticated, loading, updateUser]);
 
-    const handleEditProfileImage = () => {
+  const handleEditProfileImage = () => {
     setShowModal(true);
   };
   const handleClosePicker = () => {
@@ -79,6 +79,7 @@ const EditAddPage = () => {
                   >
                     {!loading && state.user && (
                       <Figure.Image
+                        alt={`Profile Image of ${state.user.username}`}
                         src={state.user.profile_image}
                         style={{
                           borderRadius: "0%",

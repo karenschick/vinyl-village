@@ -118,7 +118,11 @@ const Post = ({
                   bsPrefix="p-0"
                   style={{ lineHeight: ".5", padding: "0" }}
                 >
-                  <img src="/menu.png" style={{ maxHeight: "40px" }}></img>
+                  <img
+                    src="/menu.png"
+                    alt="Menu Button"
+                    style={{ maxHeight: "40px" }}
+                  ></img>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item onClick={toggleEditMode}>Edit</Dropdown.Item>
@@ -134,6 +138,7 @@ const Post = ({
               <Figure as={Link} to={`/u/${author.username}`}>
                 <Figure.Image
                   src={author.profile_image}
+                  alt={`Profile Image of ${author.username}`}
                   className={`img-fluid mb-3 ${
                     window.innerWidth < 768 ? "author-image" : ""
                   }`}

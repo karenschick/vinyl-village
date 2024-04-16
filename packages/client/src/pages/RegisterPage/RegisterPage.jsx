@@ -176,6 +176,7 @@ const RegisterPage = () => {
               >
                 <Figure.Image
                   src="/logo2.jpg"
+                  alt="Vinyl Village Logo"
                   className=""
                   style={{
                     borderRadius: "0%",

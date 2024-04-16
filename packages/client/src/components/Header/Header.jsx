@@ -62,6 +62,7 @@ export default function Header() {
                 >
                   <Figure.Image
                     src="/home.png"
+                    alt="Home Icon"
                     className="w-100 h-100"
                     style={{
                       borderRadius: "0%",
@@ -90,6 +91,7 @@ export default function Header() {
                 >
                   <Figure.Image
                     src="/profile2.png"
+                    alt={`Profile Image of ${user.username}`}
                     className="w-100 h-100"
                     style={{
                       borderRadius: "0%",

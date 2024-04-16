@@ -282,9 +282,8 @@ const DisplayAlbums = ({ username, onAlbumsChange }) => {
                 {state.user.username === params.uname && (
                   <div className=" ">
                     <Container className="close">
-                      {/* Replace the button with the image */}
                       <img
-                        src="/trash2.png" // Path to your image file in the public directory
+                        src="/trash2.png" 
                         alt="Trash Icon"
                         style={{
                           width: "30px",

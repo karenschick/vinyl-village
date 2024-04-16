@@ -108,6 +108,7 @@ const UploadFile = ({ onUpload, toggleBack, isEditPage }) => {
               <Button className="btn  btn-sm" onClick={() => removeFile(index)}>
                 <img
                   src="/trash2.png"
+                  alt="Trash Icon"
                   style={{
                     width: "30px",
                     height: "30px",

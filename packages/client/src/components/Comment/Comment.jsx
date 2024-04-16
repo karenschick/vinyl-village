@@ -74,6 +74,7 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
                 style={{ lineHeight: ".5", padding: "0", fontSize: "30px" }}
               >
                 <img
+                  alt="menu button"
                   src="/menu.png"
                   style={{ maxHeight: "30px", marginRight: "15px" }}
                 ></img>
@@ -94,12 +95,12 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
             style={{
               height: "65px",
               minHeight: "65px",
-              width: "65px",
-              minWidth: "65px",
+              widtidth: "65px",
               marginTop: "0px",
             }}
           >
             <Figure.Image
+              alt={`Profile image of ${author.username}`}
               src={author.profile_image}
               className="avatar w-100 h-100 mr-4"
             />

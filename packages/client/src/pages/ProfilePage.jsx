@@ -66,6 +66,7 @@ export default function ProfilePage(props) {
                 >
                   <Figure.Image
                     src={user.profile_image}
+                    alt={`Profile Image of ${user.username}`} 
                     style={{
                       borderRadius: "0%",
                       maxheight: "90px",

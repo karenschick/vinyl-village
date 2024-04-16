@@ -133,7 +133,7 @@ const FeedPage = () => {
               <Figure.Image
                 width={400}
                 height={180}
-                alt="171x180"
+                alt="Collection of Albums"
                 src="album1.jpg"
               />
             </Figure>

@@ -14,6 +14,7 @@ import { setAuthToken } from "../../util/api";
 import AvatarPicker from "../../components/AvatarPicker/AvatarPicker";
 import { useProvideAuth } from "../../hooks/useAuth";
 import { toast } from "react-toastify";
+import capitalizeFirstLetter from "../../util/capitalizeFirstLetter";
 import "./RegisterPage.scss";
 
 const initialState = {
@@ -195,7 +196,7 @@ const RegisterPage = () => {
                 name="firstName"
                 placeholder="First Name"
                 required
-                value={data.firstName}
+                value={capitalizeFirstLetter(data.firstName)}
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -206,7 +207,7 @@ const RegisterPage = () => {
                 name="lastName"
                 placeholder="Last Name"
                 required
-                value={data.lastName}
+                value={capitalizeFirstLetter(data.lastName)}
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -217,7 +218,7 @@ const RegisterPage = () => {
                 name="city"
                 placeholder="City"
                 required
-                value={data.city}
+                value={capitalizeFirstLetter(data.city)}
                 onChange={handleInputChange}
               />
             </Form.Group>

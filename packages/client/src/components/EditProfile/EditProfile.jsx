@@ -5,6 +5,7 @@ import { useRequireAuth } from "../../hooks/useRequireAuth";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import capitalizeFirstLetter from "../../util/capitalizeFirstLetter";
 import api from "../../util/api";
 
 const EditProfile = (props) => {
@@ -236,7 +237,7 @@ const EditProfile = (props) => {
                 <h5>First Name</h5>
                 <Form.Control
                   type="text"
-                  value={data.firstName}
+                  value={capitalizeFirstLetter(data.firstName)}
                   onChange={(e) =>
                     setData({
                       ...data,
@@ -249,7 +250,7 @@ const EditProfile = (props) => {
                 <h5>Last Name</h5>
                 <Form.Control
                   type="text"
-                  value={data.lastName}
+                  value={capitalizeFirstLetter(data.lastName)}
                   onChange={(e) =>
                     setData({ ...data, lastName: e.target.value })
                   }
@@ -267,7 +268,7 @@ const EditProfile = (props) => {
                 <h5>City</h5>
                 <Form.Control
                   type="text"
-                  value={data.city}
+                  value={capitalizeFirstLetter(data.city)}
                   onChange={(e) => setData({ ...data, city: e.target.value })}
                 />
               </Form.Group>

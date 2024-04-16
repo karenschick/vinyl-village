@@ -4,7 +4,7 @@ import { useProvideAuth } from "../../hooks/useAuth";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
 import { toast } from "react-toastify";
 import api from "../../util/api";
-import { capitalizeFirstLetter } from "../../util/capitalizeFirstLetter";
+import capitalizeFirstLetter from "../../util/capitalizeFirstLetter";
 
 const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
   const [albumData, setAlbumData] = useState({

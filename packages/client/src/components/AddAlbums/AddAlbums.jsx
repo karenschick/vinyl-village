@@ -4,6 +4,7 @@ import { useProvideAuth } from "../../hooks/useAuth";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
 import { toast } from "react-toastify";
 import api from "../../util/api";
+import { capitalizeFirstLetter } from "../../util/capitalizeFirstLetter";
 
 const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
   const [albumData, setAlbumData] = useState({
@@ -36,7 +37,9 @@ const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
     if (name === "releaseYear" && value < 0) {
       return;
     }
-    setAlbumData({ ...albumData, [name]: value });
+    const capitalizedValue = capitalizeFirstLetter(value);
+    console.log("Capitalized value:", capitalizedValue);
+    setAlbumData({ ...albumData, [name]: capitalizedValue });
   };
 
   const handleTrackChange = (index, event) => {
@@ -47,13 +50,15 @@ const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
       return;
     }
 
-    newTracks[index][name] = value;
+    newTracks[index][name] = capitalizeFirstLetter(value);
     setAlbumData({ ...albumData, tracks: newTracks });
   };
 
   const handleBandMemberChange = (index, event) => {
     const newBandMembers = [...albumData.bandMembers];
-    newBandMembers[index][event.target.name] = event.target.value;
+    newBandMembers[index][event.target.name] = capitalizeFirstLetter(
+      event.target.value
+    );
     setAlbumData({ ...albumData, bandMembers: newBandMembers });
   };
 

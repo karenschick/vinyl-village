@@ -21,12 +21,7 @@ export default function ProfilePage(props) {
     state: { isAuthenticated },
   } = useRequireAuth();
 
-  const capitalizeFirstLetter = (string) => {
-    if (!string) return "Unknown";
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-  };
-
-  const updateAlbumCount = (count) => {
+    const updateAlbumCount = (count) => {
     setAlbumCount(count);
   };
 
@@ -84,12 +79,12 @@ export default function ProfilePage(props) {
               <Col xs="auto ">
                 <Card.Text className="mb-2">{user.username}</Card.Text>
                 <Card.Text className="mb-2">
-                  {capitalizeFirstLetter(user.firstName)}{" "}
-                  {capitalizeFirstLetter(user.lastName)}
+                  {user.firstName}{" "}
+                  {user.lastName}
                 </Card.Text>
                 {/* <Card.Text className="mb-2">{user.email}</Card.Text> */}
                 {/* <Card.Text className="mb-2">
-                  {capitalizeFirstLetter(user.city)}, {user.state}
+                  {user.city}, {user.state}
                 </Card.Text> */}
                 <Card.Text>{albumCount} albums</Card.Text>
               </Col>

@@ -88,10 +88,6 @@ const DisplayAlbums = ({ username, onAlbumsChange }) => {
     setSortAlbum(sortBy);
   };
 
-  const capitalizeFirstLetter = (string) => {
-    if (!string) return "Unknown";
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-  };
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);
@@ -240,7 +236,7 @@ const DisplayAlbums = ({ username, onAlbumsChange }) => {
                       <div className="mt-2">{album.releaseYear}</div>
                       <div className="">{albumDuration(album)} Mins</div>
                       <div className="mt-3">
-                        {capitalizeFirstLetter(album.condition)} Condition
+                        {album.condition} Condition
                       </div>
                       <div className="">Added {formatDate(album.created)}</div>
                     </Card.Body>

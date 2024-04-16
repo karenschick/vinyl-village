@@ -46,12 +46,7 @@ const EditAddPage = () => {
     }
   }, [params.uname, isAuthenticated, loading, updateUser]);
 
-  function capitalizeFirstLetter(string) {
-    if (!string) return "";
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
-  const handleEditProfileImage = () => {
+    const handleEditProfileImage = () => {
     setShowModal(true);
   };
   const handleClosePicker = () => {
@@ -110,7 +105,7 @@ const EditAddPage = () => {
                   )}
                 </Col>
                 <Col xs="auto ">
-                  <h2>{capitalizeFirstLetter(state.user?.username)}</h2>
+                  <h2>{state.user?.username}</h2>
                 </Col>
               </Row>
             </Card.Body>

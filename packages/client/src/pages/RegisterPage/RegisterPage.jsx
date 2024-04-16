@@ -105,9 +105,28 @@ const RegisterPage = () => {
     event.stopPropagation();
 
     if (form.checkValidity() === false) {
+      toast.error("Please fill out all fields");
       return;
     }
+    const requiredFields = [
+      "username",
+      "firstName",
+      "lastName",
+      "city",
+      "state",
+      "email",
+      "password",
+      "confirmPassword",
+    ];
+    const emptyFields = requiredFields.filter((field) => !data[field]);
 
+    if (emptyFields.length > 0) {
+      // If there are empty fields, generate a specific error message for each empty field
+      emptyFields.forEach((field) => {
+        toast.error(`Please fill out the ${field} field.`);
+      });
+      return;
+    }
     setData({
       ...data,
       isSubmitting: true,
@@ -139,7 +158,7 @@ const RegisterPage = () => {
         isSubmitting: false,
         errorMessage: error ? error.message || error.statusText : null,
       });
-      toast.error("Please fill out all fields");
+      toast.error(`Please fill out ${data.errorMessage} field`);
     }
   };
 
@@ -147,7 +166,7 @@ const RegisterPage = () => {
     <div style={{ overflow: "auto", height: "100vh" }}>
       <Container className="mb-5">
         <Row className="pt-5 justify-content-center">
-          <Form style={{ width: "350px" }} onSubmit={handleSignup}>
+          <Form style={{ width: "350px" }} onSubmit={handleSignup} noValidate>
             <Row className="text-center align-items-center">
               <Figure
                 className=" bg-border-color overflow-hidden my-auto p-1"
@@ -183,7 +202,6 @@ const RegisterPage = () => {
                   name="username"
                   placeholder="Username"
                   aria-describedby="inputGroupPrepend"
-                  required
                   value={data.username}
                   onChange={handleInputChange}
                 />
@@ -195,7 +213,6 @@ const RegisterPage = () => {
                 type="text"
                 name="firstName"
                 placeholder="First Name"
-                required
                 value={capitalizeFirstLetter(data.firstName)}
                 onChange={handleInputChange}
               />
@@ -206,7 +223,6 @@ const RegisterPage = () => {
                 type="text"
                 name="lastName"
                 placeholder="Last Name"
-                required
                 value={capitalizeFirstLetter(data.lastName)}
                 onChange={handleInputChange}
               />
@@ -217,7 +233,6 @@ const RegisterPage = () => {
                 type="text"
                 name="city"
                 placeholder="City"
-                required
                 value={capitalizeFirstLetter(data.city)}
                 onChange={handleInputChange}
               />
@@ -226,7 +241,6 @@ const RegisterPage = () => {
               <h5 className="mt-3">State</h5>
               <Form.Select
                 name="state"
-                required
                 value={data.state}
                 onChange={handleInputChange}
               >
@@ -244,7 +258,6 @@ const RegisterPage = () => {
                 type="text"
                 name="email"
                 placeholder="Email"
-                required
                 value={data.email}
                 onChange={handleInputChange}
               />
@@ -256,7 +269,6 @@ const RegisterPage = () => {
               <Form.Control
                 type="password"
                 name="password"
-                required
                 id="inputPasswordRegister"
                 value={data.password}
                 onChange={handleInputChange}
@@ -272,7 +284,6 @@ const RegisterPage = () => {
               <Form.Control
                 type="password"
                 name="confirmPassword"
-                required
                 id="confirmPasswordRegister"
                 value={data.confirmPassword}
                 onChange={handleInputChange}

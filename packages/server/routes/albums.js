@@ -41,7 +41,7 @@ router.get("/search", async (req, res) => {
         queryConditions.push({ releaseYear: year });
       }
     }
-    if (condition) queryConditions.push({ condition });
+    if (condition) queryConditions.push({ condition: new RegExp(condition) });
 
     if (queryConditions.length === 0) {
       return res

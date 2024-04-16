@@ -66,7 +66,7 @@ const albumSchema = new mongoose.Schema({
   condition: {
     type: String,
     required: true,
-    enum: ["poor", "fair", "good", "excellent"],
+    enum: ["Poor", "Fair", "Good", "Excellent"],
   },
   //path set up for static file serving
   image: { type: String, default: "/images/default-post.jpg" },

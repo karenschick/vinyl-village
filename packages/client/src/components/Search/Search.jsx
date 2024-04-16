@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import {
   Modal,
   Card,
@@ -9,12 +8,9 @@ import {
   Col,
   Container,
 } from "react-bootstrap";
-import { useApiFetch } from "../../util/api";
-import { API_URL } from "../../util/constants";
 import api from "../../util/api";
-import { useProvideAuth } from "../../hooks/useAuth";
-import { useRequireAuth } from "../../hooks/useRequireAuth";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { capitalizeFirstLetter } from "../../util/capitalizeFirstLetter";
 
 const SearchForm = () => {
   const [search, setSearch] = useState({
@@ -27,17 +23,10 @@ const SearchForm = () => {
   });
   const [searchResults, setSearchResults] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [showResults, setShowResults] = useState(false);
 
   const handleInputChange = (e) => {
     setSearch({ ...search, [e.target.name]: e.target.value });
   };
-  const capitalizeFirstLetter = (string) => {
-    if (!string) return "Unknown";
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-  };
-  //const response = await api.get(`${API_URL}/albums/search`,{
-  // params: { ...search, filteredSearchParams },
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -130,10 +119,10 @@ const SearchForm = () => {
             style={{ marginBottom: "2px", opacity: "0.8" }}
           >
             <option value="">Condition</option>
-            <option value="poor">Poor</option>
-            <option value="fair">Fair</option>
-            <option value="good">Good</option>
-            <option value="excellent">Excellent</option>
+            <option value="Poor">Poor</option>
+            <option value="Fair">Fair</option>
+            <option value="Good">Good</option>
+            <option value="Excellent">Excellent</option>
           </Form.Control>
         </Form.Group>
 
@@ -170,7 +159,7 @@ const SearchForm = () => {
                         {album.artistName}
                       </Card.Subtitle>
                       <Card.Text className="mt-2">
-                        {capitalizeFirstLetter(album.condition)} Condition
+                        {album.condition} Condition
                       </Card.Text>
                       <Card.Text className="mt-3">
                         <Row className="align-items-center mt-4">
@@ -193,10 +182,12 @@ const SearchForm = () => {
                               }}
                               to={`/u/${album.author.username}`}
                             >
-                              {album.author.firstName} {album.author.lastName}
+                              {album.author.firstName}{" "}
+                              {album.author.lastName}
                             </Link>
                             <br />
-                            {album.author.city}, {album.author.state}
+                            {album.author.city},{" "}
+                            {album.author.state}
                           </Col>
                         </Row>
                       </Card.Text>

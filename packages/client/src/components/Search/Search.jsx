@@ -10,7 +10,6 @@ import {
 } from "react-bootstrap";
 import api from "../../util/api";
 import { Link } from "react-router-dom";
-import { capitalizeFirstLetter } from "../../util/capitalizeFirstLetter";
 
 const SearchForm = () => {
   const [search, setSearch] = useState({
@@ -152,7 +151,15 @@ const SearchForm = () => {
               >
                 {searchResults.map((album, index) => (
                   <Card key={index} style={{ width: "18rem", margin: "10px" }}>
-                    <Card.Img variant="top" src={album.image}></Card.Img>
+                    <Card.Img
+                      variant="top"
+                      src={album.image || "/default-image.jpg"}
+                      alt={album.albumTitle}
+                      onError={(e) => {
+                        e.target.onerror = null; // Prevents recursion
+                        e.target.src = "/album8.jpg";
+                      }}
+                    ></Card.Img>
                     <Card.Body>
                       <Card.Title>{album.albumTitle}</Card.Title>
                       <Card.Subtitle className="mt-2">
@@ -182,12 +189,10 @@ const SearchForm = () => {
                               }}
                               to={`/u/${album.author.username}`}
                             >
-                              {album.author.firstName}{" "}
-                              {album.author.lastName}
+                              {album.author.firstName} {album.author.lastName}
                             </Link>
                             <br />
-                            {album.author.city},{" "}
-                            {album.author.state}
+                            {album.author.city}, {album.author.state}
                           </Col>
                         </Row>
                       </Card.Text>

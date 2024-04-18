@@ -66,13 +66,13 @@ export function useProvideAuth() {
   };
 
   const updateUser = (userData) => {
-    console.log("User Before update:", state.user);
+    //console.log("User Before update:", state.user);
     dispatch({ type: "UPDATE_USER", payload: userData });
-    console.log("User After update:", state.user);
+    //console.log("User After update:", state.user);
   };
-  useEffect(() => {
-    console.log("User updated:", state.user);
-  }, [state.user]);
+  // useEffect(() => {
+  //   console.log("User updated:", state.user);
+  // }, [state.user]);
 
   const signin = async (username, password) => {
     try {

@@ -24,19 +24,19 @@ const Post = ({
   onPostUpdate,
   detailView = true,
 }) => {
+  const {
+    state: { user },
+  } = useProvideAuth();
   const [showDelete, toggleShowDelete] = useToggle();
   const [isDeleted, toggleIsDeleted] = useToggle();
   const [editMode, setEditMode] = useState(false);
   const [editedText, setEditedText] = useState(text);
-
-  let navigate = useNavigate();
-  const {
-    state: { user },
-  } = useProvideAuth();
-
-  const [likedState, setLiked] = useState(likes.includes(user.uid));
   const [likesState, setLikes] = useState(likes.length);
+  const [likedState, setLiked] = useState(
+    likes.some((like) => like._id === user.uid)
+  );
   const defaultImage = "/images/default-post.jpg";
+  let navigate = useNavigate();
 
   const handleTextChange = (e) => {
     setEditedText(e.target.value);
@@ -66,23 +66,14 @@ const Post = ({
     }
   };
 
-  const handleToggleLike = async () => {
-    if (!likedState) {
-      setLiked(true);
-      setLikes(likesState + 1);
-      try {
-        await api.post(`/posts/like/${_id}`);
-      } catch (error) {
-        return error;
-      }
-    } else {
-      setLiked(false);
-      setLikes(likesState - 1);
-      try {
-        await api.post(`/posts/like/${_id}`);
-      } catch (error) {
-        return error;
-      }
+  const handleLikePost = async () => {
+    try {
+      const response = await api.post(`/posts/like/${_id}`);
+      setLikes(response.data.likes.length);
+      setLiked((prevLiked) => !prevLiked);
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to like/unlike the post. Please try again later.");
     }
   };
 
@@ -254,7 +245,7 @@ const Post = ({
                   variant="orange"
                   style={{ color: "white" }}
                   size="sm"
-                  onClick={handleToggleLike}
+                  onClick={handleLikePost}
                 >
                   Like
                 </Button>

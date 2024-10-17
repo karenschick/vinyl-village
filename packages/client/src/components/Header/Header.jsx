@@ -3,19 +3,20 @@ import { Navbar, Nav, Button, Figure, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useProvideAuth } from "../../hooks/useAuth";
 
+// Main functional component for rendering the header
 export default function Header() {
-  const { state: authState, signout } = useProvideAuth();
-  const [loading, setLoading] = useState(true);
-  const { user } = authState;
+  const { state: authState, signout } = useProvideAuth(); // Destructure auth state and signout function from useProvideAuth hook
+  const [loading, setLoading] = useState(true); // State to track loading status, default to true
+  const { user } = authState; // Destructure user from authState
 
   useEffect(() => {
     if (user) {
-      setLoading(false);
+      setLoading(false); // Set loading to false once the user is available
     }
-  }, [user]);
+  }, [user]); // Run effect when user state changes
 
   if (!user) {
-    return null;
+    return null; // If no user is logged in, return null to render nothing
   }
 
   return (

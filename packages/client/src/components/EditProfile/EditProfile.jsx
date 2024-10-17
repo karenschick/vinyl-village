@@ -1,3 +1,4 @@
+// Import necessary modules from React and other libraries
 import React, { useState, useEffect } from "react";
 import { Container, Card, Form, Button } from "react-bootstrap";
 import { useProvideAuth, useAuth } from "../../hooks/useAuth";
@@ -8,12 +9,15 @@ import { toast } from "react-toastify";
 import capitalizeFirstLetter from "../../util/capitalizeFirstLetter";
 import api from "../../util/api";
 
+// Main component for editing a user's profile
 const EditProfile = (props) => {
+  // Using authentication-related hooks to get current user state and auth functions
   const { state } = useProvideAuth();
-  const [user, setUser] = useState();
-  const [loading, setLoading] = useState(true);
-  const [validated, setValidated] = useState(false);
+  const [user, setUser] = useState(); // Holds user data
+  const [loading, setLoading] = useState(true); // Loading state while fetching data
+  const [validated, setValidated] = useState(false); // Form validation state
   const [data, setData] = useState({
+    // Holds form input values
     password: "",
     currentPassword: "",
     confirmPassword: "",
@@ -25,10 +29,10 @@ const EditProfile = (props) => {
     isSubmitting: false,
     errorMessage: null,
   });
-  const [passwordChanged, setPasswordChanged] = useState(false);
+  const [passwordChanged, setPasswordChanged] = useState(false); // Tracks if the password was changed
+  const { updateUser } = useAuth(); // Function to update the user in context
 
-  const { updateUser } = useAuth();
-
+  // useEffect hook to set form data once user data is available
   useEffect(() => {
     if (user) {
       setData((prevData) => ({
@@ -42,6 +46,7 @@ const EditProfile = (props) => {
     }
   }, [user]);
 
+  // List of US states for dropdown selection in the form
   const usStates = [
     "AL",
     "AK",
@@ -95,31 +100,35 @@ const EditProfile = (props) => {
     "WY",
   ];
 
-  let navigate = useNavigate();
-  let params = useParams();
+  let navigate = useNavigate(); // Navigation hook to redirect user
+  let params = useParams(); // Params hook to get URL parameters
 
+  // Hook to ensure user is authenticated before showing the page
   const {
     state: { isAuthenticated },
   } = useRequireAuth();
 
+  // Fetch user data when the component mounts, based on the URL parameter 'uname'
   useEffect(() => {
     const getUser = async () => {
       try {
         const userResponse = await api.get(`/users/${params.uname}`);
-        setUser(userResponse.data);
-        setLoading(false);
+        setUser(userResponse.data); // Set the user data
+        setLoading(false); // Stop loading once data is fetched
       } catch (err) {
-        console.error(err.message);
+        console.error(err.message); // Log errors
       }
     };
-    isAuthenticated && getUser();
+    isAuthenticated && getUser(); // Fetch user data only if authenticated
   }, [params.uname, isAuthenticated]);
 
+  // Handle input change for all form fields and track password changes
   const handleInputChange = (event) => {
     setData({
       ...data,
       [event.target.name]: event.target.value,
     });
+    // If the password fields are modified, set passwordChanged to true
     if (
       event.target.name === "currentPassword" ||
       event.target.name === "password" ||
@@ -128,21 +137,22 @@ const EditProfile = (props) => {
       setPasswordChanged(true);
     }
   };
-
+  // Handle updating the password (called separately)
   const handleUpdatePassword = async (event) => {
     if (event) {
-      event.preventDefault();
-      event.stopPropagation();
+      event.preventDefault(); // Prevent form default submission
+      event.stopPropagation(); // Stop event propagation
     }
 
-    const form = document.getElementById("passwordForm");
+    const form = document.getElementById("passwordForm"); // Get form element
     if (form && form.checkValidity() === false) {
+      // Validate form
       setValidated(true);
       return;
     }
     setData({
       ...data,
-      isSubmitting: true,
+      isSubmitting: true, // Indicate that the form is submitting
       errorMessage: null,
     });
 
@@ -150,8 +160,9 @@ const EditProfile = (props) => {
       const {
         user: { uid, username },
       } = state;
-      setValidated(false);
+      setValidated(false); // Reset validation state
 
+      // API call to update the user's password
       api
         .put(`/users/${username}`, {
           currentPassword: data.currentPassword,
@@ -167,16 +178,16 @@ const EditProfile = (props) => {
             confirmPassword: "",
           });
 
-          setLoading(false);
-          toast.success("Password updated successfully!");
+          setLoading(false); // Stop loading after success
+          toast.success("Password updated successfully!"); // Show success message
         })
         .catch((error) => {
           setData({
             ...data,
             isSubmitting: false,
-            errorMessage: error.message,
+            errorMessage: error.message, // Capture error message
           });
-          toast.error("Failed to update password. Please try again.");
+          toast.error("Failed to update password. Please try again."); // Show error message
         });
 
       setData({
@@ -195,38 +206,43 @@ const EditProfile = (props) => {
     }
   };
 
+  // Handle form submission for profile and password updates
   const handleSubmitAll = async () => {
     if (passwordChanged) {
+      // Check if password was changed
       try {
-        await handleUpdatePassword();
+        await handleUpdatePassword(); // Update password
         setPasswordChanged(false);
-        toast.success("Profile updated successfully!");
+        toast.success("Profile updated successfully!"); // Show success message
       } catch (error) {
-        toast.error("Failed to update profile. Please try again.");
+        toast.error("Failed to update profile. Please try again."); // Show error message
       }
     }
 
     try {
-      await api.put(`/users/${params.uname}`, data);
-      toast.success("Profile updated successfully!");
-      updateUser({ ...state.user, ...data });
+      await api.put(`/users/${params.uname}`, data); // Update user profile via API
+      toast.success("Profile updated successfully!"); // Show success message
+      updateUser({ ...state.user, ...data }); // Update the user context with new data
       console.log("User updated check(not auth log):", state.user);
     } catch (error) {
-      console.error("Error updating profile:", error);
+      console.error("Error updating profile:", error); // Log error
       //toast.error("Failed to update profile. Please try again.");
     }
 
-    navigate(`/u/${user.username}`);
+    navigate(`/u/${user.username}`); // Redirect user after updating
   };
 
+  // If user is not authenticated, show loading spinner
   if (!isAuthenticated) {
     return <LoadingSpinner full />;
   }
 
+  // If data is still loading, show loading spinner
   if (loading) {
     return <LoadingSpinner full />;
   }
 
+  // Render the profile edit form
   return (
     <>
       <Container fluid style={{ maxWidth: "500px" }}>
@@ -237,7 +253,7 @@ const EditProfile = (props) => {
                 <h5>First Name</h5>
                 <Form.Control
                   type="text"
-                  value={capitalizeFirstLetter(data.firstName)}
+                  value={capitalizeFirstLetter(data.firstName)} // Capitalize first name
                   onChange={(e) =>
                     setData({
                       ...data,
@@ -250,7 +266,7 @@ const EditProfile = (props) => {
                 <h5>Last Name</h5>
                 <Form.Control
                   type="text"
-                  value={capitalizeFirstLetter(data.lastName)}
+                  value={capitalizeFirstLetter(data.lastName)} // Capitalize last name
                   onChange={(e) =>
                     setData({ ...data, lastName: e.target.value })
                   }
@@ -260,7 +276,7 @@ const EditProfile = (props) => {
                 <h5>Email</h5>
                 <Form.Control
                   type="text"
-                  value={data.email}
+                  value={data.email} // Display email field
                   onChange={(e) => setData({ ...data, email: e.target.value })}
                 />
               </Form.Group>
@@ -268,14 +284,14 @@ const EditProfile = (props) => {
                 <h5>City</h5>
                 <Form.Control
                   type="text"
-                  value={capitalizeFirstLetter(data.city)}
+                  value={capitalizeFirstLetter(data.city)} // Capitalize city name
                   onChange={(e) => setData({ ...data, city: e.target.value })}
                 />
               </Form.Group>
               <Form.Group controlId="state" className="mt-3">
                 <h5>State</h5>
                 <Form.Select
-                  value={data.state}
+                  value={data.state} // Display state selection
                   onChange={(e) => setData({ ...data, state: e.target.value })}
                 >
                   <option value="">Select State</option>
@@ -294,7 +310,7 @@ const EditProfile = (props) => {
               id="passwordForm"
               noValidate
               validated={validated}
-              onSubmit={handleUpdatePassword}
+              onSubmit={handleUpdatePassword} // Handle form submission for password update
             >
               <Form.Group>
                 <h5 htmlFor="password">Current Password</h5>
@@ -302,8 +318,8 @@ const EditProfile = (props) => {
                   type="password"
                   name="currentPassword"
                   required
-                  value={data.currentPassword}
-                  onChange={handleInputChange}
+                  value={data.currentPassword} // Display current password field
+                  onChange={handleInputChange} // Handle input change
                 />
                 <Form.Control.Feedback type="invalid">
                   Current Password is required
@@ -315,8 +331,8 @@ const EditProfile = (props) => {
                   type="password"
                   name="password"
                   required
-                  value={data.password}
-                  onChange={handleInputChange}
+                  value={data.password} // Display new password fiel
+                  onChange={handleInputChange} // Handle input change
                 />
                 <Form.Text id="passwordHelpBlock" muted>
                   Must be 8-20 characters long.
@@ -331,8 +347,8 @@ const EditProfile = (props) => {
                   type="password"
                   name="confirmPassword"
                   required
-                  value={data.confirmPassword}
-                  onChange={handleInputChange}
+                  value={data.confirmPassword} // Display confirm password field
+                  onChange={handleInputChange} // Handle input change
                 />
                 <Form.Text id="passwordHelpBlock" muted></Form.Text>
                 <Form.Control.Feedback type="invalid">

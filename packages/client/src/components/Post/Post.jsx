@@ -259,6 +259,7 @@ const Post = ({
         show={showDelete}
         handleClose={toggleShowDelete}
         handleDelete={handleDeletePost}
+        deleteType={"post"}
       />
     </>
   );

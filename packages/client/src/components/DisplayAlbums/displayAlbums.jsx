@@ -1,3 +1,4 @@
+// Import necessary modules from React and other libraries
 import React, { useEffect, useState } from "react";
 import {
   Card,
@@ -9,65 +10,75 @@ import {
   Container,
   Row,
 } from "react-bootstrap";
-import { useApiFetch } from "../../util/api";
-import AddAlbums from "../AddAlbums/AddAlbums";
-import axios from "axios";
-import ConfirmDelete from "../ConfirmDelete/ConfirmDelete";
-import { API_URL } from "../../util/constants";
-import TrashIcon from "../icons/TrashIcon";
-import api from "../../util/api";
-import { useProvideAuth } from "../../hooks/useAuth";
-import { useRequireAuth } from "../../hooks/useRequireAuth";
-import { useNavigate, useParams } from "react-router-dom";
+import { useApiFetch } from "../../util/api"; // Custom hook for API fetch
+import AddAlbums from "../AddAlbums/AddAlbums"; // Component to add new albums
+import axios from "axios"; // Axios for making HTTP requests
+import { API_URL } from "../../util/constants"; // API URL constant
+import TrashIcon from "../icons/TrashIcon"; // Custom trash icon component
+import api from "../../util/api"; // Custom API instance
+import { useProvideAuth } from "../../hooks/useAuth"; // Authentication context hook
+import { useRequireAuth } from "../../hooks/useRequireAuth"; // Hook to ensure user authentication
+import { useNavigate, useParams } from "react-router-dom"; // Hooks for navigation and URL parameters
+import DeleteModal from "../DeleteModal/DeleteModal"; // Component for confirmation modal on deletion
 
+// Main component for displaying albums
 const DisplayAlbums = ({ username, onAlbumsChange }) => {
-  const { response } = useApiFetch("/albums");
-  const [displayedAlbums, setDisplayedAlbums] = useState([]);
-  const [sortAlbum, setSortAlbum] = useState("albumTitle");
-  const [showModal, setShowModal] = useState(false);
-  const [albumToDelete, setAlbumToDelete] = useState({ id: null, title: "" });
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  // State management
+  const { response } = useApiFetch("/albums"); // Fetch albums from API
+  const [displayedAlbums, setDisplayedAlbums] = useState([]); // Holds the albums to be displayed
+  const [sortAlbum, setSortAlbum] = useState("albumTitle"); // State to manage sorting criteria
+  const [showModal, setShowModal] = useState(false); // Controls visibility of add album modal
+  const [albumToDelete, setAlbumToDelete] = useState({ id: null, title: "" }); // Album selected for deletion
+  const [showConfirmModal, setShowConfirmModal] = useState(false); // Controls visibility of delete confirmation modal
 
-  const { state } = useProvideAuth();
-  let params = useParams();
+  const { state } = useProvideAuth(); // Provides authentication state
+  let params = useParams(); // Retrieves URL parameters
   const {
     state: { isAuthenticated },
-  } = useRequireAuth();
+  } = useRequireAuth(); // Ensures the user is authenticated
 
-  const handleConfirmDelete = async () => {
-    setShowConfirmModal(false);
+  // Handles deletion of album after confirmation
+  const handleDeleteModal = async () => {
+    setShowConfirmModal(false); // Close confirmation modal
     if (albumToDelete && albumToDelete.id) {
-      await handleRemoveAlbum(albumToDelete.id);
-      setAlbumToDelete({ id: null, title: "" });
+      // If album is selected, delete it
+      await handleRemoveAlbum(albumToDelete.id); // Calls the remove function
+      setAlbumToDelete({ id: null, title: "" }); // Resets selected album
     }
   };
 
+  // Opens the confirmation modal and sets album for deletion
   const handleShowConfirmModal = (albumId, albumTitle) => {
     setAlbumToDelete({ id: albumId, title: albumTitle });
     setShowConfirmModal(true);
   };
 
+  // Closes the confirmation modal
   const handleCloseConfirmModal = () => {
     setShowConfirmModal(false);
     setAlbumToDelete({ id: null, title: "" });
   };
 
+  // Toggles the add album modal visibility
   const toggleModal = () => setShowModal(!showModal);
 
+  //Adds a new album to the displayed list
   const handleAddAlbum = (newAlbum) => {
     setDisplayedAlbums([...displayedAlbums, newAlbum]);
   };
 
+  // Removes an album from the list after deletion
   const handleRemoveAlbum = async (id) => {
     try {
-      await api.delete(`${API_URL}/albums/${id}`);
-      const updatedAlbum = displayedAlbums.filter((album) => album._id !== id);
-      setDisplayedAlbums(updatedAlbum);
+      await api.delete(`${API_URL}/albums/${id}`); // API call to delete the album
+      const updatedAlbum = displayedAlbums.filter((album) => album._id !== id); // Filters out the deleted album
+      setDisplayedAlbums(updatedAlbum); // Updates the album list
     } catch (error) {
-      console.error(`An error occurred deleting album ${id}.`);
+      console.error(`An error occurred deleting album ${id}.`); // Logs error if deletion fails
     }
   };
 
+  // Converts track duration from seconds to MM:SS format
   const durationConversion = (duration) => {
     const minutes = Math.floor(duration / 60);
     const remainingSeconds = duration % 60;
@@ -77,39 +88,44 @@ const DisplayAlbums = ({ username, onAlbumsChange }) => {
     return timeFormat;
   };
 
+  // Calculates total album duration by summing up the durations of its tracks
   const albumDuration = (album) => {
     const totalDuration = album.tracks.reduce((total, track) => {
       return total + parseInt(track.trackDuration, 10);
     }, 0);
-    return durationConversion(totalDuration);
+    return durationConversion(totalDuration); // Converts the total duration to MM:SS format
   };
 
+  // Handles sorting by different album attributes (title, year, artist)
   const handleSort = (sortBy) => {
-    setSortAlbum(sortBy);
+    setSortAlbum(sortBy); // Updates the sorting state
   };
 
+  // Formats the date into a readable string
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
-    return new Date(dateString).toLocaleDateString(undefined, options);
+    return new Date(dateString).toLocaleDateString(undefined, options); // Converts date string to a formatted date
   };
 
+  // Effect to update parent component when the number of albums changes
   useEffect(() => {
-    onAlbumsChange(displayedAlbums.length);
+    onAlbumsChange(displayedAlbums.length); // Calls the onAlbumsChange callback prop
   }, [displayedAlbums]);
 
+  // Fetches albums when sorting changes or the username is updated
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
         const response = await api.get(
           `${API_URL}/albums?sortBy=${sortAlbum}&username=${username}`
         );
-        setDisplayedAlbums(response.data);
+        setDisplayedAlbums(response.data); // Sets the fetched albums in state
       } catch (error) {
-        console.error("Error fetching albums:", error);
+        console.error("Error fetching albums:", error); // Logs error if fetching fails
       }
     };
 
-    fetchAlbums();
+    fetchAlbums(); // Calls the fetchAlbums function
   }, [sortAlbum, username]);
 
   return (
@@ -158,11 +174,12 @@ const DisplayAlbums = ({ username, onAlbumsChange }) => {
             </Button>
           )}
         </div>
-        <ConfirmDelete
-          showConfirmModal={showConfirmModal}
-          handleCloseConfirmModal={handleCloseConfirmModal}
-          handleConfirmDelete={handleConfirmDelete}
+        <DeleteModal
+          show={showConfirmModal}
+          handleClose={handleCloseConfirmModal}
+          handleDelete={handleDeleteModal}
           albumTitle={albumToDelete.title || "this album"}
+          deleteType={"album"}
         />
 
         {displayedAlbums &&
@@ -235,9 +252,7 @@ const DisplayAlbums = ({ username, onAlbumsChange }) => {
 
                       <div className="mt-2">{album.releaseYear}</div>
                       <div className="">{albumDuration(album)} Mins</div>
-                      <div className="mt-3">
-                        {album.condition} Condition
-                      </div>
+                      <div className="mt-3">{album.condition} Condition</div>
                       <div className="">Added {formatDate(album.created)}</div>
                     </Card.Body>
                   </Col>
@@ -283,7 +298,7 @@ const DisplayAlbums = ({ username, onAlbumsChange }) => {
                   <div className=" ">
                     <Container className="close">
                       <img
-                        src="/trash2.png" 
+                        src="/trash2.png"
                         alt="Trash Icon"
                         style={{
                           width: "30px",

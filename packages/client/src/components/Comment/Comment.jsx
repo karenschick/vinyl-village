@@ -165,6 +165,7 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
             show={showDelete}
             handleClose={toggleShowDelete}
             handleDelete={handleDeleteComment}
+            deleteType={"comment"}
           />
         </Row>
       </Card>

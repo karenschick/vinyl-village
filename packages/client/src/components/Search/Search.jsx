@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import {
   Modal,
   Card,
@@ -9,12 +8,8 @@ import {
   Col,
   Container,
 } from "react-bootstrap";
-import { useApiFetch } from "../../util/api";
-import { API_URL } from "../../util/constants";
 import api from "../../util/api";
-import { useProvideAuth } from "../../hooks/useAuth";
-import { useRequireAuth } from "../../hooks/useRequireAuth";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const SearchForm = () => {
   const [search, setSearch] = useState({
@@ -27,17 +22,10 @@ const SearchForm = () => {
   });
   const [searchResults, setSearchResults] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [showResults, setShowResults] = useState(false);
 
   const handleInputChange = (e) => {
     setSearch({ ...search, [e.target.name]: e.target.value });
   };
-  const capitalizeFirstLetter = (string) => {
-    if (!string) return "Unknown";
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-  };
-  //const response = await api.get(`${API_URL}/albums/search`,{
-  // params: { ...search, filteredSearchParams },
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -130,16 +118,16 @@ const SearchForm = () => {
             style={{ marginBottom: "2px", opacity: "0.8" }}
           >
             <option value="">Condition</option>
-            <option value="poor">Poor</option>
-            <option value="fair">Fair</option>
-            <option value="good">Good</option>
-            <option value="excellent">Excellent</option>
+            <option value="Poor">Poor</option>
+            <option value="Fair">Fair</option>
+            <option value="Good">Good</option>
+            <option value="Excellent">Excellent</option>
           </Form.Control>
         </Form.Group>
 
         <Button
           type="submit"
-          variant="dark"
+          variant="orange"
           className="mt-3"
           style={{ border: "none", color: "white" }}
         >
@@ -163,14 +151,22 @@ const SearchForm = () => {
               >
                 {searchResults.map((album, index) => (
                   <Card key={index} style={{ width: "18rem", margin: "10px" }}>
-                    <Card.Img variant="top" src={album.image}></Card.Img>
+                    <Card.Img
+                      variant="top"
+                      src={album.image || "/default-image.jpg"}
+                      alt={album.albumTitle}
+                      onError={(e) => {
+                        e.target.onerror = null; // Prevents recursion
+                        e.target.src = "/album8.jpg";
+                      }}
+                    ></Card.Img>
                     <Card.Body>
                       <Card.Title>{album.albumTitle}</Card.Title>
                       <Card.Subtitle className="mt-2">
                         {album.artistName}
                       </Card.Subtitle>
                       <Card.Text className="mt-2">
-                        {capitalizeFirstLetter(album.condition)} Condition
+                        {album.condition} Condition
                       </Card.Text>
                       <Card.Text className="mt-3">
                         <Row className="align-items-center mt-4">
@@ -179,7 +175,7 @@ const SearchForm = () => {
                               <Link to={`/u/${album.author.username}`}>
                                 <img
                                   src={album.author.profile_image}
-                                  alt="Profile"
+                                  alt={`Profile Image of ${album.author.username}`}
                                   style={{ width: "50px", height: "50px" }}
                                 />
                               </Link>

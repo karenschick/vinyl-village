@@ -134,7 +134,7 @@ const PostDetailPage = () => {
       <div style={{ display: "flex", justifyContent: "center" }}>
         <div style={{ width: "60%" }}>
           <Button
-            variant="outline-dark"
+            variant="outline-orange"
             onClick={() => {
               navigate(-1);
             }}
@@ -173,7 +173,8 @@ const PostDetailPage = () => {
               />
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <Button
-                  variant="dark"
+                  variant="orange"
+                  style={{ color: "white" }}
                   style={{ border: "none", color: "white" }}
                   className="float-right mt-3 mb-5"
                   type="submit"

@@ -28,13 +28,6 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
     state: { user },
   } = useProvideAuth(); // Get the current authenticated user from the auth hook
 
-  // Log the comment object for debugging
-  console.log(comment);
-
-  // Log the author's ID for debugging
-  console.log("Comment Author ID:", comment.author?._id);
-
-  // Handle changes to the comment text while in edit mode
   const handleCommentTextChange = (e) => {
     setEditedText(e.target.value);
   };
@@ -85,6 +78,7 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
                 style={{ lineHeight: ".5", padding: "0", fontSize: "30px" }}
               >
                 <img
+                  alt="menu button"
                   src="/menu.png"
                   style={{ maxHeight: "30px", marginRight: "15px" }}
                 ></img>
@@ -105,12 +99,12 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
             style={{
               height: "65px",
               minHeight: "65px",
-              width: "65px",
-              minWidth: "65px",
+              widtidth: "65px",
               marginTop: "0px",
             }}
           >
             <Figure.Image
+              alt={`Profile image of ${author.username}`}
               src={author.profile_image}
               className="avatar w-100 h-100 mr-4"
             />
@@ -145,7 +139,8 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
                 <br></br>
                 <Button
                   size="sm"
-                  variant="dark"
+                  variant="orange"
+                  style={{ color: "white" }}
                   className="m-2"
                   onClick={saveComment}
                 >
@@ -153,7 +148,7 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
                 </Button>
                 <Button
                   size="sm"
-                  variant="outline-dark"
+                  variant="outline-orange"
                   onClick={toggleEditMode}
                 >
                   Cancel

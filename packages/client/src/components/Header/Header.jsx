@@ -2,44 +2,19 @@ import React, { useState, useEffect } from "react";
 import { Navbar, Nav, Button, Figure, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useProvideAuth } from "../../hooks/useAuth";
-import { useParams } from "react-router-dom";
-import { useApiFetch } from "../../util/api";
-import { useRequireAuth } from "../../hooks/useRequireAuth";
-import api from "../../util/api";
 
-export default function Header({ authState }) {
-  const { state, updateUser, signout } = useProvideAuth();
+export default function Header() {
+  const { state: authState, signout } = useProvideAuth();
   const [loading, setLoading] = useState(true);
-  let params = useParams();
-  const isAuthenticated = useRequireAuth();
-  const username = params.uname ? params.uname : state.user.username;
+  const { user } = authState;
 
   useEffect(() => {
-    console.log("AuthState:", authState);
-    console.log("Params:", params);
-    console.log("Username:", username);
-
-    if (username) {
-      const getUser = async () => {
-        try {
-          const userResponse = await api.get(`/users/${username}`);
-          updateUser(userResponse.data);
-          setLoading(false);
-        } catch (err) {
-          console.error(err.message);
-        }
-      };
-
-      // Only fetch user data if isAuthenticated is true and it's not already loading
-      if (isAuthenticated && loading) {
-        getUser();
-      }
+    if (user) {
+      setLoading(false);
     }
-  }, [username, isAuthenticated, loading, updateUser]);
+  }, [user]);
 
-  const linkStyle = { color: "white" };
-
-  if (!state.user) {
+  if (!user) {
     return null;
   }
 
@@ -67,7 +42,7 @@ export default function Header({ authState }) {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          {!loading && state.user && (
+          {!loading && user && (
             <Nav className="d-flex align-items-center justify-content-around w-100 ">
               <Nav.Item
                 as={Link}
@@ -87,6 +62,7 @@ export default function Header({ authState }) {
                 >
                   <Figure.Image
                     src="/home.png"
+                    alt="Home Icon"
                     className="w-100 h-100"
                     style={{
                       borderRadius: "0%",
@@ -96,34 +72,39 @@ export default function Header({ authState }) {
                     }}
                   />
                 </Figure>
-              
               </Nav.Item>
               <Nav.Item
                 as={Link}
-                to={`/u/${state.user.username}`}
+                to={`/u/${user.username}`}
                 className="d-flex align-items-center"
                 style={{
                   color: "white",
                   textDecoration: "none",
                 }}
               >
+                {" "}
                 <Figure
                   className="bg-border-color overflow-hidden my-auto p-1"
                   style={{
-                    height: "60px", width: "60px"
+                    textDecoration: "none",
                   }}
                 >
                   <Figure.Image
-                    src={state.user.profile_image}
-                    className="img-fluid"
+                    src="/profile2.png"
+                    alt={`Profile Image of ${user.username}`}
+                    className="w-100 h-100"
                     style={{
-                      width: "60px", height: "60px", margin: "auto"
+                      borderRadius: "0%",
+                      maxHeight: "60px",
+                      width: "auto",
+                      objectFit: "cover",
                     }}
                   />
                 </Figure>
-                <span className="ml-1" style={{ textDecoration: "none" }}>
-                  
-                </span>
+                <span
+                  className="ml-1"
+                  style={{ textDecoration: "none" }}
+                ></span>
               </Nav.Item>
               <Nav.Item
                 as={Button}
@@ -132,7 +113,7 @@ export default function Header({ authState }) {
                 style={{
                   border: "none",
                   marginRight: "",
-                  color: "white",
+                  color: "orange",
                 }}
               >
                 Sign Out

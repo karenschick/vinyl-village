@@ -20,7 +20,7 @@ import { useProvideAuth } from "../../hooks/useAuth";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
 import { useNavigate, useParams } from "react-router-dom";
 
-export const DisplayAlbums = ({ username, onAlbumsChange }) => {
+const DisplayAlbums = ({ username, onAlbumsChange }) => {
   const { response } = useApiFetch("/albums");
   const [displayedAlbums, setDisplayedAlbums] = useState([]);
   const [sortAlbum, setSortAlbum] = useState("albumTitle");
@@ -88,10 +88,6 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
     setSortAlbum(sortBy);
   };
 
-  const capitalizeFirstLetter = (string) => {
-    if (!string) return "Unknown";
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-  };
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);
@@ -130,21 +126,21 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
         <div className="sort-tabs text-center">
           <Button
             className="m-2"
-            variant="outline-dark"
+            variant="outline-orange"
             onClick={() => handleSort("albumTitle")}
           >
             Title
           </Button>
           <Button
             className="m-2"
-            variant="outline-dark"
+            variant="outline-orange"
             onClick={() => handleSort("releaseYear")}
           >
             Year
           </Button>
           <Button
             className="m-2"
-            variant="outline-dark"
+            variant="outline-orange"
             onClick={() => handleSort("artistName")}
           >
             Artist
@@ -153,7 +149,7 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
           {state.user.username === params.uname && (
             <Button
               className="m-2"
-              variant="dark"
+              variant="orange"
               style={{ color: "white" }}
               // style={{ color: "white", backgroundColor: "#bdfa7b", border: "#bdfa7b", }}
               onClick={toggleModal}
@@ -240,7 +236,7 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                       <div className="mt-2">{album.releaseYear}</div>
                       <div className="">{albumDuration(album)} Mins</div>
                       <div className="mt-3">
-                        {capitalizeFirstLetter(album.condition)} Condition
+                        {album.condition} Condition
                       </div>
                       <div className="">Added {formatDate(album.created)}</div>
                     </Card.Body>
@@ -286,9 +282,8 @@ export const DisplayAlbums = ({ username, onAlbumsChange }) => {
                 {state.user.username === params.uname && (
                   <div className=" ">
                     <Container className="close">
-                      {/* Replace the button with the image */}
                       <img
-                        src="/trash2.png" // Path to your image file in the public directory
+                        src="/trash2.png" 
                         alt="Trash Icon"
                         style={{
                           width: "30px",

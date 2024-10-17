@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Container, Card, Form, Button } from "react-bootstrap";
-import { useApiFetch } from "../../util/api";
 import { useProvideAuth, useAuth } from "../../hooks/useAuth";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { useNavigate, useParams } from "react-router-dom";
-import api from "../../util/api";
 import { toast } from "react-toastify";
+import capitalizeFirstLetter from "../../util/capitalizeFirstLetter";
+import api from "../../util/api";
 
 const EditProfile = (props) => {
   const { state } = useProvideAuth();
@@ -150,7 +150,6 @@ const EditProfile = (props) => {
       const {
         user: { uid, username },
       } = state;
-      console.log(data.password, uid, username);
       setValidated(false);
 
       api
@@ -160,7 +159,6 @@ const EditProfile = (props) => {
           confirmPassword: data.confirmPassword,
         })
         .then((response) => {
-          console.log("password correct", response.data);
           setData({
             ...data,
             isSubmitting: false,
@@ -168,19 +166,17 @@ const EditProfile = (props) => {
             currentPassword: "",
             confirmPassword: "",
           });
-          toast.success(
-            `Without pain, without sacrifice, we would have nothing.`
-          );
+
           setLoading(false);
+          toast.success("Password updated successfully!");
         })
         .catch((error) => {
-          console.log(error);
           setData({
             ...data,
             isSubmitting: false,
             errorMessage: error.message,
           });
-          toast.error("We strayed from the formula, and we paid the price.");
+          toast.error("Failed to update password. Please try again.");
         });
 
       setData({
@@ -204,20 +200,23 @@ const EditProfile = (props) => {
       try {
         await handleUpdatePassword();
         setPasswordChanged(false);
+        toast.success("Profile updated successfully!");
       } catch (error) {
-        // Handle password update error
+        toast.error("Failed to update profile. Please try again.");
       }
     }
 
     try {
       await api.put(`/users/${params.uname}`, data);
-      toast.success("Profile updated successfully");
-      // If username is part of userDetails and it's changed, handle it appropriately
+      toast.success("Profile updated successfully!");
+      updateUser({ ...state.user, ...data });
+      console.log("User updated check(not auth log):", state.user);
     } catch (error) {
-      toast.error("Failed to update profile");
+      console.error("Error updating profile:", error);
+      //toast.error("Failed to update profile. Please try again.");
     }
 
-    navigate(`/u/${user.username}`); // Ensure user.username is updated if username changes
+    navigate(`/u/${user.username}`);
   };
 
   if (!isAuthenticated) {
@@ -238,7 +237,7 @@ const EditProfile = (props) => {
                 <h5>First Name</h5>
                 <Form.Control
                   type="text"
-                  value={data.firstName}
+                  value={capitalizeFirstLetter(data.firstName)}
                   onChange={(e) =>
                     setData({
                       ...data,
@@ -251,7 +250,7 @@ const EditProfile = (props) => {
                 <h5>Last Name</h5>
                 <Form.Control
                   type="text"
-                  value={data.lastName}
+                  value={capitalizeFirstLetter(data.lastName)}
                   onChange={(e) =>
                     setData({ ...data, lastName: e.target.value })
                   }
@@ -269,7 +268,7 @@ const EditProfile = (props) => {
                 <h5>City</h5>
                 <Form.Control
                   type="text"
-                  value={data.city}
+                  value={capitalizeFirstLetter(data.city)}
                   onChange={(e) => setData({ ...data, city: e.target.value })}
                 />
               </Form.Group>
@@ -349,7 +348,7 @@ const EditProfile = (props) => {
         </Container>
         <div className="text-center m-3">
           <Button
-            variant="dark"
+            variant="orange"
             style={{ border: "none", color: "white" }}
             onClick={handleSubmitAll}
           >

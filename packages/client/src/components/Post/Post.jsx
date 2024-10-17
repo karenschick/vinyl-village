@@ -24,20 +24,19 @@ const Post = ({
   onPostUpdate,
   detailView = true,
 }) => {
+  const {
+    state: { user },
+  } = useProvideAuth();
   const [showDelete, toggleShowDelete] = useToggle();
   const [isDeleted, toggleIsDeleted] = useToggle();
   const [editMode, setEditMode] = useState(false);
   const [editedText, setEditedText] = useState(text);
-
-  let navigate = useNavigate();
-  const {
-    state: { user },
-  } = useProvideAuth();
-
-  const [likedState, setLiked] = useState(likes.includes(user.uid));
   const [likesState, setLikes] = useState(likes.length);
-  console.log("Image URL:", image);
+  const [likedState, setLiked] = useState(
+    likes.some((like) => like._id === user.uid)
+  );
   const defaultImage = "/images/default-post.jpg";
+  let navigate = useNavigate();
 
   const handleTextChange = (e) => {
     setEditedText(e.target.value);
@@ -67,34 +66,23 @@ const Post = ({
     }
   };
 
-  const handleToggleLike = async () => {
-    if (!likedState) {
-      setLiked(true);
-      setLikes(likesState + 1);
-      try {
-        await api.post(`/posts/like/${_id}`);
-      } catch (error) {
-        console.log(error);
-        return error;
-      }
-    } else {
-      setLiked(false);
-      setLikes(likesState - 1);
-      try {
-        await api.post(`/posts/like/${_id}`);
-      } catch (error) {
-        console.log(error);
-        return error;
-      }
+  const handleLikePost = async () => {
+    try {
+      const response = await api.post(`/posts/like/${_id}`);
+      setLikes(response.data.likes.length);
+      setLiked((prevLiked) => !prevLiked);
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to like/unlike the post. Please try again later.");
     }
   };
 
   const handleDeletePost = async () => {
     try {
       await api.delete(`/posts/${_id}`);
-
       toggleShowDelete();
       toggleIsDeleted();
+      toast.success("Post deleted successfully");
     } catch (error) {
       toast.error(`An error occurred deleting post ${_id}.`);
       toggleShowDelete();
@@ -121,7 +109,11 @@ const Post = ({
                   bsPrefix="p-0"
                   style={{ lineHeight: ".5", padding: "0" }}
                 >
-                  <img src="/menu.png" style={{ maxHeight: "40px" }}></img>
+                  <img
+                    src="/menu.png"
+                    alt="Menu Button"
+                    style={{ maxHeight: "40px" }}
+                  ></img>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item onClick={toggleEditMode}>Edit</Dropdown.Item>
@@ -137,11 +129,14 @@ const Post = ({
               <Figure as={Link} to={`/u/${author.username}`}>
                 <Figure.Image
                   src={author.profile_image}
+                  alt={`Profile Image of ${author.username}`}
                   className={`img-fluid mb-3 ${
                     window.innerWidth < 768 ? "author-image" : ""
                   }`}
                   style={{
-                    width: "60px", height: "60px", margin: "auto"
+                    width: "60px",
+                    height: "60px",
+                    margin: "auto",
                   }}
                 />
               </Figure>
@@ -209,14 +204,15 @@ const Post = ({
                   <Button
                     className="m-2"
                     size="sm"
-                    variant="dark"
+                    variant="orange"
+                    style={{ color: "white" }}
                     onClick={handleSaveEdit}
                   >
                     Save
                   </Button>
                   <Button
                     size="sm"
-                    variant="outline-dark"
+                    variant="outline-orange"
                     onClick={handleCancelEdit}
                   >
                     Cancel
@@ -234,8 +230,8 @@ const Post = ({
               {detailView && (
                 <Button
                   className="m-2"
-                  variant="dark"
-                  style={{ border: "none", color: "white" }}
+                  variant="orange"
+                  style={{ color: "white" }}
                   size="sm"
                   onClick={() => navigate(`/p/${_id}`)}
                 >
@@ -246,10 +242,10 @@ const Post = ({
               {detailView && (
                 <Button
                   className="m-2"
-                  variant="dark"
-                  style={{ border: "none", color: "white" }}
+                  variant="orange"
+                  style={{ color: "white" }}
                   size="sm"
-                  onClick={handleToggleLike}
+                  onClick={handleLikePost}
                 >
                   Like
                 </Button>

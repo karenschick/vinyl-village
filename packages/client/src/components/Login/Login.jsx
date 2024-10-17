@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useProvideAuth } from "../../hooks/useAuth";
 
@@ -42,9 +42,8 @@ const Login = () => {
   return (
     <>
       <Container className="d-flex justify-content-center align-items-center">
-        <ToastContainer />
         <Form onSubmit={handleSubmit}>
-          <Form.Group as={Row} className="mb-2 mt-3">
+          <Form.Group as={Row} className="mb-2 mt-">
             <Form.Control
               type="text"
               id="username"
@@ -69,13 +68,13 @@ const Login = () => {
 
           <Row className="mb-2">
             <Col xs={12} className="text-center">
-              <Button variant="dark" type="submit">
+              <Button variant="orange" style={{ color: "white" }} type="submit">
                 Sign In
               </Button>
             </Col>
           </Row>
-          <Row>
-            <Col xs={12} className="text-center mt-3">
+          <Row className="justify-content-center ">
+            <Col xs={8} className="text-center mt-1">
               <p>
                 Don't have an account? sign up{" "}
                 <Link to="/signup" style={{ color: "black" }}>

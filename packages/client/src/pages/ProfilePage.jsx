@@ -8,9 +8,8 @@ import Header from "../components/Header/Header";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../util/api";
 
-
 export default function ProfilePage(props) {
-  const { state } = useProvideAuth();
+  const { state, updateUser } = useProvideAuth();
   const [user, setUser] = useState();
   const [loading, setLoading] = useState(true);
   const [profileImage, setProfileImage] = useState("");
@@ -22,20 +21,19 @@ export default function ProfilePage(props) {
     state: { isAuthenticated },
   } = useRequireAuth();
 
-  
-  const updateAlbumCount = (count) => {
+    const updateAlbumCount = (count) => {
     setAlbumCount(count);
   };
 
   useEffect(() => {
-    console.log("username on profile page:", params)
+    console.log("username on profile page:", params);
     const getUser = async () => {
       try {
         const userResponse = await api.get(`/users/${params.uname}`);
         setUser(userResponse.data);
         setProfileImage(userResponse.data.profile_image);
         setLoading(false);
-        updateUser(userResponse.data)
+        updateUser(userResponse.data);
       } catch (err) {
         console.error(err.message);
       }
@@ -68,6 +66,7 @@ export default function ProfilePage(props) {
                 >
                   <Figure.Image
                     src={user.profile_image}
+                    alt={`Profile Image of ${user.username}`} 
                     style={{
                       borderRadius: "0%",
                       maxheight: "90px",
@@ -79,30 +78,29 @@ export default function ProfilePage(props) {
                 </Figure>
               </Col>
               <Col xs="auto ">
+                <Card.Text className="mb-2">{user.username}</Card.Text>
                 <Card.Text className="mb-2">
-                  {user.firstName} {user.lastName}
+                  {user.firstName}{" "}
+                  {user.lastName}
                 </Card.Text>
-                <Card.Text className="mb-2">{user.email}</Card.Text>
-                <Card.Text className="mb-2">
+                {/* <Card.Text className="mb-2">{user.email}</Card.Text> */}
+                {/* <Card.Text className="mb-2">
                   {user.city}, {user.state}
-                </Card.Text>
+                </Card.Text> */}
                 <Card.Text>{albumCount} albums</Card.Text>
               </Col>
             </Row>
           </Card.Body>
-
           {state.user.username === params.uname && (
             <div className="mb-3">
               {" "}
               <Button
                 size="sm"
-                variant="dark"
+                variant="orange"
                 className="d-inline-block"
-                // style={{
-                //   border: "none",
-                //   color: "white",
-                //   display: "inline-block",
-                // }}
+                style={{
+                  color: "white",
+                }}
                 onClick={() => navigate(`/u/${params.uname}/edit`)}
               >
                 Edit Profile
@@ -111,7 +109,6 @@ export default function ProfilePage(props) {
           )}
         </Card>
       </Container>
-
       <Container>
         <DisplayAlbums
           username={params.uname}

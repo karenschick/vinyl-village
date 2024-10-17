@@ -16,11 +16,11 @@ const ConfirmDelete = ({
         Are you sure you want to delete {albumTitle || "this album"}?
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="outline-dark" onClick={handleCloseConfirmModal}>
+        <Button variant="outline-orange" onClick={handleCloseConfirmModal}>
           Cancel
         </Button>
         <Button
-          variant="dark"
+          variant="orange"
           style={{ color: "white", border: "none" }}
           onClick={handleConfirmDelete}
         >

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
+import { Container, Button, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import api from "../../util/api";
 
-const UploadFile = ({ onUpload }) => {
+const UploadFile = ({ onUpload, toggleBack, isEditPage }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [previewUrl, setPreviewUrl] = useState("");
-  // const [userId, setUserId] = useState(userData?._id);
 
   const handleFileUpload = (event) => {
     const files = event.target.files;
@@ -27,6 +27,7 @@ const UploadFile = ({ onUpload }) => {
     const filesArray = Array.from(event.dataTransfer.files);
     setSelectedFiles([...selectedFiles, ...filesArray]);
     // setSelectedFile(event.target.files[0])
+
     //Set preview URL for the first dropped file
     if (filesArray.length > 0) {
       const reader = new FileReader();
@@ -38,28 +39,30 @@ const UploadFile = ({ onUpload }) => {
   };
 
   const handleUpload = async () => {
-    // console.log(userId);
     try {
       const formData = new FormData();
       selectedFiles.forEach((file) => {
         formData.append("files", file);
       });
-
       const response = await api.post(`/files/images`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       onUpload(response.data.path);
-
-      console.log(response.data);
     } catch (err) {
       console.error("Upload failed:", err);
     }
   };
+
   const removeFile = (index) => {
     const newFiles = [...selectedFiles];
     newFiles.splice(index, 1);
     setSelectedFiles(newFiles);
     setPreviewUrl("");
+
+    const fileInput = document.getElementById("fileInput");
+    if (fileInput) {
+      fileInput.value = "";
+    }
   };
 
   const preventDefaults = (event) => {
@@ -68,17 +71,14 @@ const UploadFile = ({ onUpload }) => {
   };
 
   return (
-    <div
-      className="container mt-5 p-3 border border-primary rounded"
+    <Container
+      className="container   "
       onDrop={handleDrop}
       onDragOver={preventDefaults}
       onDragEnter={preventDefaults}
     >
-      <h3>Upload File</h3>
-      <div className="mb-3">
-        <label htmlFor="fileInput" className="form-label">
-          Drag and drop files here or click to browse.
-        </label>
+      <h6>Drag and drop files here or click to browse</h6>
+      <div className=" mt-3 mb-3">
         <input
           type="file"
           id="fileInput"
@@ -88,34 +88,66 @@ const UploadFile = ({ onUpload }) => {
         />
       </div>
       <div>
-        <h5>Selected Files:</h5>
+        {" "}
         <ul className="list-group">
+          {previewUrl && (
+            <div>
+              <img
+                src={previewUrl}
+                alt="Preview"
+                className="img-thumbnail mt-3"
+              />
+            </div>
+          )}
           {selectedFiles.map((file, index) => (
             <li
               key={index}
               className="list-group-item d-flex justify-content-between align-items-center"
             >
               {file.name}
-              <button
-                className="btn btn-danger btn-sm"
-                onClick={() => removeFile(index)}
-              >
-                X
-              </button>
+              <Button className="btn  btn-sm" onClick={() => removeFile(index)}>
+                <img
+                  src="/trash2.png"
+                  alt="Trash Icon"
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    cursor: "pointer",
+                  }}
+                ></img>
+              </Button>
             </li>
           ))}
         </ul>
       </div>
-      {previewUrl && (
-        <div>
-          <h5>Preview:</h5>
-          <img src={previewUrl} alt="Preview" className="img-thumbnail" />
-        </div>
+
+      {selectedFiles.length > 0 && (
+        <>
+          <Row className="mt-3">
+            <Col>
+              <Button
+                className="mt- "
+                variant="orange"
+                style={{ color: "white" }}
+                onClick={handleUpload}
+              >
+                Select
+              </Button>{" "}
+            </Col>
+          </Row>
+        </>
       )}
-      <button className="btn btn-primary mt-3" onClick={handleUpload}>
-        Upload
-      </button>
-    </div>
+      <div>
+        <Button
+          size="sm"
+          variant="outline-orange"
+          className="mt-3"
+          onClick={toggleBack}
+        >
+          Or Choose an Avatar
+        </Button>
+      </div>
+    </Container>
   );
 };
 

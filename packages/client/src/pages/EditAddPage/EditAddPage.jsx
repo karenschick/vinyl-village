@@ -14,7 +14,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import api from "../../util/api";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
 import EditProfile from "../../components/EditProfile/EditProfile";
-import EditProfilePhoto from "../../components/EditProfilePhoto/EditProfilePhoto";
+
+import AvatarPicker from "../../components/AvatarPicker/AvatarPicker";
 
 const EditAddPage = () => {
   const { state, updateUser } = useProvideAuth();
@@ -45,24 +46,21 @@ const EditAddPage = () => {
     }
   }, [params.uname, isAuthenticated, loading, updateUser]);
 
-  function capitalizeFirstLetter(string) {
-    if (!string) return "";
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
   const handleEditProfileImage = () => {
     setShowModal(true);
+  };
+  const handleClosePicker = () => {
+    setShowModal(false);
   };
 
   return (
     <div className="text-center">
       <Container style={{ maxWidth: "500px" }}>
         <Button
-          variant="outline-dark"
+          variant="outline-orange"
           onClick={() => {
             navigate(`/u/${state.user?.username}`);
           }}
-          style={{ border: "none", color: "black" }}
           className="mt-3 mb-3"
         >
           Go Back
@@ -81,13 +79,14 @@ const EditAddPage = () => {
                   >
                     {!loading && state.user && (
                       <Figure.Image
+                        alt={`Profile Image of ${state.user.username}`}
                         src={state.user.profile_image}
                         style={{
                           borderRadius: "0%",
-                      maxheight: "90px",
-                      maxWidth: "90px",
-                      width: "auto",
-                      objectFit: "cover",
+                          maxheight: "90px",
+                          maxWidth: "90px",
+                          width: "auto",
+                          objectFit: "cover",
                         }}
                       />
                     )}
@@ -96,7 +95,8 @@ const EditAddPage = () => {
                     <div>
                       <Button
                         size="sm"
-                        variant="dark"
+                        variant="orange"
+                        style={{ color: "white" }}
                         className="d-inline-block"
                         onClick={handleEditProfileImage}
                       >
@@ -106,7 +106,7 @@ const EditAddPage = () => {
                   )}
                 </Col>
                 <Col xs="auto ">
-                  <h2>{capitalizeFirstLetter(state.user?.username)}</h2>
+                  <h2>{state.user?.username}</h2>
                 </Col>
               </Row>
             </Card.Body>
@@ -116,12 +116,25 @@ const EditAddPage = () => {
 
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit Profile Image</Modal.Title>
+          <Modal.Title style={{ color: "black" }}>
+            Edit Profile Image
+          </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <EditProfilePhoto
+        <Modal.Body
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            maxWidth: "350px",
+            margin: "auto",
+          }}
+        >
+          <AvatarPicker
             handleCloseModal={() => setShowModal(false)}
             user={state.user}
+            isRegistration={false}
+            isEditPage={true}
+            handleClosePicker={handleClosePicker}
           />
         </Modal.Body>
       </Modal>

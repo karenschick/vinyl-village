@@ -1,16 +1,13 @@
 // Importing necessary libraries and components from React, react-bootstrap, and react-toastify
 import React, { useState } from "react";
 import { Form, Button, Col, Row, Container } from "react-bootstrap";
-import { ToastContainer, toast } from "react-toastify";
-import { useProvideAuth } from "../../hooks/useAuth"; // Custom authentication hook
-import { useRequireAuth } from "../../hooks/useRequireAuth"; // Hook for authentication validation
-import api from "../../util/api"; // API utility for HTTP requests
-import "react-toastify/dist/ReactToastify.css"; // Toast notifications CSS
+import { useProvideAuth } from "../../hooks/useAuth";
+import { useRequireAuth } from "../../hooks/useRequireAuth";
+import { toast } from "react-toastify";
+import api from "../../util/api";
+import capitalizeFirstLetter from "../../util/capitalizeFirstLetter";
 
-// AddAlbums component allows users to add albums with details like title, year, tracks, and band members
-
-export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
-  // State for storing album details
+const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
   const [albumData, setAlbumData] = useState({
     albumTitle: "",
     releaseYear: "",
@@ -46,7 +43,6 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
     if (name === "releaseYear" && value < 0) {
       return;
     }
-    //Updating albumData with new input values
     setAlbumData({ ...albumData, [name]: value });
   };
 
@@ -59,7 +55,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
     if (name === "trackDuration" && value < 0) {
       return;
     }
-    // Updating the specific track with new input values
+
     newTracks[index][name] = value;
     setAlbumData({ ...albumData, tracks: newTracks });
   };
@@ -67,7 +63,6 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
   // Handles band member name changes
   const handleBandMemberChange = (index, event) => {
     const newBandMembers = [...albumData.bandMembers];
-    // Updating the specific band member with new input values
     newBandMembers[index][event.target.name] = event.target.value;
     setAlbumData({ ...albumData, bandMembers: newBandMembers });
   };
@@ -111,6 +106,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
     event.preventDefault();
     // Basic validation checks for album title and artist name
     if (!albumData.albumTitle) {
+      console.log("Album title is required");
       toast.error("Album title is required");
       return;
     }
@@ -136,6 +132,10 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
     ) {
       toast.error("Each track must have a title and duration");
       return;
+    }
+
+    if (!albumData.condition) {
+      toast.error("Condition is required");
     }
 
     // Prepares the album data for submission (tracks and band members serialized as JSON)
@@ -177,8 +177,8 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
         },
       });
       console.log("response data:", response.data);
-      onAlbumSubmit(response.data); // Calls the parent function to handle the submitted data
-      toggleModal(); // Closes the modal after successful submission
+      onAlbumSubmit(response.data);
+      toggleModal();
     } catch (error) {
       console.error("Error:", error.response?.data || error);
       toast.error("An error occurred while submitting the form.");
@@ -197,7 +197,6 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
   // JSX return - renders the form to add albums with tracks, band members, and condition
   return (
     <>
-      <ToastContainer />
       <Form onSubmit={handleSubmit} className="p-sm-4 p-2">
         <Form.Group controlId="formFile" className="mb-3">
           <h5>Album Image</h5>
@@ -254,6 +253,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
               <Col xs="auto">
                 <Container className="close">
                   <img
+                     alt="Trash Icon"
                     src="/trash2.png"
                     style={{
                       width: "30px",
@@ -267,7 +267,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
             </Row>
           ))}
           <Button
-            variant="outline-dark"
+            variant="outline-orange"
             onClick={addBandMember}
             className="mt-1"
           >
@@ -299,6 +299,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
               <Col xs="auto">
                 <Container className="close">
                   <img
+                     alt="Trash Icon"
                     src="/trash2.png"
                     style={{
                       width: "30px",
@@ -311,7 +312,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
               </Col>
             </Row>
           ))}
-          <Button variant="outline-dark" onClick={addTrack} className="mt-1">
+          <Button variant="outline-orange" onClick={addTrack} className="mt-1">
             Add Track
           </Button>
         </Form.Group>
@@ -335,7 +336,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
 
         <Row className="text-center mt-4">
           <Col>
-            <Button variant="dark" style={{ color: "white" }} type="submit">
+            <Button variant="orange" style={{ color: "white" }} type="submit">
               Submit
             </Button>
           </Col>

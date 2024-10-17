@@ -2,16 +2,27 @@ import React from "react";
 import Login from "../../components/Login/Login";
 import LandingCarousel from "../../components/LandingCarousel/LandingCarousel";
 import "./LandingPage.scss";
-import { Container } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 
 const LandingPage = () => {
   return (
-    <Container className="full-width-container">
-      <div className="mb-3 mt-5">
+    <Container>
+      <Row className="mb-3 mt-5 ">
         <LandingCarousel />
-      </div>
-      {/* <h1>Need an album? Share an album. Chat with other music lovers</h1> */}
-      <Login />
+      </Row>
+      <Row className="justify-content-center">
+        <Col xs={3} className="d-flex justify-content-end">
+          <img
+            src="/logo2.jpg"
+            width="auto"
+            height="200"
+            alt="Vinyl Village Logo"
+          ></img>
+        </Col>
+        <Col xs={3}>
+          <Login />
+        </Col>
+      </Row>
     </Container>
   );
 };

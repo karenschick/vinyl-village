@@ -1,10 +1,9 @@
 // Importing necessary components from React and react-bootstrap
-import React from "react";
-import { Container, Image } from "react-bootstrap"; // Container for layout, Image for displaying avatars
+//import { Container, Image } from "react-bootstrap"; // Container for layout, Image for displaying avatars
 import "./AvatarPicker.scss"; // Importing custom styles for AvatarPicker component
 //import UploadProfilePhoto from "../UploadProfilePhoto/UploadProfilePhoto";
 import React, { useState, useEffect } from "react";
-import { Image, Card, Button } from "react-bootstrap";
+import { Image, Card, Button, Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useProvideAuth } from "../../hooks/useAuth";
 import { toast } from "react-toastify";

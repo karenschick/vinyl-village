@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from "react"; // Import React and useState for managing component state
 import {
   Figure,
   Row,
@@ -7,60 +7,68 @@ import {
   Card,
   Dropdown,
   DropdownMenu,
-} from "react-bootstrap";
-import { timeSince } from "../../util/timeSince";
-import { Link } from "react-router-dom";
-import api from "../../util/api";
-import { toast } from "react-toastify";
-import { useProvideAuth } from "../../hooks/useAuth";
-import DeleteModal from "../DeleteModal/DeleteModal";
-import useToggle from "../../hooks/useToggle";
+} from "react-bootstrap"; // Import Bootstrap components for layout and styling
+import { timeSince } from "../../util/timeSince"; // Import utility function for calculating time since the comment was created
+import { Link } from "react-router-dom"; // Import Link for navigation to other user profiles
+import api from "../../util/api"; // Import API utility for making server requests
+import { toast } from "react-toastify"; // Import toast for user notifications
+import { useProvideAuth } from "../../hooks/useAuth"; // Import authentication hook for current user data
+import DeleteModal from "../DeleteModal/DeleteModal"; // Import DeleteModal component for comment deletion confirmation
+import useToggle from "../../hooks/useToggle"; // Import custom hook for toggling boolean states
 
+// Comment component to render an individual comment, allowing editing, deletion, and interaction
 const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
-  const { author } = comment;
-  const [editMode, setEditMode] = useState(false);
-  const [editedText, setEditedText] = useState(comment.text);
-  const [showDelete, toggleShowDelete] = useToggle();
-  const [isDeleted, toggleIsDeleted] = useToggle();
+  const { author } = comment; // Destructure author from the comment object
+  const [editMode, setEditMode] = useState(false); // State to toggle edit mode for the comment
+  const [editedText, setEditedText] = useState(comment.text); // State to track edited comment text
+  const [showDelete, toggleShowDelete] = useToggle(); // State to control the visibility of the delete modal
+  const [isDeleted, toggleIsDeleted] = useToggle(); // State to indicate whether the comment has been deleted
 
   const {
     state: { user },
-  } = useProvideAuth();
+  } = useProvideAuth(); // Get the current authenticated user from the auth hook
 
+  // Log the comment object for debugging
   console.log(comment);
 
+  // Log the author's ID for debugging
   console.log("Comment Author ID:", comment.author?._id);
+
+  // Handle changes to the comment text while in edit mode
   const handleCommentTextChange = (e) => {
     setEditedText(e.target.value);
   };
 
+  // Toggle between edit and view mode
   const toggleEditMode = () => {
     setEditMode(!editMode);
   };
 
+  // Save the updated comment to the server
   const saveComment = async () => {
     try {
       const response = await api.put(`/posts/comments/${comment._id}`, {
         text: editedText,
       });
       onUpdateComment(comment._id, response.data.text); // Update comment in the parent component
-      toast.success("Comment updated successfully");
+      toast.success("Comment updated successfully"); // Notify the user of success
     } catch (error) {
       console.error(error);
-      toast.error("Failed to update comment");
+      toast.error("Failed to update comment"); // Notify the user of an error
     }
-    toggleEditMode();
+    toggleEditMode(); // Exit edit mode after saving
   };
 
+  // Handle deletion of the comment
   const handleDeleteComment = async () => {
     try {
-      await api.delete(`/posts/comments/${comment._id}`);
-      onCommentDeleted(comment._id);
-      toggleShowDelete();
-      toggleIsDeleted();
+      await api.delete(`/posts/comments/${comment._id}`); // Delete the comment from the server
+      onCommentDeleted(comment._id); // Notify the parent component about the deletion
+      toggleShowDelete(); // Close the delete modal
+      toggleIsDeleted(); // Mark the comment as deleted in the UI
     } catch (error) {
-      toast.error(`An error occurred deleting post ${comment._id}.`);
-      toggleShowDelete();
+      toast.error(`An error occurred deleting post ${comment._id}.`); // Notify the user of an error during deletion
+      toggleShowDelete(); // Close the delete modal in case of an error
     }
   };
 

@@ -1,65 +1,78 @@
+// Importing necessary libraries and components from React, react-bootstrap, and react-toastify
 import React, { useState } from "react";
-
 import { Form, Button, Col, Row, Container } from "react-bootstrap";
-
 import { ToastContainer, toast } from "react-toastify";
-import { useProvideAuth } from "../../hooks/useAuth";
-import { useRequireAuth } from "../../hooks/useRequireAuth";
-import api from "../../util/api";
-import "react-toastify/dist/ReactToastify.css";
+import { useProvideAuth } from "../../hooks/useAuth"; // Custom authentication hook
+import { useRequireAuth } from "../../hooks/useRequireAuth"; // Hook for authentication validation
+import api from "../../util/api"; // API utility for HTTP requests
+import "react-toastify/dist/ReactToastify.css"; // Toast notifications CSS
+
+// AddAlbums component allows users to add albums with details like title, year, tracks, and band members
 
 export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
+  // State for storing album details
   const [albumData, setAlbumData] = useState({
     albumTitle: "",
     releaseYear: "",
     artistName: "",
-    tracks: [{ trackTitle: "", trackDuration: "" }],
-    bandMembers: [{ memberName: "" }],
+    tracks: [{ trackTitle: "", trackDuration: "" }], // Initial track structure
+    bandMembers: [{ memberName: "" }], // Initial band member structure
     condition: "",
   });
 
+  // Getting current authenticated user state
   const {
     state: { user },
   } = useProvideAuth();
 
+  // Check if the user is authenticated
   const {
     state: { isAuthenticated },
   } = useRequireAuth();
 
+  // State to handle file upload for album image
   const [selectedFile, setSelectedFile] = useState(null);
 
+  // Validates if the year is between 1889 and the current year
   const isValidYear = (year) => {
     const currentYear = new Date().getFullYear();
     return year >= 1889 && year <= currentYear;
   };
 
+  // Handles input changes for album details (title, year, artist, etc.)
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-
+    // Preventing negative values for year input
     if (name === "releaseYear" && value < 0) {
       return;
     }
+    //Updating albumData with new input values
     setAlbumData({ ...albumData, [name]: value });
   };
 
+  // Handles track input changes for title and duration
   const handleTrackChange = (index, event) => {
     const newTracks = [...albumData.tracks];
-
     const { name, value } = event.target;
+
+    // Preventing negative values for track duration
     if (name === "trackDuration" && value < 0) {
       return;
     }
-
+    // Updating the specific track with new input values
     newTracks[index][name] = value;
     setAlbumData({ ...albumData, tracks: newTracks });
   };
 
+  // Handles band member name changes
   const handleBandMemberChange = (index, event) => {
     const newBandMembers = [...albumData.bandMembers];
+    // Updating the specific band member with new input values
     newBandMembers[index][event.target.name] = event.target.value;
     setAlbumData({ ...albumData, bandMembers: newBandMembers });
   };
 
+  // Adds a new track to the album
   const addTrack = () => {
     const newTrackNumber = albumData.tracks.length + 1;
     setAlbumData({
@@ -71,6 +84,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
     });
   };
 
+  // Adds a new band member to the list
   const addBandMember = () => {
     setAlbumData({
       ...albumData,
@@ -78,31 +92,34 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
     });
   };
 
+  // Removes a track from the album
   const removeTrack = (index) => {
     const newTracks = [...albumData.tracks];
-    newTracks.splice(index, 1);
+    newTracks.splice(index, 1); // Removes the track at the given index
     setAlbumData({ ...albumData, tracks: newTracks });
   };
 
+  // Removes a band member from the list
   const removeBandMember = (index) => {
     const newBandMembers = [...albumData.bandMembers];
-    newBandMembers.splice(index, 1);
+    newBandMembers.splice(index, 1); // Removes the band member at the given index
     setAlbumData({ ...albumData, bandMembers: newBandMembers });
   };
 
+  // Handles the form submission to submit the album data
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    // Basic validation checks for album title and artist name
     if (!albumData.albumTitle) {
       toast.error("Album title is required");
       return;
     }
-
     if (!albumData.artistName) {
       toast.error("Artist name is required");
       return;
     }
 
+    // Validates the release year
     const year = parseInt(albumData.releaseYear, 10);
     if (isNaN(year) || !isValidYear(year)) {
       toast.error(
@@ -110,7 +127,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
       );
       return;
     }
-
+    // Ensuring all tracks have a title and duration
     if (
       albumData.tracks.length === 0 ||
       albumData.tracks.some(
@@ -121,6 +138,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
       return;
     }
 
+    // Prepares the album data for submission (tracks and band members serialized as JSON)
     const adjustedAlbumData = {
       albumTitle: albumData.albumTitle,
       releaseYear: year,
@@ -128,7 +146,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
       condition: albumData.condition,
       tracks: JSON.stringify(
         albumData.tracks
-          .filter((track) => track.trackTitle)
+          .filter((track) => track.trackTitle) // Only include tracks with titles
           .map((track, index) => ({
             trackTitle: track.trackTitle,
             trackNumber: index + 1,
@@ -137,19 +155,21 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
       ),
       bandMembers: JSON.stringify(albumData.bandMembers),
     };
-
+    // Creates a FormData object to send album data along with the image file
     const formData = new FormData();
     Object.keys(adjustedAlbumData).forEach((key) => {
       formData.append(key, adjustedAlbumData[key]);
     });
 
     if (selectedFile) {
-      formData.append("image", selectedFile);
+      formData.append("image", selectedFile); // Adding the selected image to the form
     }
+    // Logging form data for debugging
     for (let [key, value] of formData.entries()) {
       console.log(key, value);
     }
 
+    // Submits the form data to the API endpoint
     try {
       const response = await api.post("/albums", formData, {
         headers: {
@@ -157,13 +177,14 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
         },
       });
       console.log("response data:", response.data);
-      onAlbumSubmit(response.data);
-      toggleModal();
+      onAlbumSubmit(response.data); // Calls the parent function to handle the submitted data
+      toggleModal(); // Closes the modal after successful submission
     } catch (error) {
       console.error("Error:", error.response?.data || error);
       toast.error("An error occurred while submitting the form.");
     }
 
+    // Resets the form after submission
     setAlbumData({
       albumTitle: "",
       releaseYear: "",
@@ -173,6 +194,7 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
     });
   };
 
+  // JSX return - renders the form to add albums with tracks, band members, and condition
   return (
     <>
       <ToastContainer />
@@ -323,4 +345,5 @@ export const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
   );
 };
 
+// Exporting the AddAlbums component for use in other parts of the application
 export default AddAlbums;

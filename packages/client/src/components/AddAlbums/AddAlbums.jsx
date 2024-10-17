@@ -327,10 +327,10 @@ const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
             style={{ opacity: "0.8" }}
           >
             <option value=""></option>
-            <option value="poor">Poor</option>
-            <option value="fair">Fair</option>
-            <option value="good">Good</option>
-            <option value="excellent">Excellent</option>
+            <option value="Poor">Poor</option>
+            <option value="Fair">Fair</option>
+            <option value="Good">Good</option>
+            <option value="Excellent">Excellent</option>
           </Form.Control>
         </Form.Group>
 

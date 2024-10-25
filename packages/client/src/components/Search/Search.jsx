@@ -1,3 +1,4 @@
+// Importing necessary modules and components from React, React-Bootstrap, and routing
 import React, { useState } from "react";
 import {
   Modal,
@@ -11,7 +12,9 @@ import {
 import api from "../../util/api";
 import { Link } from "react-router-dom";
 
+// SearchForm component definition
 const SearchForm = () => {
+  // State variables for search criteria, search results, and modal visibility
   const [search, setSearch] = useState({
     albumTitle: "",
     artistName: "",
@@ -23,22 +26,28 @@ const SearchForm = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
+  // Handles input changes in the form and updates search state
   const handleInputChange = (e) => {
     setSearch({ ...search, [e.target.name]: e.target.value });
   };
 
+  // Function to handle form submission and perform a search
   const handleSearch = async (e) => {
     e.preventDefault();
+    // Filtering out empty search parameters for cleaner requests
     const filteredSearchParams = Object.fromEntries(
       Object.entries(search).filter(([key, value]) => value.trim() !== "")
     );
     try {
+      // Sending a GET request with filtered search parameters
       const response = await api.get("/albums/search", {
         params: filteredSearchParams,
       });
+      // Setting search results and displaying modal
       setSearchResults(response.data);
-
       setShowModal(true);
+
+      // Resetting the search form after submission
       setSearch({
         albumTitle: "",
         artistName: "",
@@ -55,6 +64,7 @@ const SearchForm = () => {
   return (
     <Container>
       <h1>Album Search</h1>
+      {/* Search form with individual input fields for search criteria */}
       <Form onSubmit={handleSearch}>
         <Form.Group controlId="formTitle">
           <Form.Control
@@ -135,6 +145,7 @@ const SearchForm = () => {
         </Button>
       </Form>
 
+      {/* Modal to display search results when showModal is true */}
       {showModal && (
         <Modal show={showModal} onHide={() => setShowModal(false)}>
           <Modal.Header closeButton>
@@ -210,4 +221,5 @@ const SearchForm = () => {
   );
 };
 
+// Exporting SearchForm component for use in other files
 export default SearchForm;

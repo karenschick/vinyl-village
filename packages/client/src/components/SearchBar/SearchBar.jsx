@@ -1,14 +1,18 @@
+// Importing required modules and components from React and react-bootstrap
 import React, { useState } from "react";
 import { Container, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
 
+// Define the SearchBar component, which receives 'keywords' and 'setKeywords' as props for managing search input
 const SearchBar = ({ keywords, setKeywords }) => {
+  // Function to handle search input change
   const handleSearchInputChange = (e) => {
-    e.preventDefault();
-    setKeywords(e.target.value);
+    e.preventDefault(); // Prevents default form submission behavior
+    setKeywords(e.target.value); // Updates the keywords state with the input value
   };
 
+  // Function to clear the search input field
   const handleClearSearchInput = () => {
-    setKeywords("");
+    setKeywords(""); // Clears the keywords state, resetting the input field
   };
 
   return (
@@ -38,4 +42,5 @@ const SearchBar = ({ keywords, setKeywords }) => {
   );
 };
 
+// Export the SearchBar component for use in other files
 export default SearchBar;

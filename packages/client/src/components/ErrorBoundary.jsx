@@ -1,28 +1,35 @@
+// Import React to create a component class
 import React from "react";
 
+// Define ErrorBoundary component to catch JavaScript errors in its child component tree
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
+    // Initialize state to track if an error has occurred and store error details
     this.state = { hasError: false, error: null, errorInfo: null };
   }
 
+  // Static lifecycle method to update state based on the error
   static getDerivedStateFromError(error) {
-    // Update state so the next render will show the fallback UI.
+    // Set hasError to true to display fallback UI on error
     return { hasError: true };
   }
 
+  // Lifecycle method to capture error and additional info about the component stack
   componentDidCatch(error, errorInfo) {
-    // Catch errors in any components below and re-render with error message
+    // Update state with error details to display them in the UI
     this.setState({
       error: error,
       errorInfo: errorInfo,
     });
-    // You can also log error messages to an error reporting service here
+    // Optional: Log the error to an external service or console for debugging
     console.log(error);
   }
 
+  // Render method to conditionally display fallback UI if an error has occurred
   render() {
     if (this.state.hasError) {
+      // Display custom error message and detailed error information
       return (
         <div>
           <h2>Something went wrong.</h2>
@@ -34,9 +41,10 @@ class ErrorBoundary extends React.Component {
         </div>
       );
     }
-    // Normally, just render children
+    // Render children components normally if no error has occurred
     return this.props.children;
   }
 }
 
+// Export the ErrorBoundary component for use in other parts of the app
 export default ErrorBoundary;

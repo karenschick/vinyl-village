@@ -1,3 +1,4 @@
+// Import necessary modules and components from React and other libraries
 import React, { useState, useEffect } from "react";
 import {
   Button,
@@ -14,41 +15,49 @@ import { useNavigate, useParams } from "react-router-dom";
 import api from "../../util/api";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
 import EditProfile from "../../components/EditProfile/EditProfile";
-
 import AvatarPicker from "../../components/AvatarPicker/AvatarPicker";
 
+// Main component for editing a user's profile page
 const EditAddPage = () => {
+  // Destructure auth state and user update function
   const { state, updateUser } = useProvideAuth();
+  // Fetch album data using a custom hook
   const { error, isLoading, response } = useApiFetch("/albums");
-  const [loading, setLoading] = useState(true);
-  const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(true); // State for loading user data
+  const [showModal, setShowModal] = useState(false); // State for modal visibility
 
+  // Define navigation and route parameters for user navigation
   let navigate = useNavigate();
   let params = useParams();
+  // Retrieve authentication state to control access to this page
   const {
     state: { isAuthenticated },
   } = useRequireAuth();
 
+  // Fetch user data on component mount if authenticated
   useEffect(() => {
     const getUser = async () => {
       try {
         const userResponse = await api.get(`/users/${params.uname}`);
-        updateUser(userResponse.data);
+        updateUser(userResponse.data); // Update user info in auth context
         setLoading(false);
       } catch (err) {
         console.error(err.message);
       }
     };
 
-    // Only fetch user data if isAuthenticated is true and it's not already loading
+    // Only fetch user data if isAuthenticated is true
     if (isAuthenticated && loading) {
       getUser();
     }
   }, [params.uname, isAuthenticated, loading, updateUser]);
 
+  // Handle opening the profile image edit modal
   const handleEditProfileImage = () => {
     setShowModal(true);
   };
+
+  // Handle closing the profile image picker modal
   const handleClosePicker = () => {
     setShowModal(false);
   };
@@ -56,6 +65,7 @@ const EditAddPage = () => {
   return (
     <div className="text-center">
       <Container style={{ maxWidth: "500px" }}>
+        {/* Back button to navigate to the user's profile */}
         <Button
           variant="outline-orange"
           onClick={() => {
@@ -65,6 +75,7 @@ const EditAddPage = () => {
         >
           Go Back
         </Button>
+        {/* Card component to display user profile info */}
         <Container>
           <Card
             bg="header"
@@ -73,6 +84,7 @@ const EditAddPage = () => {
             <Card.Body>
               <Row className="align-items-center">
                 <Col xs="auto">
+                  {/* Display user profile image */}
                   <Figure
                     className="bg-border-color overflow-hidden my-auto ml-2 p-1"
                     style={{ height: "100px", width: "100px" }}
@@ -91,6 +103,7 @@ const EditAddPage = () => {
                       />
                     )}
                   </Figure>
+                  {/* Button to open profile image editor */}
                   {state.user && (
                     <div>
                       <Button
@@ -106,6 +119,7 @@ const EditAddPage = () => {
                   )}
                 </Col>
                 <Col xs="auto ">
+                  {/* Display username */}
                   <h2>{state.user?.username}</h2>
                 </Col>
               </Row>
@@ -114,6 +128,7 @@ const EditAddPage = () => {
         </Container>
       </Container>
 
+      {/* Modal for editing the profile image */}
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title style={{ color: "black" }}>
@@ -138,7 +153,7 @@ const EditAddPage = () => {
           />
         </Modal.Body>
       </Modal>
-
+      {/* Component for editing profile details */}
       <EditProfile />
     </div>
   );

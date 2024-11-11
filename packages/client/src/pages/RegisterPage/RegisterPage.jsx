@@ -1,3 +1,4 @@
+// Import necessary modules and components from React, React Router, and React Bootstrap
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -17,6 +18,7 @@ import { toast } from "react-toastify";
 import capitalizeFirstLetter from "../../util/capitalizeFirstLetter";
 import "./RegisterPage.scss";
 
+// Define the initial state for the form
 const initialState = {
   username: "",
   firstName: "",
@@ -30,6 +32,7 @@ const initialState = {
   errorMessage: null,
 };
 
+// List of US state abbreviations for the dropdown selection
 const usStates = [
   "AL",
   "AK",
@@ -83,31 +86,39 @@ const usStates = [
   "WY",
 ];
 
+// Main component for the registration page
 const RegisterPage = () => {
+  // State to manage form data and user input
   const [data, setData] = useState(initialState);
-  const auth = useProvideAuth();
+  const auth = useProvideAuth(); // Hook for authentication actions
+  let navigate = useNavigate(); // Hook for navigation
 
-  let navigate = useNavigate();
-
+  // State for selected profile image
   const [profileImageRegistration, setProfileImageRegistration] =
     useState("/albumorange.jpg");
 
+  // Handle changes in form input fields
   const handleInputChange = (event) => {
+    // Update the form state based on user input
     setData({
       ...data,
       [event.target.name]: event.target.value,
     });
   };
 
+  // Handle form submission for registration
   const handleSignup = async (event) => {
     const form = event.currentTarget;
-    event.preventDefault();
-    event.stopPropagation();
+    event.preventDefault(); // Prevent default form submission behavior
+    event.stopPropagation(); // Stop event propagation
 
+    // Check if the form is valid; show error message if not
     if (form.checkValidity() === false) {
       toast.error("Please fill out all fields");
       return;
     }
+
+    // List of required fields for registration
     const requiredFields = [
       "username",
       "firstName",
@@ -118,6 +129,8 @@ const RegisterPage = () => {
       "password",
       "confirmPassword",
     ];
+
+    // Check for any empty required fields
     const emptyFields = requiredFields.filter((field) => !data[field]);
 
     if (emptyFields.length > 0) {
@@ -127,12 +140,16 @@ const RegisterPage = () => {
       });
       return;
     }
+
+    // Update state to indicate form submission is in progress
     setData({
       ...data,
       isSubmitting: true,
       errorMessage: null,
     });
+
     try {
+      // Attempt to register the user with the provided data
       const res = await auth.signup(
         data.username,
         data.email,
@@ -144,24 +161,29 @@ const RegisterPage = () => {
         data.state,
         profileImageRegistration
       );
+
+      // Reset state after successful registration
       setData({
         ...data,
         isSubmitting: false,
         errorMessage: null,
       });
-      setAuthToken(res.token);
-      toast.success("You've successfully registered!");
-      navigate("/");
+
+      setAuthToken(res.token); // Set the authentication token
+      toast.success("You've successfully registered!"); // Show success message
+      navigate("/"); // Redirect to the homepage
     } catch (error) {
+      // Handle registration errors
       setData({
         ...data,
         isSubmitting: false,
         errorMessage: error ? error.message || error.statusText : null,
       });
-      toast.error(`Please fill out ${data.errorMessage} field`);
+      toast.error(`Please fill out ${data.errorMessage} field`); // Show error message
     }
   };
 
+  // JSX for the registration form
   return (
     <div style={{ overflow: "auto", height: "100vh" }}>
       <Container className="mb-5">

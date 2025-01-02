@@ -1,23 +1,34 @@
-import jwt from 'jsonwebtoken'
-import mongoose from 'mongoose'
-import keys from '../config/keys'
-import { User } from '../models'
+import jwt from "jsonwebtoken"; // Import JSON Web Token library for token verification
+import mongoose from "mongoose"; // Import Mongoose for database interactions (not used in this file)
+import keys from "../config/keys"; // Import configuration keys (e.g., secret key for JWT)
+import { User } from "../models"; // Import the User model for database queries
 
+// Middleware to verify the user's authentication
 module.exports = async (req, res, next) => {
-  const authorization = req.get('authorization')
+  // Retrieve the authorization header from the incoming request
+  const authorization = req.get("authorization"); // Expected format: "Bearer <token>"
   // authorization === Bearer ewefwegwrherhe
+  // If no authorization header is present, respond with a 401 Unauthorized status
   if (!authorization) {
-    return res.status(401).json({ error: 'you must be logged in' })
+    return res.status(401).json({ error: "you must be logged in" });
   }
-  const token = authorization.replace('Bearer ', '')
+
+  // Extract the token by removing the "Bearer " prefix
+  const token = authorization.replace("Bearer ", "");
   jwt.verify(token, keys.jwt.secret, (err, payload) => {
     if (err) {
-      return res.status(401).json({ error: 'you must be logged in' })
+      // If token verification fails, respond with a 401 Unauthorized status
+      return res.status(401).json({ error: "you must be logged in" });
     }
-    const { id } = payload
+    // Extract the user ID from the token payload
+    const { id } = payload;
+    // Query the database to find the user by their ID
     User.findById(id).then((userdata) => {
-      req.user = userdata
-      next()
-    })
-  })
-}
+      // Attach the user data to the request object for downstream middleware or handlers
+      req.user = userdata;
+      
+      // Call the next middleware in the chain
+      next();
+    });
+  });
+};

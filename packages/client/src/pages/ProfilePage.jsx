@@ -1,4 +1,5 @@
 // Import necessary libraries and componentsimport React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { Container, Card, Button, Figure, Row, Col } from "react-bootstrap";
 import DisplayAlbums from "../components/DisplayAlbums/displayAlbums";
 import { useProvideAuth } from "../hooks/useAuth";

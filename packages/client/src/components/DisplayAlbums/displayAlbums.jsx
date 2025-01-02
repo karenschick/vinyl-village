@@ -14,7 +14,7 @@ import { useApiFetch } from "../../util/api"; // Custom hook for API fetch
 import AddAlbums from "../AddAlbums/AddAlbums"; // Component to add new albums
 import axios from "axios"; // Axios for making HTTP requests
 import { API_URL } from "../../util/constants"; // API URL constant
-import TrashIcon from "../icons/TrashIcon"; // Custom trash icon component
+//import TrashIcon from "../icons/TrashIcon"; // Custom trash icon component
 import api from "../../util/api"; // Custom API instance
 import { useProvideAuth } from "../../hooks/useAuth"; // Authentication context hook
 import { useRequireAuth } from "../../hooks/useRequireAuth"; // Hook to ensure user authentication

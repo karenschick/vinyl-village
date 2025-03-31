@@ -23,7 +23,7 @@ jobs:
 
       # Install dependencies
       - name: Install Packages
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       # Update the homepage in package.json with the correct GitHub repository URL
       - name: Setup Homepage
@@ -39,6 +39,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./dist  # Make sure this points to your correct build output folder
+          publish_dir: ./build  # Make sure this points to your correct build output folder
           user_name: "kenzieadmin"
           user_email: "kenzieadmin@users.noreply.github.com"

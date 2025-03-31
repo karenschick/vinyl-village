@@ -13,11 +13,11 @@ jobs:
         node-version: [18.x]
     steps:
       # Checkout repository
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
 
       # Set up Node.js
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -28,8 +28,7 @@ jobs:
       # Update the homepage in package.json with the correct GitHub repository URL
       - name: Setup Homepage
         run: |
-          sed -i 's|$HOMEPAGE|https://karenschick.github.io/vinyl-village/|g' $GITHUB_WORKSPACE/package.json
-          sed -i 's|${{ github.repository_owner }}/||g' $GITHUB_WORKSPACE/package.json
+          sed -i 's|$HOMEPAGE|${{ github.repository }}|g' $GITHUB_WORKSPACE/package.json ; sed -i 's|${{ github.repository_owner }}/||g' $GITHUB_WORKSPACE/package.json
 
       # Build the page
       - name: Build page
@@ -41,5 +40,5 @@ jobs:
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_dir: ./dist  # Make sure this points to your correct build output folder
-          user_name: "karenschick"
-          user_email: ""
+          user_name: "kenzieadmin"
+          user_email: "kenzieadmin@users.noreply.github.com"

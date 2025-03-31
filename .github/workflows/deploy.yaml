@@ -48,5 +48,5 @@ jobs:
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_dir: ./packages/client/dist  # Update to the correct dist directory
-          user_name: "kenzieadmin"
-          user_email: "kenzieadmin@users.noreply.github.com"
+          user_name: "karenschick"
+          user_email: "karenschick@users.noreply.github.com"

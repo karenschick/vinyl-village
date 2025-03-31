@@ -38,7 +38,9 @@ jobs:
 
       # List the contents of the dist folder for debugging
       - name: List dist folder content
-        run: ls -al ./dist
+        run: |
+          cd packages/client  # Navigate to the client directory
+          ls -al ./dist       # List contents of the dist folder
 
       # Deploy to GitHub Pages
       - name: Deploy to gh-pages

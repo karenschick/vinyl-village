@@ -34,11 +34,15 @@ jobs:
       - name: Build page
         run: npm run build
 
+      # List the contents of the dist folder for debugging
+      - name: List dist folder content
+        run: ls -al ./dist
+
       # Deploy to GitHub Pages
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./build  # Make sure this points to your correct build output folder
+          publish_dir: ./dist  # Ensure this points to the correct build output folder
           user_name: "kenzieadmin"
           user_email: "kenzieadmin@users.noreply.github.com"

@@ -10,7 +10,7 @@ import { useRequireAuth } from "../../hooks/useRequireAuth";
 import Header from "../../components/Header/Header";
 import SearchForm from "../../components/Search/Search";
 import AddPost from "../../components/AddPost/AddPost";
-import "./FeedPage.scss";
+//import "./FeedPage.scss";
 
 // Main component for the feed page, where posts are displayed
 const FeedPage = () => {

@@ -1,46 +1,59 @@
-// Override default variables before the import
-$primary: lightgray;
-$secondary: #999999;
-$info: lightgray;
-$danger: red;
-$warning: #999999;
-$header: white;
-$stone: #999999;
-$body-bg: white;
-$body-color: black;
-$font-family-base: "Raleway", sans-serif;
-$decoration: lightgray;
-$link-color: $secondary;
-$link-hover-color: $primary;
+// // Import Bootstrap and its default variables
+// @use "bootstrap/scss/functions";
+// @use "bootstrap/scss/variables";
+// @use "bootstrap/scss/mixins";
+// @use "bootstrap/scss/grid";
+// @use "bootstrap/scss/buttons";  // If you're using buttons, etc.
 
-$orange: orange;
-$card-border-color: $primary;
-$label-color: $orange;
 
-// To modify an existing color in Bootstrap $theme-colors map,
-// add the following to your custom Sass file:
-// https://getbootstrap.com/docs/4.0/getting-started/theming/
-$theme-colors: (
-  "primary": $primary,
-  "secondary": $secondary,
-  "info": $info,
-  "danger": $danger,
-  "warning": $warning,
-  "header": $header,
-  "stone": $stone,
-  "card-border-color": $decoration,
-  "orange": $orange,
-  "black": $body-color,
-);
+// // Override default variables before importing Bootstrap's Sass files
+// $primary: lightgray;
+// $secondary: #999999;
+// $info: lightgray;
+// $danger: red;
+// $warning: #999999;
+// $header: white;
+// $stone: #999999;
+// $body-bg: white;
+// $body-color: black;
+// $font-family-base: "Raleway", sans-serif;
+// $decoration: lightgray;
+// $link-color: $secondary;
+// $link-hover-color: $primary;
 
-.card {
-  --bs-card-border-color: #{$card-border-color};
-}
+// $orange: orange;
+// $card-border-color: $primary;
+// $label-color: $orange;
 
-// Import Bootstrap and its default variables
-@import "bootstrap/scss/bootstrap.scss";
+// // Import Bootstrap's core Sass files
+// @use "bootstrap/scss/functions";
+// @use "bootstrap/scss/variables";
+// @use "bootstrap/scss/mixins";
+// @use "bootstrap/scss/grid";
+// @use "bootstrap/scss/buttons";  // If you're using buttons, etc.
 
-h5,
-h6 {
-  color: $orange;
-}
+// // Since Bootstrap 5 no longer supports modifying $theme-colors directly,
+// // you can override specific colors via CSS custom properties or Sass variables.
+// :root {
+//   --bs-primary: $primary;
+//   --bs-secondary: $secondary;
+//   --bs-info: $info;
+//   --bs-danger: $danger;
+//   --bs-warning: $warning;
+//   --bs-header: $header;
+//   --bs-stone: $stone;
+//   --bs-card-border-color: $decoration;
+//   --bs-orange: $orange;
+//   --bs-black: $body-color;
+// }
+
+// // Custom styles using overridden variables
+// .card {
+//   border-color: $card-border-color; // Use the Sass variable here
+// }
+
+// h5,
+// h6 {
+//   color: $orange; // Apply your custom color for h5 and h6
+// }
+

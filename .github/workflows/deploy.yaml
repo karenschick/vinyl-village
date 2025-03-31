@@ -32,7 +32,9 @@ jobs:
 
       # Build the page
       - name: Build page
-        run: npm run build
+        run: |
+          cd packages/client  # Navigate to the client directory
+          npm run build       # Run the build script for the client
 
       # List the contents of the dist folder for debugging
       - name: List dist folder content

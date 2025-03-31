@@ -47,6 +47,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./dist  # Ensure this points to the correct build output folder
+          publish_dir: ./packages/client/dist  # Update to the correct dist directory
           user_name: "kenzieadmin"
           user_email: "kenzieadmin@users.noreply.github.com"

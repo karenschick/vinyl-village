@@ -105,7 +105,7 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
           >
             <Figure.Image
               alt={`Profile image of ${author.username}`}
-              src={author.profile_image}
+              src={author.profile_image || `${import.meta.env.BASE_URL}vinyl-village/default-avatar.jpg`}
               className="avatar w-100 h-100 mr-4"
             />
           </Col>

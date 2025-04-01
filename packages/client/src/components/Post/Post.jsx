@@ -213,7 +213,7 @@ const Post = ({
             {image && image !== defaultImage && (
               <img
                 className="img-fluid mb-3"
-                src={image}
+                src={image }
                 alt="Post"
                 style={{ maxWidth: "300px", maxheight: "auto", margin: "auto" }}
               />

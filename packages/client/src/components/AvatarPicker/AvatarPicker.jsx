@@ -11,15 +11,15 @@ import UploadFile from "../UploadFile/UploadFile";
 
 // Array of avatar image paths that will be displayed for selection
 let imgs = [
-  "/vinyl-village/albumblue.jpg",
-  "/vinyl-village/albumgreen.jpg",
-  "/vinyl-village/albumorange.jpg",
-  "/vinyl-village/albumpurple.jpg",
-  "/vinyl-village/albumred.jpg",
-  "/vinyl-village/albumyellow3.jpg",
-  "/vinyl-village/albumgray2.jpg",
-  "/vinyl-village/albumaqua3.jpg",
-  "/vinyl-village/albumpink.jpg",
+  `${import.meta.env.BASE_URL}vinyl-village/albumblue.jpg`,
+  `${import.meta.env.BASE_URL}vinyl-village/albumgreen.jpg`,
+  `${import.meta.env.BASE_URL}vinyl-village/albumorange.jpg`,
+  `${import.meta.env.BASE_URL}vinyl-village/albumpurple.jpg`,
+  `${import.meta.env.BASE_URL}vinyl-village/albumred.jpg`,
+  `${import.meta.env.BASE_URL}vinyl-village/albumyellow3.jpg`,
+  `${import.meta.env.BASE_URL}vinyl-village/albumgray2.jpg`,
+  `${import.meta.env.BASE_URL}vinyl-village/albumaqua3.jpg`,
+  `${import.meta.env.BASE_URL}vinyl-village/albumpink.jpg`, 
 ];
 
 // AvatarPicker component allows the user to select an avatar image
@@ -89,15 +89,16 @@ const AvatarPicker = ({
 
   const handleUpload = async (path) => {
     try {
+      const fullPath = `${import.meta.env.BASE_URL}${path}`;
       if (isRegistration) {
         // For registration, set profileImageRegistration
-        setProfileImageRegistration(path);
+        setProfileImageRegistration(fullPath);
         toast.success("Profile Image uploaded successfully!");
-        console.log("Uploaded image path for registration:", path);
+        console.log("Uploaded image path for registration:", fullPath);
       } else {
         // For editing, set profileImage
         const response = await api.put(`/users/${params.uname}/avatar`, {
-          profile_image: path,
+          profile_image: fullPath,
         });
         const updatedProfileImage = response.data.profile_image;
         setProfileImage(updatedProfileImage);
@@ -129,13 +130,15 @@ const AvatarPicker = ({
   }, [avatarChanged]);
 
   const handleAvatarPicker = (avatar) => {
+    const imagePath = avatar ||   `${import.meta.env.BASE_URL}vinyl-village/default-avatar.jpg` 
+
     // Check if it's for registration
     if (isRegistration) {
       // Use profileImageRegistration for registration
-      setProfileImageRegistration(avatar);
+      setProfileImageRegistration(imagePath);
     } else {
       // Use profileImage for editing
-      setProfileImage(avatar);
+      setProfileImage(imagePath);
     }
     handleAvatarSelection(avatar);
   };
@@ -155,7 +158,7 @@ const AvatarPicker = ({
               className={profileImage === avatar ? "selectedAvatar " : "avatar"}
               onClick={() => handleAvatarPicker(avatar)}
               key={index}
-              src={avatar}
+              src={avatar || `${import.meta.env.BASE_URL}vinyl-village/default-avatar.jpg`} 
               alt={`Avatar ${index}`}
             ></Image>
           ))}

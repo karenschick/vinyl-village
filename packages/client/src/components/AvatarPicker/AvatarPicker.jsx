@@ -11,15 +11,15 @@ import UploadFile from "../UploadFile/UploadFile";
 
 // Array of avatar image paths that will be displayed for selection
 let imgs = [
-  "/albumblue.jpg",
-  "/albumgreen.jpg",
-  "/albumorange.jpg",
-  "/albumpurple.jpg",
-  "/albumred.jpg",
-  "/albumyellow3.jpg",
-  "/albumgray2.jpg",
-  "/albumaqua3.jpg",
-  "/albumpink.jpg",
+  "/vinyl-village/albumblue.jpg",
+  "/vinyl-village/albumgreen.jpg",
+  "/vinyl-village/albumorange.jpg",
+  "/vinyl-village/albumpurple.jpg",
+  "/vinyl-village/albumred.jpg",
+  "/vinyl-village/albumyellow3.jpg",
+  "/vinyl-village/albumgray2.jpg",
+  "/vinyl-village/albumaqua3.jpg",
+  "/vinyl-village/albumpink.jpg",
 ];
 
 // AvatarPicker component allows the user to select an avatar image

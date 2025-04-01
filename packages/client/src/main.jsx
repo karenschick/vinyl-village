@@ -1,6 +1,6 @@
 import { createRoot } from "react-dom/client";
 import React, { useEffect, useState } from "react";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import { ProvideAuth } from "./hooks/useAuth";
 import { ToastContainer } from "react-toastify";
 import App from "./App";
@@ -23,7 +23,7 @@ const Root = () => {
   }, []);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       {/* Wrap application with authentication provider */}
       <ProvideAuth>
         {/* Add a toast container for global notifications */}
@@ -31,7 +31,7 @@ const Root = () => {
         {/* Show a loading spinner while loading, otherwise render the main application */}
         {loading ? <LoadingSpinner full={true} /> : <App />}
       </ProvideAuth>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 

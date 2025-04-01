@@ -16,7 +16,7 @@ function LandingCarousel() {
       <Carousel.Item>
         <img
           className="d-block w-100 carousel-image"
-          src="/album12.jpg"
+          src="/vinyl-village/album12.jpg"
           alt="First slide"
         />
         <Carousel.Caption
@@ -46,7 +46,7 @@ function LandingCarousel() {
       <Carousel.Item>
         <img
           className="d-block w-100 carousel-image"
-          src="/album9.jpg"
+          src="/vinyl-village/album9.jpg"
           alt="Third slide"
         />
         <Carousel.Caption>

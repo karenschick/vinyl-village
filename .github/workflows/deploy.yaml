@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [20.x]
     steps:
       # Checkout repository
       - uses: actions/checkout@v1
@@ -46,7 +46,7 @@ jobs:
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          deploy_key: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./packages/client/dist  # Update to the correct dist directory
           user_name: "karenschick"
           user_email: "karenschick@users.noreply.github.com"

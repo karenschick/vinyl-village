@@ -12,5 +12,5 @@ export default defineConfig({
   //     },
   //   },
   // },
-  base: '/vinyl-village',
+  base: '/vinyl-village/',
 });

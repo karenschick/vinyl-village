@@ -16,7 +16,7 @@ function LandingCarousel() {
       <Carousel.Item>
         <img
           className="d-block w-100 carousel-image"
-          src="/vinyl-village/album12.jpg"
+          src={`${import.meta.env.BASE_URL}album12.jpg`}
           alt="First slide"
         />
         <Carousel.Caption
@@ -35,7 +35,7 @@ function LandingCarousel() {
       <Carousel.Item>
         <img
           className="d-block w-100 carousel-image"
-          src="/vinyl-village/album11.jpg"
+          src={`${import.meta.env.BASE_URL}album11.jpg`}
           alt="Second slide"
         />
         <Carousel.Caption>
@@ -46,7 +46,7 @@ function LandingCarousel() {
       <Carousel.Item>
         <img
           className="d-block w-100 carousel-image"
-          src="/vinyl-village/album9.jpg"
+          src={`${import.meta.env.BASE_URL}album9.jpg`}
           alt="Third slide"
         />
         <Carousel.Caption>

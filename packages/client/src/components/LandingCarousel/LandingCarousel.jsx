@@ -35,7 +35,7 @@ function LandingCarousel() {
       <Carousel.Item>
         <img
           className="d-block w-100 carousel-image"
-          src="/album11.jpg"
+          src="/vinyl-village/album11.jpg"
           alt="Second slide"
         />
         <Carousel.Caption>

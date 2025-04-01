@@ -61,7 +61,7 @@ export default function Header() {
                     textDecoration: "none",
                   }}
                 >
-                  <Figure.Imag
+                  <Figure.Image
                     src={`${import.meta.env.BASE_URL}vinyl-village/home.png`}
                     alt="Home Icon"
                     className="w-100 h-100"

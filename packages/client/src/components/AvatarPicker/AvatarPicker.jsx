@@ -160,6 +160,7 @@ const AvatarPicker = ({
               key={index}
               src={avatar || `${import.meta.env.BASE_URL}vinyl-village/default-avatar.jpg`} 
               alt={`Avatar ${index}`}
+              style={{maxWidth:"150px"}}
             ></Image>
           ))}
           {!isRegistration && (

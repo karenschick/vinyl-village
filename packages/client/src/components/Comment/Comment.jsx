@@ -79,7 +79,7 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
               >
                 <img
                   alt="menu button"
-                  src="/menu.png"
+                  src={`${import.meta.env.BASE_URL}vinyl-village/menu.png`}
                   style={{ maxHeight: "30px", marginRight: "15px" }}
                 ></img>
               </Dropdown.Toggle>

@@ -298,7 +298,7 @@ const DisplayAlbums = ({ username, onAlbumsChange }) => {
                   <div className=" ">
                     <Container className="close">
                       <img
-                        src="/trash2.png"
+                        src={`${import.meta.env.BASE_URL}vinyl-village/trash2.png`}
                         alt="Trash Icon"
                         style={{
                           width: "30px",

@@ -120,7 +120,7 @@ const UploadFile = ({ onUpload, toggleBack, isEditPage }) => {
               {file.name}
               <Button className="btn  btn-sm" onClick={() => removeFile(index)}>
                 <img
-                  src="/trash2.png"
+                  src={`${import.meta.env.BASE_URL}vinyl-village/trash2.png`}
                   alt="Trash Icon"
                   style={{
                     width: "30px",

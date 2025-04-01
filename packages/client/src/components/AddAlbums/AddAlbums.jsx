@@ -253,8 +253,8 @@ const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
               <Col xs="auto">
                 <Container className="close">
                   <img
-                     alt="Trash Icon"
-                    src="/trash2.png"
+                    alt="Trash Icon"
+                    src={`${import.meta.env.BASE_URL}vinyl-village/trash2.png`}
                     style={{
                       width: "30px",
                       height: "30px",
@@ -299,8 +299,8 @@ const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
               <Col xs="auto">
                 <Container className="close">
                   <img
-                     alt="Trash Icon"
-                    src="/trash2.png"
+                    alt="Trash Icon"
+                    src={`${import.meta.env.BASE_URL}vinyl-village/trash2.png`}
                     style={{
                       width: "30px",
                       height: "30px",

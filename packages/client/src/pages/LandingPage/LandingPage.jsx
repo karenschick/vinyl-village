@@ -17,7 +17,6 @@ const LandingPage = () => {
           {" "}
           {/* Column for the logo */}
           <img
-            //src="/logo2.jpg" // Source of the logo image
             src={`${import.meta.env.BASE_URL}vinyl-village/logo2.jpg`}
 
             width="auto" // Automatically adjust width

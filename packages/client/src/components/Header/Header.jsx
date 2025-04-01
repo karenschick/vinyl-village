@@ -35,7 +35,7 @@ export default function Header() {
         >
           <img
             //src="/logo2.jpg"
-            src={`${import.meta.env.BASE_URL}logo2.jpg`}
+            src={`${import.meta.env.BASE_URL}vinyl-village/logo2.jpg`}
             width="150"
             height="auto"
             className="d-inline-block align-top"
@@ -64,7 +64,7 @@ export default function Header() {
                 >
                   <Figure.Image
                     //src="/home.png"
-                    src={`${import.meta.env.BASE_URL}home.png`}
+                    src={`${import.meta.env.BASE_URL}vinyl-village/home.png`}
                     alt="Home Icon"
                     className="w-100 h-100"
                     style={{
@@ -94,7 +94,7 @@ export default function Header() {
                 >
                   <Figure.Image
                     //src="/profile2.png"
-                    src={`${import.meta.env.BASE_URL}/profile2.png`}
+                    src={`${import.meta.env.BASE_URL}vinyl-village/profile2.png`}
                     alt={`Profile Image of ${user.username}`}
                     className="w-100 h-100"
                     style={{

@@ -141,7 +141,7 @@ const UploadFile = ({ onUpload, toggleBack, isEditPage }) => {
             <Col>
               <Button
                 className="mt- "
-                variant="orange"
+                variant="warning"
                 style={{ color: "white" }}
                 onClick={handleUpload}
               >
@@ -155,7 +155,7 @@ const UploadFile = ({ onUpload, toggleBack, isEditPage }) => {
         {/* Button to toggle to avatar selection */}
         <Button
           size="sm"
-          variant="outline-orange"
+          variant="outline-warning"
           className="mt-3"
           onClick={toggleBack} // Calls toggleBack prop function
         >

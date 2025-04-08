@@ -155,7 +155,7 @@ const PostDetailPage = () => {
       <div style={{ display: "flex", justifyContent: "center" }}>
         <div style={{ width: "60%" }}>
           <Button
-            variant="outline-orange"
+            variant="outline-warning"
             onClick={() => {
               navigate(-1);
             }}
@@ -194,7 +194,7 @@ const PostDetailPage = () => {
               />
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <Button
-                  variant="orange"
+                  variant="warning"
                   //style={{ color: "white" }}
                   style={{ border: "none", color: "white" }}
                   className="float-right mt-3 mb-5"

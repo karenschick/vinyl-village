@@ -62,7 +62,7 @@ export const useAuth = () => {
   return useContext(authContext);
 };
 
-// Custom hook to manage authentication operations like signin, signup, and signout
+// Custom hook to manage authentication operations like signin, signup, and 
 export function useProvideAuth() {
   const { state, dispatch } = useAuth(); // Access state and dispatch from auth context
   let navigate = useNavigate(); // useNavigate hook for navigation post-signout

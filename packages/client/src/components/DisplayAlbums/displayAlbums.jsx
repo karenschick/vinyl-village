@@ -142,21 +142,21 @@ const DisplayAlbums = ({ username, onAlbumsChange }) => {
         <div className="sort-tabs text-center">
           <Button
             className="m-2"
-            variant="outline-orange"
+            variant="outline-warning"
             onClick={() => handleSort("albumTitle")}
           >
             Title
           </Button>
           <Button
             className="m-2"
-            variant="outline-orange"
+            variant="outline-warning"
             onClick={() => handleSort("releaseYear")}
           >
             Year
           </Button>
           <Button
             className="m-2"
-            variant="outline-orange"
+            variant="outline-warning"
             onClick={() => handleSort("artistName")}
           >
             Artist
@@ -165,7 +165,7 @@ const DisplayAlbums = ({ username, onAlbumsChange }) => {
           {state.user.username === params.uname && (
             <Button
               className="m-2"
-              variant="orange"
+              variant="warning"
               style={{ color: "white" }}
               // style={{ color: "white", backgroundColor: "#bdfa7b", border: "#bdfa7b", }}
               onClick={toggleModal}

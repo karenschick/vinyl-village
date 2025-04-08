@@ -68,7 +68,7 @@ const EditAddPage = () => {
       <Container style={{ maxWidth: "500px" }}>
         {/* Back button to navigate to the user's profile */}
         <Button
-          variant="outline-orange"
+          variant="outline-warning"
           onClick={() => {
             navigate(`/u/${state.user?.username}`);
           }}

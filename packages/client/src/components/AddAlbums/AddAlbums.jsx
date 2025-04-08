@@ -267,7 +267,7 @@ const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
             </Row>
           ))}
           <Button
-            variant="outline-orange"
+            variant="outline-warning"
             onClick={addBandMember}
             className="mt-1"
           >
@@ -312,7 +312,7 @@ const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
               </Col>
             </Row>
           ))}
-          <Button variant="outline-orange" onClick={addTrack} className="mt-1">
+          <Button variant="outline-warning" onClick={addTrack} className="mt-1">
             Add Track
           </Button>
         </Form.Group>
@@ -336,7 +336,7 @@ const AddAlbums = ({ onAlbumSubmit, toggleModal }) => {
 
         <Row className="text-center mt-4">
           <Col>
-            <Button variant="orange" style={{ color: "white" }} type="submit">
+            <Button variant="warning" style={{ color: "white" }} type="submit">
               Submit
             </Button>
           </Col>

@@ -30,11 +30,11 @@ const DeleteModal = ({
       </Modal.Header>
       <Modal.Body>{getDeleteMessage()}</Modal.Body>
       <Modal.Footer>
-        <Button variant="outline-orange" onClick={handleClose}>
+        <Button variant="outline-warning" onClick={handleClose}>
           Cancel
         </Button>
         <Button
-          variant="orange"
+          variant="warning"
           style={{ color: "white" }}
           onClick={handleDelete}
         >

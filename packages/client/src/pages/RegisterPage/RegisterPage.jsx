@@ -333,7 +333,7 @@ const RegisterPage = () => {
             <Row className="text-center align-items-center mt-3">
               <Col>
                 <Button
-                  variant="orange"
+                  variant="warning"
                   style={{ color: "white" }}
                   type="submit"
                   disabled={data.isSubmitting}

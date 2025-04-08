@@ -11,6 +11,9 @@ import EditAddPage from "./pages/EditAddPage/EditAddPage"; // Component for edit
 import FeedPage from "./pages/FeedPage/FeedPage"; // Component for displaying the feed page
 import "bootstrap/dist/css/bootstrap.min.css";
 import PostDetailPage from "./pages/PostDetail/PostDetailPage"; // Component for viewing post details
+// App.jsx or index.js
+import './custom.scss';
+
 
 // Main application component
 const App = () => {

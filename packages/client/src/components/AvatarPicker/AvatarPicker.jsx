@@ -166,7 +166,7 @@ const AvatarPicker = ({
           {!isRegistration && (
             <Button
               type="submit"
-              variant="orange"
+              variant="warning"
               style={{
                 display: "flex",
                 justifyContent: "center",
@@ -185,7 +185,7 @@ const AvatarPicker = ({
           <Button
             size="sm"
             className="mt-3"
-            variant="outline-orange"
+            variant="outline-warning"
             onClick={() => setShowAvatarCard(false)}
           >
             Or Upload an Image

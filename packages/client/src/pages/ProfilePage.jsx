@@ -114,7 +114,7 @@ export default function ProfilePage(props) {
               {" "}
               <Button
                 size="sm"
-                variant="orange"
+                variant="warning"
                 className="d-inline-block"
                 style={{
                   color: "white",

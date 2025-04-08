@@ -119,7 +119,7 @@ const AddPost = ({ onPostSubmit }) => {
           <span className="form-error">{data.errorMessage}</span>
         )}
         <Button
-          variant="orange"
+          variant="warning"
           style={{ border: "none", color: "white" }}
           className="m-auto mt-3"
           type="submit"

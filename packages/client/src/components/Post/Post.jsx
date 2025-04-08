@@ -230,7 +230,7 @@ const Post = ({
                   <Button
                     className="m-2"
                     size="sm"
-                    variant="orange"
+                    variant="warning"
                     style={{ color: "white" }}
                     onClick={handleSaveEdit}
                   >
@@ -238,7 +238,7 @@ const Post = ({
                   </Button>
                   <Button
                     size="sm"
-                    variant="outline-orange"
+                    variant="outline-warning"
                     onClick={handleCancelEdit}
                   >
                     Cancel
@@ -256,7 +256,7 @@ const Post = ({
               {detailView && (
                 <Button
                   className="m-2"
-                  variant="orange"
+                  variant="warning"
                   style={{ color: "white" }}
                   size="sm"
                   onClick={() => navigate(`/p/${_id}`)} // Navigate to post detail view
@@ -268,7 +268,7 @@ const Post = ({
               {detailView && (
                 <Button
                   className="m-2"
-                  variant="orange"
+                  variant="warning"
                   style={{ color: "white" }}
                   size="sm"
                   onClick={handleLikePost}

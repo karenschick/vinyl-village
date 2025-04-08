@@ -109,7 +109,7 @@ const EditAddPage = () => {
                     <div>
                       <Button
                         size="sm"
-                        variant="orange"
+                        variant="warning"
                         style={{ color: "white" }}
                         className="d-inline-block"
                         onClick={handleEditProfileImage}

@@ -12,7 +12,7 @@ import FeedPage from "./pages/FeedPage/FeedPage"; // Component for displaying th
 import "bootstrap/dist/css/bootstrap.min.css";
 import PostDetailPage from "./pages/PostDetail/PostDetailPage"; // Component for viewing post details
 // App.jsx or index.js
-import './custom.scss';
+
 
 
 // Main application component

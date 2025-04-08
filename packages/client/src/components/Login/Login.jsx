@@ -5,7 +5,7 @@ import { useNavigate, Link } from "react-router-dom"; // - useNavigate and Link 
 import { toast } from "react-toastify"; // - toast from react-toastify for displaying notification messages.
 import "react-toastify/dist/ReactToastify.css";
 import { useProvideAuth } from "../../hooks/useAuth"; // - useProvideAuth is a custom hook that provides authentication functionality.import React, { useState } from "react";
-import "../../custom.scss";
+
 
 // Define the Login functional component.
 const Login = () => {

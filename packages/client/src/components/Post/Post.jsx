@@ -13,7 +13,6 @@ import {
 } from "react-bootstrap"; // Importing components from React Bootstrap for UI layout and styling
 import { useNavigate, Link } from "react-router-dom"; // Importing navigation and linking functionality for routing
 import { toast } from "react-toastify"; // Importing toast notifications for feedback to users
-//import "./Post.scss"; // Importing custom SCSS for Post component styles
 import DeleteModal from "../DeleteModal/DeleteModal.jsx"; // Importing a modal component for confirming post deletion
 import { useProvideAuth } from "../../hooks/useAuth"; // Importing custom hook for authentication management
 import api from "../../util/api.jsx"; // Importing API utility for making HTTP requests

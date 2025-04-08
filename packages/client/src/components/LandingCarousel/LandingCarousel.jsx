@@ -1,8 +1,8 @@
 // Import React library and Bootstrap Carousel component for use in the LandingCarousel component.
-// Import custom styles for the carousel from the LandingCarousel.scss file.
+// Import custom styles for the carousel from the LandingCarousel.css file.
 import React from "react";
 import { Carousel } from "react-bootstrap";
-//import "./LandingCarousel.scss";
+import "./LandingCarousel.css";
 
 // Define the LandingCarousel component, which displays a Bootstrap carousel with three slides.
 // The carousel features different images and captions, and adjusts the alignment of the captions

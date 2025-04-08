@@ -30,7 +30,6 @@
     "react-toastify": "^11.0.5",
     "regexp-clone": "^1.0.0",
     "require-at": "^1.0.6",
-    "sass": "^1.86.1",
     "semver": "^7.7.1",
     "sliced": "^1.0.1",
     "uuid": "^9.0.1",

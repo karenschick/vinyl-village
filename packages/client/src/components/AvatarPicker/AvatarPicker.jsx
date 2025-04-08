@@ -7,7 +7,7 @@ import { useProvideAuth } from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import api from "../../util/api";
 import UploadFile from "../UploadFile/UploadFile";
-//import "./AvatarPicker.scss";
+
 
 // Array of avatar image paths that will be displayed for selection
 let imgs = [

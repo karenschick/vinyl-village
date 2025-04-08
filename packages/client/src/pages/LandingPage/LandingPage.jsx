@@ -1,7 +1,6 @@
 // Import required modules and components from React and external librariesimport React from "react";
 import Login from "../../components/Login/Login"; // Login component for user authentication
 import LandingCarousel from "../../components/LandingCarousel/LandingCarousel"; // Carousel component for landing page
-//import "./LandingPage.scss";
 import { Container, Row, Col } from "react-bootstrap";
 
 // Main component for the Landing Page

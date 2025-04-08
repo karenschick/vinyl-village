@@ -16,7 +16,6 @@ import AvatarPicker from "../../components/AvatarPicker/AvatarPicker";
 import { useProvideAuth } from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import capitalizeFirstLetter from "../../util/capitalizeFirstLetter";
-//import "./RegisterPage.scss";
 
 // Define the initial state for the form
 const initialState = {

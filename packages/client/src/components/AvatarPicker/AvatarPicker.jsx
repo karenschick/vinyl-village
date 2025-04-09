@@ -128,20 +128,48 @@ const AvatarPicker = ({
       setAvatarChanged(false);
     }
   }, [avatarChanged]);
-
-  const handleAvatarPicker = (avatar) => {
-    const imagePath = avatar ||   `${import.meta.env.BASE_URL}vinyl-village/default-avatar.jpg` 
-
-    // Check if it's for registration
-    if (isRegistration) {
-      // Use profileImageRegistration for registration
-      setProfileImageRegistration(imagePath);
-    } else {
-      // Use profileImage for editing
-      setProfileImage(imagePath);
-    }
-    handleAvatarSelection(avatar);
+  const convertImageToBase64 = async (imageUrl) => {
+    const response = await fetch(imageUrl);
+    const blob = await response.blob();
+    const reader = new FileReader();
+    return new Promise((resolve, reject) => {
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
   };
+  
+  const handleAvatarPicker = async (avatar) => {
+    // Convert the avatar image to Base64
+    try {
+      const base64Avatar = await convertImageToBase64(avatar);
+      // Check if it's for registration
+      if (isRegistration) {
+        // Use profileImageRegistration for registration
+        setProfileImageRegistration(base64Avatar);
+      } else {
+        // Use profileImage for editing
+        setProfileImage(base64Avatar);
+      }
+      handleAvatarSelection(avatar);
+    } catch (error) {
+      console.error("Error converting image to Base64:", error);
+    }
+  };
+  
+  // const handleAvatarPicker = (avatar) => {
+  //   const imagePath = avatar ||   `${import.meta.env.BASE_URL}vinyl-village/default-avatar.jpg` 
+
+  //   // Check if it's for registration
+  //   if (isRegistration) {
+  //     // Use profileImageRegistration for registration
+  //     setProfileImageRegistration(imagePath);
+  //   } else {
+  //     // Use profileImage for editing
+  //     setProfileImage(imagePath);
+  //   }
+  //   handleAvatarSelection(avatar);
+  // };
 
   const handleToggleBack = () => {
     setShowAvatarCard(true);
@@ -158,7 +186,8 @@ const AvatarPicker = ({
               className={profileImage === avatar ? "selectedAvatar " : "avatar"}
               onClick={() => handleAvatarPicker(avatar)}
               key={index}
-              src={avatar || `${import.meta.env.BASE_URL}vinyl-village/default-avatar.jpg`} 
+              // src={avatar || `${import.meta.env.BASE_URL}vinyl-village/default-avatar.jpg`} 
+              src={profileImage === avatar ? profileImage : avatar} //using base64
               alt={`Avatar ${index}`}
               style={{maxWidth:"150px"}}
             ></Image>

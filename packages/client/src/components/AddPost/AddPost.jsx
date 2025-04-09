@@ -19,14 +19,28 @@ const AddPost = ({ onPostSubmit }) => {
   const [data, setData] = useState(initialState);
   const [validated, setValidated] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [base64Image, setBase64Image] = useState(null);
   const fileInputRef = useRef(null);
 
   const {
     state: { isAuthenticated },
   } = useRequireAuth();
 
+  // Handle text input change
   const handleInputChange = (event) => {
     setData({ ...data, [event.target.name]: event.target.value });
+  };
+
+  // Convert images to base64
+  const convertImages = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setBase64Image(reader.result); // save base64 image to state
+      };
+      reader.readAsDataURL(file); //read file as base64
+    }
   };
 
   const handlePostSubmit = async (event) => {
@@ -44,8 +58,8 @@ const AddPost = ({ onPostSubmit }) => {
 
     const formData = new FormData();
     formData.append("text", data.postText);
-    if (selectedFile) {
-      formData.append("image", selectedFile);
+    if (base64Image) {
+      formData.append("image", base64Image);
     }
 
     try {

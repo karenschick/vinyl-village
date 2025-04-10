@@ -127,7 +127,7 @@ const Post = ({
                   style={{ lineHeight: ".5", padding: "0" }}
                 >
                   <img
-                    src={`${import.meta.env.BASE_URL}vinyl-village/menu.png`}
+                    src={`${import.meta.env.BASE_URL}menu.png`}
                     alt="Menu Button"
                     style={{ maxHeight: "40px" }}
                   ></img>

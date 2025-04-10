@@ -1,5 +1,5 @@
 // Middleware to handle errors in the application
-module.exports = (error, req, res, next) => {
+const errorHandler = (error, req, res, next) => {
   // Set local variables to provide error details
   // Expose the error message to the response and detailed error only in development mode
   res.locals.message = error.message;
@@ -37,3 +37,4 @@ module.exports = (error, req, res, next) => {
   // Pass the error to the next middleware for further processing if not handled above
   next(error);
 };
+export default errorHandler;

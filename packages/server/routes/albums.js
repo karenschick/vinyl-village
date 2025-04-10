@@ -1,9 +1,8 @@
 // routes/albums.js
 import express from "express"; // Importing the express framework
-import Album from "../models/album"; // Importing the Album model
-import { User } from "../models"; // Importing the User model
-import { requireAuth } from "../middleware"; // Importing middleware for authentication
-import { Express } from "express";
+import Album from "../models/album.js"; // Importing the Album model
+import { User } from "../models/index.js"; // Importing the User model
+import requireAuth from "../middleware/requireAuth.js"; // Importing middleware for authentication
 import { v4 as uuidv4 } from "uuid"; // Importing uuid to generate unique IDs
 import path from "path"; // Importing path module for file path operations
 

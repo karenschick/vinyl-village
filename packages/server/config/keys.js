@@ -1,14 +1,13 @@
-// Import the "git-repo-name" package to retrieve the name of the Git repository
-//let gitRepoName = require("git-repo-name");
-// Get the repository name synchronously from two directory levels above the current file
-//let repoName = gitRepoName.sync("../../");
-require("dotenv").config();
+import dotenv from "dotenv";
+// import gitRepoName from "git-repo-name"; // If you need it back later
+
+dotenv.config();
 
 // Export the configuration object for the application
-module.exports = {
+export default {
   app: {
     // Set the application name to the repository name
-    // name: repo.name,
+    // name: repoName, // Uncomment and modify if using gitRepoName
     name: process.env.APP_NAME || "MyApp",
     // Define the API endpoint, defaulting to "/api" if the environment variable is not set
     apiEndpoint: process.env.API_URL ? `/${process.env.API_URL}` : "/api",

@@ -1,7 +1,7 @@
 import express from "express"; // Importing the express framework
 import bcrypt from "bcryptjs"; // Importing bcrypt for password hashing
-import { User } from "../models"; // Importing the User model
-import keys from "../config/keys"; // Importing configuration keys (e.g., JWT secret)
+import { User } from "../models/index.js"; // Importing the User model
+import keys from "../config/keys.js"; // Importing configuration keys (e.g., JWT secret)
 import jwt from "jsonwebtoken"; // Importing jsonwebtoken for creating tokens
 
 const router = express.Router(); // Creating an express router instance
@@ -131,4 +131,5 @@ router.post("/signin", async (req, res) => {
 });
 
 // Exporting the router to use in other parts of the application
-module.exports = router;
+export default router;
+

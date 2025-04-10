@@ -164,11 +164,11 @@ const SearchForm = () => {
                   <Card key={index} style={{ width: "18rem", margin: "10px" }}>
                     <Card.Img
                       variant="top"
-                      src={album.image ? album.image :`${import.meta.env.BASE_URL}vinyl-village/default-image.jpg`}
+                      src={album.image ? album.image :`${import.meta.env.BASE_URL}default-image.jpg`}
                       alt={album.albumTitle}
                       onError={(e) => {
                         e.target.onerror = null; // Prevents recursion
-                        e.target.src = `${import.meta.env.BASE_URL}vinyl-village/album8.jpg`;
+                        e.target.src = `${import.meta.env.BASE_URL}album8.jpg`;
                       }}
                     ></Card.Img>
                     <Card.Body>
@@ -185,11 +185,11 @@ const SearchForm = () => {
                             {album.author.profile_image && (
                               <Link to={`/u/${album.author.username}`}>
                                 <img
-                                  src={album.author.profile_image || `${import.meta.env.BASE_URL}vinyl-village/default-profile.jpg`}
+                                  src={album.author.profile_image || `${import.meta.env.BASE_URL}default-profile.jpg`}
                                   alt={`Profile Image of ${album.author.username}`}
                                   style={{ width: "50px", height: "50px" }}
                                   onError={(e) => { e.target.onerror = null;
-                                    EventTarget.src = `{import.meta.env.BASE_URL}vinyl-village/default-profile.jpg}`
+                                    EventTarget.src = `{import.meta.env.BASE_URL}default-profile.jpg}`
                                   }}
                                 />
                               </Link>

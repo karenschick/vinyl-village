@@ -1,10 +1,10 @@
 import jwt from "jsonwebtoken"; // Import JSON Web Token library for token verification
 import mongoose from "mongoose"; // Import Mongoose for database interactions (not used in this file)
-import keys from "../config/keys"; // Import configuration keys (e.g., secret key for JWT)
-import { User } from "../models"; // Import the User model for database queries
+import keys from "../config/keys.js"; // Import configuration keys (e.g., secret key for JWT)
+import { User } from "../models/index.js"; // Import the User model for database queries
 
 // Middleware to verify the user's authentication
-module.exports = async (req, res, next) => {
+export default async (req, res, next) => {
   // Retrieve the authorization header from the incoming request
   const authorization = req.get("authorization"); // Expected format: "Bearer <token>"
   // authorization === Bearer ewefwegwrherhe

@@ -11,15 +11,15 @@ import UploadFile from "../UploadFile/UploadFile";
 
 // Array of avatar image paths that will be displayed for selection
 let imgs = [
-  `${import.meta.env.BASE_URL}vinyl-village/albumblue.jpg`,
-  `${import.meta.env.BASE_URL}vinyl-village/albumgreen.jpg`,
-  `${import.meta.env.BASE_URL}vinyl-village/albumorange.jpg`,
-  `${import.meta.env.BASE_URL}vinyl-village/albumpurple.jpg`,
-  `${import.meta.env.BASE_URL}vinyl-village/albumred.jpg`,
-  `${import.meta.env.BASE_URL}vinyl-village/albumyellow3.jpg`,
-  `${import.meta.env.BASE_URL}vinyl-village/albumgray2.jpg`,
-  `${import.meta.env.BASE_URL}vinyl-village/albumaqua3.jpg`,
-  `${import.meta.env.BASE_URL}vinyl-village/albumpink.jpg`, 
+  `${import.meta.env.BASE_URL}albumblue.jpg`,
+  `${import.meta.env.BASE_URL}albumgreen.jpg`,
+  `${import.meta.env.BASE_URL}albumorange.jpg`,
+  `${import.meta.env.BASE_URL}albumpurple.jpg`,
+  `${import.meta.env.BASE_URL}albumred.jpg`,
+  `${import.meta.env.BASE_URL}albumyellow3.jpg`,
+  `${import.meta.env.BASE_URL}albumgray2.jpg`,
+  `${import.meta.env.BASE_URL}albumaqua3.jpg`,
+  `${import.meta.env.BASE_URL}albumpink.jpg`, 
 ];
 
 // AvatarPicker component allows the user to select an avatar image

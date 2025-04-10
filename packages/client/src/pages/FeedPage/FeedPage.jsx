@@ -82,7 +82,7 @@ const FeedPage = () => {
                 width={400}
                 height={180}
                 alt="Collection of Albums"
-                src={`${import.meta.env.BASE_URL}vinyl-village/album1.jpg`}
+                src={`${import.meta.env.BASE_URL}album1.jpg`}
               />
             </Figure>
             {/* Component for adding a new post */}

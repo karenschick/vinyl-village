@@ -58,8 +58,8 @@ const AddPost = ({ onPostSubmit }) => {
 
     const formData = new FormData();
     formData.append("text", data.postText);
-    if (base64Image) {
-      formData.append("image", base64Image);
+    if (selectedFile) {
+      formData.append("image", selectedFile);
     }
 
     try {

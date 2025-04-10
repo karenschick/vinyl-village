@@ -1,7 +1,7 @@
 // Importing the Router function from the express framework
 import { Router } from "express";
 // Importing the uploadImage controller function for handling image uploads
-import { uploadImage } from "../controllers/file.controller";
+import { uploadImage } from "../controllers/file.controller.js";
 
 // Creating a new router instance for defining file-related routes
 const fileRoutes = Router();

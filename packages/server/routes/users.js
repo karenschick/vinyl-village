@@ -1,7 +1,7 @@
 import express from "express"; // Importing Express framework
 import bcrypt from "bcryptjs"; // Importing bcrypt for password hashing
-import { User } from "../models"; // Importing the User model
-import { requireAuth } from "../middleware"; // Importing authentication middleware
+import { User } from "../models/index.js"; // Importing the User model
+import requireAuth from "../middleware/requireAuth.js"; // Importing authentication middleware
 
 const router = express.Router(); // Creating a new router instance
 
@@ -108,4 +108,5 @@ router.put("/:username/avatar", requireAuth, async (req, res) => {
 });
 
 // Exporting the router for use in other parts of the application
-module.exports = router;
+export default router;
+;

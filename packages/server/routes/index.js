@@ -1,10 +1,10 @@
 import express from "express";
-import authRouter from "./auth";
-import userRouter from "./users";
-import postRouter from "./posts";
-import fileRouter from "./file";
+import authRouter from "./auth.js";
+import userRouter from "./users.js";
+import postRouter from "./posts.js";
+import fileRouter from "./file.js";
 //import fileUpload from "express-fileupload";
-import albumRouter from "./albums"
+import albumRouter from "./albums.js"
 
 const router = express.Router();
 

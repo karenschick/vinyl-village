@@ -196,7 +196,7 @@ const RegisterPage = () => {
                 }}
               >
                 <Figure.Image
-                  src={`${import.meta.env.BASE_URL}vinyl-village/logo2.jpg`}
+                  src={`${import.meta.env.BASE_URL}logo2.jpg`}
                   alt="Vinyl Village Logo"
                   className=""
                   style={{

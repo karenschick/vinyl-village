@@ -209,7 +209,7 @@ const DisplayAlbums = ({ username, onAlbumsChange }) => {
                     }}
                   >
                     <img
-                      src={album.image || `${import.meta.env.BASE_URL}vinyl-village/default-avatar.jpg`}
+                      src={album.image || `${import.meta.env.BASE_URL}default-avatar.jpg`}
                       alt={album.albumTitle}
                       style={{
                         width: "100%",
@@ -219,7 +219,7 @@ const DisplayAlbums = ({ username, onAlbumsChange }) => {
                       }}
                       onError={(e) => {
                         e.target.onerror = null; // Prevents recursion
-                        e.target.src = `${import.meta.env.BASE_URL}vinyl-village/album8.jpg`;
+                        e.target.src = `${import.meta.env.BASE_URL}album8.jpg`;
                       }}
                     />
 
@@ -298,7 +298,7 @@ const DisplayAlbums = ({ username, onAlbumsChange }) => {
                   <div className=" ">
                     <Container className="close">
                       <img
-                        src={`${import.meta.env.BASE_URL}vinyl-village/trash2.png`}
+                        src={`${import.meta.env.BASE_URL}trash2.png`}
                         alt="Trash Icon"
                         style={{
                           width: "30px",

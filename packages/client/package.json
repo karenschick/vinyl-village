@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://karenschick.github.io/vinyl-village/",
+  "homepage": "/vinyl-village",
   "dependencies": {
     "express": "4.21.2",
     "jsonwebtoken": "9.0.2",

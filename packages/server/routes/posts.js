@@ -1,6 +1,6 @@
 import express from "express"; // Importing Express framework
-import { Post } from "../models"; // Importing the Post model
-import { requireAuth } from "../middleware"; // Importing authentication middleware
+import { Post } from "../models/index.js"; // Importing the Post model
+import requireAuth from "../middleware/requireAuth.js"; // Importing authentication middleware
 import { v4 as uuid } from "uuid"; // Importing UUID generator for unique image filenames
 import path from "path"; // Importing path module for file path manipulation
 
@@ -26,85 +26,48 @@ router.get("/", async (req, res) => {
 
 // POST route to create a new post, requiring authentication
 router.post("/", requireAuth, async (req, res, next) => {
-  const { text, imageBase64 } = req.body; // Extracting text and imageBase64 from request body
+  const { text, imageBase64 } = req.body; // Extracting text and imageBese64 from request body
   const { user } = req; // Getting the authenticated user
 
-  // Validate the base64 image (optional, depending on your use case)
-  let processedImage = null;
-  if (imageBase64) {
-    // Ensure the base64 string is properly formatted
-    const base64Pattern = /^data:image\/(png|jpg|jpeg|gif);base64,/;
-    if (!base64Pattern.test(imageBase64)) {
-      return res.status(400).json({ error: "Invalid base64 image format." });
-    }
-    processedImage = imageBase64.replace(base64Pattern, ''); // Remove the data URL scheme part
-  }
-
   const post = new Post({
+    // Creating a new Post instance
     text: text,
     author: user._id,
-    image: processedImage, // Save the base64 image to the database (if provided)
   });
 
+  //Check if imageBase64 is provided in request
+  if(imageBase64){
+    post.image = imageBase64;
+  }
+  
+  // Handling image upload if provided
+  if (req.files && req.files.image) {
+    const postImage = req.files.image; // Extracting the image file
+    const imageName = uuid() + path.extname(postImage.name); // Generating a unique filename
+    const uploadPath = path.join(
+      __dirname,
+      "..",
+      "public",
+      "images",
+      imageName
+    );
+    await postImage.mv(uploadPath); // Moving the uploaded image to the specified path
+
+    post.image = `/images/${imageName}`; // Storing the image path in the post
+  }
+
   try {
-    const savedPost = await post.save(); // Save the post to the database
+    const savedPost = await post.save(); // Saving the post to the database
     const populatedPost = await Post.findById(savedPost._id)
       .populate({ path: "author", select: ["username", "profile_image"] })
       .exec();
-
-    // Update user's posts with the new post
-    user.posts = user.posts.concat(savedPost._id);
-    await user.save();
-
-    res.json(populatedPost.toJSON()); // Send the populated post as JSON
+    user.posts = user.posts.concat(savedPost._id); // Adding the post ID to the user's posts
+    await user.save(); // Saving the updated user
+    res.json(populatedPost.toJSON()); // Sending the populated post as JSON
   } catch (error) {
-    next(error); // Pass any errors to the error handling middleware
+    next(error); // Passing any errors to the error handling middleware
   }
 });
-
-// router.post("/", requireAuth, async (req, res, next) => {
-//   const { text, imageBase64 } = req.body; // Extracting text and imageBese64 from request body
-//   const { user } = req; // Getting the authenticated user
-
-//   const post = new Post({
-//     // Creating a new Post instance
-//     text: text,
-//     author: user._id,
-//   });
-
-//   //Check if imageBase64 is provided in request
-//   if(imageBase64){
-//     post.image = imageBase64;
-//   }
-
-//   // Handling image upload if provided
-//   // if (req.files && req.files.image) {
-//   //   const postImage = req.files.image; // Extracting the image file
-//   //   const imageName = uuid() + path.extname(postImage.name); // Generating a unique filename
-//   //   const uploadPath = path.join(
-//   //     __dirname,
-//   //     "..",
-//   //     "public",
-//   //     "images",
-//   //     imageName
-//   //   );
-//   //   await postImage.mv(uploadPath); // Moving the uploaded image to the specified path
-
-//   //   post.image = `/images/${imageName}`; // Storing the image path in the post
-//   // }
-
-//   try {
-//     const savedPost = await post.save(); // Saving the post to the database
-//     const populatedPost = await Post.findById(savedPost._id)
-//       .populate({ path: "author", select: ["username", "profile_image"] })
-//       .exec();
-//     user.posts = user.posts.concat(savedPost._id); // Adding the post ID to the user's posts
-//     await user.save(); // Saving the updated user
-//     res.json(populatedPost.toJSON()); // Sending the populated post as JSON
-//   } catch (error) {
-//     next(error); // Passing any errors to the error handling middleware
-//   }
-// });
 
 // GET route to retrieve a single post by ID
 router.get("/:id", async (req, res) => {
@@ -258,4 +221,5 @@ router.put("/:id", requireAuth, async (req, res, next) => {
 });
 
 // Exporting the router for use in other parts of the application
-module.exports = router;
+export default router;
+;

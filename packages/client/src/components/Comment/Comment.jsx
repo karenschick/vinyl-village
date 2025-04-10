@@ -79,7 +79,7 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
               >
                 <img
                   alt="menu button"
-                  src={`${import.meta.env.BASE_URL}vinyl-village/menu.png`}
+                  src={`${import.meta.env.BASE_URL}menu.png`}
                   style={{ maxHeight: "30px", marginRight: "15px" }}
                 ></img>
               </Dropdown.Toggle>
@@ -105,7 +105,7 @@ const Comment = ({ comment, onUpdateComment, onCommentDeleted }) => {
           >
             <Figure.Image
               alt={`Profile image of ${author.username}`}
-              src={author.profile_image || `${import.meta.env.BASE_URL}vinyl-village/default-avatar.jpg`}
+              src={author.profile_image || `${import.meta.env.BASE_URL}default-avatar.jpg`}
               className="avatar w-100 h-100 mr-4"
             />
           </Col>

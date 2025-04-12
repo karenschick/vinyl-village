@@ -6,17 +6,18 @@
     "packages/*"
   ],
   "scripts": {
-  "install": "npm install --workspace=packages/client && npm install --workspace=packages/server",
-  "build": "npm run build --workspace=packages/client",
-  "start": "node packages/server/bin/www"
-},
+    "dev": "concurrently \"npm run dev --workspace=packages/client\" \"npm run dev --workspace=packages/server\"",
+    "build": "npm run build --workspace=packages/client",
+    "build:client": "npm run build --workspace=packages/client",
+    "start": "npm run start --workspace=packages/server",
+    "start:server": "npm run start --workspace=packages/server"
+  },
   "dependencies": {
     "@remix-run/router": "^1.23.0",
     "axios": "^1.6.3",
     "bl": "^6.1.0",
     "bluebird": "^3.7.2",
     "bootstrap": "^5.3.3",
-    "concurrently": "^5.3.0",
     "denque": "^2.1.0",
     "eslint": "^9.23.0",
     "express-fileupload": "^1.4.3",
@@ -27,7 +28,6 @@
     "minimatch": "^10.0.1",
     "mongoose": "^8.13.1",
     "mongoose-legacy-pluralize": "^2.0.0",
-    "nodemon": "^3.1.9",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^18.3.1",
@@ -39,7 +39,9 @@
     "sliced": "^1.0.1",
     "uuid": "^9.0.1",
     "uuidv4": "^6.2.13"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "nodemon": "^3.1.9"
   }
-  
-
 }

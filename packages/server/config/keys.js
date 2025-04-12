@@ -1,7 +1,13 @@
+import { dir } from "console";
 import dotenv from "dotenv";
-// import gitRepoName from "git-repo-name"; // If you need it back later
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
 
-dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
+dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
 
 // Export the configuration object for the application
 export default {
